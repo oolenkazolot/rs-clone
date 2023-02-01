@@ -1,0 +1,42 @@
+.intro {
+
+    border-bottom: 5px solid $color-main;
+
+    &__wrapper {
+        max-width: 1920px;
+        display: flex;
+        margin: 0 auto;
+    }
+
+    &__left {
+        width: 35%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        
+    }
+
+    &__center {
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $color-main;
+        color: $color-white;
+        padding: 0 30px;
+    }
+
+    &__right {
+        width: 35%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__text {
+        font-size: 2.4rem;
+        line-height: 3.2rem;
+        text-align: center;
+        letter-spacing: 3px;
+    }
+
+}

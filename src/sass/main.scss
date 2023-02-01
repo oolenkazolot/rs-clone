@@ -40,3 +40,41 @@
     }
 
 }
+
+.about {
+
+    padding: 150px 150px;
+
+    &__wrapper {
+        max-width: 1920px;
+        display: flex;
+        justify-content: space-between;
+        margin: 0 auto;
+    }
+
+    &__info {
+        width: 45%;
+    }
+
+    &__title {
+        color: $color-second;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+
+    &__text {
+        color: $color-second;
+        font-size: 1.2rem;
+        line-height: 1.8rem;
+    }
+
+    &__picture {
+        width: 50%;
+        height: 100%;
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+}

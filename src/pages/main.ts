@@ -3,6 +3,7 @@ import v1 from "../assets/video/v11.mp4";
 import v2 from "../assets/video/v2.mp4";
 import v3 from "../assets/video/v3.mp4";
 import v4 from "../assets/video/v4.mp4";
+import pic1 from "../assets/images/pic1.jpg";
 
 class MainPage {
   public router?: IRouter;
@@ -70,6 +71,42 @@ class MainPage {
     this.mainPageElement.append(introSection);
   }
 
+  private createAboutSection() {
+    const aboutSection = document.createElement("section");
+    aboutSection.className = "main__about about";
+
+    const aboutWrapper = document.createElement("div");
+    aboutWrapper.className = "about__wrapper";
+    aboutSection.append(aboutWrapper);
+
+    const aboutInfo = document.createElement("div");
+    aboutInfo.className = "about__info";
+    aboutWrapper.append(aboutInfo);
+
+    const aboutTitle = document.createElement("h3");
+    aboutTitle.className = "about__title";
+    aboutTitle.textContent = "Why Our App?";
+    aboutInfo.append(aboutTitle);
+
+    const aboutText = document.createElement("p");
+    aboutText.className = "about__text";
+    aboutText.innerHTML =
+      `The best way to loose wight and burn fat is to choose exercise routines that incorporate many muscle groups and will spike your heart rate.<br> 
+      In our application we have chosen the best exercises that can surve this goal.<br>
+      They burn your fat and tone your entire body, and the best part - <b>you don't need any exercise equipment at all!</b>`;
+    aboutInfo.append(aboutText);
+
+    const aboutPicture = document.createElement("div");
+    aboutPicture.className = "about__picture";
+    aboutWrapper.append(aboutPicture);
+
+    const aboutImage = document.createElement("img");
+    aboutImage.src = pic1;
+    aboutPicture.append(aboutImage);
+
+    this.mainPageElement.append(aboutSection);
+  }
+
   public draw(): void {
     const mainElement: HTMLElement | null = document.querySelector("main");
     if (!mainElement) {
@@ -81,6 +118,8 @@ class MainPage {
     mainElement.append(this.mainPageElement);
 
     this.createIntroSection();
+
+    this.createAboutSection();
   }
 }
 

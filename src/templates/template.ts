@@ -1,30 +1,31 @@
-abstract class Template {
-  protected createElement(
-    myClass: string,
-    parentElement?: HTMLElement,
-    text?: string
-  ): HTMLElement {
-    const newElem = document.createElement("div");
+class Template {
+  public createElement(tagName: string, myClass: string, content?: string): HTMLElement {
+    const newElem: HTMLElement = document.createElement(tagName);
     newElem.classList.add(myClass);
-    if (parentElement) {
-      parentElement.append(newElem);
-    }
-    if (text) {
-      newElem.innerText = text;
+    if (content) {
+      newElem.textContent = content;
     }
     return newElem;
   }
 
-  protected createInput(
-    myClass: string,
-    parentElement: HTMLElement,
-    placeholder: string
-  ): HTMLInputElement {
-    const inputEl = document.createElement("input");
-    inputEl.classList.add(myClass);
-    inputEl.placeholder = placeholder;
-    parentElement.append(inputEl);
-    return inputEl;
+  public createLink(myClass: string, href: string): HTMLAnchorElement {
+    const newElem: HTMLAnchorElement = document.createElement('a');
+    newElem.classList.add(myClass);
+    newElem.href = href;
+    return newElem;
+  }
+
+  public createBtn(myClass: string, content: string, myClassTwo?: string, myClassThree?: string): HTMLButtonElement {
+    const btn: HTMLButtonElement = document.createElement('button');
+    btn.classList.add(myClass);
+    if (myClassTwo) {
+      btn.classList.add(myClassTwo);
+    }
+    if (myClassThree) {
+      btn.classList.add(myClassThree);
+    }
+    btn.textContent = content;
+    return btn;
   }
 }
 

@@ -1,6 +1,5 @@
 // color
-
-$color-main: #f57eb6;
+$color-main: #f60e50;
 $color-second: #11111f;
 $color-lavender-blush: #feecf4;
 $color-sugar-plum: #4b2738;
@@ -11,9 +10,9 @@ $color-white: #fff;
 
 // background
 $bg-light-gray: #efefef;
+$bg-pink: linear-gradient(270deg, #f60e50 0%, #db5ba1 100%);
 
 // another
 $transition: 0.3s;
-// $hover: #fee456c2;
-// $active: #ffa811;
-// $text-shadow: #fc0;
+$hover: linear-gradient(0deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), linear-gradient(270deg, #f60e50 0%, #db5ba1 100%);
+$active: linear-gradient(0deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), linear-gradient(270deg, #f60e50 0%, #db5ba1 100%);

@@ -19,6 +19,7 @@
     &__center {
         width: 30%;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         background-color: $color-main;
@@ -37,6 +38,18 @@
         line-height: 3.2rem;
         text-align: center;
         letter-spacing: 3px;
+        margin-bottom: 70px;
+    }
+
+    &__link {
+        display: block;
+        width: 190px;
+        height: 50px;
+        border-radius: 10px;
+        background: url(../assets/svg/google_play.svg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
 }

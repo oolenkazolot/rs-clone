@@ -44,22 +44,6 @@ const baseConfig = {
         test: /\.mp4$/,
         use: 'file-loader?name=video/[name].[ext]',
       },
-      // {
-      //   test: /\.html$/,
-      //   use: {
-      //     loader: "html-loader",
-      //     options: {
-      //       attrs: [":src"]
-      //     }
-      //   }
-      // },
-      // { 
-      //   test: /\.(mov|mp4)$/, 
-      //   options: {
-      //     name: 'assets/video/[name].[ext]',
-      //   },
-      //   loader: 'file-loader', 
-      // },
     ],
   },
   resolve: {

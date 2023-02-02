@@ -27,9 +27,21 @@ export interface IRegistrationData {
 }
 
 export interface ITemplate {
-  createElement: (tagName: string, myClass: string, content?: string) => HTMLElement;
-  createLink: (myClass: string, href: string, content?: string) => HTMLAnchorElement;
-  createBtn: (myClass: string, content?: string | HTMLElement | undefined, type?: string) => HTMLButtonElement;
+  createElement: (
+    tagName: string,
+    myClass: string,
+    content?: string
+  ) => HTMLElement;
+  createLink: (
+    myClass: string,
+    href: string,
+    content?: string
+  ) => HTMLAnchorElement;
+  createBtn: (
+    myClass: string,
+    content?: string | HTMLElement | undefined,
+    type?: string
+  ) => HTMLButtonElement;
   createForm: (className: string, action: string) => HTMLFormElement;
   createIcon: (className: string, classNameIcon: string) => HTMLElement;
   createVideo: (src: string) => HTMLVideoElement;

@@ -1,17 +1,24 @@
-import { IRouter } from "../types/index";
+import { IRouter, IAuthorization } from "../types/index";
+import Footer from "../components/footer";
 import video1 from "../assets/video/v11.mp4";
 import video2 from "../assets/video/v2.mp4";
 import video3 from "../assets/video/v3.mp4";
 import video4 from "../assets/video/v4.mp4";
 import pic1 from "../assets/images/pic1.jpg";
+import Authorization from "../utils/auth.routes";
+// import logo from '../assets/png/img1.png';
 
 class MainPage {
+  public authorization: IAuthorization;
   public router?: IRouter;
   mainPageElement: HTMLDivElement;
+  footer: Footer;
 
   constructor() {
+    this.authorization = new Authorization();
     this.mainPageElement = document.createElement("div");
     this.mainPageElement.classList.add("main-page");
+    this.footer = new Footer();
   }
 
   private createIntroSection(): void {
@@ -149,7 +156,7 @@ class MainPage {
     }
     mainElement.classList.add("main");
 
-    mainElement.innerHTML = "";
+    // mainElement.innerHTML = '';
     mainElement.append(this.mainPageElement);
 
     this.createIntroSection();
@@ -157,7 +164,15 @@ class MainPage {
     this.createAboutSection();
 
     this.createFeaturesSection();
+
+    this.mainPageElement.append(this.footer.draw());
+    // this.registr();
   }
+
+  // private async registr(): Promise<void> {
+  //   const res = await this.authorization.registration({ email: 'oolenka.zolot@gmail.com', password: 'gggggggg' });
+  //   console.log(res);
+  // }
 }
 
 export default MainPage;

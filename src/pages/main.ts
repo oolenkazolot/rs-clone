@@ -1,8 +1,8 @@
 import { IRouter } from "../types/index";
-import v1 from "../assets/video/v11.mp4";
-import v2 from "../assets/video/v2.mp4";
-import v3 from "../assets/video/v3.mp4";
-import v4 from "../assets/video/v4.mp4";
+import video1 from "../assets/video/v11.mp4";
+import video2 from "../assets/video/v2.mp4";
+import video3 from "../assets/video/v3.mp4";
+import video4 from "../assets/video/v4.mp4";
 import pic1 from "../assets/images/pic1.jpg";
 
 class MainPage {
@@ -14,7 +14,7 @@ class MainPage {
     this.mainPageElement.classList.add("main-page");
   }
 
-  private createIntroSection() {
+  private createIntroSection(): void {
     const introSection = document.createElement("section");
     introSection.className = "main__intro intro";
 
@@ -27,14 +27,14 @@ class MainPage {
     introWrapper.append(leftVideos);
 
     const upperVideo = document.createElement("video");
-    upperVideo.src = v1;
+    upperVideo.src = video1;
     upperVideo.autoplay = true;
     upperVideo.muted = true;
     upperVideo.loop = true;
     leftVideos.append(upperVideo);
 
     const bottomVideo = document.createElement("video");
-    bottomVideo.src = v2;
+    bottomVideo.src = video2;
     bottomVideo.autoplay = true;
     bottomVideo.muted = true;
     bottomVideo.loop = true;
@@ -62,14 +62,14 @@ class MainPage {
     introWrapper.append(rightVideos);
 
     const upperRightVideo = document.createElement("video");
-    upperRightVideo.src = v3;
+    upperRightVideo.src = video3;
     upperRightVideo.autoplay = true;
     upperRightVideo.muted = true;
     upperRightVideo.loop = true;
     rightVideos.append(upperRightVideo);
 
     const bottomRightVideo = document.createElement("video");
-    bottomRightVideo.src = v4;
+    bottomRightVideo.src = video4;
     bottomRightVideo.autoplay = true;
     bottomRightVideo.muted = true;
     bottomRightVideo.loop = true;
@@ -78,7 +78,7 @@ class MainPage {
     this.mainPageElement.append(introSection);
   }
 
-  private createAboutSection() {
+  private createAboutSection(): void {
     const aboutSection = document.createElement("section");
     aboutSection.className = "main__about about";
 
@@ -113,7 +113,7 @@ class MainPage {
     this.mainPageElement.append(aboutSection);
   }
 
-  private createFeaturesSection() {
+  private createFeaturesSection(): void {
     const features = [
       "The best app for female fitness, weight loss and health",
       "Beginner, Intermediate and Advanced routines",

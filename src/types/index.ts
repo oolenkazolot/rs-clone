@@ -27,11 +27,49 @@ export interface IRegistrationData {
 }
 
 export interface ITemplate {
-  createElement: (tagName: string, myClass: string, content?: string) => HTMLElement;
-  createLink: (myClass: string, pathName: string) => HTMLAnchorElement;
-  createBtn: (myClass: string, content: string, myClassTwo?: string, myClassThree?: string) => HTMLButtonElement;
+  createElement: (
+    tagName: string,
+    myClass: string,
+    content?: string
+  ) => HTMLElement;
+  createLink: (
+    myClass: string,
+    href: string,
+    content?: string
+  ) => HTMLAnchorElement;
+  createBtn: (
+    myClass: string,
+    content?: string | HTMLElement | undefined,
+    type?: string
+  ) => HTMLButtonElement;
+  createForm: (className: string, action: string) => HTMLFormElement;
+  createIcon: (className: string, classNameIcon: string) => HTMLElement;
 }
 
 export interface IHeader {
+  draw: () => void;
+  onClickHandlerSignIn: () => void;
+  onClickHandlerSignUp: () => void;
+}
+
+export interface IButton {
+  content: string | HTMLElement;
+  className?: string[];
+  variant?: string;
+  type?: string;
+  onClick?: () => void;
+}
+
+export interface IModal {
+  createModal: (id: string, content: HTMLElement) => HTMLElement;
+}
+
+export interface IInputBlock {
+  className?: string[];
+  attributes: Record<string, string>;
+  classNameIcon: string;
+}
+
+export interface IModalSignIn {
   draw: () => void;
 }

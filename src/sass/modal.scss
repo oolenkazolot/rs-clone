@@ -1,0 +1,37 @@
+.modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 200;
+  width: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(#f6f6f8, 0.8);
+
+  &--open {
+    display: flex;
+  }
+
+  &__inner {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    max-height: 100vh;
+    padding: 0 59px;
+    background: #fff;
+    text-align: center;
+    border-radius: 6px;
+    overflow-y: auto;
+
+    @media (max-width: 576px) {
+      padding: 0 20px;
+    }
+
+    &--registration {
+      max-width: 600px;
+    }
+  }
+}

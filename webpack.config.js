@@ -44,6 +44,10 @@ const baseConfig = {
           name: 'assets/font/[name].[ext]',
         },
       },
+      {
+        test: /\.mp4$/,
+        use: 'file-loader?name=video/[name].[ext]',
+      },
     ],
   },
   resolve: {

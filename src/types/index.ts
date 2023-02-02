@@ -39,6 +39,7 @@ export interface ITemplate {
     myClassTwo?: string,
     myClassThree?: string
   ) => HTMLButtonElement;
+  createVideo: (src: string) => HTMLVideoElement;
 }
 
 export interface IHeader {

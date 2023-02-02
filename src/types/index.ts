@@ -27,9 +27,18 @@ export interface IRegistrationData {
 }
 
 export interface ITemplate {
-  createElement: (tagName: string, myClass: string, content?: string) => HTMLElement;
+  createElement: (
+    tagName: string,
+    myClass: string,
+    content?: string
+  ) => HTMLElement;
   createLink: (myClass: string, pathName: string) => HTMLAnchorElement;
-  createBtn: (myClass: string, content: string, myClassTwo?: string, myClassThree?: string) => HTMLButtonElement;
+  createBtn: (
+    myClass: string,
+    content: string,
+    myClassTwo?: string,
+    myClassThree?: string
+  ) => HTMLButtonElement;
 }
 
 export interface IHeader {

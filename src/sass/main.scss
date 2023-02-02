@@ -12,8 +12,7 @@
         width: 35%;
         height: auto;
         display: flex;
-        flex-direction: column;
-        
+        flex-direction: column;  
     }
 
     &__center {
@@ -34,11 +33,25 @@
     }
 
     &__text {
-        font-size: 2.4rem;
-        line-height: 3.2rem;
+
         text-align: center;
+        font-size: 3.2rem;
+        line-height: 4.2rem;
         letter-spacing: 3px;
         margin-bottom: 70px;
+
+        @media all and (max-width: 1440px) {
+            font-size: 2.4rem;
+            line-height: 3.2rem;
+            letter-spacing: 3px;
+        }
+
+        @media all and (max-width: 1280px) {
+            font-size: 2.2rem;
+            line-height: 2.8rem;
+            margin-bottom: 30px;
+        }
+
     }
 
     &__link {
@@ -56,13 +69,12 @@
 
 .about {
 
-    padding: 150px 150px;
-
     &__wrapper {
         max-width: 1920px;
         display: flex;
         justify-content: space-between;
         margin: 0 auto;
+        padding: 150px 150px;
     }
 
     &__info {
@@ -71,14 +83,28 @@
 
     &__title {
         color: $color-second;
-        font-size: 1.8rem;
+        font-size: 2.8rem;
         margin-bottom: 20px;
+
+        @media all and (max-width: 1440px) {
+            font-size: 1.8rem;
+        }
     }
 
     &__text {
         color: $color-second;
-        font-size: 1.2rem;
-        line-height: 1.8rem;
+        font-size: 2.2rem;
+        line-height: 2.8rem;
+
+        @media all and (max-width: 1680px) {
+            font-size: 1.8rem;
+            line-height: 2.3rem;
+        }
+
+        @media all and (max-width: 1440px) {
+            font-size: 1.2rem;
+            line-height: 1.8rem;
+        }
     }
 
     &__picture {
@@ -88,6 +114,47 @@
         img {
             width: 100%;
             height: auto;
+        }
+    }
+}
+
+.features {
+
+    &__wrapper {
+        max-width: 1920px;
+        margin: 0 auto;
+        padding: 150px 150px;
+        background: url(../assets/images/features_bg.jpg);
+        background-size: cover;
+        background-position: center;
+    }
+
+    &__list-item {
+        position: relative;
+        color: $color-white;
+        font-size: 2.2rem;
+        line-height: 3.2rem;
+        padding-left: 30px;
+
+        @media all and (max-width: 1440px) {
+            font-size: 1.2rem;
+            line-height: 2.2rem;
+            padding-left: 22px;
+        }
+
+        &::before {
+            display: block;
+            width: 25px;
+            height: 25px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            content: url(../assets/svg/strength-icon.svg);
+
+            @media all and (max-width: 1440px) {
+                width: 15px;
+                height: 15px;
+            }
         }
     }
 }

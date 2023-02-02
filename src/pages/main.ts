@@ -113,9 +113,34 @@ class MainPage {
     this.mainPageElement.append(aboutSection);
   }
 
-  // private createFeaturesSection() {
+  private createFeaturesSection() {
+    const features = [
+      "The best app for female fitness, weight loss and health",
+      "Beginner, Intermediate and Advanced routines",
+      "Workout at home & get your body fit on",
+      "Track your weight and bmi",
+    ];
 
-  // }
+    const featuresSection = document.createElement("section");
+    featuresSection.className = "main__features features";
+
+    const featuresWrapper = document.createElement("div");
+    featuresWrapper.className = "features__wrapper";
+    featuresSection.append(featuresWrapper);
+
+    const featuresList = document.createElement("ul");
+    featuresList.className = "features__list";
+    featuresWrapper.append(featuresList);
+
+    features.forEach((feature) => {
+      const featureItem = document.createElement("li");
+      featureItem.className = "features__list-item";
+      featureItem.textContent = feature;
+      featuresList.append(featureItem);
+    });
+
+    this.mainPageElement.append(featuresSection);
+  }
 
   public draw(): void {
     const mainElement: HTMLElement | null = document.querySelector("main");
@@ -130,6 +155,8 @@ class MainPage {
     this.createIntroSection();
 
     this.createAboutSection();
+
+    this.createFeaturesSection();
   }
 }
 

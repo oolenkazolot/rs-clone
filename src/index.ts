@@ -2,8 +2,10 @@ import "./sass/style.scss";
 import Router from "./utils/Routing";
 import MainPage from "./pages/main";
 import ErrorPage from "./pages/error";
+import trainingsData from "./utils/trainings-data";
 
 import { IMainPage, IErrorPage, IRout } from "./types/index";
+import test from "node:test";
 
 const mainPage: IMainPage = new MainPage();
 const errorPage: IErrorPage = new ErrorPage();

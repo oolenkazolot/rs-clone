@@ -1,5 +1,5 @@
 {
-  "name": "online-store",
+  "name": "women-workouts-clone",
   "version": "1.0.0",
   "description": "",
   "main": "webpack.base.config.js",
@@ -14,7 +14,7 @@
     "url": ""
   },
   "keywords": [],
-  "author": "Aleh Serhiyenia",
+  "author": "Olga Zalatarova",
   "license": "ISC",
   "homepage": "",
   "devDependencies": {

@@ -36,6 +36,15 @@ class Template {
     btn.textContent = content;
     return btn;
   }
+
+  public createVideo(src: string): HTMLVideoElement {
+    const newElem: HTMLVideoElement = document.createElement("video");
+    newElem.src = src;
+    newElem.autoplay = true;
+    newElem.muted = true;
+    newElem.loop = true;
+    return newElem;
+  }
 }
 
 export default Template;

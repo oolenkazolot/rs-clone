@@ -15,8 +15,9 @@
   }
 
   &__hubs-link {
-    padding-right: 10px;
+    padding-right: 15px;
     font-size: 1.2rem;
+    font-weight: 600;
     color: #db5ba1;
     transition: $transition;
 
@@ -28,6 +29,7 @@
   &__year {
     font-size: 1.2rem;
     color: #db5ba1;
+    font-weight: 600;
   }
 
   &__school {

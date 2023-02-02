@@ -1,17 +1,11 @@
-import "./sass/style.scss";
-import Router from "./utils/Routing";
-import MainPage from "./pages/main";
-import ErrorPage from "./pages/error";
-import Header from "./components/header";
-import ModalSignIn from "./components/modalSignIn";
+import './sass/style.scss';
+import Router from './utils/Routing';
+import MainPage from './pages/main';
+import ErrorPage from './pages/error';
+import Header from './components/header';
+import ModalSignIn from './components/modalSignIn';
 
-import {
-  IMainPage,
-  IErrorPage,
-  IRout,
-  IHeader,
-  IModalSignIn,
-} from "./types/index";
+import { IMainPage, IErrorPage, IRout, IHeader, IModalSignIn } from './types/index';
 
 const mainPage: IMainPage = new MainPage();
 const errorPage: IErrorPage = new ErrorPage();
@@ -26,7 +20,7 @@ modalSignIn.draw();
 //список страниц с колбеками: путь и что делать
 const routs: IRout[] = [
   {
-    path: "",
+    path: '',
     cb: mainPage.draw.bind(mainPage),
   },
   // {

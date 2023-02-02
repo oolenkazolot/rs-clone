@@ -1,5 +1,9 @@
 class Template {
-  public createElement(tagName: string, myClass: string, content?: string): HTMLElement {
+  public createElement(
+    tagName: string,
+    myClass: string,
+    content?: string
+  ): HTMLElement {
     const newElem: HTMLElement = document.createElement(tagName);
     newElem.classList.add(myClass);
     if (content) {
@@ -9,14 +13,19 @@ class Template {
   }
 
   public createLink(myClass: string, href: string): HTMLAnchorElement {
-    const newElem: HTMLAnchorElement = document.createElement('a');
+    const newElem: HTMLAnchorElement = document.createElement("a");
     newElem.classList.add(myClass);
     newElem.href = href;
     return newElem;
   }
 
-  public createBtn(myClass: string, content: string, myClassTwo?: string, myClassThree?: string): HTMLButtonElement {
-    const btn: HTMLButtonElement = document.createElement('button');
+  public createBtn(
+    myClass: string,
+    content: string,
+    myClassTwo?: string,
+    myClassThree?: string
+  ): HTMLButtonElement {
+    const btn: HTMLButtonElement = document.createElement("button");
     btn.classList.add(myClass);
     if (myClassTwo) {
       btn.classList.add(myClassTwo);
@@ -26,6 +35,15 @@ class Template {
     }
     btn.textContent = content;
     return btn;
+  }
+
+  public createVideo(src: string): HTMLVideoElement {
+    const newElem: HTMLVideoElement = document.createElement("video");
+    newElem.src = src;
+    newElem.autoplay = true;
+    newElem.muted = true;
+    newElem.loop = true;
+    return newElem;
   }
 }
 

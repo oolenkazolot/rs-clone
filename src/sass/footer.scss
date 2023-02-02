@@ -1,0 +1,41 @@
+@import './mixins.scss';
+
+.footer {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+
+  &__hubs {
+    padding-left: 30px;
+    background: url(../assets/svg/github.svg);
+    background-size: contain;
+    background-position: left center;
+    background-repeat: no-repeat;
+  }
+
+  &__hubs-link {
+    padding-right: 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #db5ba1;
+    transition: $transition;
+
+    &:hover {
+      color: $color-main;
+    }
+  }
+
+  &__year {
+    font-size: 1.2rem;
+    color: #db5ba1;
+    font-weight: 600;
+  }
+
+  &__school {
+    width: 100px;
+    background: url(../assets/svg/rs-school.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}

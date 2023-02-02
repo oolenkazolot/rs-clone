@@ -1,6 +1,9 @@
 @import 'variables.scss';
+@import './main.scss';
 @import './error.scss';
 @import './header.scss';
+@import './footer.scss';
+
 
 * {
   box-sizing: border-box;

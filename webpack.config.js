@@ -11,6 +11,10 @@ const baseConfig = {
   entry: path.resolve(__dirname, './src/index.ts'),
   devtool: 'inline-source-map',
   mode: 'development',
+  devServer: {
+    port: 3000,
+    historyApiFallback: true,
+  },
   module: {
     rules: [
       {

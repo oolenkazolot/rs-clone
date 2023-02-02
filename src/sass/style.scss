@@ -1,5 +1,6 @@
 @import 'variables.scss';
 @import './error.scss';
+@import './header.scss';
 
 * {
   box-sizing: border-box;
@@ -9,7 +10,7 @@
 }
 
 body {
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'MTTMilano-Medium', sans-serif;
   font-size: 14px;
 }
 
@@ -22,22 +23,58 @@ li {
   list-style-type: none;
 }
 
-// .btn {
-//   padding: 10px;
-//   background-color: $color-main;
-//   border-radius: 25px;
-//   font-size: 16px;
-//   font-weight: 700;
-//   color: $color-dark-blue;
-//   outline: none;
-//   border: none;
-//   cursor: pointer;
-//   transition: background-color $transition ease;
+.btn {
+  min-width: 100px;
+  min-height: 44px;
+  padding: 5px 10px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  background: $bg-pink;
+  color: $color-white;
+  border-radius: 25px;
+  outline: none;
+  border: none;
+  cursor: pointer;
 
-//   &:hover {
-//     background-color: $hover;
-//   }
-//   &:active {
-//     background-color: $active;
-//   }
-// }
+  &:hover {
+    background: $hover;
+  }
+  &:active {
+    background: $active;
+  }
+
+  &--second {
+    position: relative;
+    border: 0;
+    background: none;
+    color: #f60e50;
+    opacity: 1;
+
+    &:before {
+      background: linear-gradient(270deg, #f60e50 0%, #db5ba1 100%);
+      border-radius: 25px;
+      bottom: 0;
+      content: '';
+      left: 0;
+      inset: 0;
+      -webkit-mask: linear-gradient(#f60e50 0 0) content-box, linear-gradient(#f60e50 0 0);
+      mask: linear-gradient(#f60e50 0 0) content-box, linear-gradient(#f60e50 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      padding: 2px;
+      pointer-events: none;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    &:hover {
+      opacity: 0.6;
+      background: none;
+      &:before {
+        background: linear-gradient(0deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), linear-gradient(270deg, #f60e50 0%, #db5ba1 100%);
+      }
+    }
+  }
+}

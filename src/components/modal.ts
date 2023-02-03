@@ -38,7 +38,7 @@ class Modal {
       "div",
       `${this.mainClass}__inner`
     );
-    const icon = this.createIconClose();
+    const icon: HTMLElement = this.createIconClose();
     const btnClose: HTMLButtonElement = this.template.createBtn(
       "btn-close",
       icon

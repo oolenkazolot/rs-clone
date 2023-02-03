@@ -76,3 +76,12 @@ export interface IModalSignIn {
 export interface IModalSignUp {
   draw: () => void;
 }
+
+export interface ITraining {
+  id: number;
+  title: string;
+  description: string;
+  example: string,
+  youtube: string;
+  quantity: string
+}

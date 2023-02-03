@@ -10,7 +10,7 @@ class Footer {
     this.footer = this.template.createElement("footer", "footer");
   }
 
-  private createGitHubs() {
+  private createGitHubs(): void {
     const gitHubs = this.template.createElement("div", "footer__hubs");
     const firstLink = this.template.createLink(
       "footer__hubs-link",
@@ -34,8 +34,7 @@ class Footer {
   public draw(): HTMLElement {
     this.createGitHubs();
 
-    const year = this.template.createElement("div", "footer__year");
-    year.textContent = "2023";
+    const year = this.template.createElement("div", "footer__year", "2023");
     this.footer.append(year);
 
     const school = this.template.createLink(

@@ -4,6 +4,7 @@ import { IModal, ITemplate } from "../types/index";
 import { Input } from "../components/Input";
 import { PasswordInput } from "../components/PasswordInput";
 import Button from "../components/button";
+import { onCloseModal, onOpenModal } from "../utils/component-utils";
 
 class ModalSignIn {
   template: ITemplate;
@@ -89,12 +90,13 @@ class ModalSignIn {
       `${this.mainClass}__text`,
       "Don't have an account?"
     );
-    const linkSignIn: HTMLAnchorElement = this.template.createLink(
+    const linkSignUp: HTMLAnchorElement = this.template.createLink(
       `${this.mainClass}__link`,
       "#",
       "Sing up"
     );
-    question.append(questionContent, linkSignIn);
+    linkSignUp.onclick = onOpenModal("modal-sign-up", "modal-sign-in");
+    question.append(questionContent, linkSignUp);
     return question;
   }
 }

@@ -10,13 +10,25 @@ export function addClasses(
   });
 }
 
-export function onOpenModal(id: string): () => void {
+export function onOpenModal(
+  idOpenModal: string,
+  idCloseModal?: string
+): () => void {
   return () => {
-    const modal: HTMLElement | null = document.getElementById(id);
+    if (idCloseModal) {
+      onCloseModal(idCloseModal)();
+    }
+    const modal: HTMLElement | null = document.getElementById(idOpenModal);
     if (!modal) {
       return;
     }
-    modal.classList.add("open");
+    if (idCloseModal) {
+      setTimeout(() => {
+        modal.classList.add("open");
+      }, 500);
+    } else {
+      modal.classList.add("open");
+    }
   };
 }
 

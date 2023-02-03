@@ -4,6 +4,7 @@ import { IModal, ITemplate } from "../types/index";
 import { Input } from "../components/Input";
 import { PasswordInput } from "../components/PasswordInput";
 import Button from "../components/button";
+import { onCloseModal, onOpenModal } from "../utils/component-utils";
 
 class ModalSignUp {
   template: ITemplate;
@@ -94,6 +95,9 @@ class ModalSignUp {
       "#",
       "Sing in"
     );
+
+    linkSignIn.onclick = onOpenModal("modal-sign-in", "modal-sign-up");
+
     question.append(questionContent, linkSignIn);
     return question;
   }

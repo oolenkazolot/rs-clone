@@ -1,3 +1,21 @@
+@keyframes open-modal {
+  from {
+    transform: translateY(130%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes close-modal {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(130%);
+  }
+}
+
 .modal {
   position: fixed;
   left: 0;
@@ -7,11 +25,11 @@
   z-index: 200;
   width: 100%;
   opacity: 0;
-  visibility: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: opacity 0.5s, visibility 0.5s;
+  visibility: hidden;
+  transition: opacity ease 0.5s, visibility ease 0.5s;
 
   &.open {
     visibility: visible;
@@ -28,9 +46,15 @@
     text-align: center;
     border-radius: 6px;
     overflow-y: auto;
+    transform: translateY(-130%);
+    transition: transform 0.5s;
 
     @media (max-width: 576px) {
       padding: 0 20px;
+    }
+
+    .modal.open & {
+      transform: translateY(0);
     }
 
     &--registration {

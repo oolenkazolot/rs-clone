@@ -142,7 +142,7 @@
     margin: 0 auto;
     padding: 150px 150px;
 
-    @media all and (max-width: 1010px) {
+    @media all and (max-width: 1280px) {
       padding: 100px 50px;
     }
 
@@ -203,7 +203,7 @@
       line-height: 2rem;
     }
 
-    @media all and (max-width: 850px) {
+    @media all and (max-width: 1000px) {
       font-size: 1rem;
       line-height: 1.2rem;
     }
@@ -235,7 +235,7 @@
     background-size: cover;
     background-position: center;
 
-    @media all and (max-width: 1010px) {
+    @media all and (max-width: 1280px) {
       padding: 100px 50px;
     }
 

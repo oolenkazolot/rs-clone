@@ -43,6 +43,10 @@
     font-size: 1.2rem;
     color: #db5ba1;
     font-weight: 600;
+
+    @media (max-width: 576px) {
+      font-size: 0.8rem;
+    }
   }
 
   &__school {

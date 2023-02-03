@@ -32,16 +32,47 @@ export interface ITemplate {
     myClass: string,
     content?: string
   ) => HTMLElement;
-  createLink: (myClass: string, pathName: string) => HTMLAnchorElement;
+  createLink: (
+    myClass: string,
+    href: string,
+    content?: string
+  ) => HTMLAnchorElement;
   createBtn: (
     myClass: string,
-    content: string,
-    myClassTwo?: string,
-    myClassThree?: string
+    content?: string | HTMLElement | undefined,
+    type?: string
   ) => HTMLButtonElement;
+  createForm: (className: string, action: string) => HTMLFormElement;
+  createIcon: (className: string, classNameIcon: string) => HTMLElement;
   createVideo: (src: string) => HTMLVideoElement;
 }
 
 export interface IHeader {
+  draw: () => void;
+}
+
+export interface IButton {
+  content: string | HTMLElement;
+  className?: string[];
+  variant?: string;
+  type?: string;
+  onClick?: () => void;
+}
+
+export interface IModal {
+  createModal: (id: string, content: HTMLElement) => HTMLElement;
+}
+
+export interface IInputBlock {
+  className?: string[];
+  attributes: Record<string, string>;
+  classNameIcon: string;
+}
+
+export interface IModalSignIn {
+  draw: () => void;
+}
+
+export interface IModalSignUp {
   draw: () => void;
 }

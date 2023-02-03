@@ -1,21 +1,3 @@
-@keyframes open-modal {
-  from {
-    transform: translateY(130%);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-@keyframes close-modal {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(130%);
-  }
-}
-
 .modal {
   position: fixed;
   left: 0;

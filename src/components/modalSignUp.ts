@@ -5,7 +5,7 @@ import { Input } from "../components/Input";
 import { PasswordInput } from "../components/PasswordInput";
 import Button from "../components/button";
 
-class ModalSignIn {
+class ModalSignUp {
   template: ITemplate;
   modal: IModal;
   mainClass: string;
@@ -13,35 +13,35 @@ class ModalSignIn {
   constructor() {
     this.modal = new Modal();
     this.template = new Template();
-    this.mainClass = "login-form";
+    this.mainClass = "registration-form";
   }
 
   public draw(): void {
-    const loginForm: HTMLElement = this.createLoginForm();
+    const registrationForm: HTMLElement = this.createRegistrationForm();
     const modal: HTMLElement = this.modal.createModal(
-      "modal-sign-in",
-      loginForm
+      "modal-sign-up",
+      registrationForm
     );
     document.body.append(modal);
   }
 
-  private createLoginForm(): HTMLElement {
-    const loginForm: HTMLElement = this.template.createElement(
+  private createRegistrationForm(): HTMLElement {
+    const registrationForm: HTMLElement = this.template.createElement(
       "div",
       this.mainClass
     );
     const title: HTMLElement = this.createTitle();
     const form: HTMLElement = this.createForm();
     const question: HTMLElement = this.createQuestion();
-    loginForm.append(title, form, question);
-    return loginForm;
+    registrationForm.append(title, form, question);
+    return registrationForm;
   }
 
   private createTitle(): HTMLElement {
     const title: HTMLElement = this.template.createElement(
       "div",
       `${this.mainClass}__title`,
-      "Log in"
+      "Welcome to Women Workouts"
     );
     return title;
   }
@@ -71,7 +71,7 @@ class ModalSignIn {
     const mainClass = "btn-wrap";
     const btnWrap: HTMLElement = this.template.createElement("div", mainClass);
     const btn: HTMLButtonElement = Button({
-      content: "Sign In",
+      content: "Sign Up",
       className: [`${mainClass}__btn`],
       type: "submit",
     });
@@ -87,16 +87,16 @@ class ModalSignIn {
     const questionContent: HTMLElement = this.template.createElement(
       "span",
       `${this.mainClass}__text`,
-      "Don't have an account?"
+      "Already have an account?"
     );
     const linkSignIn: HTMLAnchorElement = this.template.createLink(
       `${this.mainClass}__link`,
       "#",
-      "Sing up"
+      "Sing in"
     );
     question.append(questionContent, linkSignIn);
     return question;
   }
 }
 
-export default ModalSignIn;
+export default ModalSignUp;

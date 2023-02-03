@@ -74,3 +74,7 @@ export interface IInputBlock {
 export interface IModalSignIn {
   draw: () => void;
 }
+
+export interface IModalSignUp {
+  draw: () => void;
+}

@@ -21,7 +21,8 @@
     text-transform: uppercase;
 
     @media (max-width: 576px) {
-      padding-top: 25px;
+      padding-top: 35px;
+      font-size: 16px;
     }
   }
 
@@ -36,6 +37,16 @@
 
   &__form {
     padding-top: 22px;
+  }
+
+  &__message {
+    display: none;
+    padding-top: 20px;
+    color: $color-error;
+
+    &.error {
+      display: block;
+    }
   }
 
   &__question {

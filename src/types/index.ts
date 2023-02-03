@@ -19,9 +19,19 @@ export interface IMainPage {
 
 export interface IAuthorization {
   registration: (data: IRegistrationData) => Promise<void>;
+  authorization: (data: IAuthorizationData) => Promise<IAnswerAuth | undefined>;
+}
+
+export interface IAnswerAuth {
+  message: string;
 }
 
 export interface IRegistrationData {
+  email: string;
+  password: string;
+}
+
+export interface IAuthorizationData {
   email: string;
   password: string;
 }
@@ -56,7 +66,7 @@ export interface IButton {
   className?: string[];
   variant?: string;
   type?: string;
-  onClick?: () => void;
+  onClick?: (e: Event) => void;
 }
 
 export interface IModal {

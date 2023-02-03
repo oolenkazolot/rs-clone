@@ -138,9 +138,10 @@ class MainPage {
     if (!mainElement) {
       return;
     }
+
     mainElement.classList.add("main");
 
-    // mainElement.innerHTML = '';
+    mainElement.innerHTML = "";
     mainElement.append(this.mainPageElement);
 
     this.createIntroSection();

@@ -4,7 +4,7 @@ import { IModal, ITemplate } from "../types/index";
 import { Input } from "../components/Input";
 import { PasswordInput } from "../components/PasswordInput";
 import Button from "../components/button";
-import { onCloseModal, onOpenModal } from "../utils/component-utils";
+import { onOpenModal } from "../utils/component-utils";
 
 class ModalSignUp {
   template: ITemplate;
@@ -64,8 +64,17 @@ class ModalSignUp {
     });
     const inputBlockPassword: HTMLElement = PasswordInput();
     const btnWrap: HTMLElement = this.createBtnWrap();
-    form.append(inputBlockEmail, inputBlockPassword, btnWrap);
+    const message: HTMLElement = this.createMessageEl();
+    form.append(inputBlockEmail, inputBlockPassword, message, btnWrap);
     return form;
+  }
+
+  private createMessageEl(): HTMLElement {
+    const message: HTMLElement = this.template.createElement(
+      "span",
+      `${this.mainClass}__message`
+    );
+    return message;
   }
 
   private createBtnWrap(): HTMLElement {
@@ -92,7 +101,7 @@ class ModalSignUp {
     );
     const linkSignIn: HTMLAnchorElement = this.template.createLink(
       `${this.mainClass}__link`,
-      "#",
+      "/",
       "Sing in"
     );
 

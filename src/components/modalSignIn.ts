@@ -1,20 +1,23 @@
 import Modal from "../components/modal";
 import Template from "../templates/template";
-import { IModal, ITemplate } from "../types/index";
+import { IModal, ITemplate, IAuthorization, IAnswerAuth } from "../types/index";
 import { Input } from "../components/Input";
 import { PasswordInput } from "../components/PasswordInput";
 import Button from "../components/button";
-import { onCloseModal, onOpenModal } from "../utils/component-utils";
+import { onOpenModal } from "../utils/component-utils";
+import Authorization from "../utils/auth.routes";
 
 class ModalSignIn {
   template: ITemplate;
   modal: IModal;
   mainClass: string;
+  authorization: IAuthorization;
 
   constructor() {
     this.modal = new Modal();
     this.template = new Template();
     this.mainClass = "login-form";
+    this.authorization = new Authorization();
   }
 
   public draw(): void {
@@ -64,8 +67,28 @@ class ModalSignIn {
     });
     const inputBlockPassword: HTMLElement = PasswordInput();
     const btnWrap: HTMLElement = this.createBtnWrap();
-    form.append(inputBlockEmail, inputBlockPassword, btnWrap);
+    const message: HTMLElement = this.createMessageEl();
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      this.sendAuth(
+        {
+          email: form.email,
+          password: form.password,
+        },
+        message
+      );
+    });
+
+    form.append(inputBlockEmail, inputBlockPassword, message, btnWrap);
     return form;
+  }
+
+  private createMessageEl(): HTMLElement {
+    const message: HTMLElement = this.template.createElement(
+      "span",
+      `${this.mainClass}__message`
+    );
+    return message;
   }
 
   private createBtnWrap(): HTMLElement {
@@ -80,6 +103,31 @@ class ModalSignIn {
     return btnWrap;
   }
 
+  private async sendAuth(
+    dataInputAuth: { email: string; password: string },
+    messageEl: HTMLElement
+  ): Promise<void> {
+    const res: IAnswerAuth | undefined = await this.authorization.authorization(
+      dataInputAuth
+    );
+    if (!res) {
+      return;
+    }
+    this.ErrorHandler(res, messageEl);
+  }
+
+  private ErrorHandler(res: IAnswerAuth, messageEl: HTMLElement) {
+    const inputs: NodeList = document.querySelectorAll(
+      ".login-form .input__item"
+    );
+    const arrInputs: HTMLElement[] = Array.prototype.slice.call(inputs);
+    arrInputs.forEach((input) => {
+      input.classList.add("error");
+    });
+    messageEl.classList.add("error");
+    messageEl.textContent = res.message;
+  }
+
   private createQuestion(): HTMLElement {
     const question: HTMLElement = this.template.createElement(
       "div",
@@ -92,7 +140,7 @@ class ModalSignIn {
     );
     const linkSignUp: HTMLAnchorElement = this.template.createLink(
       `${this.mainClass}__link`,
-      "#",
+      "/",
       "Sing up"
     );
     linkSignUp.onclick = onOpenModal("modal-sign-up", "modal-sign-in");

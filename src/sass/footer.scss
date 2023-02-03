@@ -5,6 +5,7 @@
   padding: 20px;
   display: flex;
   justify-content: space-between;
+  align-items: end;
 
   &__hubs {
     padding-left: 30px;
@@ -12,6 +13,14 @@
     background-size: contain;
     background-position: left center;
     background-repeat: no-repeat;
+
+    @media (max-width: 576px) {
+      display: flex;
+      flex-direction: column;
+      background-size: 15%;
+      background-position: left top 3px;
+      padding-left: 25px;
+    }
   }
 
   &__hubs-link {
@@ -24,6 +33,10 @@
     &:hover {
       color: $color-main;
     }
+
+    @media (max-width: 576px) {
+      padding-right: 0px;
+    }
   }
 
   &__year {
@@ -33,9 +46,15 @@
   }
 
   &__school {
-    width: 100px;
+    width: 60px;
+    height: 30px;
     background: url(../assets/svg/rs-school.svg);
     background-position: center;
     background-repeat: no-repeat;
+
+    @media (max-width: 576px) {
+      height: 20px;
+      margin-bottom: 5px;
+    }
   }
 }

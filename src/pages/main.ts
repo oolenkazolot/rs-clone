@@ -149,7 +149,7 @@ class MainPage {
 
     this.createFeaturesSection();
 
-    this.mainPageElement.append(this.footer.draw());
+    document.body.append(this.footer.draw());
     // this.registr();
   }
 

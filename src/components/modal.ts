@@ -17,20 +17,20 @@ class Modal {
       this.mainClass
     );
     modal.id = id;
-    const modalBg: HTMLElement = this.createBackgroundModal(id);
+    const backDrop: HTMLElement = this.createBackDrop(id);
     const modalInner: HTMLElement = this.createModalInner(id);
     modalInner.append(content);
-    modal.append(modalBg, modalInner);
+    modal.append(backDrop, modalInner);
     return modal;
   }
 
-  private createBackgroundModal(id: string): HTMLElement {
-    const modalBg = this.template.createElement(
+  private createBackDrop(id: string): HTMLElement {
+    const backDrop = this.template.createElement(
       "div",
       `${this.mainClass}__backdrop`
     );
-    modalBg.onclick = onCloseModal(id);
-    return modalBg;
+    backDrop.onclick = onCloseModal(id);
+    return backDrop;
   }
 
   private createModalInner(id: string): HTMLElement {

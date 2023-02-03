@@ -6,13 +6,16 @@
   bottom: 0;
   z-index: 200;
   width: 100%;
-  display: none;
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(#f6f6f8, 0.8);
+  transition: opacity 0.5s, visibility 0.5s;
 
-  &--open {
-    display: flex;
+  &.open {
+    visibility: visible;
+    opacity: 1;
   }
 
   &__inner {
@@ -33,5 +36,14 @@
     &--registration {
       max-width: 600px;
     }
+  }
+
+  &__backdrop {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(#f6f6f8, 0.8);
   }
 }

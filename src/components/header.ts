@@ -1,6 +1,7 @@
 import Template from "../templates/template";
 import { ITemplate } from "../types/index";
 import Button from "../components/button";
+import { onOpenModal } from "../utils/component-utils";
 
 class Header {
   template: ITemplate;
@@ -15,14 +16,6 @@ class Header {
     }
     header.classList.add("header");
     header.append(this.createLogo(), this.createButtons());
-  }
-
-  public onClickHandlerSignIn(): void {
-    console.log("");
-  }
-
-  public onClickHandlerSignUp(): void {
-    console.log("");
   }
 
   private createLogo(): HTMLElement {
@@ -49,13 +42,13 @@ class Header {
     const btnSignIn: HTMLButtonElement = Button({
       content: "Sign In",
       className: ["header__btn"],
-      onClick: this.onClickHandlerSignIn,
+      onClick: onOpenModal("modal-sign-in"),
     });
     const btnSignUp: HTMLButtonElement = Button({
       content: "Sign Up",
       className: ["header__btn"],
       variant: "second",
-      onClick: this.onClickHandlerSignIn,
+      onClick: onOpenModal("modal-sign-up"),
     });
 
     buttons.append(btnSignIn, btnSignUp);

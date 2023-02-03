@@ -49,8 +49,6 @@ export interface ITemplate {
 
 export interface IHeader {
   draw: () => void;
-  onClickHandlerSignIn: () => void;
-  onClickHandlerSignUp: () => void;
 }
 
 export interface IButton {

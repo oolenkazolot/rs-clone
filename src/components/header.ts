@@ -1,5 +1,7 @@
 import Template from "../templates/template";
 import { ITemplate } from "../types/index";
+import Button from "../components/button";
+import { onOpenModal } from "../utils/component-utils";
 
 class Header {
   template: ITemplate;
@@ -37,17 +39,18 @@ class Header {
       "div",
       "header__buttons"
     );
-    const btnSignIn: HTMLButtonElement = this.template.createBtn(
-      "header__btn",
-      "Sign In",
-      "btn"
-    );
-    const btnSignUp: HTMLButtonElement = this.template.createBtn(
-      "header__btn",
-      "Sign Up",
-      "btn",
-      "btn--second"
-    );
+    const btnSignIn: HTMLButtonElement = Button({
+      content: "Sign In",
+      className: ["header__btn"],
+      onClick: onOpenModal("modal-sign-in"),
+    });
+    const btnSignUp: HTMLButtonElement = Button({
+      content: "Sign Up",
+      className: ["header__btn"],
+      variant: "second",
+      onClick: onOpenModal("modal-sign-up"),
+    });
+
     buttons.append(btnSignIn, btnSignUp);
     return buttons;
   }

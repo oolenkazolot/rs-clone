@@ -6,13 +6,15 @@ class SingleTraining {
   container: HTMLElement;
   trainings: ITraining[];
   exercises: HTMLElement;
+  trainingVariant: string;
 
-  constructor(trainings: ITraining[]) {
+  constructor(trainings: ITraining[], trainingVariant: string) {
     this.template = new Template();
     this.container = this.template.createElement("div", "training");
     this.exercises = document.createElement("div");
     this.exercises.className = "training__exercises exercises";
     this.trainings = trainings;
+    this.trainingVariant = trainingVariant;
   }
 
   private createHeader(): void {
@@ -20,9 +22,30 @@ class SingleTraining {
       "div",
       "training__header"
     );
+
+    const upperHeader: HTMLElement = this.template.createElement(
+      "div",
+      "header-upper"
+    );
+    header.append(upperHeader);
+
+    const returnButton: HTMLAnchorElement = this.template.createLink(
+      "header-upper__return",
+      "#"
+    );
+    const trainingsName: HTMLSpanElement = document.createElement("span");
+    trainingsName.className = "header-upper__name";
+    trainingsName.textContent = this.trainingVariant;
+
+    const trashIcon: HTMLElement = this.template.createIcon(
+      "header-upper__icon",
+      "icon-trash"
+    );
+    upperHeader.append(returnButton, trainingsName, trashIcon);
+
     const beginButton: HTMLButtonElement = this.template.createBtn(
       "training__button-start",
-      "START NOW"
+      "Start now"
     );
     header.append(beginButton);
     this.container.append(header);
@@ -31,6 +54,7 @@ class SingleTraining {
   private createExercise(exercise: ITraining): void {
     const exerciseContainer: HTMLElement = document.createElement("div");
     exerciseContainer.className = "exercises__item exercise";
+    exerciseContainer.id = `${exercise.id}`;
 
     const exerciseInfo: HTMLElement = this.template.createElement(
       "div",

@@ -179,9 +179,6 @@ class MainPage {
 
     document.body.append(this.footer.draw());
     // this.registr();
-
-    // const singleTraining = new SingleTraining(allTrainings.ABS_BEGINNER);
-    // document.body.append(singleTraining.draw());
   }
 
   // private async registr(): Promise<void> {

@@ -45,10 +45,16 @@ export interface ITemplate {
   createForm: (className: string, action: string) => HTMLFormElement;
   createIcon: (className: string, classNameIcon: string) => HTMLElement;
   createVideo: (src: string) => HTMLVideoElement;
+  createImage: (
+    src: string,
+    alt: string,
+    imgClassName: string
+  ) => HTMLImageElement;
 }
 
 export interface IHeader {
   draw: () => void;
+  router?: IRouter;
 }
 
 export interface IButton {
@@ -75,4 +81,25 @@ export interface IModalSignIn {
 
 export interface IModalSignUp {
   draw: () => void;
+}
+
+export interface IWorkoutBlock {
+  createWorkoutBlockCont: (
+    titleText: string,
+    imageClass: string,
+    descrText: string,
+    descrTitleText: string
+  ) => HTMLElement;
+  createTitle: (titleText: string) => HTMLElement;
+  createWorkoutContent: (
+    titleText: string,
+    imageClass: string,
+    descrText: string
+  ) => HTMLElement;
+}
+
+export interface IWorkoutMiniBlock {
+  title: string;
+  exercisesAmt: string;
+  exercisesTime: string;
 }

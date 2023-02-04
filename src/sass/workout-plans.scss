@@ -82,6 +82,9 @@
     display: flex;
     position: relative;
     overflow: hidden;
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .workout-block-cont {
@@ -94,10 +97,28 @@
 
 
 .workout-block-title {
-    font-size: 24px;
+    font-size: 30px;
     text-align: center;
     margin-top: 2.5rem;
     margin-bottom: 2.5rem;
+    &::after,
+    &::before {
+        content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    height: 1px;
+    background-color: $color-grey-violet;
+    position: relative; 
+    }
+    &::before {
+      margin-left: -100%;
+      left: -14px;
+    }
+    &::after {
+      margin-right: -100%;
+      right: -14px;
+    }
 }
 
 .span {
@@ -106,32 +127,12 @@
     width: 200px;
 }
 
-.workout-block-title:before,
-.workout-block-title:after {
-    content: "";
-    display: inline-block;
-    vertical-align: middle;
-    width: 100%;
-    height: 1px;
-    background-color: $color-grey-violet;
-    position: relative;
-}
-.workout-block-title:before {
-    margin-left: -100%;
-    left: -14px;
-}
-.workout-block-title:after {
-    margin-right: -100%;
-    right: -14px;
-}
-
 .workout-wrapper {
     display: flex;
     gap: 1.5rem;
 }
 
 .workout-plans-png {
-    // background-image: url(../assets/png/abs.png);
     height: 350px;
     position: absolute;
     right: -5rem;

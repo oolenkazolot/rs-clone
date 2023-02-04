@@ -1,12 +1,17 @@
 import Template from "../templates/template";
-import { IRouter, ITemplate, IWorkoutMiniBlock } from "../types/index";
+import {
+  IRouter,
+  ITemplate,
+  IWorkoutMiniBlock,
+  IWorkoutBlock,
+} from "../types/index";
 import { plus_in_circle } from "../components/svg";
 import workout_plans from "../utils/workout-plans";
 import WorkoutBlock from "../components/workoutBlock";
 
 class TrainingsPage {
   template: ITemplate;
-  workoutBlock;
+  workoutBlock: IWorkoutBlock;
   public router?: IRouter;
   constructor() {
     this.template = new Template();
@@ -72,13 +77,15 @@ class TrainingsPage {
       for (let j = 0; j < workout_plans[i].block.length; j++) {
         const block: IWorkoutMiniBlock = workout_plans[i].block[j];
         const content: HTMLElement = this.workoutBlock.createWorkoutContent(
-          block
+          block,
+          j,
+          i
         );
 
         if (workout_plans[i].block.length === 1) {
           content.style.background =
             "linear-gradient(90deg, rgba(128,27,150,0.7567401960784313) 0%, rgba(214,189,221,1) 78%)";
-        } else {
+        } else if (workout_plans[i].block.length === 3) {
           if (j === 0) {
             content.style.background =
               "linear-gradient(90deg, rgba(24,240,237,1) 0%, rgba(206,247,242,1) 100%)";
@@ -91,10 +98,9 @@ class TrainingsPage {
             content.style.background =
               "linear-gradient(90deg, rgba(244,117,117,1) 0%, rgba(255,209,209,1) 100%)";
           }
-          if (workout_plans[i].block.length === 1) {
-            content.style.background =
-              "linear-gradient(90deg, rgba(128,27,150,0.7567401960784313) 0%, rgba(214,189,221,1) 78%)";
-          }
+        } else {
+          content.style.background =
+            "linear-gradient(90deg, rgba(128,27,150,0.7567401960784313) 0%, rgba(214,189,221,1) 78%)";
         }
         wrapper.append(content);
       }

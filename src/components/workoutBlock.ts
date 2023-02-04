@@ -1,9 +1,12 @@
 import { ITemplate, IWorkoutMiniBlock } from "../types";
 import Template from "../templates/template";
 import absPng from "../assets/png/abs3.png";
-import { burbell } from "../components/svg";
-import { clock } from "../components/svg";
-import { lightning } from "../components/svg";
+import butt from "../assets/png/butt.png";
+import thigh from "../assets/png/thigh.png";
+import wholeBody from "../assets/png/whole_body2.png";
+import morning from "../assets/images/morning_evening.jpg";
+import evening from "../assets/images/morning_evening2.jpg";
+import { burbell, clock, lightning } from "../components/svg";
 
 class WorkoutBlock {
   template: ITemplate;
@@ -35,22 +38,43 @@ class WorkoutBlock {
     return blockTitle;
   }
 
-  public createWorkoutContent(data: IWorkoutMiniBlock): HTMLElement {
+  public createWorkoutContent(
+    data: IWorkoutMiniBlock,
+    j: number,
+    i: number
+  ): HTMLElement {
     const workoutContentCont: HTMLElement = this.template.createElement(
       "div",
       "workout-content-container"
     );
+    workoutContentCont.setAttribute("name", data.title);
     workoutContentCont.append(
-      this.createTextBlock(data.title, data.exercisesAmt, data.exercisesTime),
-      this.createPngImage()
+      this.createTextBlock(
+        data.title,
+        data.exercisesAmt,
+        data.exercisesTime,
+        j,
+        data.complexityLevel
+      )
     );
+    if (
+      workoutContentCont.getAttribute("name") === "sleepy time stretch" ||
+      workoutContentCont.getAttribute("name") === "morning warmup"
+    ) {
+      workoutContentCont.style.background = "#fff";
+    }
+    if (i < 5) {
+      workoutContentCont.append(this.createPngImage(i, j));
+    }
     return workoutContentCont;
   }
 
   public createTextBlock(
     descrTitleText: string,
     exercAmt: string,
-    time: string
+    time: string,
+    j: number,
+    complexityLevel?: boolean
   ): HTMLElement {
     const textBlock: HTMLElement = this.template.createElement(
       "div",
@@ -64,19 +88,42 @@ class WorkoutBlock {
     textBlock.append(
       title,
       this.createExercCont(exercAmt),
-      this.createTimeCont(time),
-      this.createLightnings()
+      this.createTimeCont(time)
     );
+    if (complexityLevel === true) {
+      textBlock.append(this.createLightnings(j));
+    }
     return textBlock;
   }
 
-  public createPngImage(): HTMLImageElement {
+  public createPngImage(i: number, j: number): HTMLImageElement {
+    let png;
+    if (i === 0) {
+      png = absPng;
+    } else if (i === 1) {
+      png = butt;
+    } else if (i === 2) {
+      png = thigh;
+    } else if (i === 3) {
+      if (j === 0) {
+        png = morning;
+      } else {
+        png = evening;
+      }
+    } else if (i === 4) {
+      png = wholeBody;
+    }
     const pngImage: HTMLImageElement = this.template.createImage(
-      absPng,
+      png,
       "abs image",
       "workout-plans-png"
     );
-    pngImage.alt = "abg image";
+    if (pngImage.src === wholeBody) {
+      pngImage.style.right = "-2px";
+    }
+    if (pngImage.src === morning || pngImage.src === evening) {
+      pngImage.style.opacity = "0.8";
+    }
     return pngImage;
   }
 
@@ -113,7 +160,7 @@ class WorkoutBlock {
     return descrCont;
   }
 
-  public createLightnings(): HTMLElement {
+  public createLightnings(j: number): HTMLElement {
     const lightningsCont: HTMLElement = this.template.createElement(
       "div",
       "lightnings-cont"
@@ -124,7 +171,11 @@ class WorkoutBlock {
         "lightning"
       );
       image.innerHTML = lightning;
-      image.style.fill = "rgb(58, 57, 58)";
+      if (i <= j) {
+        image.style.fill = "rgb(58, 57, 58)";
+      } else {
+        image.style.fill = "rgb(158, 156, 158)";
+      }
       lightningsCont.append(image);
     }
     return lightningsCont;

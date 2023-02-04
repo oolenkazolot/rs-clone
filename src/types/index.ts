@@ -84,22 +84,29 @@ export interface IModalSignUp {
 }
 
 export interface IWorkoutBlock {
-  createWorkoutBlockCont: (
-    titleText: string,
-    imageClass: string,
-    descrText: string,
-    descrTitleText: string
-  ) => HTMLElement;
+  createWorkoutBlockCont: (titleText: string) => HTMLElement;
   createTitle: (titleText: string) => HTMLElement;
   createWorkoutContent: (
-    titleText: string,
-    imageClass: string,
-    descrText: string
+    data: IWorkoutMiniBlock,
+    j: number,
+    i: number
   ) => HTMLElement;
+  createTextBlock: (
+    descrTitleText: string,
+    exercAmt: string,
+    time: string,
+    j: number,
+    complexityLevel?: boolean
+  ) => HTMLElement;
+  createPngImage: (i: number, j: number) => HTMLElement;
+  createExercCont: (exercAmt: string) => HTMLElement;
+  createTimeCont: (time: string) => HTMLElement;
+  createLightnings: (j: number) => HTMLElement;
 }
 
 export interface IWorkoutMiniBlock {
   title: string;
   exercisesAmt: string;
   exercisesTime: string;
+  complexityLevel?: boolean;
 }

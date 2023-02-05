@@ -1,24 +1,34 @@
 import Modal from "../components/modal";
 import Template from "../templates/template";
-import { IModal, ITemplate, IAuthorization, IAnswerAuth } from "../types/index";
+import {
+  IModal,
+  ITemplate,
+  IAuthorization,
+  IAnswerAuth,
+  IHeader,
+} from "../types/index";
 import { Input } from "../components/Input";
 import { PasswordInput } from "../components/PasswordInput";
 import Button from "../components/button";
-import { onOpenModal } from "../utils/component-utils";
+import { onOpenModal, onCloseModal } from "../utils/component-utils";
 import Authorization from "../utils/auth.routes";
 import { isEmailValid } from "../utils/validate";
+import { setUserLocalStorage } from "../utils/auth";
+import Header from "../components/header";
 
 class ModalSignIn {
   template: ITemplate;
   modal: IModal;
   mainClass: string;
   authorization: IAuthorization;
+  header: IHeader;
 
   constructor() {
     this.modal = new Modal();
     this.template = new Template();
     this.mainClass = "login-form";
     this.authorization = new Authorization();
+    this.header = new Header();
   }
 
   public draw(): void {
@@ -71,12 +81,19 @@ class ModalSignIn {
     const inputBlockPassword: HTMLElement = PasswordInput();
     const btnWrap: HTMLElement = this.createBtnWrap();
     const message: HTMLElement = this.createMessageForm();
+
     form.addEventListener("submit", (e) => {
       e.preventDefault();
+      const formData: FormData = new FormData(form);
+      const valueEmail: string | undefined = formData.get("email")?.toString();
+      const valuePsw: string | undefined = formData.get("password")?.toString();
+      if (!valueEmail || !valuePsw) {
+        return;
+      }
       this.sendAuth(
         {
-          email: form.email,
-          password: form.password,
+          email: valueEmail,
+          password: valuePsw,
         },
         message
       );
@@ -117,7 +134,15 @@ class ModalSignIn {
     if (!res) {
       return;
     }
-    this.ErrorHandler(res, messageEl);
+
+    if (res.token && res.userId) {
+      setUserLocalStorage({ token: res.token, userId: res.userId });
+      this.header.draw();
+      onCloseModal("modal-sign-in")();
+    }
+    if (res.message) {
+      this.ErrorHandler(res, messageEl);
+    }
   }
 
   private ErrorHandler(res: IAnswerAuth, messageEl: HTMLElement) {
@@ -129,7 +154,9 @@ class ModalSignIn {
       input.classList.add("error");
     });
     messageEl.classList.add("error");
-    messageEl.textContent = res.message;
+    if (res.message) {
+      messageEl.textContent = res.message;
+    }
   }
 
   private createQuestion(): HTMLElement {

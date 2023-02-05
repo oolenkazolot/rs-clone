@@ -2,6 +2,10 @@ import Template from "../templates/template";
 import { ITemplate } from "../types/index";
 import Button from "../components/button";
 import { onOpenModal } from "../utils/component-utils";
+import {
+  getUserTokenLocalStorage,
+  removeUserLocalStorage,
+} from "../utils/auth";
 
 class Header {
   template: ITemplate;
@@ -14,8 +18,15 @@ class Header {
     if (!header) {
       return;
     }
+    header.textContent = "";
+    const isAuth = getUserTokenLocalStorage();
+
     header.classList.add("header");
-    header.append(this.createLogo(), this.createButtons());
+    if (isAuth) {
+      header.append(this.createLogo(), this.createBtnSignOut());
+    } else {
+      header.append(this.createLogo(), this.createButtons());
+    }
   }
 
   private createLogo(): HTMLElement {
@@ -53,6 +64,20 @@ class Header {
 
     buttons.append(btnSignIn, btnSignUp);
     return buttons;
+  }
+
+  private createBtnSignOut(): HTMLButtonElement {
+    const btnSignOut: HTMLButtonElement = Button({
+      content: "Sign Out",
+      className: ["header__btn"],
+      onClick: this.exitApp.bind(this),
+    });
+    return btnSignOut;
+  }
+
+  private exitApp() {
+    removeUserLocalStorage();
+    this.draw();
   }
 }
 

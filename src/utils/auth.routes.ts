@@ -5,7 +5,9 @@ import {
 } from "../types/index";
 
 class Authorization {
-  public async registration(data: IRegistrationData): Promise<void> {
+  public async registration(
+    data: IRegistrationData
+  ): Promise<IAnswerAuth | undefined> {
     try {
       const response = await fetch("http://localhost:5000/api/auth/register", {
         method: "POST",
@@ -15,7 +17,9 @@ class Authorization {
         body: JSON.stringify(data),
       });
 
-      const res = await response.json();
+      const res: IAnswerAuth = await response.json();
+      console.log(res);
+
       if (res) {
         return res;
       }
@@ -39,6 +43,7 @@ class Authorization {
       });
 
       const res: IAnswerAuth = await response.json();
+
       return res;
     } catch (e) {
       if (e instanceof Error) {

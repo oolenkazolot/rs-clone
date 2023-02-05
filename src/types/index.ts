@@ -18,13 +18,21 @@ export interface IMainPage {
 }
 
 export interface IAuthorization {
-  registration: (data: IRegistrationData) => Promise<void>;
+  registration: (data: IRegistrationData) => Promise<IAnswerAuth | undefined>;
   authorization: (data: IAuthorizationData) => Promise<IAnswerAuth | undefined>;
 }
 
 export interface IAnswerAuth {
-  message: string;
+  message?: string;
+  token?: string;
+  userId?: string;
 }
+
+// export interface IAnswerRegistration {
+//   message?: string;
+//   token?: string;
+//   userId?: string;
+// }
 
 export interface IRegistrationData {
   email: string;
@@ -91,4 +99,9 @@ export interface IModalSignUp {
 export interface IValidate {
   res: boolean;
   message?: string;
+}
+
+export interface IDataUser {
+  token: string;
+  userId: string;
 }

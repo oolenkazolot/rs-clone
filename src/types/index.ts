@@ -45,28 +45,18 @@ export interface IAuthorizationData {
 }
 
 export interface ITemplate {
-  createElement: (
-    tagName: string,
-    myClass: string,
-    content?: string
-  ) => HTMLElement;
-  createLink: (
-    myClass: string,
-    href: string,
-    content?: string
-  ) => HTMLAnchorElement;
-  createBtn: (
-    myClass: string,
-    content?: string | HTMLElement | undefined,
-    type?: string
-  ) => HTMLButtonElement;
+  createElement: (tagName: string, myClass: string, content?: string) => HTMLElement;
+  createLink: (myClass: string, href: string, content?: string) => HTMLAnchorElement;
+  createBtn: (myClass: string, content?: string | HTMLElement | undefined, type?: string) => HTMLButtonElement;
   createForm: (className: string, action: string) => HTMLFormElement;
   createIcon: (className: string, classNameIcon: string) => HTMLElement;
   createVideo: (src: string) => HTMLVideoElement;
+  createImage: (src: string, alt: string, imgClassName: string) => HTMLImageElement;
 }
 
 export interface IHeader {
   draw: () => void;
+  router?: IRouter;
 }
 
 export interface IButton {
@@ -104,4 +94,21 @@ export interface IValidate {
 export interface IDataUser {
   token: string;
   userId: string;
+}
+export interface IWorkoutBlock {
+  createWorkoutBlockCont: (titleText: string) => HTMLElement;
+  createTitle: (titleText: string) => HTMLElement;
+  createWorkoutContent: (data: IWorkoutMiniBlock, j: number, i: number) => HTMLElement;
+  createTextBlock: (descrTitleText: string, exercAmt: string, time: string, j: number, complexityLevel?: boolean) => HTMLElement;
+  createPngImage: (i: number, j: number) => HTMLElement;
+  createExercCont: (exercAmt: string) => HTMLElement;
+  createTimeCont: (time: string) => HTMLElement;
+  createLightnings: (j: number) => HTMLElement;
+}
+
+export interface IWorkoutMiniBlock {
+  title: string;
+  exercisesAmt: string;
+  exercisesTime: string;
+  complexityLevel?: boolean;
 }

@@ -5,6 +5,7 @@ import ErrorPage from "./pages/error";
 import Header from "./components/header";
 import ModalSignIn from "./components/modalSignIn";
 import ModalSignUp from "./components/modalSignUp";
+import TrainingsPage from "./pages/trainings";
 
 import {
   IMainPage,
@@ -27,6 +28,8 @@ modalSignIn.draw();
 const modalSignUp: IModalSignUp = new ModalSignUp();
 modalSignUp.draw();
 
+const trainingsCreationPage = new TrainingsPage();
+
 //router start
 //список страниц с колбеками: путь и что делать
 const routs: IRout[] = [
@@ -34,10 +37,10 @@ const routs: IRout[] = [
     path: "",
     cb: mainPage.draw.bind(mainPage),
   },
-  // {
-  //   path: "cart",
-  //   cb: cartPage.draw.bind(cartPage),
-  // },
+  {
+    path: "workout_plans",
+    cb: trainingsCreationPage.draw.bind(trainingsCreationPage),
+  },
   // {
   //   path: "products/:id",
   //   cb: (id) => {
@@ -50,4 +53,6 @@ const router = new Router(routs, errorPage.draw);
 
 //проврка какая скйчас страница
 mainPage.router = router;
+header.router = router;
+trainingsCreationPage.router = router;
 router.init();

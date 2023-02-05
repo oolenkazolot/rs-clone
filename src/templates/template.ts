@@ -69,6 +69,18 @@ class Template {
     newElem.loop = true;
     return newElem;
   }
+
+  public createImage(
+    src: string,
+    alt: string,
+    imgClassName: string
+  ): HTMLImageElement {
+    const newImage: HTMLImageElement = document.createElement("img");
+    newImage.src = src;
+    newImage.alt = alt;
+    newImage.className = imgClassName;
+    return newImage;
+  }
 }
 
 export default Template;

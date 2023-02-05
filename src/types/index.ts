@@ -28,12 +28,6 @@ export interface IAnswerAuth {
   userId?: string;
 }
 
-// export interface IAnswerRegistration {
-//   message?: string;
-//   token?: string;
-//   userId?: string;
-// }
-
 export interface IRegistrationData {
   email: string;
   password: string;
@@ -45,13 +39,29 @@ export interface IAuthorizationData {
 }
 
 export interface ITemplate {
-  createElement: (tagName: string, myClass: string, content?: string) => HTMLElement;
-  createLink: (myClass: string, href: string, content?: string) => HTMLAnchorElement;
-  createBtn: (myClass: string, content?: string | HTMLElement | undefined, type?: string) => HTMLButtonElement;
+  createElement: (
+    tagName: string,
+    myClass: string,
+    content?: string
+  ) => HTMLElement;
+  createLink: (
+    myClass: string,
+    href: string,
+    content?: string
+  ) => HTMLAnchorElement;
+  createBtn: (
+    myClass: string,
+    content?: string | HTMLElement | undefined,
+    type?: string
+  ) => HTMLButtonElement;
   createForm: (className: string, action: string) => HTMLFormElement;
   createIcon: (className: string, classNameIcon: string) => HTMLElement;
   createVideo: (src: string) => HTMLVideoElement;
-  createImage: (src: string, alt: string, imgClassName: string) => HTMLImageElement;
+  createImage: (
+    src: string,
+    alt: string,
+    imgClassName: string
+  ) => HTMLImageElement;
 }
 
 export interface IHeader {
@@ -98,8 +108,18 @@ export interface IDataUser {
 export interface IWorkoutBlock {
   createWorkoutBlockCont: (titleText: string) => HTMLElement;
   createTitle: (titleText: string) => HTMLElement;
-  createWorkoutContent: (data: IWorkoutMiniBlock, j: number, i: number) => HTMLElement;
-  createTextBlock: (descrTitleText: string, exercAmt: string, time: string, j: number, complexityLevel?: boolean) => HTMLElement;
+  createWorkoutContent: (
+    data: IWorkoutMiniBlock,
+    j: number,
+    i: number
+  ) => HTMLElement;
+  createTextBlock: (
+    descrTitleText: string,
+    exercAmt: string,
+    time: string,
+    j: number,
+    complexityLevel?: boolean
+  ) => HTMLElement;
   createPngImage: (i: number, j: number) => HTMLElement;
   createExercCont: (exercAmt: string) => HTMLElement;
   createTimeCont: (time: string) => HTMLElement;

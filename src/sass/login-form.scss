@@ -65,5 +65,9 @@
     height: 40px;
     width: 100%;
     line-height: 17px;
+
+    &:disabled {
+      opacity: 0.5;
+    }
   }
 }

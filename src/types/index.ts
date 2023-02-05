@@ -77,6 +77,7 @@ export interface IInputBlock {
   className?: string[];
   attributes: Record<string, string>;
   classNameIcon: string;
+  validate: (inputValue: string) => IValidate;
 }
 
 export interface IModalSignIn {
@@ -85,4 +86,9 @@ export interface IModalSignIn {
 
 export interface IModalSignUp {
   draw: () => void;
+}
+
+export interface IValidate {
+  res: boolean;
+  message?: string;
 }

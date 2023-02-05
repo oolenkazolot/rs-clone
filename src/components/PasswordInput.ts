@@ -1,6 +1,7 @@
 import { Input } from "../components/Input";
 import { ITemplate } from "../types/index";
 import Template from "../templates/template";
+import { isPasswordValid } from "../utils/validate";
 const template: ITemplate = new Template();
 
 export function PasswordInput(): HTMLElement {
@@ -12,7 +13,9 @@ export function PasswordInput(): HTMLElement {
       name: "password",
       required: "true",
     },
+
     classNameIcon: "icon-lock_outline",
+    validate: isPasswordValid,
   });
   const mainClass = "input";
   const icon: HTMLElement = createIcon(mainClass, inputBlock);

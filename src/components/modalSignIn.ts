@@ -6,6 +6,7 @@ import { PasswordInput } from "../components/PasswordInput";
 import Button from "../components/button";
 import { onOpenModal } from "../utils/component-utils";
 import Authorization from "../utils/auth.routes";
+import { isEmailValid } from "../utils/validate";
 
 class ModalSignIn {
   template: ITemplate;
@@ -38,6 +39,7 @@ class ModalSignIn {
     const form: HTMLElement = this.createForm();
     const question: HTMLElement = this.createQuestion();
     loginForm.append(title, form, question);
+
     return loginForm;
   }
 
@@ -64,10 +66,11 @@ class ModalSignIn {
         required: "true",
       },
       classNameIcon: "icon-mail_outline",
+      validate: isEmailValid,
     });
     const inputBlockPassword: HTMLElement = PasswordInput();
     const btnWrap: HTMLElement = this.createBtnWrap();
-    const message: HTMLElement = this.createMessageEl();
+    const message: HTMLElement = this.createMessageForm();
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       this.sendAuth(
@@ -83,7 +86,7 @@ class ModalSignIn {
     return form;
   }
 
-  private createMessageEl(): HTMLElement {
+  private createMessageForm(): HTMLElement {
     const message: HTMLElement = this.template.createElement(
       "span",
       `${this.mainClass}__message`
@@ -99,6 +102,7 @@ class ModalSignIn {
       className: [`${mainClass}__btn`],
       type: "submit",
     });
+
     btnWrap.append(btn);
     return btnWrap;
   }

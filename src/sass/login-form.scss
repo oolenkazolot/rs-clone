@@ -11,12 +11,23 @@
     text-transform: uppercase;
 
     @media (max-width: 576px) {
-      padding-top: 25px;
+      padding-top: 35px;
+      font-size: 16px;
     }
   }
 
   &__form {
     padding-top: 22px;
+  }
+
+  &__message {
+    display: none;
+    padding-top: 20px;
+    color: $color-error;
+
+    &.error {
+      display: block;
+    }
   }
 
   &__question {
@@ -54,5 +65,9 @@
     height: 40px;
     width: 100%;
     line-height: 17px;
+
+    &:disabled {
+      opacity: 0.5;
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { IInputBlock, ITemplate } from "../types/index";
+import { IInputBlock, ITemplate, IValidate } from "../types/index";
 import { addClasses } from "../utils/component-utils";
 import Template from "../templates/template";
 
@@ -6,18 +6,36 @@ export function Input({
   className,
   attributes,
   classNameIcon,
+  validate,
 }: IInputBlock): HTMLElement {
   const template: ITemplate = new Template();
   const mainClass = "input";
-  const inputBlock: HTMLElement = document.createElement("div");
-  inputBlock.classList.add(mainClass);
+  const inputBlock: HTMLElement = template.createElement("div", mainClass);
   addClasses(inputBlock, className);
   const input: HTMLInputElement = createInput(mainClass, attributes);
+  const error: HTMLElement = template.createElement(
+    "span",
+    `${mainClass}__error`
+  );
+
+  if (validate) {
+    input.onchange = () => {
+      const validateDate: IValidate = validate(input.value);
+      if (!validateDate.res) {
+        input.classList.add("error");
+        error.textContent = validateDate.message || "";
+      } else {
+        input.classList.remove("error");
+        error.textContent = "";
+      }
+    };
+  }
+
   const icon: HTMLElement = template.createIcon(
     `${mainClass}__icon`,
     classNameIcon
   );
-  inputBlock.append(input, icon);
+  inputBlock.append(input, icon, error);
   return inputBlock;
 }
 

@@ -1,0 +1,175 @@
+
+
+.workout-plans-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem;
+    margin: 0 auto;
+    max-width: 1600px;
+    overflow: hidden;
+}
+
+.page-title {
+    font-size: 30px;
+    margin-bottom: 1.5rem;
+    color: $color-grey-violet;
+    letter-spacing: 3px;
+}
+
+.add-workout-plans-cont {
+    padding: 0.1rem 1rem;
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    margin-bottom: 2rem;
+}
+
+.plus-in-circle {
+    fill: #db5ba1;
+    transition: 0.4s;
+    &:hover {
+        fill: #e64371;
+        cursor: pointer;
+    }
+}
+
+.add-workouts-text {
+    font-size: 24px;
+    color: $color-grey-violet;
+}
+
+.add-workout-plans-cont {
+    --borderWidth: 3px;
+    background: white;
+    position: relative;
+    border-radius: 15px;
+  }
+  .add-workout-plans-cont:after {
+    content: '';
+    position: absolute;
+    top: calc(-1 * var(--borderWidth));
+    left: calc(-1 * var(--borderWidth));
+    height: calc(100% + var(--borderWidth) * 2);
+    width: calc(100% + var(--borderWidth) * 2);
+    background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #f60e50, #a166ab, #5073b8);
+    border-radius: 15px;
+    z-index: -1;
+    animation: myanimation 4s ease alternate infinite;
+    background-size: 300% 300%;
+  }
+  
+  
+  @keyframes myanimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+}
+
+.workout-content-container {
+    width: 500px;
+    height: 350px;
+    background: linear-gradient(90deg, rgba(128,27,150,0.7567401960784313) 0%, rgba(214,189,221,1) 78%);
+    border-radius: 20px;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.workout-block-cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} 
+
+
+
+.workout-block-title {
+    font-size: 30px;
+    text-align: center;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    &::after,
+    &::before {
+        content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    height: 1px;
+    background-color: $color-grey-violet;
+    position: relative; 
+    }
+    &::before {
+      margin-left: -100%;
+      left: -14px;
+    }
+    &::after {
+      margin-right: -100%;
+      right: -14px;
+    }
+}
+
+.span {
+    display: inline-block;
+    vertical-align: middle;
+    width: 200px;
+}
+
+.workout-wrapper {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.workout-plans-png {
+    height: 350px;
+    position: absolute;
+    right: -5rem;
+}
+
+.workout-content-title {
+    text-transform: uppercase;
+    font-size: 29px;
+    text-align: center;
+    padding: 1rem;
+}
+
+.text-block {
+    padding: 1rem;
+    z-index: 10;
+    color: $color-grey-violet;
+}
+
+.descr-cont {
+    display: flex;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+
+.desctiption-text {
+    font-size: 25px;
+}
+
+.barbell {
+    transform: rotate(45deg);
+}
+
+.descr-time {
+    margin: 0px 1rem;
+}
+
+.lightnings-cont {
+    display: flex;
+    padding: 1rem;
+}

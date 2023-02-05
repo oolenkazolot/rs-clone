@@ -6,16 +6,19 @@ import {
   IWorkoutBlock,
 } from "../types/index";
 import { plus_in_circle } from "../components/svg";
-import workout_plans from "../utils/workout-plans";
+import workout_plans from "../utils/workout-plans-en";
 import WorkoutBlock from "../components/workoutBlock";
+import Slider from "../components/slider";
 
 class TrainingsPage {
   template: ITemplate;
   workoutBlock: IWorkoutBlock;
+  slider;
   public router?: IRouter;
   constructor() {
     this.template = new Template();
     this.workoutBlock = new WorkoutBlock();
+    this.slider = new Slider();
   }
 
   public draw(): void {
@@ -74,6 +77,11 @@ class TrainingsPage {
       const wrapper = this.template.createElement("div", "workout-wrapper");
       workoutBlock.append(wrapper);
       contentContainer.append(workoutBlock);
+      const buttons = this.createNextPrevBtns(
+        workout_plans[i].block.length,
+        wrapper
+      );
+      workoutBlock.append(buttons);
       for (let j = 0; j < workout_plans[i].block.length; j++) {
         const block: IWorkoutMiniBlock = workout_plans[i].block[j];
         const content: HTMLElement = this.workoutBlock.createWorkoutContent(
@@ -81,22 +89,21 @@ class TrainingsPage {
           j,
           i
         );
-
         if (workout_plans[i].block.length === 1) {
           content.style.background =
             "linear-gradient(90deg, rgba(128,27,150,0.7567401960784313) 0%, rgba(214,189,221,1) 78%)";
         } else if (workout_plans[i].block.length === 3) {
           if (j === 0) {
             content.style.background =
-              "linear-gradient(90deg, rgba(24,240,237,1) 0%, rgba(206,247,242,1) 100%)";
+              " linear-gradient(90deg, rgba(135,254,252,1) 0%, rgba(233,244,243,1) 100%)";
           }
           if (j === 1) {
             content.style.background =
-              "linear-gradient(90deg, rgba(113,179,235,1) 0%, rgba(202,227,249,1) 100%)";
+              "linear-gradient(90deg, rgba(135,195,254,1) 0%, rgba(233,244,243,1) 100%)";
           }
           if (j === 2) {
             content.style.background =
-              "linear-gradient(90deg, rgba(244,117,117,1) 0%, rgba(255,209,209,1) 100%)";
+              "linear-gradient(90deg, rgba(254,151,135,1) 0%, rgba(247,242,242,1) 100%)";
           }
         } else {
           content.style.background =
@@ -106,6 +113,60 @@ class TrainingsPage {
       }
     }
     return contentContainer;
+  }
+
+  private createNextPrevBtns(
+    length: number,
+    wrapper: HTMLElement
+  ): HTMLElement {
+    const buttonsCont: HTMLElement = this.template.createElement(
+      "div",
+      "buttons-cont"
+    );
+    const nextBtn: HTMLButtonElement = this.template.createBtn(
+      "next-btn",
+      "next"
+    );
+    if (length <= 2) {
+      nextBtn.disabled = true;
+    }
+    const prevBtn: HTMLButtonElement = this.template.createBtn(
+      "prev-btn",
+      "prev"
+    );
+    prevBtn.disabled = true;
+    buttonsCont.append(prevBtn, nextBtn);
+    let n = 0;
+    nextBtn.addEventListener("click", () => {
+      console.log(n);
+      this.slider.slideRight(n, nextBtn, prevBtn, wrapper, length);
+      // if (n < length - 1) {
+      //   nextBtn.disabled = false;
+      //   n++;
+      //   prevBtn.disabled = false;
+      //   const delta = 33.33 * n;
+      //   wrapper.style.justifyContent = "flex-start";
+      //   wrapper.style.transform = `translate(-${delta}%)`;
+      // }
+      // if (n >= length - 1) {
+      //   nextBtn.disabled = true;
+      // }
+    });
+    prevBtn.addEventListener("click", () => {
+      if (n < length - 1) {
+        nextBtn.disabled = false;
+      }
+      if (n > 0) {
+        n--;
+        const delta = 33.33 * n;
+        wrapper.style.justifyContent = "flex-start";
+        wrapper.style.transform = `translate(-${delta}%)`;
+      }
+      if (n === 0) {
+        prevBtn.disabled = true;
+      }
+    });
+    return buttonsCont;
   }
 }
 

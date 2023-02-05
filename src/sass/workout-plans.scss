@@ -8,6 +8,11 @@
     margin: 0 auto;
     max-width: 1600px;
     overflow: hidden;
+    @media (max-width: 1590px) {
+        max-width: 1200px;
+        align-items: start;
+        padding: 0rem;
+      }
 }
 
 .page-title {
@@ -15,6 +20,10 @@
     margin-bottom: 1.5rem;
     color: $color-grey-violet;
     letter-spacing: 3px;
+    @media (max-width: 1590px) {
+        align-self: center;
+        margin-top: 3rem;
+      }
 }
 
 .add-workout-plans-cont {
@@ -25,6 +34,9 @@
     align-items: center;
     border-radius: 5px;
     margin-bottom: 2rem;
+    @media (max-width: 1590px) {
+        align-self: center;
+      }
 }
 
 .plus-in-circle {
@@ -87,6 +99,10 @@
     }
 }
 
+.workout-content-cont {
+    width: 1200px;
+}
+
 .workout-block-cont {
     display: flex;
     flex-direction: column;
@@ -129,7 +145,13 @@
 
 .workout-wrapper {
     display: flex;
-    gap: 1.5rem;
+    gap: 25px;
+    transition: ease 0.4s;
+    margin-bottom: 2rem;
+    @media (max-width: 1590px) {
+        gap: 100px;
+        align-self: start;
+      }
 }
 
 .workout-plans-png {
@@ -172,4 +194,26 @@
 .lightnings-cont {
     display: flex;
     padding: 1rem;
+}
+
+.buttons-cont {
+
+}
+
+.next-btn, 
+.prev-btn {
+    padding: 5px 10px;
+    cursor: pointer;
+    box-shadow: 0 0 3px 2px rgba(221, 221, 221, 1);
+    border-radius: 5px;
+    border: none;
+    margin-right: 1rem;
+    color: $color-grey-violet;
+    font-family: 'icomoon';
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: 0.3s;
+    &:hover {
+        box-shadow: 0 0 5px 3px rgba(221, 221, 221, 1);
+    }
 }

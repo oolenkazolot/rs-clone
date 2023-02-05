@@ -2,12 +2,18 @@ import Template from "../templates/template";
 import { ITemplate, IRouter } from "../types/index";
 import Button from "../components/button";
 import { onOpenModal } from "../utils/component-utils";
+import {
+  getUserTokenLocalStorage,
+  removeUserLocalStorage,
+} from "../utils/auth";
 
 class Header {
   template: ITemplate;
   public router?: IRouter;
+  mainClass: string;
   constructor() {
     this.template = new Template();
+    this.mainClass = "header";
   }
 
   public draw(): void {
@@ -15,12 +21,18 @@ class Header {
     if (!header) {
       return;
     }
-    header.classList.add("header");
-    header.append(
-      this.createLogo(),
-      this.createLinkTrainingsCreatePage(),
-      this.createButtons()
-    );
+    header.textContent = "";
+    const isAuth = getUserTokenLocalStorage();
+
+    header.classList.add(`${this.mainClass}`);
+    const wrap: HTMLElement = this.createWrap();
+    if (isAuth) {
+      wrap.append(this.createListMenu(), this.createBtnSignOut());
+      header.append(this.createLogo(), wrap);
+    } else {
+      wrap.append(this.createButtons());
+      header.append(this.createLogo(), wrap);
+    }
   }
 
   private createLogo(): HTMLElement {
@@ -42,16 +54,16 @@ class Header {
   private createButtons(): HTMLElement {
     const buttons: HTMLElement = this.template.createElement(
       "div",
-      "header__buttons"
+      `${this.mainClass}__buttons`
     );
     const btnSignIn: HTMLButtonElement = Button({
       content: "Sign In",
-      className: ["header__btn"],
+      className: [`${this.mainClass}__btn`],
       onClick: onOpenModal("modal-sign-in"),
     });
     const btnSignUp: HTMLButtonElement = Button({
       content: "Sign Up",
-      className: ["header__btn"],
+      className: [`${this.mainClass}__btn`],
       variant: "second",
       onClick: onOpenModal("modal-sign-up"),
     });
@@ -60,19 +72,79 @@ class Header {
     return buttons;
   }
 
-  // Alisatonks для ссылки на страницу с training plans.
-  public createLinkTrainingsCreatePage(): HTMLElement {
-    const a = document.createElement("a");
-    a.innerText = "to training plans";
-    const main = document.querySelector("main") as HTMLElement;
-    a.addEventListener("click", (e) => {
-      e.preventDefault();
-      if (this.router) {
-        main.innerHTML = "";
-        this.router.navigate("workout_plans");
-      }
+  private createBtnSignOut(): HTMLButtonElement {
+    const btnSignOut: HTMLButtonElement = Button({
+      content: "Sign Out",
+      className: [`${this.mainClass}__btn`],
+      onClick: this.exitApp.bind(this),
     });
-    return a;
+    return btnSignOut;
+  }
+
+  private createWrap(): HTMLElement {
+    const wrap: HTMLElement = this.template.createElement(
+      "div",
+      `${this.mainClass}__wrap`
+    );
+    return wrap;
+  }
+
+  private createListMenu(): HTMLElement {
+    const list: HTMLElement = this.template.createElement(
+      "ul",
+      `${this.mainClass}__list`
+    );
+    const linksMenu: HTMLElement[] = this.createLinksMenu();
+    list.append(...linksMenu);
+    return list;
+  }
+
+  private createLinksMenu(): HTMLElement[] {
+    const linksMenu: HTMLElement[] = [];
+    const nameLinksMenu = ["workouts", "exercises", "profile"];
+    nameLinksMenu.forEach((nameLink) => {
+      const listItem: HTMLElement = this.template.createElement(
+        "li",
+        `${this.mainClass}__list-item`
+      );
+      const link: HTMLAnchorElement = this.createLink(nameLink);
+      listItem.append(link);
+      linksMenu.push(listItem);
+    });
+    return linksMenu;
+  }
+
+  private createLink(name: string): HTMLAnchorElement {
+    const link: HTMLAnchorElement = this.template.createLink(
+      `${this.mainClass}__link`,
+      "/",
+      name
+    );
+    link.addEventListener("click", (e) => {
+      this.onClickHandlerLinkMenu(e, name);
+    });
+    link.append(this.createBorderLink());
+    return link;
+  }
+
+  private createBorderLink(): HTMLElement {
+    const borderLink: HTMLElement = this.template.createElement(
+      "span",
+      `${this.mainClass}__link-border`
+    );
+    return borderLink;
+  }
+
+  private onClickHandlerLinkMenu(e: Event, src: string) {
+    e.preventDefault();
+    if (this.router) {
+      this.router.navigate(src);
+    }
+  }
+
+  private exitApp() {
+    removeUserLocalStorage();
+    this.draw();
   }
 }
 

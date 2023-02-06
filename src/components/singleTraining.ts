@@ -32,7 +32,7 @@ class SingleTraining {
         if (item.title === this.title) {
           this.exQuantity = item.exercisesAmt;
           this.exTime = item.exercisesTime;
-          this.color = workout_plans[i].color;
+          this.color = item.color;
           this.image = workout_plans[i].image;
         }
       });

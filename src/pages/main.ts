@@ -8,6 +8,9 @@ import pic1 from "../assets/images/pic1.jpg";
 import Authorization from "../utils/auth.routes";
 import Template from "../templates/template";
 import { ITemplate } from "../types/index";
+import SingleTraining from "../components/singleTraining";
+import allTrainings from "../utils/singleTrainings-en";
+import workout_plans from "../utils/workout-plans";
 // import logo from '../assets/png/img1.png';
 
 class MainPage {
@@ -178,6 +181,8 @@ class MainPage {
 
     document.body.append(this.footer.draw());
     // this.registr();
+    const tr = new SingleTraining(allTrainings["ABS advanced"], "ABS advanced");
+    document.body.append(tr.draw());
   }
 
   // private async registr(): Promise<void> {

@@ -8,6 +8,14 @@
     margin: 0 auto;
     max-width: 1600px;
     overflow: hidden;
+    @media (max-width: 1590px) {
+        max-width: 1060px;
+        align-items: start;
+        padding: 0rem;
+      }
+    @media (max-width: 1590px) {
+        align-items: center;
+      }
 }
 
 .page-title {
@@ -15,6 +23,16 @@
     margin-bottom: 1.5rem;
     color: $color-grey-violet;
     letter-spacing: 3px;
+    @media (max-width: 1590px) {
+        align-self: center;
+        margin-top: 3rem;
+    }
+    @media (max-width: 920px) {
+        margin-top: 1rem;
+    }
+    @media (max-width: 440px) {
+        font-size: 28px;
+    }
 }
 
 .add-workout-plans-cont {
@@ -25,6 +43,13 @@
     align-items: center;
     border-radius: 5px;
     margin-bottom: 2rem;
+    @media (max-width: 1590px) {
+        align-self: center;
+    }
+    @media (max-width: 440px) {
+        margin-bottom: 0.5rem;
+        width: 80%;
+    }
 }
 
 .plus-in-circle {
@@ -82,8 +107,50 @@
     display: flex;
     position: relative;
     overflow: hidden;
+    margin-right: 25px;
+    @media (max-width: 1280px) {
+        width: 400px;
+        height: 250px; 
+      }
+    @media (max-width: 920px) {
+    width: 600px;
+    height: 350px; 
+    }
+    @media (max-width: 640px) {
+        width: 400px;
+        height: 250px; 
+    }
+    @media (max-width: 440px) {
+        width: 300px;
+        height: 200px; 
+    }
+
+
     &:hover {
         cursor: pointer;
+    }
+}
+
+.workout-content-cont {
+    width: 1550px;
+    @media (max-width: 1590px) {
+        max-width: 1025px;
+      }
+    @media (max-width: 1280px) {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        width: 850px;
+        overflow: hidden;
+      }
+    @media (max-width: 920px) {
+        width: 600px;
+    }
+    @media (max-width: 640px) {
+        width: 400px;
+    }
+    @media (max-width: 440px) {
+        width: 300px;
     }
 }
 
@@ -92,6 +159,22 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 1550px;
+    @media (max-width: 1590px) {
+        max-width: 1025px;
+      }
+    @media (max-width: 1280px) {
+        width: 850px;
+      }
+    @media (max-width: 920px) {
+    width: 600px;
+    }
+    @media (max-width: 640px) {
+        width: 400px;
+    }
+    @media (max-width: 440px) {
+        width: 300px;
+    }
 } 
 
 
@@ -101,6 +184,13 @@
     text-align: center;
     margin-top: 2.5rem;
     margin-bottom: 2.5rem;
+    @media (max-width: 920px) {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    @media (max-width: 440px) {
+        font-size: 24px;
+    }
     &::after,
     &::before {
         content: "";
@@ -129,13 +219,27 @@
 
 .workout-wrapper {
     display: flex;
-    gap: 1.5rem;
+    transition: ease 0.4s;
+    margin-bottom: 2rem;
+    align-self: start;
 }
 
 .workout-plans-png {
     height: 350px;
     position: absolute;
     right: -5rem;
+    @media (max-width: 1280px) {
+        height: 250px;
+    }
+    @media (max-width: 920px) {
+        height: 350px;
+    }
+    @media (max-width: 640px) {
+        height: 250px;
+    }
+    @media (max-width: 440px) {
+        height: 200px;
+    }
 }
 
 .workout-content-title {
@@ -143,22 +247,41 @@
     font-size: 29px;
     text-align: center;
     padding: 1rem;
+    @media (max-width: 1280px) {
+        font-size: 26px;
+        padding: 0.5rem;
+    }
+    @media (max-width: 440px) {
+        font-size: 22px;
+    }
 }
 
 .text-block {
     padding: 1rem;
     z-index: 10;
     color: $color-grey-violet;
+    @media (max-width: 440px) {
+        padding: 0.5rem;
+    }
 }
 
 .descr-cont {
     display: flex;
     margin-bottom: 1rem;
     align-items: center;
+    @media (max-width: 1280px) {
+        margin-bottom: 0.5rem;
+    }
+    @media (max-width: 440px) {
+       max-height: 35px;
+    }
 }
 
 .desctiption-text {
     font-size: 25px;
+    @media (max-width: 440px) {
+        font-size: 20px;
+     }
 }
 
 .barbell {
@@ -172,4 +295,37 @@
 .lightnings-cont {
     display: flex;
     padding: 1rem;
+}
+
+.buttons-cont {
+
+}
+
+.next-btn, 
+.prev-btn {
+    padding: 5px 10px;
+    cursor: pointer;
+    box-shadow: 0 0 3px 2px rgba(221, 221, 221, 1);
+    border-radius: 5px;
+    border: none;
+    margin-right: 1rem;
+    color: $color-grey-violet;
+    font-family: 'icomoon';
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: 0.3s;
+    &:hover {
+        box-shadow: 0 0 5px 3px rgba(221, 221, 221, 1);
+    }
+}
+
+.sleepy,
+.morning {
+    opacity: 0.8;
+    @media (max-width: 1280px) {
+        right: 0rem;
+    }
+    @media (max-width: 440px) {
+        opacity: 0.4;
+    }
 }

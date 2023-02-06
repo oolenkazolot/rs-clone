@@ -129,7 +129,7 @@ export interface IWorkoutBlock {
     j: number,
     complexityLevel?: boolean
   ) => HTMLElement;
-  createPngImage: (i: number, j: number) => HTMLElement;
+  createPngImage: (i: number, j: number, additClass: string) => HTMLElement;
   createExercCont: (exercAmt: string) => HTMLElement;
   createTimeCont: (time: string) => HTMLElement;
   createLightnings: (j: number) => HTMLElement;

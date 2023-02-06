@@ -57,6 +57,7 @@ class WorkoutBlock {
         data.complexityLevel
       )
     );
+    const additClass = data.title.split(" ")[0];
     if (
       workoutContentCont.getAttribute("name") === "sleepy time stretch" ||
       workoutContentCont.getAttribute("name") === "morning warmup"
@@ -64,7 +65,7 @@ class WorkoutBlock {
       workoutContentCont.style.background = "#fff";
     }
     if (i < 5) {
-      workoutContentCont.append(this.createPngImage(i, j));
+      workoutContentCont.append(this.createPngImage(i, j, additClass));
     }
     return workoutContentCont;
   }
@@ -96,7 +97,11 @@ class WorkoutBlock {
     return textBlock;
   }
 
-  public createPngImage(i: number, j: number): HTMLImageElement {
+  public createPngImage(
+    i: number,
+    j: number,
+    additClass: string
+  ): HTMLImageElement {
     let png;
     if (i === 0) {
       png = absPng;
@@ -118,12 +123,13 @@ class WorkoutBlock {
       "abs image",
       "workout-plans-png"
     );
+    pngImage.classList.add(additClass);
     if (pngImage.src === wholeBody) {
       pngImage.style.right = "-2px";
     }
-    if (pngImage.src === morning || pngImage.src === evening) {
-      pngImage.style.opacity = "0.8";
-    }
+    // if (pngImage.src === morning || pngImage.src === evening) {
+    //   pngImage.style.opacity = "0.8";
+    // }
     return pngImage;
   }
 

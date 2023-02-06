@@ -15,14 +15,14 @@
   height: fit-content;
   background: $color-white;
   border-radius: 20px;
-  padding: 50px 30px 50px;
+  padding: 30px;
   font-size: 1.4rem;
   color: $color-second;
 
   &__gif {
     display: block;
-    width: 20%;
-    height: 80px;
+    width: 25%;
+    height: auto;
     margin: 0 auto 30px;
   }
 

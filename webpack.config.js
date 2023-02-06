@@ -5,6 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const EslintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const { basename } = require('path/posix');
 
 const baseConfig = {
@@ -90,6 +91,14 @@ const baseConfig = {
     }),
     new CleanWebpackPlugin(),
     new EslintPlugin({ extensions: 'ts' }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src/assets'),
+          to: path.resolve(__dirname, 'dist/assets'),
+        },
+      ],
+    }),
   ],
 };
 

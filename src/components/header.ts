@@ -1,10 +1,11 @@
 import Template from "../templates/template";
-import { ITemplate } from "../types/index";
+import { ITemplate, IRouter } from "../types/index";
 import Button from "../components/button";
 import { onOpenModal } from "../utils/component-utils";
 
 class Header {
   template: ITemplate;
+  public router?: IRouter;
   constructor() {
     this.template = new Template();
   }
@@ -15,7 +16,11 @@ class Header {
       return;
     }
     header.classList.add("header");
-    header.append(this.createLogo(), this.createButtons());
+    header.append(
+      this.createLogo(),
+      this.createLinkTrainingsCreatePage(),
+      this.createButtons()
+    );
   }
 
   private createLogo(): HTMLElement {
@@ -53,6 +58,21 @@ class Header {
 
     buttons.append(btnSignIn, btnSignUp);
     return buttons;
+  }
+
+  // Alisatonks для ссылки на страницу с training plans.
+  public createLinkTrainingsCreatePage(): HTMLElement {
+    const a = document.createElement("a");
+    a.innerText = "to training plans";
+    const main = document.querySelector("main") as HTMLElement;
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (this.router) {
+        main.innerHTML = "";
+        this.router.navigate("workout_plans");
+      }
+    });
+    return a;
   }
 }
 

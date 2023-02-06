@@ -96,7 +96,8 @@ class TrainingModal {
 
     const exerciseGif: HTMLImageElement = document.createElement("img");
     exerciseGif.className = "exercise-modal__gif";
-    exerciseGif.src = this.exercise.example;
+    const path: string = this.exercise.example;
+    exerciseGif.src = path;
     this.modal.append(exerciseGif);
 
     this.createExerciseInfo();
@@ -111,6 +112,10 @@ class TrainingModal {
     this.createChangeBlock();
 
     document.body.prepend(this.backLayer);
+
+    closeButton.addEventListener("click", () => {
+      this.backLayer.style.display = "none";
+    });
   }
 }
 

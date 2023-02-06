@@ -83,7 +83,8 @@ class SingleTraining {
     exerciseContainer.append(exerciseGif);
 
     const img: HTMLImageElement = document.createElement("img");
-    img.src = exercise.example;
+    const path: string = exercise.example;
+    img.src = path;
     exerciseGif.append(img);
 
     this.exercises.append(exerciseContainer);

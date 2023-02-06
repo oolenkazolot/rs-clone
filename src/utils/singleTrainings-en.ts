@@ -1,5 +1,5 @@
 const allTrainings = {
-  ["ABS beginner"]: [
+  ABS_beginner: [
     {
       id: 1,
       title: "jumping jacks",
@@ -172,7 +172,7 @@ const allTrainings = {
       quantity: "00:30",
     },
   ],
-  ["ABS intermediate"]: [
+  ABS_intermediate: [
     {
       id: 1,
       title: "jumping jacks",
@@ -354,7 +354,7 @@ const allTrainings = {
       quantity: "00:30",
     },
   ],
-  ["ABS advanced"]: [
+  ABS_advanced: [
     {
       id: 1,
       title: "jumping jacks",
@@ -587,6 +587,170 @@ const allTrainings = {
         "Lie on your back with your arms extended at your sides. Bend your legs and twist your legs to the right. Hold this position. This exercise stretches your obliques and lower back.",
       example: "../assets/images/lying_twist_stretch_right.jpg",
       youtube: "https://www.youtube.com/watch?v=ZI-j_POtzlU",
+      quantity: "00:30",
+    },
+  ],
+  BUTT_beginner: [
+    {
+      id: 1,
+      title: "high stepping",
+      description:
+        "Run in place while pulling you knees as high as possible with each step. Do it as fast as you can. Keep your back straight",
+      example: "../assets/gifs/high_stepping.gif",
+      youtube: "https://www.youtube.com/watch?v=Cmxr9xcNhgU",
+      quantity: "00:30",
+    },
+    {
+      id: 2,
+      title: "butt kicks",
+      description:
+        "Run in place while kicking your heel up to touch your butt with each step. Try to do it as fast as you can. Keep your chest up, tighten your abs. It's a great exercise for the gluteus and hamstrings.",
+      example: "../assets/gifs/butt_kicks.gif",
+      youtube: "https://www.youtube.com/watch?v=vXVPvY1UbJI",
+      quantity: "00:30",
+    },
+    {
+      id: 3,
+      title: "squats",
+      description:
+        "Stand with feet a little wider than hip width, then lower your body until your thighs are parallel with the floor. Your knees should be extended in the same direction as your toes. This exercise works the thighs hips buttocks, quads, hamstrings and lower body.",
+      example: "../assets/gifs/squats.gif",
+      youtube: "https://www.youtube.com/watch?v=42bFodPahBU",
+      quantity: "x12",
+    },
+    {
+      id: 4,
+      title: "standing glute kickbacks left",
+      description:
+        "Сontract your core muscles. Extend your left leg back and up. The sole of your right foot should be facing the ceiling. Contract your glute at the top of the move and hold for a bit. Return to your starting position and repeat.",
+      example: "../assets/gifs/standing_glute_kickbacks_left.gif",
+      youtube: "https://www.youtube.com/watch?v=pn2EZjEE_ZU",
+      quantity: "x10",
+    },
+    {
+      id: 5,
+      title: "standing glute kickbacks right",
+      description:
+        "Get into all fours, with a straight spine, and contract your core muscles. Extend your right leg back and up until your thigh is parallel with the ground. The sole of your right foot should be facing the ceiling. Contract your glute at the top of the move and hold for a bit. Return to your starting position without touching your knee to the ground and repeat.",
+      example: "../assets/gifs/standing_glute_kickbacks_right.gif",
+      youtube: "https://www.youtube.com/watch?v=pn2EZjEE_ZU",
+      quantity: "x10",
+    },
+    {
+      id: 6,
+      title: "butt bridge",
+      description:
+        "Lie on your back with knees bent, feet flat on the floor and arms at your sides. Push your hips up, hold for one second and slowly lower down. This exercise works your glutes.",
+      example: "../assets/gifs/butt_bridge.gif",
+      youtube: "https://www.youtube.com/watch?v=9qo48CYN06w",
+      quantity: "x10",
+    },
+    {
+      id: 7,
+      title: "mountain climber",
+      description:
+        "Put both hands and knees on the floor. Place your right foot near your right hand and extend your left leg behind you. In one smooth motion switch your legs, keeping your arms in the same position. Switch your legs back and forth twice, such that your right leg is again close to your right hand.",
+      example: "../assets/gifs/mountain_climber.gif",
+      youtube: "https://www.youtube.com/watch?v=wQq3ybaLZeA",
+      quantity: "x14",
+    },
+    {
+      id: 8,
+      title: "donkey kicks left",
+      description:
+        "Start with your knees under your butt and your hands under your shoulders. Then lift your left leg and squeeze your butt as much as you can. Keep your core tight.",
+      example: "../assets/gifs/donkey_kicks_left.gif",
+      youtube: "https://www.youtube.com/watch?v=4ranVQDqlaU",
+      quantity: "x12",
+    },
+    {
+      id: 9,
+      title: "squats",
+      description:
+        "Stand with feet a little wider than hip width, then lower your body until your thighs are parallel with the floor. Your knees should be extended in the same direction as your toes. This exercise works the thighs hips buttocks, quads, hamstrings and lower body.",
+      example: "../assets/gifs/squats.gif",
+      youtube: "https://www.youtube.com/watch?v=42bFodPahBU",
+      quantity: "x10",
+    },
+    {
+      id: 10,
+      title: "standing glute kickbacks right",
+      description:
+        "Get into all fours, with a straight spine, and contract your core muscles. Extend your right leg back and up until your thigh is parallel with the ground. The sole of your right foot should be facing the ceiling. Contract your glute at the top of the move and hold for a bit. Return to your starting position without touching your knee to the ground and repeat.",
+      example: "../assets/gifs/standing_glute_kickbacks_right.gif",
+      youtube: "https://www.youtube.com/watch?v=pn2EZjEE_ZU",
+      quantity: "x8",
+    },
+    {
+      id: 11,
+      title: "donkey kicks right",
+      description:
+        "Start with your knees under your butt and your hands under your shoulders. Then lift your right leg and squeeze your butt as much as you can. Keep your core tight.",
+      example: "../assets/gifs/donkey_kicks_right.gif",
+      youtube: "https://www.youtube.com/watch?v=4ranVQDqlaU",
+      quantity: "x8",
+    },
+    {
+      id: 12,
+      title: "standing glute kickbacks left",
+      description:
+        "Сontract your core muscles. Extend your left leg back and up. The sole of your right foot should be facing the ceiling. Contract your glute at the top of the move and hold for a bit. Return to your starting position and repeat.",
+      example: "../assets/gifs/standing_glute_kickbacks_left.gif",
+      youtube: "https://www.youtube.com/watch?v=pn2EZjEE_ZU",
+      quantity: "x8",
+    },
+    {
+      id: 13,
+      title: "butt bridge",
+      description:
+        "Lie on your back with knees bent, feet flat on the floor and arms at your sides. Push your hips up, hold for one second and slowly lower down. This exercise works your glutes.",
+      example: "../assets/gifs/butt_bridge.gif",
+      youtube: "https://www.youtube.com/watch?v=9qo48CYN06w",
+      quantity: "x8",
+    },
+    {
+      id: 14,
+      title: "mountain climber",
+      description:
+        "Put both hands and knees on the floor. Place your right foot near your right hand and extend your left leg behind you. In one smooth motion switch your legs, keeping your arms in the same position. Switch your legs back and forth twice, such that your right leg is again close to your right hand.",
+      example: "../assets/gifs/mountain_climber.gif",
+      youtube: "https://www.youtube.com/watch?v=wQq3ybaLZeA",
+      quantity: "x12",
+    },
+    {
+      id: 15,
+      title: "donkey kicks left",
+      description:
+        "Start with your knees under your butt and your hands under your shoulders. Then lift your left leg and squeeze your butt as much as you can. Keep your core tight.",
+      example: "../assets/gifs/donkey_kicks_left.gif",
+      youtube: "https://www.youtube.com/watch?v=4ranVQDqlaU",
+      quantity: "x10",
+    },
+    {
+      id: 16,
+      title: "donkey kicks right",
+      description:
+        "Start with your knees under your butt and your hands under your shoulders. Then lift your right leg and squeeze your butt as much as you can. Keep your core tight.",
+      example: "../assets/gifs/donkey_kicks_right.gif",
+      youtube: "https://www.youtube.com/watch?v=4ranVQDqlaU",
+      quantity: "x10",
+    },
+    {
+      id: 17,
+      title: "knee to chest stretch left",
+      description:
+        "Lie on your back with your legs extended and back straight. Keep your hips level and your lower back down on the floor. Pull your left knee towards your chest as much as you can while keeping your right leg straight on the ground. Hold this position.",
+      example: "../assets/images/knee_to_chest_left.jpg",
+      youtube: "https://www.youtube.com/watch?v=bJms9YyjoBI",
+      quantity: "00:30",
+    },
+    {
+      id: 18,
+      title: "knee to chest stretch right",
+      description:
+        "Lie on your back with your legs extended and back straight. Keep your hips level and your lower back down on the floor. Pull your right knee towards your chest as much as you can while keeping your left leg straight on the ground. Hold this position.",
+      example: "../assets/images/knee_to_chest_right.jpg",
+      youtube: "https://www.youtube.com/watch?v=bJms9YyjoBI",
       quantity: "00:30",
     },
   ],

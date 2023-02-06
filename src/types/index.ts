@@ -105,6 +105,10 @@ export interface ITraining {
   quantity: string;
 }
 
+export type IAllTrainings = {
+  [key: string]: ITraining[];
+};
+
 export interface IValidate {
   res: boolean;
   message?: string;
@@ -140,4 +144,5 @@ export interface IWorkoutMiniBlock {
   exercisesAmt: string;
   exercisesTime: string;
   complexityLevel?: boolean;
+  color: string;
 }

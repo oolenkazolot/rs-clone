@@ -1,6 +1,6 @@
 import Template from "../templates/template";
-import { ITemplate, ITraining } from "../types/index";
-import workout_plans from "../utils/workout-plans";
+import { ITemplate, ITraining, IWorkoutMiniBlock } from "../types/index";
+import workout_plans from "../utils/workout-plans-en";
 
 class SingleTraining {
   template: ITemplate;
@@ -28,7 +28,7 @@ class SingleTraining {
 
   private createHeader(): void {
     for (let i = 0; i < workout_plans.length; i++) {
-      workout_plans[i].block.forEach((item) => {
+      workout_plans[i].block.forEach((item: IWorkoutMiniBlock) => {
         if (item.title === this.title) {
           this.exQuantity = item.exercisesAmt;
           this.exTime = item.exercisesTime;

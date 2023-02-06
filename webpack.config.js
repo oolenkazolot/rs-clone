@@ -6,7 +6,6 @@ const EslintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const { basename } = require('path/posix');
 
 const baseConfig = {
   entry: path.resolve(__dirname, './src/index.ts'),

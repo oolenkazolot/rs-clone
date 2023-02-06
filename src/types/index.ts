@@ -18,10 +18,22 @@ export interface IMainPage {
 }
 
 export interface IAuthorization {
-  registration: (data: IRegistrationData) => Promise<void>;
+  registration: (data: IRegistrationData) => Promise<IAnswerAuth | undefined>;
+  authorization: (data: IAuthorizationData) => Promise<IAnswerAuth | undefined>;
+}
+
+export interface IAnswerAuth {
+  message?: string;
+  token?: string;
+  userId?: string;
 }
 
 export interface IRegistrationData {
+  email: string;
+  password: string;
+}
+
+export interface IAuthorizationData {
   email: string;
   password: string;
 }
@@ -62,7 +74,7 @@ export interface IButton {
   className?: string[];
   variant?: string;
   type?: string;
-  onClick?: () => void;
+  onClick?: (e: Event) => void;
 }
 
 export interface IModal {
@@ -73,6 +85,7 @@ export interface IInputBlock {
   className?: string[];
   attributes: Record<string, string>;
   classNameIcon: string;
+  validate: (inputValue: string) => IValidate;
 }
 
 export interface IModalSignIn {
@@ -92,6 +105,24 @@ export interface ITraining {
   quantity: string
 }
 
+export interface ITraining {
+  id: number;
+  title: string;
+  description: string;
+  example: string,
+  youtube: string;
+  quantity: string
+}
+
+export interface IValidate {
+  res: boolean;
+  message?: string;
+}
+
+export interface IDataUser {
+  token: string;
+  userId: string;
+}
 export interface IWorkoutBlock {
   createWorkoutBlockCont: (titleText: string) => HTMLElement;
   createTitle: (titleText: string) => HTMLElement;
@@ -119,3 +150,4 @@ export interface IWorkoutMiniBlock {
   exercisesTime: string;
   complexityLevel?: boolean;
 }
+

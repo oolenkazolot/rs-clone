@@ -8,17 +8,14 @@ import {
 import { plus_in_circle } from "../components/svg";
 import workout_plans from "../utils/workout-plans-en";
 import WorkoutBlock from "../components/workoutBlock";
-import Slider from "../components/slider";
 
 class TrainingsPage {
   template: ITemplate;
   workoutBlock: IWorkoutBlock;
-  slider;
   public router?: IRouter;
   constructor() {
     this.template = new Template();
     this.workoutBlock = new WorkoutBlock();
-    this.slider = new Slider();
   }
 
   public draw(): void {
@@ -127,7 +124,7 @@ class TrainingsPage {
       "next-btn",
       "next"
     );
-    if (length <= 2) {
+    if (length <= 1) {
       nextBtn.disabled = true;
     }
     const prevBtn: HTMLButtonElement = this.template.createBtn(
@@ -138,27 +135,27 @@ class TrainingsPage {
     buttonsCont.append(prevBtn, nextBtn);
     let n = 0;
     nextBtn.addEventListener("click", () => {
-      console.log(n);
-      this.slider.slideRight(n, nextBtn, prevBtn, wrapper, length);
-      // if (n < length - 1) {
-      //   nextBtn.disabled = false;
-      //   n++;
-      //   prevBtn.disabled = false;
-      //   const delta = 33.33 * n;
-      //   wrapper.style.justifyContent = "flex-start";
-      //   wrapper.style.transform = `translate(-${delta}%)`;
-      // }
-      // if (n >= length - 1) {
-      //   nextBtn.disabled = true;
-      // }
+      if (n < length - 1) {
+        nextBtn.disabled = false;
+        n++;
+        prevBtn.disabled = false;
+        const delta = (100 / length) * n;
+        wrapper.style.justifyContent = "flex-start";
+        wrapper.style.transform = `translate(-${delta}%)`;
+      }
+      if (n >= length - 1) {
+        nextBtn.disabled = true;
+      }
     });
     prevBtn.addEventListener("click", () => {
-      if (n < length - 1) {
+      console.log(n, length);
+      if (n <= length - 1) {
+        console.log("here");
         nextBtn.disabled = false;
       }
       if (n > 0) {
         n--;
-        const delta = 33.33 * n;
+        const delta = (100 / length) * n;
         wrapper.style.justifyContent = "flex-start";
         wrapper.style.transform = `translate(-${delta}%)`;
       }

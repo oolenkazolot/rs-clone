@@ -100,18 +100,9 @@ export interface ITraining {
   id: number;
   title: string;
   description: string;
-  example: string,
+  example: string;
   youtube: string;
-  quantity: string
-}
-
-export interface ITraining {
-  id: number;
-  title: string;
-  description: string;
-  example: string,
-  youtube: string;
-  quantity: string
+  quantity: string;
 }
 
 export interface IValidate {
@@ -150,4 +141,3 @@ export interface IWorkoutMiniBlock {
   exercisesTime: string;
   complexityLevel?: boolean;
 }
-

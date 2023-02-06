@@ -19,16 +19,19 @@ class Footer {
       "footer__hubs-link",
       "https://github.com/oolenkazolot"
     );
+    firstLink.target = "_blank";
     firstLink.textContent = "oolenkazolot";
     const secondLink: HTMLAnchorElement = this.template.createLink(
       "footer__hubs-link",
       "https://github.com/alisatonks"
     );
+    secondLink.target = "_blank";
     secondLink.textContent = "alisatonks";
     const thirdLink: HTMLAnchorElement = this.template.createLink(
       "footer__hubs-link",
       "https://github.com/svetik-k"
     );
+    thirdLink.target = "_blank";
     thirdLink.textContent = "svetik-k";
     gitHubs.append(firstLink, secondLink, thirdLink);
     this.footer.append(gitHubs);

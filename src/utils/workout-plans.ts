@@ -1,6 +1,9 @@
 const workout_plans = [
   {
     title: "ABS Workouts",
+    color:
+      "linear-gradient(90deg, rgba(24,240,237,1) 0%, rgba(206,247,242,1) 100%)",
+    image: "../assets/png/abs3.png",
     block: [
       {
         title: "ABS beginner",
@@ -24,6 +27,9 @@ const workout_plans = [
   },
   {
     title: "BUTT Workouts",
+    color:
+      "linear-gradient(90deg, rgba(113,179,235,1) 0%, rgba(202,227,249,1) 100%)",
+    image: "../assets/png/butt.png",
     block: [
       {
         title: "BUTT beginner",
@@ -47,6 +53,9 @@ const workout_plans = [
   },
   {
     title: "THIGH Workouts",
+    color:
+      "linear-gradient(90deg, rgba(244,117,117,1) 0%, rgba(255,209,209,1) 100%)",
+    image: "../assets/png/thigh.png",
     block: [
       {
         title: "THIGH beginner",
@@ -70,6 +79,9 @@ const workout_plans = [
   },
   {
     title: "Routines",
+    color:
+      "linear-gradient(90deg, rgba(128,27,150,0.7567401960784313) 0%, rgba(214,189,221,1) 78%)",
+    image: "../assets/images/morning_evening.jpg",
     block: [
       {
         title: "morning warmup",
@@ -85,6 +97,9 @@ const workout_plans = [
   },
   {
     title: `7 x 4 Challenges`,
+    color:
+      "linear-gradient(90deg, rgba(128,27,150,0.7567401960784313) 0%, rgba(214,189,221,1) 78%)",
+    image: "../assets/png/whole_body2.png",
     block: [
       {
         title: "full body",

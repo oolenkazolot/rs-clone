@@ -18,7 +18,7 @@
     transition: $transition;
     border: none;
     cursor: pointer;
-    margin: 40px auto 0;
+    margin: 0 auto 0;
 
     &:hover {
       background-color: $color-main;
@@ -31,7 +31,6 @@
   display: flex;
   align-items: center;
   padding: 20px 40px;
-  background-color: $color-lavender-blush;
 
   &__return {
     display: inline-block;
@@ -61,11 +60,50 @@
   }
 }
 
+.header-bottom {
+  padding: 20px 40px 0;
+
+  &__name {
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    color: $color-second;
+    margin-bottom: 20px;
+  }
+
+  &__quantity,
+  &__time {
+    font-size: 1.4rem;
+    color: $color-second;
+    margin-bottom: 10px;
+    padding-left: 45px;
+  }
+
+  &__quantity {
+    background: url(../assets/png/gantel.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: left center;
+  }
+
+  &__time {
+    background: url(../assets/svg/clock.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: left center;
+  }
+}
+
 .exercises {
   width: 70%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  padding-top: 10px;
+
+  @media all and (max-width: 1000px) {
+    width: 100%;
+    padding: 10px 20px;
+  }
 
   &__item {
     width: 100%;

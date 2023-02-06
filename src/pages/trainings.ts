@@ -133,37 +133,47 @@ class TrainingsPage {
     );
     prevBtn.disabled = true;
     buttonsCont.append(prevBtn, nextBtn);
-    let n = 0;
-    nextBtn.addEventListener("click", () => {
-      if (n < length - 1) {
-        nextBtn.disabled = false;
-        n++;
-        prevBtn.disabled = false;
-        const delta = (100 / length) * n;
-        wrapper.style.justifyContent = "flex-start";
-        wrapper.style.transform = `translate(-${delta}%)`;
-      }
-      if (n >= length - 1) {
-        nextBtn.disabled = true;
-      }
-    });
-    prevBtn.addEventListener("click", () => {
-      console.log(n, length);
-      if (n <= length - 1) {
-        console.log("here");
-        nextBtn.disabled = false;
-      }
-      if (n > 0) {
-        n--;
-        const delta = (100 / length) * n;
-        wrapper.style.justifyContent = "flex-start";
-        wrapper.style.transform = `translate(-${delta}%)`;
-      }
-      if (n === 0) {
-        prevBtn.disabled = true;
-      }
-    });
+    this.slider(nextBtn, prevBtn, wrapper, length);
     return buttonsCont;
+  }
+
+  private slider(
+    nextBtn: HTMLButtonElement,
+    prevBtn: HTMLButtonElement,
+    wrapper: HTMLElement,
+    length: number
+  ): void {
+    function nCalc() {
+      let n = 0;
+      nextBtn.addEventListener("click", () => {
+        if (n < length - 1) {
+          nextBtn.disabled = false;
+          n++;
+          prevBtn.disabled = false;
+          const delta = (100 / length) * n;
+          wrapper.style.justifyContent = "flex-start";
+          wrapper.style.transform = `translate(-${delta}%)`;
+        }
+        if (n >= length - 1) {
+          nextBtn.disabled = true;
+        }
+      });
+      prevBtn.addEventListener("click", () => {
+        if (n <= length - 1) {
+          nextBtn.disabled = false;
+        }
+        if (n > 0) {
+          n--;
+          const delta = (100 / length) * n;
+          wrapper.style.justifyContent = "flex-start";
+          wrapper.style.transform = `translate(-${delta}%)`;
+        }
+        if (n === 0) {
+          prevBtn.disabled = true;
+        }
+      });
+    }
+    nCalc();
   }
 }
 

@@ -67,6 +67,7 @@ class WorkoutBlock {
     if (i < 5) {
       workoutContentCont.append(this.createPngImage(i, j, additClass));
     }
+
     return workoutContentCont;
   }
 

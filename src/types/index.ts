@@ -96,6 +96,19 @@ export interface IModalSignUp {
   draw: () => void;
 }
 
+export interface IExercise {
+  id: number;
+  title: string;
+  description: string;
+  example: string;
+  youtube: string;
+  quantity: string;
+}
+
+export type IAllTrainings = {
+  [key: string]: IExercise[];
+};
+
 export interface IValidate {
   res: boolean;
   message?: string;
@@ -131,4 +144,5 @@ export interface IWorkoutMiniBlock {
   exercisesAmt: string;
   exercisesTime: string;
   complexityLevel?: boolean;
+  color: string;
 }

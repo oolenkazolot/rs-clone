@@ -14,5 +14,15 @@
     &:hover {
       color: $color-main-second;
     }
+
+    &.disabled {
+      opacity: 0.5;
+
+      &:hover {
+        color: $color-grey-light;
+        opacity: 0.5;
+        cursor: auto;
+      }
+    }
   }
 }

@@ -7,7 +7,7 @@ import {
   IAnswerAuth,
   IHeader,
 } from "../types/index";
-import { Input } from "../components/Input";
+import { InputIcon } from "../components/InputIcon";
 import { PasswordInput } from "../components/PasswordInput";
 import Button from "../components/button";
 import { onOpenModal, onCloseModal } from "../utils/component-utils";
@@ -67,7 +67,7 @@ class ModalSignIn {
       `${this.mainClass}__form`,
       "/"
     );
-    const inputBlockEmail: HTMLElement = Input({
+    const inputBlockEmail: HTMLElement = InputIcon({
       className: [],
       attributes: {
         type: "text",
@@ -137,6 +137,7 @@ class ModalSignIn {
 
     if (res.token && res.userId) {
       setUserLocalStorage({ token: res.token, userId: res.userId });
+
       this.header.draw();
       onCloseModal("modal-sign-in")();
     }

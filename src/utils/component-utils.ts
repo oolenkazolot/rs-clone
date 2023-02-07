@@ -13,9 +13,12 @@ export function addClasses(
 export function onOpenModal(
   idOpenModal: string,
   idCloseModal?: string
-): (e: Event) => void {
-  return (e: Event) => {
-    e.preventDefault();
+): (e?: Event) => void {
+  return (e?: Event) => {
+    if (e) {
+      e.preventDefault();
+    }
+
     if (idCloseModal) {
       onCloseModal(idCloseModal)();
     }

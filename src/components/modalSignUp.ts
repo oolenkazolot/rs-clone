@@ -6,8 +6,9 @@ import {
   IAuthorization,
   IAnswerAuth,
   IHeader,
+  IModalQuestions,
 } from "../types/index";
-import { Input } from "../components/Input";
+import { InputIcon } from "../components/InputIcon";
 import { PasswordInput } from "../components/PasswordInput";
 import Button from "../components/button";
 import { onOpenModal, onCloseModal } from "../utils/component-utils";
@@ -15,6 +16,7 @@ import { isEmailValid } from "../utils/validate";
 import Authorization from "../utils/auth.routes";
 import Header from "../components/header";
 import { setUserLocalStorage } from "../utils/auth";
+import ModalQuestions from "../components/modalQuestions";
 
 class ModalSignUp {
   template: ITemplate;
@@ -22,6 +24,7 @@ class ModalSignUp {
   mainClass: string;
   authorization: IAuthorization;
   header: IHeader;
+  modalQuestions: IModalQuestions;
 
   constructor() {
     this.modal = new Modal();
@@ -29,6 +32,7 @@ class ModalSignUp {
     this.mainClass = "registration-form";
     this.authorization = new Authorization();
     this.header = new Header();
+    this.modalQuestions = new ModalQuestions();
   }
 
   public draw(): void {
@@ -66,7 +70,7 @@ class ModalSignUp {
       `${this.mainClass}__form`,
       "/"
     );
-    const inputBlockEmail: HTMLElement = Input({
+    const inputBlockEmail: HTMLElement = InputIcon({
       className: [],
       attributes: {
         type: "text",
@@ -136,7 +140,7 @@ class ModalSignUp {
     if (res.token && res.userId) {
       setUserLocalStorage({ token: res.token, userId: res.userId });
       this.header.draw();
-      onCloseModal("modal-sign-up")();
+      onOpenModal("modal-questions", "modal-sign-up")();
     }
     if (res.message) {
       this.ErrorHandler(res, messageEl);

@@ -1,3 +1,4 @@
+import { log } from "console";
 import { IValidate } from "../types/index";
 
 export function isEmailValid(email: string): IValidate {
@@ -27,6 +28,18 @@ export function isPasswordValid(password: string): IValidate {
       message: "Password must not contain spaces",
     };
   }
+  return {
+    res: true,
+  };
+}
+
+export function isHeightValid(height: string): IValidate {
+  return {
+    res: true,
+  };
+}
+
+export function isScalesValid(scales: string): IValidate {
   return {
     res: true,
   };

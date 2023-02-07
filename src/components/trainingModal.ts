@@ -1,13 +1,13 @@
 import Template from "../templates/template";
-import { ITemplate, ITraining } from "../types/index";
+import { ITemplate, IExercise} from "../types/index";
 
 class TrainingModal {
   template: ITemplate;
-  exercise: ITraining;
+  exercise: IExercise;
   backLayer: HTMLElement;
   modal: HTMLElement;
 
-  constructor(exercise: ITraining) {
+  constructor(exercise: IExercise) {
     this.template = new Template();
     this.exercise = exercise;
     this.backLayer = this.template.createElement(

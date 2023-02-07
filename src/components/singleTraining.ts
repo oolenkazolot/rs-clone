@@ -1,11 +1,12 @@
 import Template from "../templates/template";
-import { ITemplate, ITraining, IWorkoutMiniBlock } from "../types/index";
+import Exercise from "../components/exercise";
+import { ITemplate, IExercise, IWorkoutMiniBlock } from "../types/index";
 import workout_plans from "../utils/workout-plans-en";
 
 class SingleTraining {
   template: ITemplate;
   container: HTMLElement;
-  trainings: ITraining[];
+  trainings: IExercise[];
   exercises: HTMLElement;
   title: string;
   exQuantity: string;
@@ -13,7 +14,7 @@ class SingleTraining {
   color: string;
   image: string;
 
-  constructor(trainings: ITraining[], title: string) {
+  constructor(trainings: IExercise[], title: string) {
     this.template = new Template();
     this.container = this.template.createElement("div", "training");
     this.exercises = document.createElement("div");
@@ -97,51 +98,13 @@ class SingleTraining {
     this.container.append(header);
   }
 
-  private createExercise(exercise: ITraining): void {
-    const exerciseContainer: HTMLElement = document.createElement("div");
-    exerciseContainer.className = "exercises__item exercise";
-    exerciseContainer.id = `${exercise.id}`;
-
-    const exerciseInfo: HTMLElement = this.template.createElement(
-      "div",
-      "exercise__info"
-    );
-    exerciseContainer.append(exerciseInfo);
-
-    const exerciseName: HTMLElement = this.template.createElement(
-      "p",
-      "exercise__name",
-      exercise.title
-    );
-    exerciseInfo.append(exerciseName);
-
-    const exerciseQuantity: HTMLElement = this.template.createElement(
-      "p",
-      "exercise__quantity",
-      exercise.quantity
-    );
-    exerciseInfo.append(exerciseQuantity);
-
-    const exerciseGif: HTMLElement = this.template.createElement(
-      "div",
-      "exercise__gif"
-    );
-    exerciseContainer.append(exerciseGif);
-
-    const img: HTMLImageElement = document.createElement("img");
-    const path: string = exercise.example;
-    img.src = path;
-    exerciseGif.append(img);
-
-    this.exercises.append(exerciseContainer);
-  }
-
   public draw(): HTMLElement {
     this.createHeader();
     this.container.append(this.exercises);
 
-    this.trainings.forEach((training: ITraining) => {
-      this.createExercise(training);
+    this.trainings.forEach((training: IExercise) => {
+      const newEx = new Exercise(training);
+      this.exercises.append(newEx.draw());
     });
 
     return this.container;

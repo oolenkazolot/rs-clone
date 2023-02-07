@@ -96,7 +96,7 @@ export interface IModalSignUp {
   draw: () => void;
 }
 
-export interface ITraining {
+export interface IExercise {
   id: number;
   title: string;
   description: string;
@@ -106,7 +106,7 @@ export interface ITraining {
 }
 
 export type IAllTrainings = {
-  [key: string]: ITraining[];
+  [key: string]: IExercise[];
 };
 
 export interface IValidate {

@@ -127,9 +127,6 @@ class WorkoutBlock {
     if (pngImage.src === wholeBody) {
       pngImage.style.right = "-2px";
     }
-    // if (pngImage.src === morning || pngImage.src === evening) {
-    //   pngImage.style.opacity = "0.8";
-    // }
     return pngImage;
   }
 

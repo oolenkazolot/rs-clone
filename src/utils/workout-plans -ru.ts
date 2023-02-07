@@ -1,21 +1,21 @@
 const workout_plans = [
   {
-    title: "ABS Workouts",
+    title: "ABS Тренировки",
     block: [
       {
-        title: "ABS beginner",
+        title: "ABS новичок",
         exercisesAmt: "19",
         exercisesTime: "15",
         complexityLevel: true,
       },
       {
-        title: "ABS intermediate",
+        title: "ABS средний",
         exercisesAmt: "20",
         exercisesTime: "17",
         complexityLevel: true,
       },
       {
-        title: "ABS advanced",
+        title: "ABS продвинутый",
         exercisesAmt: "26",
         exercisesTime: "13",
         complexityLevel: true,
@@ -23,22 +23,22 @@ const workout_plans = [
     ],
   },
   {
-    title: "BUTT Workouts",
+    title: "Тренировки для ягодиц",
     block: [
       {
-        title: "BUTT beginner",
+        title: "Ягодицы новичок",
         exercisesAmt: "18",
         exercisesTime: "13",
         complexityLevel: true,
       },
       {
-        title: "BUTT intermediate",
+        title: "Ягодицы средний",
         exercisesAmt: "26",
         exercisesTime: "18",
         complexityLevel: true,
       },
       {
-        title: "BUTT advanced",
+        title: "Ягодицы продвинутый",
         exercisesAmt: "32",
         exercisesTime: "24",
         complexityLevel: true,
@@ -46,22 +46,22 @@ const workout_plans = [
     ],
   },
   {
-    title: "THIGH Workouts",
+    title: "Тренировки для бедер",
     block: [
       {
-        title: "THIGH beginner",
+        title: "Бедра новичок",
         exercisesAmt: "19",
         exercisesTime: "14",
         complexityLevel: true,
       },
       {
-        title: "THIGH intermediate",
+        title: "Бедра средний",
         exercisesAmt: "26",
         exercisesTime: "19",
         complexityLevel: true,
       },
       {
-        title: "THIGH advanced",
+        title: "Бедра продвинутый",
         exercisesAmt: "29",
         exercisesTime: "21",
         complexityLevel: true,
@@ -69,25 +69,25 @@ const workout_plans = [
     ],
   },
   {
-    title: "Routines",
+    title: "Повседневные тренировки",
     block: [
       {
-        title: "morning warmup",
+        title: "Утренний разогрев",
         exercisesAmt: "11",
         exercisesTime: "10",
       },
       {
-        title: "sleepy time stretch",
+        title: "Растяжки перед сном",
         exercisesAmt: "13",
         exercisesTime: "13",
       },
     ],
   },
   {
-    title: `7 x 4 Challenges`,
+    title: `7 x 4 Испытание`,
     block: [
       {
-        title: "full body",
+        title: "тренировка на все тело",
         exercisesAmt: "16 - 24",
         exercisesTime: "13 - 22",
         complexityLevel: true,

@@ -26,76 +26,102 @@ class MainPage {
   }
 
   private createIntroSection(): void {
-    const introSection = document.createElement("section");
+    const introSection: HTMLElement = document.createElement("section");
     introSection.className = "main__intro intro";
 
-    const introWrapper = this.template.createElement("div", "intro__wrapper");
+    const introWrapper: HTMLElement = this.template.createElement(
+      "div",
+      "intro__wrapper"
+    );
     introSection.append(introWrapper);
 
-    const leftVideos = this.template.createElement("div", "intro__left");
+    const leftVideos: HTMLElement = this.template.createElement(
+      "div",
+      "intro__left"
+    );
     introWrapper.append(leftVideos);
 
-    const upperVideo = this.template.createVideo(video1);
+    const upperVideo: HTMLVideoElement = this.template.createVideo(video1);
     leftVideos.append(upperVideo);
 
-    const bottomVideo = this.template.createVideo(video2);
+    const bottomVideo: HTMLVideoElement = this.template.createVideo(video2);
     leftVideos.append(bottomVideo);
 
-    const central = this.template.createElement("div", "intro__center");
+    const central: HTMLElement = this.template.createElement(
+      "div",
+      "intro__center"
+    );
     introWrapper.append(central);
 
-    const centralText = this.template.createElement("h2", "intro__text");
+    const centralText: HTMLElement = this.template.createElement(
+      "h2",
+      "intro__text"
+    );
     centralText.innerHTML =
       "Find Your Inner Energy and Strength.<br> Join Our Comunity for Support.";
     central.append(centralText);
 
-    const googleLink = this.template.createLink(
+    const googleLink: HTMLAnchorElement = this.template.createLink(
       "intro__link",
       "https://play.google.com/store/apps/details?id=com.betterlifewithapps.womenworkouts&hl=en&gl=US"
     );
     googleLink.target = "_blank";
     central.append(googleLink);
 
-    const rightVideos = this.template.createElement("div", "intro__left");
+    const rightVideos: HTMLElement = this.template.createElement(
+      "div",
+      "intro__left"
+    );
     introWrapper.append(rightVideos);
 
-    const upperRightVideo = this.template.createVideo(video3);
+    const upperRightVideo: HTMLVideoElement = this.template.createVideo(video3);
     rightVideos.append(upperRightVideo);
 
-    const bottomRightVideo = this.template.createVideo(video4);
+    const bottomRightVideo: HTMLVideoElement = this.template.createVideo(
+      video4
+    );
     rightVideos.append(bottomRightVideo);
 
     this.mainPageElement.append(introSection);
   }
 
   private createAboutSection(): void {
-    const aboutSection = document.createElement("section");
+    const aboutSection: HTMLElement = document.createElement("section");
     aboutSection.className = "main__about about";
 
-    const aboutWrapper = this.template.createElement("div", "about__wrapper");
+    const aboutWrapper: HTMLElement = this.template.createElement(
+      "div",
+      "about__wrapper"
+    );
     aboutSection.append(aboutWrapper);
 
-    const aboutInfo = this.template.createElement("div", "about__info");
+    const aboutInfo: HTMLElement = this.template.createElement(
+      "div",
+      "about__info"
+    );
     aboutWrapper.append(aboutInfo);
 
-    const aboutTitle = this.template.createElement(
+    const aboutTitle: HTMLElement = this.template.createElement(
       "h3",
       "about__title",
       "Why Our App?"
     );
     aboutInfo.append(aboutTitle);
 
-    const aboutText = document.createElement("p");
+    const aboutText: HTMLElement = document.createElement("p");
     aboutText.className = "about__text";
     aboutText.innerHTML = `The best way to loose wight and burn fat is to choose exercise routines that incorporate many muscle groups and will spike your heart rate.<br> 
       In our application we have chosen the best exercises that can surve this goal.<br>
       They burn your fat and tone your entire body, and the best part - <b>you don't need any exercise equipment at all!</b>`;
     aboutInfo.append(aboutText);
 
-    const aboutPicture = this.template.createElement("div", "about__picture");
+    const aboutPicture: HTMLElement = this.template.createElement(
+      "div",
+      "about__picture"
+    );
     aboutWrapper.append(aboutPicture);
 
-    const aboutImage = document.createElement("img");
+    const aboutImage: HTMLImageElement = document.createElement("img");
     aboutImage.src = pic1;
     aboutPicture.append(aboutImage);
 
@@ -103,27 +129,27 @@ class MainPage {
   }
 
   private createFeaturesSection(): void {
-    const features = [
+    const features: string[] = [
       "The best app for female fitness, weight loss and health",
       "Beginner, Intermediate and Advanced routines",
       "Workout at home & get your body fit on",
       "Track your weight and bmi",
     ];
 
-    const featuresSection = document.createElement("section");
+    const featuresSection: HTMLElement = document.createElement("section");
     featuresSection.className = "main__features features";
 
-    const featuresWrapper = this.template.createElement(
+    const featuresWrapper: HTMLElement = this.template.createElement(
       "div",
       "features__wrapper"
     );
     featuresSection.append(featuresWrapper);
 
-    const featuresList = document.createElement("ul");
+    const featuresList: HTMLUListElement = document.createElement("ul");
     featuresList.className = "features__list";
     featuresWrapper.append(featuresList);
 
-    features.forEach((feature) => {
+    features.forEach((feature: string) => {
       const featureItem = document.createElement("li");
       featureItem.className = "features__list-item";
       featureItem.textContent = feature;

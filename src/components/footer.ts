@@ -11,21 +11,27 @@ class Footer {
   }
 
   private createGitHubs(): void {
-    const gitHubs = this.template.createElement("div", "footer__hubs");
-    const firstLink = this.template.createLink(
+    const gitHubs: HTMLElement = this.template.createElement(
+      "div",
+      "footer__hubs"
+    );
+    const firstLink: HTMLAnchorElement = this.template.createLink(
       "footer__hubs-link",
       "https://github.com/oolenkazolot"
     );
+    firstLink.target = "_blank";
     firstLink.textContent = "oolenkazolot";
-    const secondLink = this.template.createLink(
+    const secondLink: HTMLAnchorElement = this.template.createLink(
       "footer__hubs-link",
       "https://github.com/alisatonks"
     );
+    secondLink.target = "_blank";
     secondLink.textContent = "alisatonks";
-    const thirdLink = this.template.createLink(
+    const thirdLink: HTMLAnchorElement = this.template.createLink(
       "footer__hubs-link",
       "https://github.com/svetik-k"
     );
+    thirdLink.target = "_blank";
     thirdLink.textContent = "svetik-k";
     gitHubs.append(firstLink, secondLink, thirdLink);
     this.footer.append(gitHubs);
@@ -34,10 +40,14 @@ class Footer {
   public draw(): HTMLElement {
     this.createGitHubs();
 
-    const year = this.template.createElement("div", "footer__year", "2023");
+    const year: HTMLElement = this.template.createElement(
+      "div",
+      "footer__year",
+      "2023"
+    );
     this.footer.append(year);
 
-    const school = this.template.createLink(
+    const school: HTMLAnchorElement = this.template.createLink(
       "footer__school",
       "https://rs.school/js/"
     );

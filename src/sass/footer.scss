@@ -27,7 +27,7 @@
     padding-right: 15px;
     font-size: 1.2rem;
     font-weight: 600;
-    color: #db5ba1;
+    color: $color-pink;
     transition: $transition;
 
     &:hover {
@@ -41,7 +41,7 @@
 
   &__year {
     font-size: 1.2rem;
-    color: #db5ba1;
+    color: $color-pink;
     font-weight: 600;
 
     @media (max-width: 576px) {

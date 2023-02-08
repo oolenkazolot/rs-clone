@@ -17,6 +17,11 @@ export interface IMainPage {
   router?: IRouter;
 }
 
+export interface ISingleTrainingPage {
+  draw: (id: string | undefined) => void;
+  router?: IRouter;
+}
+
 export interface IAuthorization {
   registration: (data: IRegistrationData) => Promise<IAnswerAuth | undefined>;
   authorization: (data: IAuthorizationData) => Promise<IAnswerAuth | undefined>;
@@ -105,10 +110,6 @@ export interface IExercise {
   quantity: string;
 }
 
-export type IAllTrainings = {
-  [key: string]: IExercise[];
-};
-
 export interface IValidate {
   res: boolean;
   message?: string;
@@ -146,3 +147,9 @@ export interface IWorkoutMiniBlock {
   complexityLevel?: boolean;
   color: string;
 }
+
+export type ISingleTraining = {
+  id: number;
+  title: string;
+  exercises: IExercise[];
+};

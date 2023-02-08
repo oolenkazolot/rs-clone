@@ -1,5 +1,5 @@
 import Template from "../templates/template";
-import { ITemplate, IExercise} from "../types/index";
+import { ITemplate, IExercise } from "../types/index";
 
 class TrainingModal {
   template: ITemplate;

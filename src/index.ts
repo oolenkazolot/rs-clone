@@ -6,6 +6,7 @@ import Header from "./components/header";
 import ModalSignIn from "./components/modalSignIn";
 import ModalSignUp from "./components/modalSignUp";
 import TrainingsPage from "./pages/trainings";
+import SingleTrainingPage from "./pages/singleTraining";
 
 import {
   IMainPage,
@@ -14,6 +15,7 @@ import {
   IHeader,
   IModalSignIn,
   IModalSignUp,
+  ISingleTrainingPage,
 } from "./types/index";
 
 const mainPage: IMainPage = new MainPage();
@@ -30,6 +32,8 @@ modalSignUp.draw();
 
 const trainingsCreationPage = new TrainingsPage();
 
+const singleTrainingPage: ISingleTrainingPage = new SingleTrainingPage();
+
 //router start
 //список страниц с колбеками: путь и что делать
 const routs: IRout[] = [
@@ -41,12 +45,12 @@ const routs: IRout[] = [
     path: "workouts",
     cb: trainingsCreationPage.draw.bind(trainingsCreationPage),
   },
-  // {
-  //   path: "products/:id",
-  //   cb: (id) => {
-  //     productPage.draw(id);
-  //   },
-  // },
+  {
+    path: "workouts/:id",
+    cb: (id) => {
+      singleTrainingPage.draw(id);
+    },
+  },
 ];
 //объект роутера
 const router = new Router(routs, errorPage.draw);
@@ -55,4 +59,5 @@ const router = new Router(routs, errorPage.draw);
 mainPage.router = router;
 header.router = router;
 trainingsCreationPage.router = router;
+singleTrainingPage.router = router;
 router.init();

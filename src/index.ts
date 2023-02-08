@@ -6,6 +6,7 @@ import Header from "./components/header";
 import ModalSignIn from "./components/modalSignIn";
 import ModalSignUp from "./components/modalSignUp";
 import TrainingsPage from "./pages/trainings";
+import SingleTrainingPage from "./pages/singleTraining";
 import ExercisesPage from "./pages/exercises";
 
 import {
@@ -15,6 +16,7 @@ import {
   IHeader,
   IModalSignIn,
   IModalSignUp,
+  ISingleTrainingPage,
 } from "./types/index";
 
 const mainPage: IMainPage = new MainPage();
@@ -30,6 +32,8 @@ const modalSignUp: IModalSignUp = new ModalSignUp();
 modalSignUp.draw();
 
 const trainingsCreationPage = new TrainingsPage();
+
+const singleTrainingPage: ISingleTrainingPage = new SingleTrainingPage();
 const exercisesPage = new ExercisesPage();
 
 //router start
@@ -47,12 +51,12 @@ const routs: IRout[] = [
     path: "exercises",
     cb: exercisesPage.draw.bind(exercisesPage),
   },
-  // {
-  //   path: "products/:id",
-  //   cb: (id) => {
-  //     productPage.draw(id);
-  //   },
-  // },
+  {
+    path: "workouts/:id",
+    cb: (id) => {
+      singleTrainingPage.draw(id);
+    },
+  },
 ];
 //объект роутера
 const router = new Router(routs, errorPage.draw);
@@ -61,4 +65,5 @@ const router = new Router(routs, errorPage.draw);
 mainPage.router = router;
 header.router = router;
 trainingsCreationPage.router = router;
+singleTrainingPage.router = router;
 router.init();

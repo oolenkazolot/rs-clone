@@ -1,22 +1,15 @@
-import "./sass/style.scss";
-import Router from "./utils/Routing";
-import MainPage from "./pages/main";
-import ErrorPage from "./pages/error";
-import Header from "./components/header";
-import ModalSignIn from "./components/modalSignIn";
-import ModalSignUp from "./components/modalSignUp";
-import ModalQuestions from "./components/modalQuestions";
-import TrainingsPage from "./pages/trainings";
+import './sass/style.scss';
+import Router from './utils/Routing';
+import MainPage from './pages/main';
+import ErrorPage from './pages/error';
+import Header from './components/header';
+import ModalSignIn from './components/modalSignIn';
+import ModalSignUp from './components/modalSignUp';
+import ModalQuestions from './components/modalQuestions';
+import TrainingsPage from './pages/trainings';
+import SingleTrainingPage from './pages/singleTraining';
 
-import {
-  IMainPage,
-  IErrorPage,
-  IRout,
-  IHeader,
-  IModalSignIn,
-  IModalSignUp,
-  IModalQuestions,
-} from "./types/index";
+import { IMainPage, IErrorPage, IRout, IHeader, IModalSignIn, IModalSignUp, IModalQuestions, ISingleTrainingPage } from './types/index';
 
 const mainPage: IMainPage = new MainPage();
 const errorPage: IErrorPage = new ErrorPage();
@@ -35,23 +28,25 @@ modalQuestions.draw();
 
 const trainingsCreationPage = new TrainingsPage();
 
+const singleTrainingPage: ISingleTrainingPage = new SingleTrainingPage();
+
 //router start
 //список страниц с колбеками: путь и что делать
 const routs: IRout[] = [
   {
-    path: "",
+    path: '',
     cb: mainPage.draw.bind(mainPage),
   },
   {
-    path: "workouts",
+    path: 'workouts',
     cb: trainingsCreationPage.draw.bind(trainingsCreationPage),
   },
-  // {
-  //   path: "products/:id",
-  //   cb: (id) => {
-  //     productPage.draw(id);
-  //   },
-  // },
+  {
+    path: 'workouts/:id',
+    cb: (id) => {
+      singleTrainingPage.draw(id);
+    },
+  },
 ];
 //объект роутера
 const router = new Router(routs, errorPage.draw);
@@ -60,4 +55,5 @@ const router = new Router(routs, errorPage.draw);
 mainPage.router = router;
 header.router = router;
 trainingsCreationPage.router = router;
+singleTrainingPage.router = router;
 router.init();

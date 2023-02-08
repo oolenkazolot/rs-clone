@@ -25,7 +25,9 @@ export interface ISingleTrainingPage {
 export interface IAuthorization {
   registration: (data: IRegistrationData) => Promise<IAnswerAuth | undefined>;
   authorization: (data: IAuthorizationData) => Promise<IAnswerAuth | undefined>;
-  addUserInfo: (data: Record<string, string>) => Promise<IAnswerAddUserInfo | undefined>;
+  addUserInfo: (
+    data: Record<string, string>
+  ) => Promise<IAnswerAddUserInfo | undefined>;
 }
 
 export interface IAnswerAuth {
@@ -45,16 +47,42 @@ export interface IAuthorizationData {
 }
 
 export interface ITemplate {
-  createElement: (tagName: string, myClass: string, content?: string) => HTMLElement;
-  createLink: (myClass: string, href: string, content?: string) => HTMLAnchorElement;
-  createBtn: (myClass: string, content?: string | HTMLElement | undefined, type?: string) => HTMLButtonElement;
+  createElement: (
+    tagName: string,
+    myClass: string,
+    content?: string
+  ) => HTMLElement;
+  createLink: (
+    myClass: string,
+    href: string,
+    content?: string
+  ) => HTMLAnchorElement;
+  createBtn: (
+    myClass: string,
+    content?: string | HTMLElement | undefined,
+    type?: string
+  ) => HTMLButtonElement;
   createForm: (className: string, action: string) => HTMLFormElement;
   createIcon: (className: string, classNameIcon: string) => HTMLElement;
   createVideo: (src: string) => HTMLVideoElement;
-  createImage: (src: string, alt: string, imgClassName: string) => HTMLImageElement;
-  createLabel: (className?: string | undefined, forName?: string | undefined, content?: string | undefined) => HTMLLabelElement;
-  createInput: (mainClass: string, attributes: Record<string, string>) => HTMLInputElement;
-  addAttributes: (input: HTMLInputElement, attributes: Record<string, string>) => void;
+  createImage: (
+    src: string,
+    alt: string,
+    imgClassName: string
+  ) => HTMLImageElement;
+  createLabel: (
+    className?: string | undefined,
+    forName?: string | undefined,
+    content?: string | undefined
+  ) => HTMLLabelElement;
+  createInput: (
+    mainClass: string,
+    attributes: Record<string, string>
+  ) => HTMLInputElement;
+  addAttributes: (
+    input: HTMLInputElement,
+    attributes: Record<string, string>
+  ) => void;
 }
 
 export interface IHeader {
@@ -118,8 +146,18 @@ export interface IDataUser {
 export interface IWorkoutBlock {
   createWorkoutBlockCont: (titleText: string) => HTMLElement;
   createTitle: (titleText: string) => HTMLElement;
-  createWorkoutContent: (data: IWorkoutMiniBlock, j: number, i: number) => HTMLElement;
-  createTextBlock: (descrTitleText: string, exercAmt: string, time: string, j: number, complexityLevel?: boolean) => HTMLElement;
+  createWorkoutContent: (
+    data: IWorkoutMiniBlock,
+    j: number,
+    i: number
+  ) => HTMLElement;
+  createTextBlock: (
+    descrTitleText: string,
+    exercAmt: string,
+    time: string,
+    j: number,
+    complexityLevel?: boolean
+  ) => HTMLElement;
   createPngImage: (i: number, j: number, additClass: string) => HTMLElement;
   createExercCont: (exercAmt: string) => HTMLElement;
   createTimeCont: (time: string) => HTMLElement;

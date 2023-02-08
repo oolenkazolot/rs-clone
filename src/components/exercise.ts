@@ -2,18 +2,18 @@ import Template from "../templates/template";
 import { ITemplate, IExercise } from "../types/index";
 
 class Exercise {
-	template: ITemplate;
-	container: HTMLElement;
-	exercise: IExercise;
+  template: ITemplate;
+  container: HTMLElement;
+  exercise: IExercise;
 
   constructor(exercise: IExercise) {
-		this.template = new Template();
-		this.container = this.template.createElement("div", "exercise");
-		this.container.id = `${exercise.id}`;
-		this.exercise = exercise;
+    this.template = new Template();
+    this.container = this.template.createElement("div", "exercise");
+    this.container.id = `${exercise.id}`;
+    this.exercise = exercise;
   }
 
-	public draw(): HTMLElement {
+  public draw(): HTMLElement {
     const exerciseInfo: HTMLElement = this.template.createElement(
       "div",
       "exercise__info"

@@ -1,6 +1,8 @@
 import Template from "../templates/template";
 import {
   IRouter,
+  ISingleTraining,
+  ISlider,
   ITemplate,
   IWorkoutBlock,
   IWorkoutMiniBlock,
@@ -13,7 +15,7 @@ import Exercise from "../components/exercise";
 class ExercisesPage {
   template: ITemplate;
   workoutBlock: IWorkoutBlock;
-  slider;
+  slider: ISlider;
   public router?: IRouter;
   constructor() {
     this.template = new Template();
@@ -159,11 +161,15 @@ class ExercisesPage {
       for (let j = 0; j < workout_plans[i].block.length; j++) {
         length++;
         const block: IWorkoutMiniBlock = workout_plans[i].block[j];
+        console.log("i", i);
         const workoutBlock: HTMLElement = this.workoutBlock.createWorkoutContent(
           block,
           i,
-          j
+          j,
+          true
         );
+        workoutBlock.classList.add("adapt");
+        this.workoutBlock.colorBackground(workoutBlock);
         workoutBlock.classList.add("blur");
         if (length === 2 || length === 4) {
           workoutBlock.classList.add("smallerImg");
@@ -195,15 +201,13 @@ class ExercisesPage {
       "div",
       "exercises-container"
     );
-    for (let i = 0; i < workout_plans.length; i++) {
-      for (let j = 0; j < workout_plans[i].block.length; j++) {
-        const block = workout_plans[i].block[j];
-        for (let k = 0; k < block.exercises.length; k++) {
-          const exerciseData = block.exercises[k];
-          const exercise = new Exercise(exerciseData).draw();
-          container.append(exercise);
-        }
-      }
+    const i = 0;
+    const j = 1;
+    const block = workout_plans[i].block[j];
+    for (let k = 0; k < block.exercises.length; k++) {
+      const exerciseData = block.exercises[k];
+      const exercise = new Exercise(exerciseData).draw();
+      container.append(exercise);
     }
     return container;
   }

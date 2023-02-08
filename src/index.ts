@@ -8,6 +8,7 @@ import ModalSignUp from "./components/modalSignUp";
 import TrainingsPage from "./pages/trainings";
 import SingleTrainingPage from "./pages/singleTraining";
 import ExercisesPage from "./pages/exercises";
+import ChangeElements from "./components/changeElements";
 
 import {
   IMainPage,

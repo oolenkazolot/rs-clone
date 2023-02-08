@@ -40,8 +40,9 @@ class WorkoutBlock {
 
   public createWorkoutContent(
     data: IWorkoutMiniBlock,
+    i: number,
     j: number,
-    i: number
+    flag: boolean
   ): HTMLElement {
     const workoutContentCont: HTMLElement = this.template.createElement(
       "div",
@@ -65,7 +66,7 @@ class WorkoutBlock {
       workoutContentCont.style.background = "#fff";
     }
     if (i < 5) {
-      workoutContentCont.append(this.createPngImage(i, j, additClass));
+      workoutContentCont.append(this.createPngImage(i, j, additClass, flag));
     }
 
     return workoutContentCont;
@@ -101,9 +102,11 @@ class WorkoutBlock {
   public createPngImage(
     i: number,
     j: number,
-    additClass: string
+    additClass: string,
+    flag: boolean
   ): HTMLImageElement {
     let png;
+    console.log(i, j);
     if (i === 0) {
       png = absPng;
     } else if (i === 1) {
@@ -127,6 +130,9 @@ class WorkoutBlock {
     pngImage.classList.add(additClass);
     if (pngImage.src === wholeBody) {
       pngImage.style.right = "-2px";
+    }
+    if (flag) {
+      pngImage.classList.add("adaptPng");
     }
     return pngImage;
   }
@@ -183,6 +189,30 @@ class WorkoutBlock {
       lightningsCont.append(image);
     }
     return lightningsCont;
+  }
+
+  public colorBackground(element: HTMLElement): void {
+    const elNameAttribute: string | null = element.getAttribute("name");
+    let nameAttribute;
+    if (elNameAttribute) {
+      nameAttribute = elNameAttribute.split(" ")[1];
+    }
+    if (nameAttribute === "beginner") {
+      element.style.background =
+        "linear-gradient(90deg, rgba(135,254,252,1) 0%, rgba(233,244,243,1) 100%)";
+    } else if (nameAttribute === "intermediate") {
+      element.style.background =
+        "linear-gradient(90deg, rgba(135,195,254,1) 0%, rgba(233,244,243,1) 100%)";
+    } else if (nameAttribute === "advanced") {
+      element.style.background =
+        "linear-gradient(90deg, rgba(254,151,135,1) 0%, rgba(247,242,242,1) 100%)";
+    } else if (nameAttribute === "warmup" || nameAttribute === "time") {
+      element.style.background =
+        "linear-gradient(90deg, rgba(128,27,150,0.75674019604313) 0%, rgba(214,189,221,1) 78%)";
+    } else {
+      element.style.background =
+        " linear-gradient(90deg, rgba(241,147,215,1) 0%, rgba(245,237,238,1) 100%)";
+    }
   }
 }
 

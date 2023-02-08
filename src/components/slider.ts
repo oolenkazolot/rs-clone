@@ -1,5 +1,7 @@
 import { ITemplate } from "../types";
 import Template from "../templates/template";
+import workout_plans from "../utils/workout-plans-en";
+import Exercise from "./exercise";
 
 class Slider {
   template: ITemplate;
@@ -50,7 +52,6 @@ class Slider {
     function nCalc() {
       let n = 0;
       nextBtn.addEventListener("click", () => {
-        const sliderEl = document.querySelector(".exerc-slider") as HTMLElement;
         if (n < length - 1) {
           nextBtn.disabled = false;
           n++;
@@ -83,7 +84,7 @@ class Slider {
     nCalc();
   }
 
-  private changeImgSise(flag: boolean, n: number, length: number): void {
+  changeImgSise(flag: boolean, n: number, length: number): void {
     const containers = document.querySelectorAll(".workout-content-container");
     const pngs = document.querySelectorAll(".workout-plans-png");
     if (flag) {
@@ -106,7 +107,7 @@ class Slider {
     }
   }
 
-  private slide(
+  slide(
     nextBtn: HTMLButtonElement,
     prevBtn: HTMLButtonElement,
     wrapper: HTMLElement,
@@ -146,7 +147,7 @@ class Slider {
     });
   }
 
-  private changeImgSizeInf(direct: string): void {
+  changeImgSizeInf(direct: string): void {
     const containers = document.querySelectorAll(".workout-content-container");
     const pngs = document.querySelectorAll(".workout-plans-png");
     containers.forEach((el) => {
@@ -174,6 +175,25 @@ class Slider {
       containers[2].classList.add("blur");
     }
   }
+
+  // private createExercises(
+  //   nextBtn: HTMLElement,
+  //   prevBtn: HTMLElement
+  // ): HTMLElement {
+  //   const i = 1;
+  //   const j = 1;
+  //   const container: HTMLElement = this.template.createElement(
+  //     "div",
+  //     "exercises-container"
+  //   );
+  //   const block = workout_plans[i].block[j];
+  //   for (let k = 0; k < block.exercises.length; k++) {
+  //     const exerciseData = block.exercises[k];
+  //     const exercise = new Exercise(exerciseData).draw();
+  //     container.append(exercise);
+  //   }
+  //   return container;
+  // }
 }
 
 const slider = new Slider();

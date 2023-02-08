@@ -4,6 +4,7 @@ import {
   ITemplate,
   IWorkoutMiniBlock,
   IWorkoutBlock,
+  ISlider,
 } from "../types/index";
 import { plus_in_circle } from "../components/svg";
 import workout_plans from "../utils/workout-plans-en";
@@ -14,7 +15,7 @@ class TrainingsPage {
   template: ITemplate;
   workoutBlock: IWorkoutBlock;
   public router?: IRouter;
-  slider;
+  slider: ISlider;
   constructor() {
     this.template = new Template();
     this.workoutBlock = new WorkoutBlock();
@@ -88,97 +89,15 @@ class TrainingsPage {
         const content: HTMLElement = this.workoutBlock.createWorkoutContent(
           block,
           j,
-          i
+          i,
+          false
         );
-        if (workout_plans[i].block.length === 1) {
-          content.style.background =
-            "linear-gradient(90deg, rgba(128,27,150,0.7567401960784313) 0%, rgba(214,189,221,1) 78%)";
-        } else if (workout_plans[i].block.length === 3) {
-          if (j === 0) {
-            content.style.background =
-              " linear-gradient(90deg, rgba(135,254,252,1) 0%, rgba(233,244,243,1) 100%)";
-          }
-          if (j === 1) {
-            content.style.background =
-              "linear-gradient(90deg, rgba(135,195,254,1) 0%, rgba(233,244,243,1) 100%)";
-          }
-          if (j === 2) {
-            content.style.background =
-              "linear-gradient(90deg, rgba(254,151,135,1) 0%, rgba(247,242,242,1) 100%)";
-          }
-        } else {
-          content.style.background =
-            "linear-gradient(90deg, rgba(128,27,150,0.7567401960784313) 0%, rgba(214,189,221,1) 78%)";
-        }
+        this.workoutBlock.colorBackground(content);
         wrapper.append(content);
       }
     }
     return contentContainer;
   }
-
-  // private createNextPrevBtns(
-  //   length: number,
-  //   wrapper: HTMLElement
-  // ): HTMLElement {
-  //   const buttonsCont: HTMLElement = this.template.createElement(
-  //     "div",
-  //     "buttons-cont"
-  //   );
-  //   const nextBtn: HTMLButtonElement = this.template.createBtn(
-  //     "next-btn",
-  //     "next"
-  //   );
-  //   if (length <= 1) {
-  //     nextBtn.disabled = true;
-  //   }
-  //   const prevBtn: HTMLButtonElement = this.template.createBtn(
-  //     "prev-btn",
-  //     "prev"
-  //   );
-  //   prevBtn.disabled = true;
-  //   buttonsCont.append(prevBtn, nextBtn);
-  //   // this.slider(nextBtn, prevBtn, wrapper, length);
-  //   return buttonsCont;
-  // }
-
-  // private slider(
-  //   nextBtn: HTMLButtonElement,
-  //   prevBtn: HTMLButtonElement,
-  //   wrapper: HTMLElement,
-  //   length: number
-  // ): void {
-  //   function nCalc() {
-  //     let n = 0;
-  //     nextBtn.addEventListener("click", () => {
-  //       if (n < length - 1) {
-  //         nextBtn.disabled = false;
-  //         n++;
-  //         prevBtn.disabled = false;
-  //         const delta = (100 / length) * n;
-  //         wrapper.style.justifyContent = "flex-start";
-  //         wrapper.style.transform = `translate(-${delta}%)`;
-  //       }
-  //       if (n >= length - 1) {
-  //         nextBtn.disabled = true;
-  //       }
-  //     });
-  //     prevBtn.addEventListener("click", () => {
-  //       if (n <= length - 1) {
-  //         nextBtn.disabled = false;
-  //       }
-  //       if (n > 0) {
-  //         n--;
-  //         const delta = (100 / length) * n;
-  //         wrapper.style.justifyContent = "flex-start";
-  //         wrapper.style.transform = `translate(-${delta}%)`;
-  //       }
-  //       if (n === 0) {
-  //         prevBtn.disabled = true;
-  //       }
-  //     });
-  //   }
-  //   nCalc();
-  // }
 }
 
 export default TrainingsPage;

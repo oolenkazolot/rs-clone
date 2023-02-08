@@ -1,4 +1,4 @@
-.exercise-modal__backlayer {
+.training-modal__backlayer {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -6,99 +6,82 @@
   justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 5;
+  z-index: 10; 
 }
 
-.exercise-modal {
-  width: 60%;
+.training-modal {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
   height: fit-content;
   background: $color-white;
   border-radius: 20px;
-  padding: 30px;
+  padding: 20px;
   font-size: 1.4rem;
   color: $color-second;
 
   &__gif {
-    display: block;
-    width: 25%;
+    width: 30%;
     height: auto;
-    margin: 0 auto 30px;
+    margin-bottom: 20px;
   }
 
   &__info {
-    width: 100%;
     display: flex;
+    flex-direction: column;
+    text-transform: uppercase;
+    font-size: 1.6rem;
     align-items: center;
     margin-bottom: 30px;
-    text-transform: uppercase;
   }
 
-  &__name {
-    margin-right: 20px;
+  &__extra {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
   }
 
-  &__link {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    background: url(../assets/svg/tv.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    margin-left: auto;
-  }
-
-  &__description {
+  &__info-link,
+  &__youtube {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 80px;
+    height: 50px;
     font-size: 1.2rem;
     color: $color-second;
-    text-align: left;
-    margin-bottom: 80px;
   }
 
-  &__change {
-    width: 100%;
+  &__youtube {
+    background: url(../assets/svg/tv.svg);
+    background-size: 30%;
+    background-position: top center;
+    background-repeat: no-repeat;
+  }
+
+  &__info-link {
+    background: url(../assets/svg/info-icon.svg);
+    background-size: 30%;
+    background-position: top center;
+    background-repeat: no-repeat;
   }
 
   &__counter {
-    width: 30%;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    margin: 0 auto 30px;
-  }
-
-  &__button-minus,
-  &__button-plus {
-    width: 50px;
-    height: 50px;
-    font-size: 1.8em;
-    border: none;
-    background-color: $color-pink;
-    color: $color-white;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: $transition;
-
-    &:hover {
-      background-color: $color-main;
-    }
   }
 
   &__current-quantity {
-    font-size: 1.4em;
     text-transform: uppercase;
+    font-size: 4.2rem;
+    margin-bottom: 10px;
   }
 
-  &__buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-  }
-
-  &__button-cancel,
-  &__button-save {
-    display: block;
+  &__button-done {
     width: 180px;
     height: 45px;
     border-radius: 7px;
@@ -109,24 +92,36 @@
     transition: $transition;
     border: none;
     cursor: pointer;
+    margin-bottom: 50px;
 
     &:hover {
       background-color: $color-main;
     }
   }
 
-  &__button-close {
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    background: url(../assets/svg/close.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
+  &__buttons {
+    width: 40%;
+    display: flex;
+    align-items: center;
+  }
+
+  &__button-prev,
+  &__button-skip {
+    width: 50%;
+    font-size: 1.2rem;
     border: none;
     cursor: pointer;
   }
 
+  &__button-prev {
+    background: url(../assets/svg/previous-icon.svg);
+    background-position: left 5px center;
+    background-repeat: no-repeat;
+  }
+
+  &__button-skip {
+    background: url(../assets/svg/next-icon.svg);
+    background-position: right 5px center;
+    background-repeat: no-repeat;
+  }
 }

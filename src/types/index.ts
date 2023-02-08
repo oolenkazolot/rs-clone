@@ -145,4 +145,14 @@ export interface IWorkoutMiniBlock {
   exercisesTime: string;
   complexityLevel?: boolean;
   color: string;
+  exercises?: IExercise[];
+}
+
+export interface IExerciseNew {
+  id: number;
+  title: string;
+  description: string;
+  example: string;
+  youtube: string;
+  quantity: string;
 }

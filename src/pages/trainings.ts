@@ -8,14 +8,17 @@ import {
 import { plus_in_circle } from "../components/svg";
 import workout_plans from "../utils/workout-plans-en";
 import WorkoutBlock from "../components/workoutBlock";
+import Slider from "../components/slider";
 
 class TrainingsPage {
   template: ITemplate;
   workoutBlock: IWorkoutBlock;
   public router?: IRouter;
+  slider;
   constructor() {
     this.template = new Template();
     this.workoutBlock = new WorkoutBlock();
+    this.slider = new Slider();
   }
 
   public draw(): void {
@@ -74,9 +77,10 @@ class TrainingsPage {
       const wrapper = this.template.createElement("div", "workout-wrapper");
       workoutBlock.append(wrapper);
       contentContainer.append(workoutBlock);
-      const buttons = this.createNextPrevBtns(
+      const buttons = this.slider.createNextPrevBtns(
         workout_plans[i].block.length,
-        wrapper
+        wrapper,
+        false
       );
       workoutBlock.append(buttons);
       for (let j = 0; j < workout_plans[i].block.length; j++) {
@@ -112,69 +116,69 @@ class TrainingsPage {
     return contentContainer;
   }
 
-  private createNextPrevBtns(
-    length: number,
-    wrapper: HTMLElement
-  ): HTMLElement {
-    const buttonsCont: HTMLElement = this.template.createElement(
-      "div",
-      "buttons-cont"
-    );
-    const nextBtn: HTMLButtonElement = this.template.createBtn(
-      "next-btn",
-      "next"
-    );
-    if (length <= 1) {
-      nextBtn.disabled = true;
-    }
-    const prevBtn: HTMLButtonElement = this.template.createBtn(
-      "prev-btn",
-      "prev"
-    );
-    prevBtn.disabled = true;
-    buttonsCont.append(prevBtn, nextBtn);
-    this.slider(nextBtn, prevBtn, wrapper, length);
-    return buttonsCont;
-  }
+  // private createNextPrevBtns(
+  //   length: number,
+  //   wrapper: HTMLElement
+  // ): HTMLElement {
+  //   const buttonsCont: HTMLElement = this.template.createElement(
+  //     "div",
+  //     "buttons-cont"
+  //   );
+  //   const nextBtn: HTMLButtonElement = this.template.createBtn(
+  //     "next-btn",
+  //     "next"
+  //   );
+  //   if (length <= 1) {
+  //     nextBtn.disabled = true;
+  //   }
+  //   const prevBtn: HTMLButtonElement = this.template.createBtn(
+  //     "prev-btn",
+  //     "prev"
+  //   );
+  //   prevBtn.disabled = true;
+  //   buttonsCont.append(prevBtn, nextBtn);
+  //   // this.slider(nextBtn, prevBtn, wrapper, length);
+  //   return buttonsCont;
+  // }
 
-  private slider(
-    nextBtn: HTMLButtonElement,
-    prevBtn: HTMLButtonElement,
-    wrapper: HTMLElement,
-    length: number
-  ): void {
-    function nCalc() {
-      let n = 0;
-      nextBtn.addEventListener("click", () => {
-        if (n < length - 1) {
-          nextBtn.disabled = false;
-          n++;
-          prevBtn.disabled = false;
-          const delta = (100 / length) * n;
-          wrapper.style.justifyContent = "flex-start";
-          wrapper.style.transform = `translate(-${delta}%)`;
-        }
-        if (n >= length - 1) {
-          nextBtn.disabled = true;
-        }
-      });
-      prevBtn.addEventListener("click", () => {
-        if (n <= length - 1) {
-          nextBtn.disabled = false;
-        }
-        if (n > 0) {
-          n--;
-          const delta = (100 / length) * n;
-          wrapper.style.justifyContent = "flex-start";
-          wrapper.style.transform = `translate(-${delta}%)`;
-        }
-        if (n === 0) {
-          prevBtn.disabled = true;
-        }
-      });
-    }
-    nCalc();
-  }
+  // private slider(
+  //   nextBtn: HTMLButtonElement,
+  //   prevBtn: HTMLButtonElement,
+  //   wrapper: HTMLElement,
+  //   length: number
+  // ): void {
+  //   function nCalc() {
+  //     let n = 0;
+  //     nextBtn.addEventListener("click", () => {
+  //       if (n < length - 1) {
+  //         nextBtn.disabled = false;
+  //         n++;
+  //         prevBtn.disabled = false;
+  //         const delta = (100 / length) * n;
+  //         wrapper.style.justifyContent = "flex-start";
+  //         wrapper.style.transform = `translate(-${delta}%)`;
+  //       }
+  //       if (n >= length - 1) {
+  //         nextBtn.disabled = true;
+  //       }
+  //     });
+  //     prevBtn.addEventListener("click", () => {
+  //       if (n <= length - 1) {
+  //         nextBtn.disabled = false;
+  //       }
+  //       if (n > 0) {
+  //         n--;
+  //         const delta = (100 / length) * n;
+  //         wrapper.style.justifyContent = "flex-start";
+  //         wrapper.style.transform = `translate(-${delta}%)`;
+  //       }
+  //       if (n === 0) {
+  //         prevBtn.disabled = true;
+  //       }
+  //     });
+  //   }
+  //   nCalc();
+  // }
 }
 
 export default TrainingsPage;

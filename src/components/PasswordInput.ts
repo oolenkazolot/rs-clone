@@ -1,11 +1,11 @@
-import { Input } from "../components/Input";
+import { InputIcon } from "../components/InputIcon";
 import { ITemplate } from "../types/index";
 import Template from "../templates/template";
 import { isPasswordValid } from "../utils/validate";
 const template: ITemplate = new Template();
 
 export function PasswordInput(): HTMLElement {
-  const inputBlock: HTMLElement = Input({
+  const inputBlock: HTMLElement = InputIcon({
     className: [],
     attributes: {
       type: "password",

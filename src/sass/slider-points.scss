@@ -1,0 +1,28 @@
+// slider-points
+
+.slider-points {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  &__item {
+    background-color: $color-grey-light;
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    margin: 0 7px;
+    cursor: pointer;
+    transition: background-color $transition;
+
+    &:hover {
+      background-color: $color-main-second;
+    }
+
+    &.active {
+      background-color: $color-main-second;
+    }
+  }
+}
+
+// slider-points end

@@ -11,7 +11,7 @@ import {
 import { InputIcon } from "../components/InputIcon";
 import { PasswordInput } from "../components/PasswordInput";
 import Button from "../components/button";
-import { onOpenModal, onCloseModal } from "../utils/component-utils";
+import { onOpenModal } from "../utils/component-utils";
 import { isEmailValid } from "../utils/validate";
 import Authorization from "../utils/auth.routes";
 import Header from "../components/header";
@@ -139,6 +139,8 @@ class ModalSignUp {
     }
     if (res.token && res.userId) {
       setUserLocalStorage({ token: res.token, userId: res.userId });
+      messageEl.textContent = "";
+      messageEl.classList.remove("error");
       this.header.draw();
       onOpenModal("modal-questions", "modal-sign-up")();
     }

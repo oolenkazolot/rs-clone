@@ -38,6 +38,7 @@ class Footer {
   }
 
   public draw(): HTMLElement {
+    this.footer.textContent = "";
     this.createGitHubs();
 
     const year: HTMLElement = this.template.createElement(
@@ -52,6 +53,7 @@ class Footer {
       "https://rs.school/js/"
     );
     school.target = "_blank";
+
     this.footer.append(school);
 
     return this.footer;

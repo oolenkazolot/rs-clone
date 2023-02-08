@@ -83,24 +83,32 @@ class ModalSignIn {
     const message: HTMLElement = this.createMessageForm();
 
     form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const formData: FormData = new FormData(form);
-      const valueEmail: string | undefined = formData.get("email")?.toString();
-      const valuePsw: string | undefined = formData.get("password")?.toString();
-      if (!valueEmail || !valuePsw) {
-        return;
-      }
-      this.sendAuth(
-        {
-          email: valueEmail,
-          password: valuePsw,
-        },
-        message
-      );
+      this.onSubmitHandlerForm(e, form, message);
     });
 
     form.append(inputBlockEmail, inputBlockPassword, message, btnWrap);
     return form;
+  }
+
+  private onSubmitHandlerForm(
+    e: Event,
+    form: HTMLFormElement,
+    message: HTMLElement
+  ): void {
+    e.preventDefault();
+    const formData: FormData = new FormData(form);
+    const valueEmail: string | undefined = formData.get("email")?.toString();
+    const valuePsw: string | undefined = formData.get("password")?.toString();
+    if (!valueEmail || !valuePsw) {
+      return;
+    }
+    this.sendAuth(
+      {
+        email: valueEmail,
+        password: valuePsw,
+      },
+      message
+    );
   }
 
   private createMessageForm(): HTMLElement {
@@ -137,7 +145,8 @@ class ModalSignIn {
 
     if (res.token && res.userId) {
       setUserLocalStorage({ token: res.token, userId: res.userId });
-
+      messageEl.textContent = "";
+      messageEl.classList.remove("error");
       this.header.draw();
       onCloseModal("modal-sign-in")();
     }

@@ -3,16 +3,20 @@ import Template from "../templates/template";
 import {
   IModal,
   ITemplate,
-  IHeader,
   IBtnRadio,
   IDataFormQuestions,
+  IAnswerAddUserInfo,
+  IAuthorization,
 } from "../types/index";
 import { ButtonRadio } from "../components/ButtonRadio";
-import Header from "../components/header";
+import Button from "../components/Button";
 import { InputImg } from "../components/InputImg";
 import { isHeightValid } from "../utils/validate";
 import { isScalesValid } from "../utils/validate";
 import { formSlider, IFormSlider } from "../utils/formSlider";
+import Authorization from "../utils/auth.routes";
+import { onCloseModal } from "../utils/component-utils";
+import { getUserIdLocalStorage } from "../utils/auth";
 
 class ModalQuestions {
   template: ITemplate;
@@ -20,7 +24,7 @@ class ModalQuestions {
   mainClass: string;
   mainClassSecond: string;
   slider: IFormSlider;
-  // header: IHeader;
+  authorization: IAuthorization;
 
   constructor() {
     this.modal = new Modal();
@@ -28,7 +32,7 @@ class ModalQuestions {
     this.mainClass = "slider-questions";
     this.mainClassSecond = "slide-info";
     this.slider = formSlider({ slideCount: 3 });
-    // this.header = new Header();
+    this.authorization = new Authorization();
   }
 
   public draw(): void {
@@ -90,13 +94,35 @@ class ModalQuestions {
   }
 
   private createSliderForm(): HTMLElement {
-    const sliderForm: HTMLElement = this.template.createForm(
+    const sliderForm: HTMLFormElement = this.template.createForm(
       `${this.mainClass}__form`,
       "/"
     );
     const slideList: HTMLElement = this.createSliderList();
     sliderForm.append(slideList);
+    sliderForm.addEventListener("submit", (e) => {
+      this.onSubmitHandlerForm(e, sliderForm);
+    });
     return sliderForm;
+  }
+
+  private onSubmitHandlerForm(e: Event, form: HTMLFormElement) {
+    e.preventDefault();
+    const questions: string[] = ["goal", "load", "weight", "height", "units"];
+    const formData: FormData = new FormData(form);
+    const valuesForm: Record<string, string> = {};
+    questions.forEach((question) => {
+      const val: string | null | File = formData.get(question);
+      if (val) {
+        valuesForm[question] = val.toString();
+      }
+    });
+    const userId: string | undefined = getUserIdLocalStorage();
+    if (!userId) {
+      return;
+    }
+    valuesForm.id = userId;
+    this.sendInfoUser(valuesForm);
   }
 
   private createSliderList(): HTMLElement {
@@ -106,14 +132,14 @@ class ModalQuestions {
         question: "What is your goal?",
         name: "goal",
         nameBtn: ["Keep Fit", "Lose Weight", "Get Stronger"],
-        values: ["form", "lose-weight", "force"],
+        values: ["keep-fit", "lose-weight", "get-stronger"],
       },
       {
         title: "Load",
         question: "What load would you like?",
-        name: "equipment",
+        name: "load",
         nameBtn: ["Low", "Middle", "High"],
-        values: ["no", "dumbbells", "gym"],
+        values: ["Low", "Middle", "High"],
       },
     ];
 
@@ -147,7 +173,11 @@ class ModalQuestions {
       question
     );
     const btnWrap: HTMLElement = this.createBtnWrap(name, nameBtn, values);
-    slide.append(...slideContent, btnWrap);
+    const message: HTMLElement = this.template.createElement(
+      "span",
+      `${this.mainClass}__message`
+    );
+    slide.append(...slideContent, btnWrap, message);
     return slide;
   }
 
@@ -177,7 +207,12 @@ class ModalQuestions {
     );
     const inputWrap: HTMLElement = this.createSlideAboutMeInputWrap();
     const btnBlock: HTMLElement = this.createSlideAboutMeBtnBlock();
-    slide.append(titleEl, inputWrap, btnBlock);
+    const message: HTMLElement = this.template.createElement(
+      "span",
+      `${this.mainClass}__message-form`
+    );
+    const btnSubmit: HTMLButtonElement = this.createBtnSubmitForm();
+    slide.append(titleEl, inputWrap, btnBlock, message, btnSubmit);
     return slide;
   }
 
@@ -186,7 +221,6 @@ class ModalQuestions {
       "div",
       `${this.mainClassSecond}__input-wrap`
     );
-
     const inputBlockOne: HTMLElement = InputImg({
       className: [],
       attributes: {
@@ -194,6 +228,7 @@ class ModalQuestions {
         name: "weight",
         type: "number",
         placeholder: "Enter weight",
+        required: "true",
       },
       imgSrc: "../assets/svg/scales.svg",
       imgAlt: "scales-img",
@@ -207,19 +242,57 @@ class ModalQuestions {
         name: "height",
         type: "number",
         placeholder: "Enter height",
+        required: "true",
       },
       imgSrc: "../assets/svg/height.svg",
       imgAlt: "height-img",
       validate: isHeightValid,
     });
+    const unitsWeight: HTMLElement = this.template.createElement(
+      "span",
+      `${this.mainClass}__units-weight`,
+      "kg"
+    );
+    inputBlockOne.append(unitsWeight);
+    const unitsHeight: HTMLElement = this.template.createElement(
+      "span",
+      `${this.mainClass}__units-height`,
+      "cm"
+    );
+    inputBlockTwo.append(unitsHeight);
+
     inputWrap.append(inputBlockOne, inputBlockTwo);
     return inputWrap;
+  }
+
+  private onChangeHandlerBtnRadio(e: Event): void {
+    const input: HTMLInputElement = e.currentTarget as HTMLInputElement;
+    const value: string = input.value;
+    const unitsWeight: HTMLElement | null = document.querySelector(
+      ".slider-questions__units-weight"
+    );
+    const unitsHeight: HTMLElement | null = document.querySelector(
+      ".slider-questions__units-height"
+    );
+
+    if (unitsWeight && unitsHeight && value === "Lbs-inches") {
+      unitsWeight.textContent = "Lbs";
+      unitsHeight.textContent = "inches";
+    }
+    if (unitsWeight && unitsHeight && value === "kg-cm") {
+      unitsWeight.textContent = "kg";
+      unitsHeight.textContent = "cm";
+    }
   }
 
   private createSlideAboutMeBtnBlock(): HTMLElement {
     const btnWrapOne: HTMLElement = this.template.createElement(
       "div",
       `${this.mainClassSecond}__btn-wrap`
+    );
+    const messageOne: HTMLElement = this.template.createElement(
+      "span",
+      `${this.mainClassSecond}__message`
     );
     const btnOne: HTMLElement[] = ButtonRadio(
       {
@@ -229,6 +302,7 @@ class ModalQuestions {
         className: `${this.mainClassSecond}__btn`,
         value: "kg-cm",
         checked: "checked",
+        onChange: this.onChangeHandlerBtnRadio,
       },
       {
         forName: "kg-cm",
@@ -237,10 +311,14 @@ class ModalQuestions {
       }
     );
 
-    btnWrapOne.append(...btnOne);
+    btnWrapOne.append(...btnOne, messageOne);
     const btnWrapTwo: HTMLElement = this.template.createElement(
       "div",
       `${this.mainClassSecond}__btn-wrap`
+    );
+    const messageTwo: HTMLElement = this.template.createElement(
+      "span",
+      `${this.mainClassSecond}__message`
     );
     const btnTwo: HTMLElement[] = ButtonRadio(
       {
@@ -249,6 +327,7 @@ class ModalQuestions {
         name: "units",
         className: `${this.mainClassSecond}__btn`,
         value: "Lbs-inches",
+        onChange: this.onChangeHandlerBtnRadio,
       },
       {
         forName: "Lbs-inches",
@@ -256,7 +335,7 @@ class ModalQuestions {
         className: `${this.mainClassSecond}__btn-title`,
       }
     );
-    btnWrapTwo.append(...btnTwo);
+    btnWrapTwo.append(...btnTwo, messageTwo);
     const btnBlock: HTMLElement = this.template.createElement(
       "div",
       `${this.mainClassSecond}__buttons`
@@ -282,6 +361,7 @@ class ModalQuestions {
           id: name + index,
           name: name,
           className: `${this.mainClass}__input`,
+          checked: index === 1 ? "checked" : "",
         },
         {
           forName: name + index,
@@ -292,6 +372,15 @@ class ModalQuestions {
       btnWrap.append(...btnRadio);
     });
     return btnWrap;
+  }
+
+  private createBtnSubmitForm(): HTMLButtonElement {
+    const btn: HTMLButtonElement = Button({
+      content: "Submit",
+      className: [`${this.mainClass}__btn-submit`, "btn"],
+      type: "submit",
+    });
+    return btn;
   }
 
   private createSliderPoints(): HTMLElement {
@@ -318,95 +407,50 @@ class ModalQuestions {
     return sliderItem;
   }
 
-  // private createBtn(): HTMLButtonElement {
-  //   const btn: HTMLButtonElement = Button({
-  //     content: 'Sign In',
-  //     className: [`${this.mainClass}__btn`],
-  //     type: 'submit',
-  //   });
-  //   return btn;
-  // }
+  private async sendInfoUser(
+    dataInfoUser: Record<string, string>
+  ): Promise<void> {
+    const res:
+      | IAnswerAddUserInfo
+      | undefined = await this.authorization.addUserInfo(dataInfoUser);
 
-  // private createForm() {
-  //   const form: HTMLFormElement = this.template.createForm(`${this.mainClass}__form`, '/');
-  //   const inputBlockEmail: HTMLElement = Input({
-  //     className: [],
-  //     attributes: {
-  //       type: 'text',
-  //       placeholder: 'Enter your email',
-  //       name: 'email',
-  //       required: 'true',
-  //     },
-  //     classNameIcon: 'icon-mail_outline',
-  //     validate: isEmailValid,
-  //   });
-  //   const inputBlockPassword: HTMLElement = PasswordInput();
-  //   const btnWrap: HTMLElement = this.createBtnWrap();
-  //   // const message: HTMLElement = this.createMessageForm();
+    if (!res) {
+      return;
+    }
+    if (res.errors && res.message) {
+      this.ErrorHandler(res);
+    } else {
+      const messageEl: HTMLElement | null = document.querySelector(
+        `.${this.mainClass}__message-form`
+      );
+      if (messageEl) {
+        messageEl.textContent = "";
+        messageEl.classList.remove("error");
+      }
+      onCloseModal("modal-questions")();
+    }
+  }
 
-  //   form.addEventListener('submit', (e) => {
-  //     e.preventDefault();
-  //     const formData: FormData = new FormData(form);
-  //     const valueEmail: string | undefined = formData.get('email')?.toString();
-  //     const valuePsw: string | undefined = formData.get('password')?.toString();
-  //     if (!valueEmail || !valuePsw) {
-  //       return;
-  //     }
-  //     this.sendAuth(
-  //       {
-  //         email: valueEmail,
-  //         password: valuePsw,
-  //       },
-  //       message
-  //     );
-  //   });
+  private ErrorHandler(res: IAnswerAddUserInfo): void {
+    console.log(res.message);
+    const inputs: NodeList = document.querySelectorAll(
+      `${this.mainClassSecond}__input`
+    );
+    const arrInputs: HTMLElement[] = Array.prototype.slice.call(inputs);
 
-  //   form.append(inputBlockEmail, inputBlockPassword, message, btnWrap);
-  //   return form;
-  // }
+    arrInputs.forEach((input) => {
+      input.classList.add("error");
+    });
 
-  // private createMessageForm(): HTMLElement {
-  //   const message: HTMLElement = this.template.createElement(
-  //     "span",
-  //     `${this.mainClass}__message`
-  //   );
-  //   return message;
-  // }
-
-  // private async sendAuth(
-  //   dataInputAuth: { email: string; password: string },
-  //   messageEl: HTMLElement
-  // ): Promise<void> {
-  //   const res: IAnswerAuth | undefined = await this.authorization.authorization(
-  //     dataInputAuth
-  //   );
-  //   if (!res) {
-  //     return;
-  //   }
-
-  //   if (res.token && res.userId) {
-  //     setUserLocalStorage({ token: res.token, userId: res.userId });
-  //     this.header.draw();
-  //     onCloseModal("modal-sign-in")();
-  //   }
-  //   if (res.message) {
-  //     this.ErrorHandler(res, messageEl);
-  //   }
-  // }
-
-  // private ErrorHandler(res: IAnswerAuth, messageEl: HTMLElement) {
-  //   const inputs: NodeList = document.querySelectorAll(
-  //     ".login-form .input__item"
-  //   );
-  //   const arrInputs: HTMLElement[] = Array.prototype.slice.call(inputs);
-  //   arrInputs.forEach((input) => {
-  //     input.classList.add("error");
-  //   });
-  //   messageEl.classList.add("error");
-  //   if (res.message) {
-  //     messageEl.textContent = res.message;
-  //   }
-  // }
+    const messageEl: HTMLElement | null = document.querySelector(
+      `.${this.mainClass}__message-form`
+    );
+    if (!messageEl) {
+      return;
+    }
+    messageEl.textContent = res.message;
+    messageEl.classList.add("error");
+  }
 }
 
 export default ModalQuestions;

@@ -20,6 +20,9 @@ export interface IMainPage {
 export interface IAuthorization {
   registration: (data: IRegistrationData) => Promise<IAnswerAuth | undefined>;
   authorization: (data: IAuthorizationData) => Promise<IAnswerAuth | undefined>;
+  addUserInfo: (
+    data: Record<string, string>
+  ) => Promise<IAnswerAddUserInfo | undefined>;
 }
 
 export interface IAnswerAuth {
@@ -175,6 +178,7 @@ export interface IDataInputRadio {
   checked?: string;
   className: string;
   value: string;
+  onChange?: (e: Event) => void;
 }
 
 export interface IDataLabel {
@@ -193,6 +197,17 @@ export interface IDataFormQuestions {
 
 export interface IModalQuestions {
   draw: () => void;
+}
+
+export interface IAnswerAddUserInfo {
+  message: string;
+  errors?: IErrorUserInfo[];
+}
+
+export interface IErrorUserInfo {
+  msg: string;
+  param: string;
+  location: string;
 }
 
 export type IBtnRadio = HTMLInputElement | HTMLLabelElement;

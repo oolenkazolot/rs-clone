@@ -24,6 +24,7 @@ function createInput({
   checked,
   className,
   value,
+  onChange,
 }: IDataInputRadio): HTMLInputElement {
   const input: HTMLInputElement = template.createInput(className, {
     type: type,
@@ -32,6 +33,9 @@ function createInput({
     checked: checked || "",
     value: value,
   });
+  if (onChange) {
+    input.onchange = onChange;
+  }
   return input;
 }
 

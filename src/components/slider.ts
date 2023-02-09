@@ -176,6 +176,11 @@ class Slider {
     }
   }
 
+  // changeExerciseContent(prevBtn: HTMLElement, nextBtn: HTMLElement): void {
+  //   let i = 0;
+  //   let j = 1;
+  // }
+
   // private createExercises(
   //   nextBtn: HTMLElement,
   //   prevBtn: HTMLElement

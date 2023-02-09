@@ -20,14 +20,7 @@ export function InputIcon({
 
   if (validate) {
     input.onchange = () => {
-      const validateDate: IValidate = validate(input.value);
-      if (!validateDate.res) {
-        input.classList.add("error");
-        error.textContent = validateDate.message || "";
-      } else {
-        input.classList.remove("error");
-        error.textContent = "";
-      }
+      onChangeHandlerInput(validate, input, error);
     };
   }
 
@@ -37,6 +30,21 @@ export function InputIcon({
   );
   inputBlock.append(input, icon, error);
   return inputBlock;
+}
+
+function onChangeHandlerInput(
+  validate: (inputValue: string) => IValidate,
+  input: HTMLInputElement,
+  error: HTMLElement
+): void {
+  const validateDate: IValidate = validate(input.value);
+  if (!validateDate.res) {
+    input.classList.add("error");
+    error.textContent = validateDate.message || "";
+  } else {
+    input.classList.remove("error");
+    error.textContent = "";
+  }
 }
 
 function createInput(

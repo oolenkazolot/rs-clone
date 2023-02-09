@@ -147,21 +147,38 @@ export interface IWorkoutBlock {
   createWorkoutBlockCont: (titleText: string) => HTMLElement;
   createTitle: (titleText: string) => HTMLElement;
   createWorkoutContent: (
+    
     data: IWorkoutMiniBlock,
+   
     j: number,
+   
     i: number
+  ,
+    flag: boolean
   ) => HTMLElement;
   createTextBlock: (
+    
     descrTitleText: string,
+   
     exercAmt: string,
+   
     time: string,
+   
     j: number,
+   
     complexityLevel?: boolean
+  
   ) => HTMLElement;
-  createPngImage: (i: number, j: number, additClass: string) => HTMLElement;
+  createPngImage: (
+    i: number,
+    j: number,
+    additClass: string,
+    flag: boolean
+  ) => HTMLElement;
   createExercCont: (exercAmt: string) => HTMLElement;
   createTimeCont: (time: string) => HTMLElement;
   createLightnings: (j: number) => HTMLElement;
+  colorBackground: (element: HTMLElement) => void;
 }
 
 export interface IWorkoutMiniBlock {
@@ -217,3 +234,26 @@ export type ISingleTraining = {
   title: string;
   exercises: IExercise[];
 };
+
+export interface ISlider {
+  createNextPrevBtns: (
+    length: number,
+    wrapper: HTMLElement,
+    flag: boolean
+  ) => HTMLElement;
+  slider: (
+    nextBtn: HTMLButtonElement,
+    prevBtn: HTMLButtonElement,
+    wrapper: HTMLElement,
+    length: number,
+    flag: boolean
+  ) => void;
+  changeImgSise: (flag: boolean, n: number, length: number) => void;
+  slide: (
+    nextBtn: HTMLButtonElement,
+    prevBtn: HTMLButtonElement,
+    wrapper: HTMLElement,
+    length: number
+  ) => void;
+  changeImgSizeInf: (direct: string) => void;
+}

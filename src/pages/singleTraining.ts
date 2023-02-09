@@ -1,8 +1,8 @@
 import Template from "../templates/template";
 import Exercise from "../components/exercise";
 import { IRouter, ITemplate, IExercise, ISingleTraining } from "../types/index";
-import allTrainings from "../utils/singleTrainings-en";
 import TrainingModal from "../components/trainingModal";
+import workout_plans from "../utils/workout-plans-en";
 
 class SingleTrainingPage {
   template: ITemplate;
@@ -12,6 +12,7 @@ class SingleTrainingPage {
   color: string;
   image: string;
   title: string;
+  workout: ISingleTraining | undefined;
 
   constructor() {
     this.template = new Template();
@@ -20,6 +21,7 @@ class SingleTrainingPage {
     this.color = "";
     this.image = "";
     this.title = "";
+    this.workout;
   }
 
   public draw(id: string | undefined): void {
@@ -35,9 +37,13 @@ class SingleTrainingPage {
     mainElement.append(mainPageElement);
 
     if (id) {
-      const workout: ISingleTraining | undefined = allTrainings.find(
-        (item: ISingleTraining) => item.id == Number(id)
-      );
+      workout_plans.forEach((group) => {
+        group.block.forEach((training) => {
+          if (training.id === Number(id)) {
+            this.workout = training;
+          }
+        });
+      });
 
       const pageHeader = this.createHeader(id);
       mainPageElement.append(pageHeader);
@@ -46,24 +52,26 @@ class SingleTrainingPage {
       exercises.className = "training__exercises exercises";
       mainPageElement.append(exercises);
 
-      workout?.exercises.forEach((exercise: IExercise) => {
+      this.workout?.exercises.forEach((exercise: IExercise) => {
         const newEx = new Exercise(exercise);
         exercises.append(newEx.draw());
       });
 
-      this.showTrainingModal(workout?.exercises);
+      this.showTrainingModal(this.workout?.exercises);
     }
   }
 
   private createHeader(id: string): HTMLElement {
-    allTrainings.forEach((training: ISingleTraining) => {
-      if (training.id === Number(id)) {
-        this.exQuantity = training.exercisesAmt;
-        this.exTime = training.exercisesTime;
-        this.color = training.color;
-        this.image = training.image;
-        this.title = training.title;
-      }
+    workout_plans.forEach((plan) => {
+      plan.block.forEach((training: ISingleTraining) => {
+        if (training.id === Number(id)) {
+          this.exQuantity = training.exercisesAmt;
+          this.exTime = training.exercisesTime;
+          this.color = training.color;
+          this.image = training.image;
+          this.title = training.title;
+        }
+      });
     });
 
     const header: HTMLElement = this.template.createElement(

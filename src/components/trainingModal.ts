@@ -35,6 +35,13 @@ class TrainingModal {
 
     document.body.prepend(this.backLayer);
 
+    window.addEventListener("click", (e) => {
+      const target = <HTMLElement>e.target;
+      if (target.classList.contains("training-modal__backlayer")) {
+        this.backLayer.style.display = "none";
+      }
+    });
+
     // closeButton.addEventListener("click", () => {
     //   this.backLayer.style.display = "none";
     // });

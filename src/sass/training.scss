@@ -1,6 +1,7 @@
 .training {
   width: 100%;
   height: 100%;
+  background-color: $bg-light-gray;
 
   &__header {
     width: 100%;
@@ -94,7 +95,7 @@
 }
 
 .exercises {
-  width: 70%;
+  width: 80%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;

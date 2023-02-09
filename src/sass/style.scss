@@ -13,6 +13,9 @@
 @import './workout-plans.scss';
 @import './exercise.scss';
 @import './trainingModal.scss';
+@import './slider-questions.scss';
+@import './slider-points.scss';
+@import './slider-control.scss';
 
 @font-face {
   font-family: 'icomoon';
@@ -40,14 +43,20 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-close:before {
-  content: '\e902';
-}
 .icon-mail_outline:before {
   content: '\e901';
 }
 .icon-lock_outline:before {
   content: '\e900';
+}
+.icon-arrow_forward_ios:before {
+  content: '\e905';
+}
+.icon-arrow_back_ios:before {
+  content: '\e906';
+}
+.icon-close:before {
+  content: '\e902';
 }
 .icon-eye-blocked:before {
   content: '\e903';

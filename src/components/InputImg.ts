@@ -1,16 +1,20 @@
-import { IInputBlock, ITemplate, IValidate } from "../types/index";
+import { IInputImg, ITemplate, IValidate } from "../types/index";
 import { addClasses } from "../utils/component-utils";
 import Template from "../templates/template";
 
-export function Input({
+export function InputImg({
   className,
   attributes,
-  classNameIcon,
+  imgSrc,
+  imgAlt,
   validate,
-}: IInputBlock): HTMLElement {
+}: IInputImg): HTMLElement {
   const template: ITemplate = new Template();
-  const mainClass = "input";
-  const inputBlock: HTMLElement = template.createElement("div", mainClass);
+  const mainClass = "slide-info";
+  const inputBlock: HTMLElement = template.createElement(
+    "div",
+    `${mainClass}__input`
+  );
   addClasses(inputBlock, className);
   const input: HTMLInputElement = createInput(mainClass, attributes);
   const error: HTMLElement = template.createElement(
@@ -31,11 +35,12 @@ export function Input({
     };
   }
 
-  const icon: HTMLElement = template.createIcon(
-    `${mainClass}__icon`,
-    classNameIcon
+  const img: HTMLElement = template.createImage(
+    imgSrc,
+    imgAlt,
+    `${mainClass}__img`
   );
-  inputBlock.append(input, icon, error);
+  inputBlock.append(img, input, error);
   return inputBlock;
 }
 
@@ -44,7 +49,7 @@ function createInput(
   attributes: Record<string, string>
 ): HTMLInputElement {
   const input: HTMLInputElement = document.createElement("input");
-  input.classList.add(`${mainClass}__item`);
+  input.classList.add(`${mainClass}__input-item`);
   addAttributes(input, attributes);
   return input;
 }

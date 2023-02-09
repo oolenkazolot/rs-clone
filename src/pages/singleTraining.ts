@@ -9,6 +9,7 @@ import {
 } from "../types/index";
 import workout_plans from "../utils/workout-plans-en";
 import allTrainings from "../utils/singleTrainings-en";
+import TrainingModal from "../components/trainingModal";
 
 class SingleTrainingPage {
   template: ITemplate;
@@ -60,6 +61,8 @@ class SingleTrainingPage {
       const newEx = new Exercise(exercise);
       exercises.append(newEx.draw());
     });
+
+    this.showTrainingModal(workout?.exercises);
   }
 
   private createHeader(title: string): HTMLElement {
@@ -131,6 +134,18 @@ class SingleTrainingPage {
     );
     header.append(beginButton);
     return header;
+  }
+
+  private showTrainingModal(exercises: IExercise[] | undefined) {
+    const startBtn = document.querySelector(".training__button-start");
+    startBtn?.addEventListener("click", (e) => {
+      e.preventDefault();
+      if(exercises) {
+        const trainingModal = new TrainingModal();
+        trainingModal.draw(exercises[0]);
+      }   
+    })
+    
   }
 }
 

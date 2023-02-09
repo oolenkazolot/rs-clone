@@ -9,7 +9,7 @@ import {
 } from "../types/index";
 import { InputIcon } from "../components/InputIcon";
 import { PasswordInput } from "../components/PasswordInput";
-import Button from "../components/button";
+import Button from "../components/Button";
 import { onOpenModal, onCloseModal } from "../utils/component-utils";
 import Authorization from "../utils/auth.routes";
 import { isEmailValid } from "../utils/validate";

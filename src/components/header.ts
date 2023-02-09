@@ -1,6 +1,6 @@
 import Template from "../templates/template";
 import { ITemplate, IRouter } from "../types/index";
-import Button from "../components/button";
+import Button from "../components/Button";
 import { onOpenModal } from "../utils/component-utils";
 import {
   getUserTokenLocalStorage,

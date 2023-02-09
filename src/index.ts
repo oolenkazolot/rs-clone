@@ -51,6 +51,7 @@ const routs: IRout[] = [
   },
   {
     path: "workouts",
+    path: "workouts",
     cb: trainingsCreationPage.draw.bind(trainingsCreationPage),
   },
   {

@@ -81,6 +81,45 @@ class Template {
     newImage.className = imgClassName;
     return newImage;
   }
+
+  public createLabel(
+    className?: string | undefined,
+    forName?: string | undefined,
+    content?: string | undefined
+  ): HTMLLabelElement {
+    const label: HTMLLabelElement = document.createElement("label");
+    if (forName) {
+      label.setAttribute("for", forName);
+    }
+    if (className) {
+      label.classList.add(className);
+    }
+    if (content) {
+      label.textContent = content;
+    }
+    return label;
+  }
+
+  public createInput(
+    mainClass: string,
+    attributes: Record<string, string>
+  ): HTMLInputElement {
+    const input: HTMLInputElement = document.createElement("input");
+    input.classList.add(mainClass);
+    this.addAttributes(input, attributes);
+    return input;
+  }
+
+  public addAttributes(
+    input: HTMLInputElement,
+    attributes: Record<string, string>
+  ): void {
+    for (const key in attributes) {
+      if (attributes[key]) {
+        input.setAttribute(key, attributes[key]);
+      }
+    }
+  }
 }
 
 export default Template;

@@ -137,6 +137,7 @@ class Header {
 
   private onClickHandlerLinkMenu(e: Event, src: string) {
     e.preventDefault();
+
     if (this.router) {
       this.router.navigate(src);
     }
@@ -145,6 +146,9 @@ class Header {
   private exitApp() {
     removeUserLocalStorage();
     this.draw();
+    if (this.router) {
+      this.router.navigate("");
+    }
   }
 }
 

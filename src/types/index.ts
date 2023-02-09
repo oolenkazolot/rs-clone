@@ -25,6 +25,7 @@ export interface ISingleTrainingPage {
 export interface IAuthorization {
   registration: (data: IRegistrationData) => Promise<IAnswerAuth | undefined>;
   authorization: (data: IAuthorizationData) => Promise<IAnswerAuth | undefined>;
+  addUserInfo: (data: Record<string, string>) => Promise<IAnswerAddUserInfo | undefined>;
 }
 
 export interface IAnswerAuth {
@@ -44,29 +45,16 @@ export interface IAuthorizationData {
 }
 
 export interface ITemplate {
-  createElement: (
-    tagName: string,
-    myClass: string,
-    content?: string
-  ) => HTMLElement;
-  createLink: (
-    myClass: string,
-    href: string,
-    content?: string
-  ) => HTMLAnchorElement;
-  createBtn: (
-    myClass: string,
-    content?: string | HTMLElement | undefined,
-    type?: string
-  ) => HTMLButtonElement;
+  createElement: (tagName: string, myClass: string, content?: string) => HTMLElement;
+  createLink: (myClass: string, href: string, content?: string) => HTMLAnchorElement;
+  createBtn: (myClass: string, content?: string | HTMLElement | undefined, type?: string) => HTMLButtonElement;
   createForm: (className: string, action: string) => HTMLFormElement;
   createIcon: (className: string, classNameIcon: string) => HTMLElement;
   createVideo: (src: string) => HTMLVideoElement;
-  createImage: (
-    src: string,
-    alt: string,
-    imgClassName: string
-  ) => HTMLImageElement;
+  createImage: (src: string, alt: string, imgClassName: string) => HTMLImageElement;
+  createLabel: (className?: string | undefined, forName?: string | undefined, content?: string | undefined) => HTMLLabelElement;
+  createInput: (mainClass: string, attributes: Record<string, string>) => HTMLInputElement;
+  addAttributes: (input: HTMLInputElement, attributes: Record<string, string>) => void;
 }
 
 export interface IHeader {
@@ -86,10 +74,18 @@ export interface IModal {
   createModal: (id: string, content: HTMLElement) => HTMLElement;
 }
 
-export interface IInputBlock {
+export interface IInputIcon {
   className?: string[];
   attributes: Record<string, string>;
   classNameIcon: string;
+  validate: (inputValue: string) => IValidate;
+}
+
+export interface IInputImg {
+  className?: string[];
+  attributes: Record<string, string>;
+  imgSrc: string;
+  imgAlt: string;
   validate: (inputValue: string) => IValidate;
 }
 
@@ -122,19 +118,9 @@ export interface IDataUser {
 export interface IWorkoutBlock {
   createWorkoutBlockCont: (titleText: string) => HTMLElement;
   createTitle: (titleText: string) => HTMLElement;
-  createWorkoutContent: (
-    data: IWorkoutMiniBlock,
-    j: number,
-    i: number,
-    flag: boolean
-  ) => HTMLElement;
-  createTextBlock: (
-    descrTitleText: string,
-    exercAmt: string,
-    time: string,
-    j: number,
-    complexityLevel?: boolean
-  ) => HTMLElement;
+  createWorkoutContent: (data: IWorkoutMiniBlock, j: number, i: number,
+    flag: boolean) => HTMLElement;
+  createTextBlock: (descrTitleText: string, exercAmt: string, time: string, j: number, complexityLevel?: boolean) => HTMLElement;
   createPngImage: (
     i: number,
     j: number,
@@ -153,18 +139,48 @@ export interface IWorkoutMiniBlock {
   exercisesTime: string;
   complexityLevel?: boolean;
   color: string;
-  exercises?: IExercise[];
 }
 
-export interface IExerciseNew {
-  id: number;
+export interface IDataInputRadio {
+  type: string;
+  id: string;
+  name: string;
+  checked?: string;
+  className: string;
+  value: string;
+  onChange?: (e: Event) => void;
+}
+
+export interface IDataLabel {
+  forName: string;
+  content: string;
+  className: string;
+}
+
+export interface IDataFormQuestions {
   title: string;
-  description: string;
-  example: string;
-  youtube: string;
-  quantity: string;
+  question: string;
+  name: string;
+  nameBtn: string[];
+  values: string[];
 }
 
+export interface IModalQuestions {
+  draw: () => void;
+}
+
+export interface IAnswerAddUserInfo {
+  message: string;
+  errors?: IErrorUserInfo[];
+}
+
+export interface IErrorUserInfo {
+  msg: string;
+  param: string;
+  location: string;
+}
+
+export type IBtnRadio = HTMLInputElement | HTMLLabelElement;
 export type ISingleTraining = {
   id: number;
   title: string;

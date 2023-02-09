@@ -168,13 +168,15 @@ class MainPage {
     mainElement.classList.add("main");
 
     mainElement.innerHTML = "";
-    mainElement.append(this.mainPageElement);
+    this.mainPageElement.textContent = "";
 
     this.createIntroSection();
 
     this.createAboutSection();
 
     this.createFeaturesSection();
+
+    mainElement.append(this.mainPageElement);
 
     document.body.append(this.footer.draw());
     // this.registr();

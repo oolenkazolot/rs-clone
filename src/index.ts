@@ -1,24 +1,17 @@
-import "./sass/style.scss";
-import Router from "./utils/Routing";
-import MainPage from "./pages/main";
-import ErrorPage from "./pages/error";
-import Header from "./components/header";
-import ModalSignIn from "./components/modalSignIn";
-import ModalSignUp from "./components/modalSignUp";
-import TrainingsPage from "./pages/trainings";
-import SingleTrainingPage from "./pages/singleTraining";
+import './sass/style.scss';
+import Router from './utils/Routing';
+import MainPage from './pages/main';
+import ErrorPage from './pages/error';
+import Header from './components/header';
+import ModalSignIn from './components/modalSignIn';
+import ModalSignUp from './components/modalSignUp';
+import ModalQuestions from './components/modalQuestions';
+import TrainingsPage from './pages/trainings';
+import SingleTrainingPage from './pages/singleTraining';
 import ExercisesPage from "./pages/exercises";
 import ChangeElements from "./components/changeElements";
 
-import {
-  IMainPage,
-  IErrorPage,
-  IRout,
-  IHeader,
-  IModalSignIn,
-  IModalSignUp,
-  ISingleTrainingPage,
-} from "./types/index";
+import { IMainPage, IErrorPage, IRout, IHeader, IModalSignIn, IModalSignUp, IModalQuestions, ISingleTrainingPage } from './types/index';
 
 const mainPage: IMainPage = new MainPage();
 const errorPage: IErrorPage = new ErrorPage();
@@ -31,6 +24,9 @@ modalSignIn.draw();
 
 const modalSignUp: IModalSignUp = new ModalSignUp();
 modalSignUp.draw();
+
+const modalQuestions: IModalQuestions = new ModalQuestions();
+modalQuestions.draw();
 
 const trainingsCreationPage = new TrainingsPage();
 
@@ -47,6 +43,10 @@ const routs: IRout[] = [
   {
     path: "workouts",
     cb: trainingsCreationPage.draw.bind(trainingsCreationPage),
+  },
+  {
+    path: "exercises",
+    cb: exercisesPage.draw.bind(exercisesPage),
   },
   {
     path: "exercises",

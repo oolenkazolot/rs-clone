@@ -1,0 +1,28 @@
+.slider-control {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+
+  &__back,
+  &__forward {
+    font-size: 25px;
+    color: $color-grey-light;
+    transition: color $transition;
+    cursor: pointer;
+
+    &:hover {
+      color: $color-main-second;
+    }
+
+    &.disabled {
+      opacity: 0.5;
+
+      &:hover {
+        color: $color-grey-light;
+        opacity: 0.5;
+        cursor: auto;
+      }
+    }
+  }
+}

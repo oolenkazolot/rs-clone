@@ -85,15 +85,30 @@ class TrainingsPage {
       );
       workoutBlock.append(buttons);
       for (let j = 0; j < workout_plans[i].block.length; j++) {
+        const link = this.template.createElement("a", "link-to-exerc");
+        const id: number = workout_plans[i].block[j].id;
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          if (this.router) {
+            const mainElement: HTMLElement | null = document.querySelector(
+              "main"
+            );
+            if (mainElement) {
+              mainElement.innerHTML = "";
+              this.router.navigate(`workouts/${id}`);
+            }
+          }
+        });
         const block: IWorkoutMiniBlock = workout_plans[i].block[j];
         const content: HTMLElement = this.workoutBlock.createWorkoutContent(
           block,
-          j,
           i,
+          j,
           false
         );
         this.workoutBlock.colorBackground(content);
-        wrapper.append(content);
+        link.append(content);
+        wrapper.append(link);
       }
     }
     return contentContainer;

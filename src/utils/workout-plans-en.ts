@@ -4,6 +4,7 @@ const workout_plans = [
     image: "../assets/png/abs3.png",
     block: [
       {
+        id: 1,
         title: "ABS beginner",
         exercisesAmt: "19",
         exercisesTime: "15",
@@ -185,6 +186,7 @@ const workout_plans = [
         ],
       },
       {
+        id: 2,
         title: "ABS intermediate",
         exercisesAmt: "20",
         exercisesTime: "17",
@@ -375,6 +377,7 @@ const workout_plans = [
         ],
       },
       {
+        id: 3,
         title: "ABS advanced",
         exercisesAmt: "26",
         exercisesTime: "13",
@@ -625,6 +628,7 @@ const workout_plans = [
     image: "../assets/png/butt.png",
     block: [
       {
+        id: 4,
         title: "BUTT beginner",
         exercisesAmt: "18",
         exercisesTime: "13",
@@ -797,6 +801,7 @@ const workout_plans = [
         ],
       },
       {
+        id: 5,
         title: "BUTT intermediate",
         exercisesAmt: "26",
         exercisesTime: "18",
@@ -1041,6 +1046,7 @@ const workout_plans = [
         ],
       },
       {
+        id: 6,
         title: "BUTT advanced",
         exercisesAmt: "32",
         exercisesTime: "24",
@@ -1343,6 +1349,7 @@ const workout_plans = [
     image: "../assets/png/thigh.png",
     block: [
       {
+        id: 7,
         title: "THIGH beginner",
         exercisesAmt: "19",
         exercisesTime: "14",
@@ -1515,6 +1522,7 @@ const workout_plans = [
         ],
       },
       {
+        id: 8,
         title: "THIGH intermediate",
         exercisesAmt: "26",
         exercisesTime: "19",
@@ -1759,6 +1767,7 @@ const workout_plans = [
         ],
       },
       {
+        id: 9,
         title: "THIGH advanced",
         exercisesAmt: "29",
         exercisesTime: "21",
@@ -2032,6 +2041,7 @@ const workout_plans = [
     image: "../assets/images/morning_evening.jpg",
     block: [
       {
+        id: 10,
         title: "morning warmup",
         exercisesAmt: "11",
         exercisesTime: "10",
@@ -2140,6 +2150,7 @@ const workout_plans = [
         ],
       },
       {
+        id: 11,
         title: "sleepy time stretch",
         exercisesAmt: "13",
         exercisesTime: "13",

@@ -220,7 +220,7 @@ const trainingsData = {
       title: "растяжка в позе бабочки",
       description:
         "Лягте на пол, ноги вместе. Разведите колени в стороны. Держите эту позицию.",
-      example: "../assets/images/lying _butterfly_stretch.png",
+      example: "../assets/png/lying_butterfly_stretch.png",
       youtube: "https://www.youtube.com/watch?v=bzfY0Zr3sUE",
     },
     {
@@ -500,7 +500,7 @@ const trainingsData = {
       title: "приседания с прыжками",
       description:
         "Поставьте ноги на ширине плеч и слегка согните их в коленях. Резко подпрыгните.",
-      example: "../assets/gifs/jumping_squats.gif",
+      example: "../assets/gifs/jumping_squats.webp",
       youtube: "https://www.youtube.com/watch?v=txLE-jOCEsc",
     },
     {
@@ -516,7 +516,7 @@ const trainingsData = {
       title: "растяжка левой ноги",
       description:
         "Встаньте прямо и перенесите вес на правую ногу. Поднимите левую ногу и возьмитесь за нее левой рукой. Подтяните левую ногу к ягодицам, пока не почувствуете растяжение в квадрицепсах. Держите эту позицию.",
-      example: "../assets/image/squad_stretch_left.jpg/",
+      example: "../assets/images/quad_stretch_left.jpg/",
       youtube: "https://www.youtube.com/watch?v=TfcRyYf7WLg",
     },
     {
@@ -524,7 +524,7 @@ const trainingsData = {
       title: "растяжка правой ноги",
       description:
         "Встаньте прямо и перенесите вес на левую ногу. Поднимите правую ногу и возьмитесь за нее правой рукой. Подтяните правую ногу к ягодицам, пока не почувствуете растяжение в квадрицепсах. Держите эту позицию.",
-      example: "../assets/image/squad_stretch_right.jpg",
+      example: "../assets/images/quad_stretch_right.jpg",
       youtube: "https://www.youtube.com/watch?v=TfcRyYf7WLg",
     },
     {
@@ -596,7 +596,7 @@ const trainingsData = {
       title: "растяжка трицепса вправо",
       description:
         "Встаньте, расслабив руки. Поднимите руку и осторожно согните локоть, насколько это возможно. Другой рукой возмитесь за локоть и потяните.",
-      example: "../assets/images/triceps_stretch_right.jpg",
+      example: "../assets/images/tricep_stretch_right.jpg",
       youtube: "https://www.youtube.com/watch?v=L9IGOcrdcFk",
     },
     {

@@ -90,6 +90,10 @@ export interface IHeader {
   router?: IRouter;
 }
 
+export interface IFooter {
+  draw: () => void;
+}
+
 export interface IButton {
   content: string | HTMLElement;
   className?: string[];
@@ -147,27 +151,23 @@ export interface IWorkoutBlock {
   createWorkoutBlockCont: (titleText: string) => HTMLElement;
   createTitle: (titleText: string) => HTMLElement;
   createWorkoutContent: (
-    
     data: IWorkoutMiniBlock,
-   
+
     j: number,
-   
-    i: number
-  ,
+
+    i: number,
     flag: boolean
   ) => HTMLElement;
   createTextBlock: (
-    
     descrTitleText: string,
-   
+
     exercAmt: string,
-   
+
     time: string,
-   
+
     j: number,
-   
+
     complexityLevel?: boolean
-  
   ) => HTMLElement;
   createPngImage: (
     i: number,
@@ -257,3 +257,12 @@ export interface ISlider {
   ) => void;
   changeImgSizeInf: (direct: string) => void;
 }
+
+export type ICalendar = {
+  createCalendar: () => HTMLElement;
+};
+
+export type IProfilePage = {
+  draw: () => void;
+  router?: IRouter;
+};

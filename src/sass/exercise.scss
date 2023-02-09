@@ -1,5 +1,4 @@
 .exercise {
-  width: 100%;
   display: flex;
   justify-content: space-between;
   border-radius: 10px;
@@ -12,7 +11,7 @@
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   transition: $transition;
   cursor: pointer;
-  
+
   &__info {
     display: flex;
     flex-direction: column;
@@ -22,11 +21,11 @@
     font-size: 1.2rem;
     line-height: 25px;
   }
-  
+
   &__gif {
     width: 20%;
     height: 100%;
-  
+
     img {
       width: 100%;
       height: auto;

@@ -31,14 +31,19 @@ class ExercisesPage {
     mainElement.classList.add("main");
 
     mainElement.textContent = "";
+    const forDecor: HTMLElement = this.template.createElement(
+      "div",
+      "for-decor"
+    );
     const mainPageElement: HTMLElement = document.createElement("div");
+    forDecor.append(this.createDecorationEl(), mainPageElement);
     mainPageElement.classList.add("exercises-page");
-    mainElement.append(this.createDecorationEl(), mainPageElement);
+    mainElement.append(forDecor);
     mainPageElement.append(
       this.createMiniHeader(),
       this.createWeekGoalCont(),
       this.createExercisesBlock(),
-      this.createExercises()
+      this.createExercisesCont()
     );
   }
 
@@ -161,7 +166,6 @@ class ExercisesPage {
       for (let j = 0; j < workout_plans[i].block.length; j++) {
         length++;
         const block: IWorkoutMiniBlock = workout_plans[i].block[j];
-        console.log("i", i);
         const workoutBlock: HTMLElement = this.workoutBlock.createWorkoutContent(
           block,
           i,
@@ -196,20 +200,14 @@ class ExercisesPage {
     return decorEl;
   }
 
-  private createExercises(): HTMLElement {
-    const container: HTMLElement = this.template.createElement(
+  private createExercisesCont(): HTMLElement {
+    const exerciseCont = this.template.createElement(
       "div",
-      "exercises-container"
+      "exercises-wrapper"
     );
-    const i = 0;
-    const j = 1;
-    const block = workout_plans[i].block[j];
-    for (let k = 0; k < block.exercises.length; k++) {
-      const exerciseData = block.exercises[k];
-      const exercise = new Exercise(exerciseData).draw();
-      container.append(exercise);
-    }
-    return container;
+    const exercises: HTMLElement = this.slider.createExercises(0, 2);
+    exerciseCont.append(exercises);
+    return exerciseCont;
   }
 }
 

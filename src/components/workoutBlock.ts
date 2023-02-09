@@ -106,7 +106,6 @@ class WorkoutBlock {
     flag: boolean
   ): HTMLImageElement {
     let png;
-    console.log(i, j);
     if (i === 0) {
       png = absPng;
     } else if (i === 1) {

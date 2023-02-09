@@ -39,6 +39,10 @@ class Slider {
     } else {
       this.slider(nextBtn, prevBtn, wrapper, length, flag);
     }
+    if (flag) {
+      slider.changeExerciseContent(prevBtn, nextBtn);
+    }
+
     return buttonsCont;
   }
 
@@ -176,10 +180,60 @@ class Slider {
     }
   }
 
-  // changeExerciseContent(prevBtn: HTMLElement, nextBtn: HTMLElement): void {
-  //   let i = 0;
-  //   let j = 1;
-  // }
+  createExercises(i: number, j: number): HTMLElement {
+    const container: HTMLElement = this.template.createElement(
+      "div",
+      "exercises-container"
+    );
+    const block = workout_plans[i].block[j];
+    for (let k = 0; k < block.exercises.length; k++) {
+      const exerciseData = block.exercises[k];
+      const exercise = new Exercise(exerciseData).draw();
+      container.append(exercise);
+    }
+    return container;
+  }
+
+  changeExerciseContent(prevBtn: HTMLElement, nextBtn: HTMLElement): void {
+    let i = 0;
+    let j = 2;
+    nextBtn.addEventListener("click", () => {
+      if (j < workout_plans[i].block.length - 1) {
+        j++;
+      } else {
+        if (i < workout_plans.length - 1) {
+          j = 0;
+          i++;
+        } else {
+          i = 0;
+          j = 0;
+        }
+      }
+      const exercisesContainer = document.querySelector(
+        ".exercises-wrapper"
+      ) as HTMLElement;
+      exercisesContainer.innerHTML = "";
+      exercisesContainer.append(slider.createExercises(i, j));
+    });
+    prevBtn.addEventListener("click", () => {
+      if (j > 0) {
+        j--;
+      } else {
+        if (i > 0) {
+          i--;
+          j = workout_plans[i].block.length - 1;
+        } else {
+          i = workout_plans.length - 1;
+          j = workout_plans[i].block.length - 1;
+        }
+      }
+      const exercisesContainer = document.querySelector(
+        ".exercises-wrapper"
+      ) as HTMLElement;
+      exercisesContainer.innerHTML = "";
+      exercisesContainer.append(slider.createExercises(i, j));
+    });
+  }
 
   // private createExercises(
   //   nextBtn: HTMLElement,

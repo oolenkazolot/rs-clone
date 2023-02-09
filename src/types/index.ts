@@ -147,27 +147,23 @@ export interface IWorkoutBlock {
   createWorkoutBlockCont: (titleText: string) => HTMLElement;
   createTitle: (titleText: string) => HTMLElement;
   createWorkoutContent: (
-    
     data: IWorkoutMiniBlock,
-   
+
     j: number,
-   
-    i: number
-  ,
+
+    i: number,
     flag: boolean
   ) => HTMLElement;
   createTextBlock: (
-    
     descrTitleText: string,
-   
+
     exercAmt: string,
-   
+
     time: string,
-   
+
     j: number,
-   
+
     complexityLevel?: boolean
-  
   ) => HTMLElement;
   createPngImage: (
     i: number,
@@ -256,4 +252,5 @@ export interface ISlider {
     length: number
   ) => void;
   changeImgSizeInf: (direct: string) => void;
+  createExercises: (i: number, j: number) => HTMLElement;
 }

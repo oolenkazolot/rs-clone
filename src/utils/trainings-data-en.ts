@@ -221,7 +221,7 @@ const trainingsData = {
       title: "lying butterfly stretch",
       description:
         "Lie on the floor with your feet together. Open your knees to the sides. Hold this position.",
-      example: "../assets/images/lying _butterfly_stretch.png",
+      example: "../assets/png/lying_butterfly_stretch.png",
       youtube: "https://www.youtube.com/watch?v=bzfY0Zr3sUE",
     },
     {
@@ -499,7 +499,7 @@ const trainingsData = {
       title: "jumping squats",
       description:
         "Stand with feet shoulder width and knees slightly bent. Start by doing a regular squat. engage your core, and jump up explosively.",
-      example: "../assets/gifs/jumping_squats.gif",
+      example: "../assets/gifs/jumping_squats.webp",
       youtube: "https://www.youtube.com/watch?v=txLE-jOCEsc",
     },
     {
@@ -595,7 +595,7 @@ const trainingsData = {
       title: "triceps stretch right",
       description:
         "Stand with your arms relaxed at your sides. With your affected arm, gently bend your elbow up toward you as far as possible. Your palm should face up. Then straighten your arm as much as you can.",
-      example: "../assets/images/triceps_stretch_right.jpg",
+      example: "../assets/images/tricep_stretch_right.jpg",
       youtube: "https://www.youtube.com/watch?v=L9IGOcrdcFk",
     },
     {

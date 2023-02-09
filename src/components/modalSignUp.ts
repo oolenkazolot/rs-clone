@@ -10,7 +10,7 @@ import {
 } from "../types/index";
 import { InputIcon } from "../components/InputIcon";
 import { PasswordInput } from "../components/PasswordInput";
-import Button from "../components/button";
+import Button from "../components/Button";
 import { onOpenModal } from "../utils/component-utils";
 import { isEmailValid } from "../utils/validate";
 import Authorization from "../utils/auth.routes";

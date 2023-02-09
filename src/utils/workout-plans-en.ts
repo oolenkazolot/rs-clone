@@ -1195,7 +1195,7 @@ const workout_plans = [
             title: "jumping squats",
             description:
               "Stand with feet shoulder width and knees slightly bent. Start by doing a regular squat. engage your core, and jump up explosively.",
-            example: "../assets/gifs/jumping_squats.gif",
+            example: "../assets/gifs/jumping_squats.webp",
             youtube: "https://www.youtube.com/watch?v=txLE-jOCEsc",
             quantity: "x12",
           },
@@ -1481,7 +1481,7 @@ const workout_plans = [
             title: "quad stretch left",
             description:
               "Stand up tall and shift your weight to the right leg. Lift your left foot and grasp it with your left hand. Pull the left foot toward your butt until you feel the stretch in your quads. Hold this position.",
-            example: "../assets/image/squad_stretch_left.jpg/",
+            example: "../assets/images/quad_stretch_left.jpg/",
             youtube: "https://www.youtube.com/watch?v=TfcRyYf7WLg",
             quantity: "00:30",
           },
@@ -1490,7 +1490,7 @@ const workout_plans = [
             title: "quad stretch right",
             description:
               "Stand up tall and shift your weight to the right leg. Lift your right foot and grasp it with your left hand. Pull the left foot toward your butt until you feel the stretch in your quads. Hold this position.",
-            example: "../assets/image/squad_stretch_right.jpg",
+            example: "../assets/images/quad_stretch_right.jpg",
             youtube: "https://www.youtube.com/watch?v=TfcRyYf7WLg",
             quantity: "00:30",
           },
@@ -1725,7 +1725,7 @@ const workout_plans = [
             title: "quad stretch left",
             description:
               "Stand up tall and shift your weight to the right leg. Lift your left foot and grasp it with your left hand. Pull the left foot toward your butt until you feel the stretch in your quads. Hold this position.",
-            example: "../assets/image/squad_stretch_left.jpg/",
+            example: "../assets/images/quad_stretch_left.jpg/",
             youtube: "https://www.youtube.com/watch?v=TfcRyYf7WLg",
             quantity: "00:30",
           },
@@ -1734,7 +1734,7 @@ const workout_plans = [
             title: "quad stretch right",
             description:
               "Stand up tall and shift your weight to the right leg. Lift your right foot and grasp it with your left hand. Pull the left foot toward your butt until you feel the stretch in your quads. Hold this position.",
-            example: "../assets/image/squad_stretch_right.jpg",
+            example: "../assets/images/quad_stretch_right.jpg",
             youtube: "https://www.youtube.com/watch?v=TfcRyYf7WLg",
             quantity: "00:30",
           },
@@ -1843,7 +1843,7 @@ const workout_plans = [
             title: "jumping squats",
             description:
               "Stand with feet shoulder width and knees slightly bent. Start by doing a regular squat. engage your core, and jump up explosively.",
-            example: "../assets/gifs/jumping_squats.gif",
+            example: "../assets/gifs/jumping_squats.webp",
             youtube: "https://www.youtube.com/watch?v=txLE-jOCEsc",
             quantity: "x12",
           },
@@ -1949,7 +1949,7 @@ const workout_plans = [
             title: "jumping squats",
             description:
               "Stand with feet shoulder width and knees slightly bent. Start by doing a regular squat. engage your core, and jump up explosively.",
-            example: "../assets/gifs/jumping_squats.gif",
+            example: "../assets/gifs/jumping_squats.webp",
             youtube: "https://www.youtube.com/watch?v=txLE-jOCEsc",
             quantity: "x10",
           },
@@ -2001,7 +2001,7 @@ const workout_plans = [
             title: "quad stretch left",
             description:
               "Stand up tall and shift your weight to the right leg. Lift your left foot and grasp it with your left hand. Pull the left foot toward your butt until you feel the stretch in your quads. Hold this position.",
-            example: "../assets/image/squad_stretch_left.jpg/",
+            example: "../assets/images/quad_stretch_left.jpg/",
             youtube: "https://www.youtube.com/watch?v=TfcRyYf7WLg",
             quantity: "00:30",
           },
@@ -2010,7 +2010,7 @@ const workout_plans = [
             title: "quad stretch right",
             description:
               "Stand up tall and shift your weight to the right leg. Lift your right foot and grasp it with your left hand. Pull the left foot toward your butt until you feel the stretch in your quads. Hold this position.",
-            example: "../assets/image/squad_stretch_right.jpg",
+            example: "../assets/images/quad_stretch_right.jpg",
             youtube: "https://www.youtube.com/watch?v=TfcRyYf7WLg",
             quantity: "00:30",
           },
@@ -2019,7 +2019,7 @@ const workout_plans = [
             title: "lying butterfly stretch",
             description:
               "Lie on the floor with your feet together. Open your knees to the sides. Hold this position.",
-            example: "../assets/images/lying _butterfly_stretch.png",
+            example: "../assets/png/lying_butterfly_stretch.png",
             youtube: "https://www.youtube.com/watch?v=bzfY0Zr3sUE",
             quantity: "00:30",
           },
@@ -2151,7 +2151,7 @@ const workout_plans = [
             title: "quad stretch left",
             description:
               "Stand up tall and shift your weight to the right leg. Lift your left foot and grasp it with your left hand. Pull the left foot toward your butt until you feel the stretch in your quads. Hold this position.",
-            example: "../assets/image/squad_stretch_left.jpg/",
+            example: "../assets/images/quad_stretch_left.jpg/",
             youtube: "https://www.youtube.com/watch?v=TfcRyYf7WLg",
             quantity: "00:30",
           },
@@ -2160,7 +2160,7 @@ const workout_plans = [
             title: "quad stretch right",
             description:
               "Stand up tall and shift your weight to the right leg. Lift your right foot and grasp it with your left hand. Pull the left foot toward your butt until you feel the stretch in your quads. Hold this position.",
-            example: "../assets/image/squad_stretch_right.jpg",
+            example: "../assets/images/quad_stretch_right.jpg",
             youtube: "https://www.youtube.com/watch?v=TfcRyYf7WLg",
             quantity: "00:30",
           },
@@ -2169,7 +2169,7 @@ const workout_plans = [
             title: "quad stretch left",
             description:
               "Stand up tall and shift your weight to the right leg. Lift your left foot and grasp it with your left hand. Pull the left foot toward your butt until you feel the stretch in your quads. Hold this position.",
-            example: "../assets/image/squad_stretch_left.jpg/",
+            example: "../assets/images/quad_stretch_left.jpg/",
             youtube: "https://www.youtube.com/watch?v=TfcRyYf7WLg",
             quantity: "00:30",
           },
@@ -2178,7 +2178,7 @@ const workout_plans = [
             title: "quad stretch right",
             description:
               "Stand up tall and shift your weight to the right leg. Lift your right foot and grasp it with your left hand. Pull the left foot toward your butt until you feel the stretch in your quads. Hold this position.",
-            example: "../assets/image/squad_stretch_right.jpg",
+            example: "../assets/images/quad_stretch_right.jpg",
             youtube: "https://www.youtube.com/watch?v=TfcRyYf7WLg",
             quantity: "00:30",
           },
@@ -2196,7 +2196,7 @@ const workout_plans = [
             title: "triceps stretch right",
             description:
               "Stand with your arms relaxed at your sides. With your affected arm, gently bend your elbow up toward you as far as possible. Your palm should face up. Then straighten your arm as much as you can.",
-            example: "../assets/images/triceps_stretch_right.jpg",
+            example: "../assets/images/tricep_stretch_right.jpg",
             youtube: "https://www.youtube.com/watch?v=L9IGOcrdcFk",
             quantity: "00:30",
           },
@@ -2232,7 +2232,7 @@ const workout_plans = [
             title: "lying butterfly stretch",
             description:
               "Lie on the floor with your feet together. Open your knees to the sides. Hold this position.",
-            example: "../assets/images/lying _butterfly_stretch.png",
+            example: "../assets/png/lying_butterfly_stretch.png",
             youtube: "https://www.youtube.com/watch?v=bzfY0Zr3sUE",
             quantity: "00:30",
           },

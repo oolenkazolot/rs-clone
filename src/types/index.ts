@@ -257,4 +257,5 @@ export interface ISlider {
     length: number
   ) => void;
   changeImgSizeInf: (direct: string) => void;
+  createExercises: (i: number, j: number) => HTMLElement;
 }

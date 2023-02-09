@@ -45,15 +45,19 @@ class ExerciseModal {
     document.body.prepend(this.backLayer);
 
     closeButton.addEventListener("click", () => {
-      this.backLayer.style.display = "none";
+      this.closeExerciseModal();
     });
 
     window.addEventListener("click", (e) => {
       const target = <HTMLElement>e.target;
       if (target.classList.contains("exercise-modal__backlayer")) {
-        this.backLayer.style.display = "none";
+        this.closeExerciseModal();
       }
     });
+  }
+
+  private closeExerciseModal() {
+    this.backLayer.style.display = "none";
   }
 
   private createExerciseInfo(): void {
@@ -75,6 +79,7 @@ class ExerciseModal {
       "exercise-modal__link",
       this.exercise.youtube
     );
+    youtubeLink.target = "_blank";
     exerciseInfo.append(exerciseName, exerciseQuantity, youtubeLink);
     this.modal.append(exerciseInfo);
   }
@@ -122,7 +127,41 @@ class ExerciseModal {
     changeButtons.append(cancelButton, saveButton);
     changeBlock.append(changeButtons);
 
+    cancelButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      this.closeExerciseModal();
+    });
+
+    plusButton.addEventListener("click", this.addExerciseQuantity);
+
+    minusButton.addEventListener("click", this.reduceExerciseQuantity);
+
     this.modal.append(changeBlock);
+  }
+
+  private reduceExerciseQuantity() {
+    const curQuantitySpan = <HTMLElement>(
+      document.querySelector(".exercise-modal__current-quantity")
+    );
+    const exerciseText = <string>curQuantitySpan.textContent;
+    if (exerciseText.toLowerCase().includes("x")) {
+      const curNumber = Number(exerciseText.slice(1));
+      if (curNumber === 0) {
+        return;
+      }
+      curQuantitySpan.textContent = `X${curNumber - 1}`;
+    }
+  }
+
+  private addExerciseQuantity() {
+    const curQuantitySpan = <HTMLElement>(
+      document.querySelector(".exercise-modal__current-quantity")
+    );
+    const exerciseText = <string>curQuantitySpan.textContent;
+    if (exerciseText.toLowerCase().includes("x")) {
+      const curNumber = Number(exerciseText.slice(1));
+      curQuantitySpan.textContent = `X${curNumber + 1}`;
+    }
   }
 }
 

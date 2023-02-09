@@ -1,13 +1,6 @@
 import Template from "../templates/template";
 import Exercise from "../components/exercise";
-import {
-  IRouter,
-  ITemplate,
-  IExercise,
-  IWorkoutMiniBlock,
-  ISingleTraining,
-} from "../types/index";
-import workout_plans from "../utils/workout-plans-en";
+import { IRouter, ITemplate, IExercise, ISingleTraining } from "../types/index";
 import allTrainings from "../utils/singleTrainings-en";
 import TrainingModal from "../components/trainingModal";
 
@@ -41,41 +34,38 @@ class SingleTrainingPage {
     mainPageElement.classList.add("training");
     mainElement.append(mainPageElement);
 
-    const workout: ISingleTraining | undefined = allTrainings.find(
-      (item: ISingleTraining) => item.id == Number(id)
-    );
-    console.log(workout);
+    if (id) {
+      const workout: ISingleTraining | undefined = allTrainings.find(
+        (item: ISingleTraining) => item.id == Number(id)
+      );
 
-    if (workout) {
-      this.title = workout.title;
+      const pageHeader = this.createHeader(id);
+      mainPageElement.append(pageHeader);
+
+      const exercises = document.createElement("div");
+      exercises.className = "training__exercises exercises";
+      mainPageElement.append(exercises);
+
+      workout?.exercises.forEach((exercise: IExercise) => {
+        const newEx = new Exercise(exercise);
+        exercises.append(newEx.draw());
+      });
+
+      this.showTrainingModal(workout?.exercises);
     }
-
-    const pageHeader = this.createHeader(this.title);
-    mainPageElement.append(pageHeader);
-
-    const exercises = document.createElement("div");
-    exercises.className = "training__exercises exercises";
-    mainPageElement.append(exercises);
-
-    workout?.exercises.forEach((exercise: IExercise) => {
-      const newEx = new Exercise(exercise);
-      exercises.append(newEx.draw());
-    });
-
-    this.showTrainingModal(workout?.exercises);
   }
 
-  private createHeader(title: string): HTMLElement {
-    for (let i = 0; i < workout_plans.length; i++) {
-      workout_plans[i].block.forEach((item: IWorkoutMiniBlock) => {
-        if (item.title.toLowerCase() == title.toLowerCase()) {
-          this.exQuantity = item.exercisesAmt;
-          this.exTime = item.exercisesTime;
-          this.color = item.color;
-          this.image = workout_plans[i].image;
-        }
-      });
-    }
+  private createHeader(id: string): HTMLElement {
+    allTrainings.forEach((training: ISingleTraining) => {
+      if (training.id === Number(id)) {
+        this.exQuantity = training.exercisesAmt;
+        this.exTime = training.exercisesTime;
+        this.color = training.color;
+        this.image = training.image;
+        this.title = training.title;
+      }
+    });
+
     const header: HTMLElement = this.template.createElement(
       "div",
       "training__header"
@@ -98,7 +88,7 @@ class SingleTrainingPage {
     );
     const trainingsName: HTMLSpanElement = document.createElement("span");
     trainingsName.className = "header-upper__name";
-    trainingsName.textContent = title;
+    trainingsName.textContent = this.title;
 
     const trashIcon: HTMLElement = this.template.createIcon(
       "header-upper__icon",
@@ -114,7 +104,7 @@ class SingleTrainingPage {
     const workoutName: HTMLElement = this.template.createElement(
       "p",
       "header-bottom__name",
-      title
+      this.title
     );
     const workoutQuantity: HTMLElement = this.template.createElement(
       "p",

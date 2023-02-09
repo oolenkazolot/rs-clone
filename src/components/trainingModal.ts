@@ -70,6 +70,7 @@ class TrainingModal {
       exercise.youtube,
       "Watch"
     );
+    youtubeLink.target = "_blank";
     extraInfo.append(infoLink, youtubeLink);
     exerciseInfo.append(exerciseName, exerciseQuantity, extraInfo);
     this.modal.append(exerciseInfo, extraInfo);

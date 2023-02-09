@@ -17,6 +17,45 @@ class ExerciseModal {
     this.modal = this.template.createElement("div", "exercise-modal");
   }
 
+  public draw(): void {
+    this.backLayer.append(this.modal);
+
+    const closeButton: HTMLButtonElement = this.template.createBtn(
+      "exercise-modal__button-close"
+    );
+    this.modal.append(closeButton);
+
+    const exerciseGif: HTMLImageElement = document.createElement("img");
+    exerciseGif.className = "exercise-modal__gif";
+    const path: string = this.exercise.example;
+    exerciseGif.src = path;
+    this.modal.append(exerciseGif);
+
+    this.createExerciseInfo();
+
+    const exerciseDescription: HTMLElement = this.template.createElement(
+      "p",
+      "exercise-modal__description",
+      this.exercise.description
+    );
+    this.modal.append(exerciseDescription);
+
+    this.createChangeBlock();
+
+    document.body.prepend(this.backLayer);
+
+    closeButton.addEventListener("click", () => {
+      this.backLayer.style.display = "none";
+    });
+
+    window.addEventListener("click", (e) => {
+      const target = <HTMLElement>e.target;
+      if (target.classList.contains("exercise-modal__backlayer")) {
+        this.backLayer.style.display = "none";
+      }
+    });
+  }
+
   private createExerciseInfo(): void {
     const exerciseInfo: HTMLElement = this.template.createElement(
       "div",
@@ -84,38 +123,6 @@ class ExerciseModal {
     changeBlock.append(changeButtons);
 
     this.modal.append(changeBlock);
-  }
-
-  public draw(): void {
-    this.backLayer.append(this.modal);
-
-    const closeButton: HTMLButtonElement = this.template.createBtn(
-      "exercise-modal__button-close"
-    );
-    this.modal.append(closeButton);
-
-    const exerciseGif: HTMLImageElement = document.createElement("img");
-    exerciseGif.className = "exercise-modal__gif";
-    const path: string = this.exercise.example;
-    exerciseGif.src = path;
-    this.modal.append(exerciseGif);
-
-    this.createExerciseInfo();
-
-    const exerciseDescription: HTMLElement = this.template.createElement(
-      "p",
-      "exercise-modal__description",
-      this.exercise.description
-    );
-    this.modal.append(exerciseDescription);
-
-    this.createChangeBlock();
-
-    document.body.prepend(this.backLayer);
-
-    closeButton.addEventListener("click", () => {
-      this.backLayer.style.display = "none";
-    });
   }
 }
 

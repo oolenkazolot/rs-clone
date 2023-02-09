@@ -140,12 +140,11 @@ class SingleTrainingPage {
     const startBtn = document.querySelector(".training__button-start");
     startBtn?.addEventListener("click", (e) => {
       e.preventDefault();
-      if(exercises) {
+      if (exercises) {
         const trainingModal = new TrainingModal();
         trainingModal.draw(exercises[0]);
-      }   
-    })
-    
+      }
+    });
   }
 }
 

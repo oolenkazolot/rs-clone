@@ -50,7 +50,7 @@ class Exercise {
       e.preventDefault();
       const exerciseModal = new ExerciseModal(this.exercise);
       exerciseModal.draw();
-    })
+    });
 
     return this.container;
   }

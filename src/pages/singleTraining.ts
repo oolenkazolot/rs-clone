@@ -78,10 +78,22 @@ class SingleTrainingPage {
       "div",
       "training__header"
     );
-    header.style.background = `url(${this.image}), ${this.color}`;
-    header.style.backgroundRepeat = "no-repeat";
-    header.style.backgroundPosition = "right bottom";
-    header.style.backgroundSize = "contain";
+    if (Number(id) === 10) {
+      header.style.background = `url(${this.image})`;
+      header.style.backgroundRepeat = "no-repeat";
+      header.style.backgroundPosition = "top";
+      header.style.backgroundSize = "cover";
+    } else if (Number(id) === 11) {
+      header.style.background = `url(${this.image})`;
+      header.style.backgroundRepeat = "no-repeat";
+      header.style.backgroundPosition = "center";
+      header.style.backgroundSize = "cover";
+    } else {
+      header.style.background = `url(${this.image}), ${this.color}`;
+      header.style.backgroundRepeat = "no-repeat";
+      header.style.backgroundPosition = "right bottom";
+      header.style.backgroundSize = "contain";
+    }
 
     const upperHeader: HTMLElement = this.template.createElement(
       "div",

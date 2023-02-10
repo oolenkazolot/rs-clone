@@ -22,6 +22,10 @@
   font-size: 1.4rem;
   color: $color-second;
 
+  @media all and(max-width: 1000px) {
+    width: 100%;
+  }
+
   &__gif {
     width: 30%;
     height: auto;
@@ -114,6 +118,7 @@
   }
 
   &__button-prev {
+    position: relative;
     background: url(../assets/svg/previous-icon.svg);
     background-position: left 5px center;
     background-repeat: no-repeat;

@@ -1,0 +1,133 @@
+@import './mixins.scss';
+
+.profile-page {
+  background-color: $bg-light-gray;
+  padding-top: 50px;
+
+  &__container {
+    position: relative;
+    max-width: 950px;
+    width: 100%;
+    margin: 20px auto 0 auto;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__title {
+    font-size: 30px;
+    text-align: center;
+    color: $color-black;
+    text-transform: capitalize;
+  }
+}
+
+.calendar {
+  display: flex;
+  justify-content: center;
+}
+
+.parameters {
+  &__title {
+    color: $color-black;
+    font-size: 18px;
+  }
+
+  &__item {
+    padding: 0 20px;
+  }
+
+  &__btn {
+    @include btn-edit;
+  }
+}
+
+.bmi {
+  margin-top: 20px;
+  padding: 20px;
+  text-align: center;
+  background-color: $color-white;
+  border-radius: 5px;
+
+  &__line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  &__title {
+    margin-top: 20px;
+    font-size: 18px;
+    color: $color-black;
+  }
+
+  &__subtitle {
+    font-size: 18px;
+    font-weight: bold;
+    color: $color-black;
+  }
+
+  &__line-item {
+    position: relative;
+    width: calc(95% / 5);
+    min-height: 7px;
+    background-color: red;
+    border-radius: 5px;
+
+    &.blue {
+      background-color: #01b4bc;
+    }
+
+    &.green {
+      background-color: #5fa55a;
+    }
+
+    &.yellow {
+      background-color: #f6d51f;
+    }
+
+    &.orange {
+      background-color: #fa8925;
+    }
+
+    &.red {
+      background-color: #fa5457;
+    }
+  }
+
+  &__line-number {
+    position: absolute;
+    top: 7px;
+    left: -15px;
+
+    &--end {
+      top: 7px;
+      right: 0;
+      left: auto;
+    }
+
+    &--start {
+      top: 7px;
+      right: auto;
+      left: 0;
+    }
+  }
+}
+
+.info {
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__content {
+    font-size: 25px;
+    color: $color-black;
+    margin-right: 15px;
+  }
+
+  &__btn {
+    @include btn-edit;
+  }
+}

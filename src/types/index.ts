@@ -267,3 +267,22 @@ export type IProfilePage = {
   draw: () => void;
   router?: IRouter;
 };
+
+export type IInfo = {
+  createInfo: () => HTMLElement;
+};
+
+export type IProgressData = {
+  name: string;
+  value: string;
+  units: string;
+};
+
+export type IProgress = {
+  createProgress: () => HTMLElement;
+};
+
+export type ILineItem = {
+  className: string;
+  value: string[];
+};

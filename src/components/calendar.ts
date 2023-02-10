@@ -1,7 +1,5 @@
 import Template from "../templates/template";
 import { ITemplate } from "../types/index";
-import AirDatepicker from "air-datepicker";
-import "air-datepicker/air-datepicker.css";
 
 class Calendar {
   template: ITemplate;
@@ -15,8 +13,18 @@ class Calendar {
       "section",
       "calendar"
     );
-    calendar.id = "airdatepicker";
+    const calendarWrap: HTMLElement = this.createCalendarWrap();
+    calendar.append(calendarWrap);
     return calendar;
+  }
+
+  private createCalendarWrap(): HTMLElement {
+    const calendarWrap: HTMLElement = this.template.createElement(
+      "div",
+      "calendar-wrap"
+    );
+    calendarWrap.id = "airdatepicker";
+    return calendarWrap;
   }
 }
 

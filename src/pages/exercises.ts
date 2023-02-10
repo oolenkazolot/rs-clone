@@ -43,6 +43,7 @@ class ExercisesPage {
       this.createMiniHeader(),
       this.createWeekGoalCont(),
       this.createExercisesBlock(),
+      this.createStartBtn(),
       this.createExercisesCont()
     );
   }
@@ -208,6 +209,14 @@ class ExercisesPage {
     const exercises: HTMLElement = this.slider.createExercises(0, 2);
     exerciseCont.append(exercises);
     return exerciseCont;
+  }
+
+  createStartBtn(): HTMLButtonElement {
+    const startBtn: HTMLButtonElement = this.template.createBtn(
+      "exercises__startNow-btn",
+      "start now"
+    );
+    return startBtn;
   }
 }
 

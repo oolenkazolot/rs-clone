@@ -49,6 +49,46 @@ class AddNewComplex {
     const k = matrix?.split(" ")[2];
     console.log(i, j, k);
   }
+
+  createComplexNameModal(): HTMLElement {
+    const modal: HTMLElement = this.template.createElement(
+      "div",
+      "complex-name-overlay"
+    );
+    const main: HTMLElement = document.querySelector(".main") as HTMLElement;
+    main.append(modal);
+    return modal;
+  }
+
+  fillComplexNameModal(): HTMLElement {
+    const wrapper: HTMLElement = this.template.createElement(
+      "div",
+      "complex-name-modal"
+    );
+    const p: HTMLElement = this.template.createElement(
+      "p",
+      "complex-name__title"
+    );
+    const input: HTMLElement = this.template.createElement(
+      "input",
+      "complex-name__input"
+    );
+    const btns: HTMLElement = this.template.createElement(
+      "input",
+      "complex-name__btns"
+    );
+    const cancelBtn: HTMLElement = this.template.createBtn(
+      "complex-name__cancel",
+      "cancel"
+    );
+    const createBtn: HTMLElement = this.template.createBtn(
+      "complex-name__create",
+      "create"
+    );
+    btns.append(cancelBtn, createBtn);
+    wrapper.append(p, input, btns);
+    return wrapper;
+  }
 }
 
 export default AddNewComplex;

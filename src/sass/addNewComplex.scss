@@ -1,0 +1,24 @@
+.exercises-wrapper {
+    padding: 2rem;
+}
+
+.wrap-exercise {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.add-exerc-btn {
+    background-color: rgb(247, 115, 177);
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-family: 'icomoon';
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+}

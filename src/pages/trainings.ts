@@ -10,16 +10,19 @@ import { plus_in_circle } from "../components/svg";
 import workout_plans from "../utils/workout-plans-en";
 import WorkoutBlock from "../components/workoutBlock";
 import Slider from "../components/slider";
+import AddNewComplex from "../components/addNewComplex";
 
 class TrainingsPage {
   template: ITemplate;
   workoutBlock: IWorkoutBlock;
   public router?: IRouter;
   slider: ISlider;
+  addNewComplex;
   constructor() {
     this.template = new Template();
     this.workoutBlock = new WorkoutBlock();
     this.slider = new Slider();
+    this.addNewComplex = new AddNewComplex();
   }
 
   public draw(): void {
@@ -63,6 +66,12 @@ class TrainingsPage {
     plus.innerHTML = plus_in_circle;
 
     addWorkoutPlanCont.append(text, plus);
+
+    plus.addEventListener("click", () => {
+      const mainElement = document.querySelector("main") as HTMLElement;
+      mainElement.innerHTML = "";
+      mainElement.append(this.addNewComplex.showExercises());
+    });
     return addWorkoutPlanCont;
   }
 

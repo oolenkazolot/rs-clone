@@ -2,6 +2,12 @@ const allTrainings = [
   {
     id: 1,
     title: "ABS beginner",
+    image: "../assets/png/abs3.png",
+    exercisesAmt: "19",
+    exercisesTime: "15",
+    complexityLevel: true,
+    color:
+      "linear-gradient(90deg, rgba(24,240,237,1) 0%, rgba(206,247,242,1) 100%)",
     exercises: [
       {
         id: 1,
@@ -179,6 +185,12 @@ const allTrainings = [
   {
     id: 2,
     title: "ABS intermediate",
+    image: "../assets/png/abs3.png",
+    exercisesAmt: "20",
+    exercisesTime: "17",
+    complexityLevel: true,
+    color:
+      "linear-gradient(90deg, rgba(113,179,235,1) 0%, rgba(202,227,249,1) 100%)",
     exercises: [
       {
         id: 1,
@@ -365,6 +377,12 @@ const allTrainings = [
   {
     id: 3,
     title: "ABS advanced",
+    image: "../assets/png/abs3.png",
+    exercisesAmt: "26",
+    exercisesTime: "13",
+    complexityLevel: true,
+    color:
+      "linear-gradient(90deg, rgba(244,117,117,1) 0%, rgba(255,209,209,1) 100%)",
     exercises: [
       {
         id: 1,
@@ -605,6 +623,12 @@ const allTrainings = [
   {
     id: 4,
     title: "BUTT beginner",
+    image: "../assets/png/butt.png",
+    exercisesAmt: "18",
+    exercisesTime: "13",
+    complexityLevel: true,
+    color:
+      "linear-gradient(90deg, rgba(24,240,237,1) 0%, rgba(206,247,242,1) 100%)",
     exercises: [
       {
         id: 1,
@@ -773,6 +797,12 @@ const allTrainings = [
   {
     id: 5,
     title: "BUTT intermediate",
+    image: "../assets/png/butt.png",
+    exercisesAmt: "26",
+    exercisesTime: "18",
+    complexityLevel: true,
+    color:
+      "linear-gradient(90deg, rgba(113,179,235,1) 0%, rgba(202,227,249,1) 100%)",
     exercises: [
       {
         id: 1,
@@ -1013,6 +1043,12 @@ const allTrainings = [
   {
     id: 6,
     title: "BUTT advanced",
+    image: "../assets/png/butt.png",
+    exercisesAmt: "32",
+    exercisesTime: "24",
+    complexityLevel: true,
+    color:
+      "linear-gradient(90deg, rgba(244,117,117,1) 0%, rgba(255,209,209,1) 100%)",
     exercises: [
       {
         id: 1,
@@ -1303,6 +1339,12 @@ const allTrainings = [
   {
     id: 7,
     title: "THIGH beginner",
+    image: "../assets/png/thigh.png",
+    exercisesAmt: "19",
+    exercisesTime: "14",
+    complexityLevel: true,
+    color:
+      "linear-gradient(90deg, rgba(24,240,237,1) 0%, rgba(206,247,242,1) 100%)",
     exercises: [
       {
         id: 1,
@@ -1471,6 +1513,12 @@ const allTrainings = [
   {
     id: 8,
     title: "THIGH intermediate",
+    image: "../assets/png/thigh.png",
+    exercisesAmt: "26",
+    exercisesTime: "19",
+    complexityLevel: true,
+    color:
+      "linear-gradient(90deg, rgba(113,179,235,1) 0%, rgba(202,227,249,1) 100%)",
     exercises: [
       {
         id: 1,
@@ -1711,6 +1759,12 @@ const allTrainings = [
   {
     id: 9,
     title: "THIGH advanced",
+    image: "../assets/png/thigh.png",
+    exercisesAmt: "29",
+    exercisesTime: "21",
+    complexityLevel: true,
+    color:
+      "linear-gradient(90deg, rgba(244,117,117,1) 0%, rgba(255,209,209,1) 100%)",
     exercises: [
       {
         id: 1,
@@ -1974,6 +2028,11 @@ const allTrainings = [
   {
     id: 10,
     title: "morning warmup",
+    image: "../assets/images/morning_evening.jpg",
+    exercisesAmt: "11",
+    exercisesTime: "10",
+    color:
+      "linear-gradient(90deg, rgba(128,27,150,0.7567401960784313) 0%, rgba(214,189,221,1) 78%)",
     exercises: [
       {
         id: 1,
@@ -2079,6 +2138,11 @@ const allTrainings = [
   {
     id: 11,
     title: "sleepy time stretch",
+    image: "../assets/images/morning_evening2.jpg",
+    exercisesAmt: "13",
+    exercisesTime: "13",
+    color:
+      "linear-gradient(90deg, rgba(128,27,150,0.7567401960784313) 0%, rgba(214,189,221,1) 78%)",
     exercises: [
       {
         id: 1,

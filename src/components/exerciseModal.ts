@@ -150,6 +150,10 @@ class ExerciseModal {
         return;
       }
       curQuantitySpan.textContent = `X${curNumber - 1}`;
+    } else {
+      const minutes: string = exerciseText.slice(0, 2);
+      const seconds: string = exerciseText.slice(3);
+      curQuantitySpan.textContent = `${minutes}:${seconds}`;
     }
   }
 
@@ -161,6 +165,24 @@ class ExerciseModal {
     if (exerciseText.toLowerCase().includes("x")) {
       const curNumber = Number(exerciseText.slice(1));
       curQuantitySpan.textContent = `X${curNumber + 1}`;
+    } else {
+      let minutes = exerciseText.slice(0, 2);
+      let seconds = exerciseText.slice(3);
+      if (Number(seconds) === 59) {
+        if (Number(minutes) < 10) {
+          minutes = `0${Number(minutes) + 1}`;
+        } else {
+          minutes = `${Number(minutes) + 1}`;
+        }
+        seconds = "00";
+      } else {
+        if (Number(seconds) < 9) {
+          seconds = `0${Number(seconds) + 1}`;
+        } else {
+          seconds = `${Number(seconds) + 1}`;
+        }
+      }
+      curQuantitySpan.textContent = `${minutes}:${seconds}`;
     }
   }
 }

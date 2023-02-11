@@ -14,7 +14,7 @@ class TakeARest {
   draw(): HTMLElement {
     const modal: HTMLElement = this.template.createElement(
       "div",
-      "modal-overlay"
+      "take-a-rest"
     );
     document.body.append(modal);
     modal.append(this.createWrapper());

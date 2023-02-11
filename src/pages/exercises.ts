@@ -211,12 +211,27 @@ class ExercisesPage {
     return exerciseCont;
   }
 
-  createStartBtn(): HTMLButtonElement {
+  createStartBtn(): HTMLElement {
     const startBtn: HTMLButtonElement = this.template.createBtn(
       "exercises__startNow-btn",
       "start now"
     );
-    return startBtn;
+    const link = this.template.createElement("a", "link-to-exerc");
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (this.router) {
+        console.log(this.router);
+        const mainElement: HTMLElement | null = document.querySelector("main");
+        if (mainElement) {
+          mainElement.innerHTML = "";
+          this.router.navigate("startTraining");
+        }
+      } else {
+        console.log("no");
+      }
+    });
+    link.append(startBtn);
+    return link;
   }
 }
 

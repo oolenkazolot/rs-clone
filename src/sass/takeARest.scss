@@ -1,4 +1,8 @@
 
+.take-a-rest {
+    background-color: $bg-light-gray;
+}
+
 .rest {
 
     &__wrapper{
@@ -119,16 +123,18 @@
     }
 
     &__img-wrapper {
-        width: 50%
+        width: 50%;
+        border-radius: 5px;
     }
 
     &__gif {
         width: 100%;
+        border-radius: 5px;
     }
 
     &__description {
         width: 40%;
-        font-size: 24px;
+        font-size: 26px;
         line-height: 1.5;
         letter-spacing: 1.5;
         font-family: 'icomoon';

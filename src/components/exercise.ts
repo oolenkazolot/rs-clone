@@ -1,5 +1,6 @@
 import Template from "../templates/template";
 import { ITemplate, IExercise } from "../types/index";
+import ExerciseModal from "../components/exerciseModal";
 
 class Exercise {
   template: ITemplate;
@@ -44,6 +45,12 @@ class Exercise {
     const path: string = this.exercise.example;
     img.src = path;
     exerciseGif.append(img);
+
+    this.container.addEventListener("click", (e) => {
+      e.preventDefault();
+      const exerciseModal = new ExerciseModal(this.exercise);
+      exerciseModal.draw();
+    });
 
     return this.container;
   }

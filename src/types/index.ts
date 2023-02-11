@@ -225,9 +225,14 @@ export interface IErrorUserInfo {
 }
 
 export type IBtnRadio = HTMLInputElement | HTMLLabelElement;
+
 export type ISingleTraining = {
   id: number;
   title: string;
+  image: string;
+  exercisesAmt: string;
+  exercisesTime: string;
+  color: string;
   exercises: IExercise[];
 };
 

@@ -5,6 +5,7 @@ class TrainingModal {
   template: ITemplate;
   backLayer: HTMLElement;
   modal: HTMLElement;
+  counter: HTMLElement;
 
   constructor() {
     this.template = new Template();
@@ -13,15 +14,19 @@ class TrainingModal {
       "training-modal__backlayer"
     );
     this.modal = this.template.createElement("div", "training-modal");
+    this.counter = this.template.createElement(
+      "div",
+      "training-modal__counter"
+    );
   }
 
   public draw(exercise: IExercise): void {
     this.backLayer.append(this.modal);
 
-    // const closeButton: HTMLButtonElement = this.template.createBtn(
-    //   "training-modal__button-close"
-    // );
-    // this.modal.append(closeButton);
+    const returnButton: HTMLButtonElement = this.template.createBtn(
+      "training-modal__button-return"
+    );
+    this.modal.append(returnButton);
 
     const exerciseGif: HTMLImageElement = document.createElement("img");
     exerciseGif.className = "training-modal__gif";
@@ -32,6 +37,7 @@ class TrainingModal {
     this.createExerciseInfo(exercise);
     this.createCounter(exercise);
     this.createNavigationButtons();
+    this.createCountDown();
 
     document.body.prepend(this.backLayer);
 
@@ -84,10 +90,6 @@ class TrainingModal {
   }
 
   private createCounter(exercise: IExercise): void {
-    const counter: HTMLElement = this.template.createElement(
-      "div",
-      "training-modal__counter"
-    );
     const currentQuantity: HTMLElement = this.template.createElement(
       "span",
       "training-modal__current-quantity",
@@ -97,8 +99,8 @@ class TrainingModal {
       "training-modal__button-done",
       "Done"
     );
-    counter.append(currentQuantity, doneButton);
-    this.modal.append(counter);
+    this.counter.append(currentQuantity, doneButton);
+    this.modal.append(this.counter);
   }
 
   private createNavigationButtons() {
@@ -116,6 +118,66 @@ class TrainingModal {
     );
     navigationButtons.append(previousButton, skipButton);
     this.modal.append(navigationButtons);
+  }
+
+  private createCountDown() {
+    const readyText = this.template.createElement(
+      "div",
+      "ready-text",
+      "ready to go"
+    );
+    const countdown: HTMLElement = this.template.createElement(
+      "div",
+      "countdown"
+    );
+    this.counter.append(readyText, countdown);
+    const circle: HTMLElement = this.template.createElement(
+      "div",
+      "countdown__circle"
+    );
+    countdown.append(circle);
+    const countDot: HTMLElement = this.template.createElement(
+      "div",
+      "countdown__dot"
+    );
+    const countSvg: SVGElement = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "svg"
+    );
+    const svgCircle1: SVGCircleElement = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "circle"
+    );
+    svgCircle1.setAttribute("cx", "70");
+    svgCircle1.setAttribute("cy", "70");
+    svgCircle1.setAttribute("r", "70");
+    const svgCircle2: SVGCircleElement = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "circle"
+    );
+    svgCircle2.setAttribute("cx", "70");
+    svgCircle2.setAttribute("cy", "70");
+    svgCircle2.setAttribute("r", "70");
+    countSvg.append(svgCircle1, svgCircle2);
+    const countNumber = this.template.createElement(
+      "div",
+      "countdown__number",
+      "10"
+    );
+
+    circle.append(countDot, countSvg, countNumber);
+
+    const counter = setInterval(() => {
+      const curNumber = Number(countNumber.textContent) - 1;
+      if (curNumber === 0) {
+        clearInterval(counter);
+        countdown.style.display = "none";
+        readyText.style.display = "none";
+      }
+      countNumber.textContent = `${curNumber}`;
+      svgCircle2.style.strokeDashoffset = `${440 - (440 * curNumber) / 10}`;
+      countDot.style.transform = `rotateZ(${curNumber * 36}deg)`;
+    }, 1000);
   }
 }
 

@@ -2049,7 +2049,7 @@ const workout_plans = [
     block: [
       {
         id: 10,
-        title: "morning warmup",
+        title: "Morning Warmup",
         exercisesAmt: "11",
         exercisesTime: "10",
         image: "../assets/images/morning_evening.jpg",
@@ -2159,7 +2159,7 @@ const workout_plans = [
       },
       {
         id: 11,
-        title: "sleepy time stretch",
+        title: "Sleepy Time Stretch",
         exercisesAmt: "13",
         exercisesTime: "13",
         image: "../assets/images/morning_evening2.jpg",

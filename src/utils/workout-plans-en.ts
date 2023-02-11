@@ -16,7 +16,7 @@ const workout_plans = [
             id: 1,
             title: "jumping jacks",
             description:
-              "Stand upright with your legs together, arms at your sides Bend your knees slightly, and jump into the air. As you jump , spread your legs to be shoulder-width apart. Stretch your arms out and over your head. Jump back to standing position.",
+              "Stand upright with your legs together, arms at your sides. Bend your knees slightly, and jump into the air. As you jump, spread your legs to be shoulder-width apart. Stretch your arms out and over your head. Jump back to standing position.",
             example: "../assets/gifs/jumping_jacks.gif",
             youtube: "https://www.youtube.com/watch?v=2W4ZNSwoW_4",
             quantity: "x30",

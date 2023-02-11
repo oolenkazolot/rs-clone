@@ -10,6 +10,7 @@ import TrainingsPage from "./pages/trainings";
 import SingleTrainingPage from "./pages/singleTraining";
 import ExercisesPage from "./pages/exercises";
 import ChangeElements from "./components/changeElements";
+import TakeARest from "./components/takeaRest";
 
 import {
   IMainPage,
@@ -41,6 +42,9 @@ const trainingsCreationPage = new TrainingsPage();
 
 const singleTrainingPage: ISingleTrainingPage = new SingleTrainingPage();
 const exercisesPage = new ExercisesPage();
+
+const modalsExercises = new TakeARest();
+modalsExercises.draw();
 
 //router start
 //список страниц с колбеками: путь и что делать

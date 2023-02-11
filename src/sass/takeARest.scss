@@ -1,0 +1,141 @@
+
+.rest {
+
+    &__wrapper{
+        padding: 5rem;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        max-width: 1600px;
+    }
+
+    &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+    }
+
+    &__settings-cont {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 40px;
+    }
+
+    &__volume,
+    &__arrow-left {
+        width: 30px;
+        height: 30px;
+        fill: $color-grey-violet;
+        transition: 0.3s;
+        &:hover {
+            cursor:pointer;
+            fill: $color-pink;
+        }
+    }
+
+    &__settings {
+        width: 27px;
+        height: 27px;
+        transition: 0.3s;
+        fill: $color-grey-violet;
+        &:hover {
+            cursor:pointer;
+            fill: $color-pink;
+        }
+    }
+     
+    &__title {
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 40px;
+        letter-spacing: 1.5px;
+        font-weight: 400;
+        margin-bottom: 3rem;
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 3rem;
+    }
+
+    &__add-btn {
+        font-size: 25px;
+    }
+
+    &__text {
+        font-size: 28px; 
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+    }
+
+    &__exerc-wrapper {
+        background-color: white;
+        width: 100%;
+        border-radius: 20px;
+        padding: 2rem 4rem;
+        align-self: center;
+    }
+}
+
+.next-exercise {
+    &__tv {
+        width: 60px;
+        height: 60px;
+        fill: $color-pink;
+        transition: 0.3s;
+        cursor: pointer;
+        &:hover {
+            fill: $color-main-second;
+        }
+    }
+
+    &__cont {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 3rem;
+    }
+
+    &__title {
+        align-self: center;
+        text-transform: uppercase;
+        font-size: 24px;
+        
+    }
+
+    &__link {
+        display: block;
+    }
+
+    &__info {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap:2rem;
+    }
+
+    &__img-wrapper {
+        width: 50%
+    }
+
+    &__gif {
+        width: 100%;
+    }
+
+    &__description {
+        width: 40%;
+        font-size: 24px;
+        line-height: 1.5;
+        letter-spacing: 1.5;
+        font-family: 'icomoon';
+    }
+}
+
+.new-line {
+    margin: 0.5rem 0;
+    display: block;
+}

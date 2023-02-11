@@ -68,10 +68,10 @@ class TrainingsPage {
     addWorkoutPlanCont.append(text, plus);
 
     plus.addEventListener("click", () => {
-      const overlay = document.querySelector(
-        ".complex-name-overlay"
-      ) as HTMLElement;
-      overlay.append(this.addNewComplex.fillComplexNameModal());
+      // const overlay = document.querySelector(
+      //   ".complex-name-overlay"
+      // ) as HTMLElement;
+      // overlay.append(this.addNewComplex.fillComplexNameModal());
       // const mainElement = document.querySelector("main") as HTMLElement;
       // mainElement.innerHTML = "";
       // mainElement.append(this.addNewComplex.showExercises());

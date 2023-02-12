@@ -131,7 +131,8 @@
         border-radius: 20px;
         padding: 1rem 4rem;
         align-self: center;
-        max-width:1200px;
+        max-width: 1200px;
+    
         @media (max-width: 960px) {
             padding: 1rem 1rem;
         }
@@ -196,7 +197,7 @@
 
     &__img-wrapper {
         width: 35%;
-        max-height: 288px;
+        // max-height: 288px;
         max-width: 342px;
         border-radius: 5px;
         @media (max-width: 960px) {
@@ -213,7 +214,7 @@
         width: 50%;
         font-size: 23px;
         letter-spacing: 1.5;
-        font-family: 'icomoon';
+        // font-family: 'icomoon';
         @media (max-width: 1200px) {
             font-size: 18px;
         }

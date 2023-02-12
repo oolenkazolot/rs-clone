@@ -1,35 +1,25 @@
-.training-modal__backlayer {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 10; 
-}
-
-.training-modal {
-  width: 80%;
+.exercise-block {
+  max-width: 1600px;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
   height: fit-content;
   background: $color-white;
-  border-radius: 20px;
-  padding: 20px;
+  padding: 20px 80px 40px;
   font-size: 1.4rem;
   color: $color-second;
+  margin: 0 auto;
 
-  @media all and(max-width: 1000px) {
+  &__header {
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
   }
 
   &__button-return {
-    position: absolute;
-    top: 20px;
-    left: 20px;
     width: 40px;
     height: 20px;
     background: url(../assets/png/arrow_left.png);
@@ -40,10 +30,37 @@
     cursor: pointer;
   }
 
+  &__volume {
+    width: 20px;
+    height: 20px;
+    background: url(../assets/svg/volume.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+  }
+
+  &__settings {
+    width: 20px;
+    height: 20px;
+    background: url(../assets/svg/settings.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+    margin-left: 30px;
+  }
+
   &__gif {
     width: 30%;
     height: auto;
     margin-bottom: 20px;
+
+    @media all and(max-width: 1000px) {
+      width: 40%;
+    }
   }
 
   &__info {
@@ -53,6 +70,10 @@
     font-size: 1.6rem;
     align-items: center;
     margin-bottom: 30px;
+
+    @media all and(max-width: 1000px) {
+      font-size: 1.2rem;
+    }
   }
 
   &__extra {
@@ -88,6 +109,7 @@
   }
 
   &__counter {
+    width: 300px;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -98,10 +120,14 @@
     text-transform: uppercase;
     font-size: 4.2rem;
     margin-bottom: 10px;
+
+    @media all and(max-width: 1000px) {
+      font-size: 3.2rem;
+    }
   }
 
   &__button-done {
-    width: 180px;
+    width: 150px;
     height: 45px;
     border-radius: 7px;
     background-color: $color-pink;
@@ -111,11 +137,45 @@
     transition: $transition;
     border: none;
     cursor: pointer;
-    margin-bottom: 50px;
+    margin-bottom: 80px;
 
     &:hover {
       background-color: $color-main;
     }
+  }
+
+  &__time-bar {
+    position: relative;
+    width: 100%;
+    height: 45px;
+    background-color: $color-grey-violet;
+    margin-bottom: 80px;
+  }
+
+  &__track {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $color-pink;
+  }
+
+  &__button-pause {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(../assets/png/pause.png) transparent;
+    background-position: left 100px center;
+    background-repeat: no-repeat;
+    background-size: 7%;
+    color: $color-second;
+    padding-left: 20px;
+    font-size: 1.4rem;
+    border: none;
+    cursor: pointer;
   }
 
   &__buttons {
@@ -130,18 +190,22 @@
     font-size: 1.2rem;
     border: none;
     cursor: pointer;
+
+    @media all and(max-width: 1000px) {
+      font-size: 1rem;
+    }
   }
 
   &__button-prev {
     position: relative;
     background: url(../assets/svg/previous-icon.svg);
-    background-position: left 5px center;
+    background-position: left center;
     background-repeat: no-repeat;
   }
 
   &__button-skip {
     background: url(../assets/svg/next-icon.svg);
-    background-position: right 5px center;
+    background-position: right center;
     background-repeat: no-repeat;
   }
 

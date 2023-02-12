@@ -1,126 +1,150 @@
 import Template from "../templates/template";
 import { ITemplate, IExercise } from "../types/index";
 
-class TrainingModal {
+class ExerciseBlock {
   template: ITemplate;
-  backLayer: HTMLElement;
-  modal: HTMLElement;
+  exercise: HTMLElement;
   counter: HTMLElement;
 
   constructor() {
     this.template = new Template();
-    this.backLayer = this.template.createElement(
-      "div",
-      "training-modal__backlayer"
-    );
-    this.modal = this.template.createElement("div", "training-modal");
+    this.exercise = this.template.createElement("div", "exercise-block");
     this.counter = this.template.createElement(
       "div",
-      "training-modal__counter"
+      "exercise-block__counter"
     );
   }
 
-  public draw(exercise: IExercise): void {
-    this.backLayer.append(this.modal);
-
-    const returnButton: HTMLButtonElement = this.template.createBtn(
-      "training-modal__button-return"
-    );
-    this.modal.append(returnButton);
-
+  public draw(exercise: IExercise): HTMLElement {
+    this.createBlocksHeader();
     const exerciseGif: HTMLImageElement = document.createElement("img");
-    exerciseGif.className = "training-modal__gif";
+    exerciseGif.className = "exercise-block__gif";
     const path: string = exercise.example;
     exerciseGif.src = path;
-    this.modal.append(exerciseGif);
-
+    this.exercise.append(exerciseGif);
     this.createExerciseInfo(exercise);
     this.createCounter(exercise);
     this.createNavigationButtons();
-    this.createCountDown();
 
-    document.body.prepend(this.backLayer);
+    return this.exercise;
+  }
 
-    window.addEventListener("click", (e) => {
-      const target = <HTMLElement>e.target;
-      if (target.classList.contains("training-modal__backlayer")) {
-        this.backLayer.style.display = "none";
-      }
-    });
-
-    // closeButton.addEventListener("click", () => {
-    //   this.backLayer.style.display = "none";
-    // });
+  private createBlocksHeader(): void {
+    const blockHeader: HTMLElement = this.template.createElement(
+      "div",
+      "exercise-block__header"
+    );
+    this.exercise.append(blockHeader);
+    const returnButton: HTMLButtonElement = this.template.createBtn(
+      "exercise-block__button-return"
+    );
+    const settings: HTMLElement = this.template.createElement(
+      "div",
+      "exercise-block__settings-block"
+    );
+    const volumeButton: HTMLButtonElement = this.template.createBtn(
+      "exercise-block__volume"
+    );
+    const settingsButton: HTMLButtonElement = this.template.createBtn(
+      "exercise-block__settings"
+    );
+    settings.append(volumeButton, settingsButton);
+    blockHeader.append(returnButton, settings);
   }
 
   private createExerciseInfo(exercise: IExercise): void {
     const exerciseInfo: HTMLElement = this.template.createElement(
       "div",
-      "training-modal__info"
+      "exercise-block__info"
     );
     const exerciseName: HTMLElement = this.template.createElement(
       "span",
-      "training-modal__name",
+      "exercise-block__name",
       exercise.title
     );
     const exerciseQuantity: HTMLSpanElement = this.template.createElement(
       "span",
-      "training-modal__quantity",
+      "exercise-block__quantity",
       exercise.quantity
     );
 
     const extraInfo: HTMLElement = this.template.createElement(
       "div",
-      "training-modal__extra"
+      "exercise-block__extra"
     );
     const infoLink: HTMLAnchorElement = this.template.createLink(
-      "training-modal__info-link",
+      "exercise-block__info-link",
       "#",
       "Info"
     );
     const youtubeLink: HTMLAnchorElement = this.template.createLink(
-      "training-modal__youtube",
+      "exercise-block__youtube",
       exercise.youtube,
       "Watch"
     );
     youtubeLink.target = "_blank";
     extraInfo.append(infoLink, youtubeLink);
     exerciseInfo.append(exerciseName, exerciseQuantity, extraInfo);
-    this.modal.append(exerciseInfo, extraInfo);
+    this.exercise.append(exerciseInfo, extraInfo);
   }
 
   private createCounter(exercise: IExercise): void {
     const currentQuantity: HTMLElement = this.template.createElement(
       "span",
-      "training-modal__current-quantity",
+      "exercise-block__current-quantity",
       exercise.quantity
     );
-    const doneButton: HTMLButtonElement = this.template.createBtn(
-      "training-modal__button-done",
-      "Done"
-    );
-    this.counter.append(currentQuantity, doneButton);
-    this.modal.append(this.counter);
+    this.counter.append(currentQuantity);
+
+    if (exercise.quantity.toLowerCase().includes("x")) {
+      const doneButton: HTMLButtonElement = this.template.createBtn(
+        "exercise-block__button-done",
+        "Done"
+      );
+      this.counter.append(doneButton);
+    } else {
+      const countdownBar: HTMLElement = this.createCountdownBar();
+      this.counter.append(countdownBar);
+    }
+
+    this.exercise.append(this.counter);
   }
 
-  private createNavigationButtons() {
+  private createCountdownBar(): HTMLElement {
+    const timeBar: HTMLElement = this.template.createElement(
+      "div",
+      "exercise-block__time-bar"
+    );
+    const track: HTMLElement = this.template.createElement(
+      "div",
+      "exercise-block__track"
+    );
+    const pauseButton = this.template.createBtn(
+      "exercise-block__button-pause",
+      "Pause"
+    );
+    timeBar.append(track, pauseButton);
+    return timeBar;
+  }
+
+  private createNavigationButtons(): void {
     const navigationButtons: HTMLElement = this.template.createElement(
       "div",
-      "training-modal__buttons"
+      "exercise-block__buttons"
     );
     const previousButton: HTMLButtonElement = this.template.createBtn(
-      "training-modal__button-prev",
+      "exercise-block__button-prev",
       "Previous"
     );
     const skipButton: HTMLButtonElement = this.template.createBtn(
-      "training-modal__button-skip",
+      "exercise-block__button-skip",
       "Skip"
     );
     navigationButtons.append(previousButton, skipButton);
-    this.modal.append(navigationButtons);
+    this.exercise.append(navigationButtons);
   }
 
-  private createCountDown() {
+  createCountDown(): void {
     const readyText = this.template.createElement(
       "div",
       "ready-text",
@@ -173,6 +197,10 @@ class TrainingModal {
         clearInterval(counter);
         countdown.style.display = "none";
         readyText.style.display = "none";
+        const quantity = <HTMLElement>(
+          document.querySelector(".exercise-block__quantity")
+        );
+        quantity.style.display = "none";
       }
       countNumber.textContent = `${curNumber}`;
       svgCircle2.style.strokeDashoffset = `${440 - (440 * curNumber) / 10}`;
@@ -181,4 +209,4 @@ class TrainingModal {
   }
 }
 
-export default TrainingModal;
+export default ExerciseBlock;

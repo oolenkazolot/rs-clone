@@ -9,7 +9,8 @@ import ModalQuestions from "./components/modalQuestions";
 import TrainingsPage from "./pages/trainings";
 import SingleTrainingPage from "./pages/singleTraining";
 import ExercisesPage from "./pages/exercises";
-import ChangeElements from "./components/changeElements";
+import TakeARest from "./components/takeaRest";
+import StartTrainingPage from "./pages/startTraining";
 
 import {
   IMainPage,
@@ -42,6 +43,8 @@ const trainingsCreationPage = new TrainingsPage();
 const singleTrainingPage: ISingleTrainingPage = new SingleTrainingPage();
 const exercisesPage = new ExercisesPage();
 
+const startTrainingPage = new StartTrainingPage();
+
 //router start
 //список страниц с колбеками: путь и что делать
 const routs: IRout[] = [
@@ -63,6 +66,10 @@ const routs: IRout[] = [
       singleTrainingPage.draw(id);
     },
   },
+  {
+    path: "startTraining",
+    cb: startTrainingPage.draw.bind(startTrainingPage),
+  },
 ];
 //объект роутера
 const router = new Router(routs, errorPage.draw);
@@ -72,4 +79,6 @@ mainPage.router = router;
 header.router = router;
 trainingsCreationPage.router = router;
 singleTrainingPage.router = router;
+startTrainingPage.router = router;
+exercisesPage.router = router;
 router.init();

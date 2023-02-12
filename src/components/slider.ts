@@ -121,12 +121,14 @@ class Slider {
     const delta = 100 / length;
     nextBtn.addEventListener("click", function () {
       direction = -1;
+      nextBtn.disabled = true;
       wrapper.style.justifyContent = "flex-start";
       wrapper.style.transform = `translate(-${delta}%)`;
       slider.changeImgSizeInf("forward");
     });
     prevBtn.addEventListener("click", function () {
       direction = 1;
+      prevBtn.disabled = true;
       wrapper.style.justifyContent = "flex-end";
       wrapper.style.transform = `translate(${delta}%)`;
       slider.changeImgSizeInf("backward");
@@ -137,10 +139,12 @@ class Slider {
         if (wrapper.firstElementChild) {
           wrapper.appendChild(wrapper.firstElementChild);
         }
+        nextBtn.disabled = false;
       } else if (direction === 1) {
         if (wrapper.lastElementChild) {
           wrapper.prepend(wrapper.lastElementChild);
         }
+        prevBtn.disabled = false;
       }
 
       wrapper.style.transition = "none";
@@ -234,25 +238,6 @@ class Slider {
       exercisesContainer.append(slider.createExercises(i, j));
     });
   }
-
-  // private createExercises(
-  //   nextBtn: HTMLElement,
-  //   prevBtn: HTMLElement
-  // ): HTMLElement {
-  //   const i = 1;
-  //   const j = 1;
-  //   const container: HTMLElement = this.template.createElement(
-  //     "div",
-  //     "exercises-container"
-  //   );
-  //   const block = workout_plans[i].block[j];
-  //   for (let k = 0; k < block.exercises.length; k++) {
-  //     const exerciseData = block.exercises[k];
-  //     const exercise = new Exercise(exerciseData).draw();
-  //     container.append(exercise);
-  //   }
-  //   return container;
-  // }
 }
 
 const slider = new Slider();

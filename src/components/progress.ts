@@ -16,38 +16,25 @@ class Progress {
       "section",
       `${this.mainClass}`
     );
-    const items: HTMLElement[] = this.createItems();
-    progress.append(...items);
+    const title: HTMLElement = this.createBlockTitle();
+    const canvas: HTMLElement = this.createCanvas();
+    const bmiBlock: HTMLElement = this.createBmiBlock();
+    progress.append(title, canvas, bmiBlock);
     return progress;
   }
 
-  private createItems(): HTMLElement[] {
-    const progressWeight: IProgressData = {
-      name: "height",
-      value: "53",
-      units: "kg",
-    };
-    const progressHeight: IProgressData = {
-      name: "weight",
-      value: "53",
-      units: "kg",
-    };
-    const itemOne: HTMLElement = this.template.createElement(
+  private createBlockTitle(): HTMLElement {
+    const blockTitle: HTMLElement = this.template.createElement(
       "div",
-      `${this.mainClass}__item`
+      `${this.mainClass}__title`
     );
-    const containerOne: HTMLElement = this.createContainer(progressWeight);
-    const canvas: HTMLElement = this.createCanvas();
-    itemOne.append(containerOne, canvas);
-    const itemTwo: HTMLElement = this.template.createElement(
-      "div",
-      `${this.mainClass}__item`
+    const title: HTMLElement = this.template.createElement(
+      "h2",
+      `${this.mainClass}__title-content`,
+      "Dynamics of weight change"
     );
-    const containerTwo: HTMLElement = this.createContainer(progressHeight);
-    const bmiBlock: HTMLElement = this.createBmiBlock();
-    itemOne.append(containerOne, canvas);
-    itemTwo.append(containerTwo, bmiBlock);
-    return [itemOne, itemTwo];
+    blockTitle.append(title);
+    return blockTitle;
   }
 
   private createCanvas(): HTMLElement {
@@ -57,39 +44,6 @@ class Progress {
       "canvas"
     );
     return canvas;
-  }
-
-  private createContainer(progressData: IProgressData): HTMLElement {
-    const container: HTMLElement = this.template.createElement(
-      "div",
-      `${this.mainClass}__container`
-    );
-    const contentBlock: HTMLElement = this.createContentBlock(progressData);
-    const btn: HTMLElement = this.template.createBtn(
-      `${this.mainClass}__btn`,
-      "edit"
-    );
-    container.append(contentBlock, btn);
-    return container;
-  }
-
-  private createContentBlock(progressData: IProgressData): HTMLElement {
-    const contentBlock: HTMLElement = this.template.createElement(
-      "div",
-      `${this.mainClass}__content`
-    );
-    const title: HTMLElement = this.template.createElement(
-      "span",
-      `${this.mainClass}__title`,
-      progressData.name
-    );
-    const subTitle: HTMLElement = this.template.createElement(
-      "span",
-      `${this.mainClass}__subtitle`,
-      `${progressData.value} ${progressData.units}`
-    );
-    contentBlock.append(title, subTitle);
-    return contentBlock;
   }
 
   private createBmiBlock(): HTMLElement {
@@ -182,7 +136,7 @@ class Progress {
   private createBmiTitle(content: string): HTMLElement {
     const bmiTitle: HTMLElement = this.template.createElement(
       "div",
-      `${this.mainClassTwo}__title`,
+      `${this.mainClassTwo}__line-title`,
       content
     );
     return bmiTitle;

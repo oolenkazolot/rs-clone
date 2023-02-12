@@ -22,8 +22,10 @@ class Info {
 
   private createItem(): HTMLElement[] {
     const obj: Record<string, string> = {
-      goal: "My goal: lose weight",
-      load: "My load: medium",
+      goal: "Goal: lose weight",
+      load: "Load: medium",
+      weight: "Weight: 53 kg",
+      height: "Height: 157 cm",
     };
     const items: HTMLElement[] = [];
     for (const key in obj) {

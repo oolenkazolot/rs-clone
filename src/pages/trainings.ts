@@ -39,7 +39,8 @@ class TrainingsPage {
     mainPageElement.append(
       this.createTitle(),
       this.createAddWorkoutPlanCont(),
-      this.createContent()
+      this.createContent(),
+      this.createModal()
     );
   }
 
@@ -68,9 +69,10 @@ class TrainingsPage {
     addWorkoutPlanCont.append(text, plus);
 
     plus.addEventListener("click", () => {
-      // const overlay = document.querySelector(
-      //   ".complex-name-overlay"
-      // ) as HTMLElement;
+      const modal = document.querySelector(
+        ".modal-addNewComplex"
+      ) as HTMLElement;
+      modal.classList.remove("invisible");
       // overlay.append(this.addNewComplex.fillComplexNameModal());
       // const mainElement = document.querySelector("main") as HTMLElement;
       // mainElement.innerHTML = "";
@@ -125,6 +127,45 @@ class TrainingsPage {
       }
     }
     return contentContainer;
+  }
+
+  private createModal(): HTMLElement {
+    const modal: HTMLElement = this.template.createElement(
+      "div",
+      "modal-addNewComplex"
+    );
+    modal.classList.add("invisible");
+    const wrapper: HTMLElement = this.template.createElement(
+      "div",
+      "modal-addNewComplex__addName"
+    );
+    const title: HTMLElement = this.template.createElement(
+      "h2",
+      "modal-addNewComplex__title",
+      "Create New Workout"
+    );
+    const input: HTMLInputElement = document.createElement("input");
+    input.placeholder = "Workout Name";
+    input.className = "modal-addNewComplex__input";
+    const buttons: HTMLElement = this.template.createElement(
+      "div",
+      "modal-addNewComplex__btns"
+    );
+    const cancel: HTMLButtonElement = this.template.createBtn(
+      "modal-addNewComplex__cancel",
+      "Cancel"
+    );
+    cancel.addEventListener("click", () => {
+      modal.classList.add("invisible");
+    });
+    const create: HTMLButtonElement = this.template.createBtn(
+      "modal-addNewComplex__create",
+      "Create"
+    );
+    buttons.append(cancel, create);
+    wrapper.append(title, input, buttons);
+    modal.append(wrapper);
+    return modal;
   }
 }
 

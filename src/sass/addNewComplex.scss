@@ -1,3 +1,17 @@
+.modal-addNewComplex {
+    background-color: 	rgba(0,0,0, 0.5);
+    width: 100vw;
+    height: calc(100vh + 85px);
+    position: fixed;
+    top:-85px;
+    left:0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+}
+
 .exercises-wrapper {
     padding: 2rem;
 }
@@ -32,4 +46,71 @@
     position: fixed;
     z-index: 100;
     display: none;
+}
+
+.modal-addNewComplex__addName {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 20px;
+    color: $color-grey-violet;
+    display: flex;
+    flex-direction: column;
+    @media (max-width: 370px) {
+        padding: 1rem;
+    }
+}
+
+.modal-addNewComplex__title {
+    font-size: 26px;
+    letter-spacing: 1.5px;
+    margin-bottom: 2rem;
+}
+
+.modal-addNewComplex__input {
+    padding: 0.8rem;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 15px;
+    border: 2px solid #e3e3e3;
+    margin-bottom: 2rem;
+    outline: none;
+    transition: 0.3s;
+    &:hover,
+    &:focus,
+    &:active {
+        border: 2px solid  rgb(247, 115, 177);
+    }
+    
+}
+
+.modal-addNewComplex__btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-addNewComplex__create,
+.modal-addNewComplex__cancel {
+    display: block;
+    padding: 0.8rem 1rem;
+    border-radius: 20px;
+    background-color: rgb(247, 115, 177);
+    color: $color-white;
+    text-transform: uppercase;
+    transition: $transition;
+    font-size: 14px;
+    font-family: 'icomoon';
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border: none;
+    cursor: pointer;
+    margin: 0 auto 0;
+
+    &:hover {
+      background-color: $color-pink;
+    }
+}
+
+.invisible{
+    visibility: hidden;
+    opacity: 0;
 }

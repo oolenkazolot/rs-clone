@@ -151,8 +151,22 @@ class ExerciseModal {
       }
       curQuantitySpan.textContent = `X${curNumber - 1}`;
     } else {
-      const minutes: string = exerciseText.slice(0, 2);
-      const seconds: string = exerciseText.slice(3);
+      let minutes: string = exerciseText.slice(0, 2);
+      let seconds: string = exerciseText.slice(3);
+      if (Number(seconds) === 0) {
+        if (Number(minutes) === 0) {
+          curQuantitySpan.textContent = `${minutes}:${seconds}`;
+        }
+        if (Number(minutes) > 0 && Number(minutes) <= 10) {
+          minutes = `0${Number(minutes) - 1}`;
+          seconds = "59";
+        }
+      } else {
+        seconds = `${Number(seconds) - 1}`;
+        if (Number(seconds) < 10) {
+          seconds = `0${seconds}`;
+        }
+      }
       curQuantitySpan.textContent = `${minutes}:${seconds}`;
     }
   }

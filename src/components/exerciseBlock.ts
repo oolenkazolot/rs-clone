@@ -5,6 +5,7 @@ class ExerciseBlock {
   template: ITemplate;
   exercise: HTMLElement;
   counter: HTMLElement;
+  interval: NodeJS.Timer | undefined;
 
   constructor() {
     this.template = new Template();
@@ -13,6 +14,7 @@ class ExerciseBlock {
       "div",
       "exercise-block__counter"
     );
+    this.interval;
   }
 
   public draw(exercise: IExercise): HTMLElement {
@@ -58,15 +60,15 @@ class ExerciseBlock {
       "exercise-block__info"
     );
     const exerciseName: HTMLElement = this.template.createElement(
-      "span",
+      "div",
       "exercise-block__name",
       exercise.title
     );
-    const exerciseQuantity: HTMLSpanElement = this.template.createElement(
-      "span",
-      "exercise-block__quantity",
-      exercise.quantity
-    );
+    // const exerciseQuantity: HTMLSpanElement = this.template.createElement(
+    //   "span",
+    //   "exercise-block__quantity",
+    //   exercise.quantity
+    // );
 
     const extraInfo: HTMLElement = this.template.createElement(
       "div",
@@ -84,7 +86,7 @@ class ExerciseBlock {
     );
     youtubeLink.target = "_blank";
     extraInfo.append(infoLink, youtubeLink);
-    exerciseInfo.append(exerciseName, exerciseQuantity, extraInfo);
+    exerciseInfo.append(exerciseName, extraInfo);
     this.exercise.append(exerciseInfo, extraInfo);
   }
 
@@ -103,14 +105,14 @@ class ExerciseBlock {
       );
       this.counter.append(doneButton);
     } else {
-      const countdownBar: HTMLElement = this.createCountdownBar();
+      const countdownBar: HTMLElement = this.createCountdownBar(exercise);
       this.counter.append(countdownBar);
     }
 
     this.exercise.append(this.counter);
   }
 
-  private createCountdownBar(): HTMLElement {
+  private createCountdownBar(exercise: IExercise): HTMLElement {
     const timeBar: HTMLElement = this.template.createElement(
       "div",
       "exercise-block__time-bar"
@@ -124,6 +126,41 @@ class ExerciseBlock {
       "Pause"
     );
     timeBar.append(track, pauseButton);
+
+    const durMins = Number(exercise.quantity.slice(0, 2));
+    const durSeconds = Number(exercise.quantity.slice(3));
+    const duration: number =
+      durMins !== 0 ? durMins * 60 + durSeconds : durSeconds;
+
+    const exerciseTime = setInterval(() => {
+      const quantity = <HTMLElement>(
+        document.querySelector(".exercise-block__current-quantity")
+      );
+      const timeLeft = quantity.textContent;
+      let minutes = timeLeft?.slice(0, 2);
+      let seconds = timeLeft?.slice(3);
+      if (Number(seconds) === 0) {
+        if (Number(minutes) === 0) {
+          quantity.textContent = `${minutes}:${seconds}`;
+          clearInterval(exerciseTime);
+        }
+        if (Number(minutes) > 0 && Number(minutes) <= 10) {
+          minutes = `0${Number(minutes) - 1}`;
+          seconds = "59";
+        }
+      } else {
+        seconds = `${Number(seconds) - 1}`;
+        if (Number(seconds) < 10) {
+          seconds = `0${seconds}`;
+        }
+      }
+      quantity.textContent = `${minutes}:${seconds}`;
+      const maxWidth = timeBar.clientWidth;
+      track.style.width = `${(maxWidth / duration) * Number(seconds)}px`;
+    }, 1000);
+
+    this.interval = exerciseTime;
+
     return timeBar;
   }
 
@@ -136,12 +173,58 @@ class ExerciseBlock {
       "exercise-block__button-prev",
       "Previous"
     );
+    const delim: HTMLElement = this.template.createElement(
+      "div",
+      "exercise-block__delim"
+    );
     const skipButton: HTMLButtonElement = this.template.createBtn(
       "exercise-block__button-skip",
       "Skip"
     );
-    navigationButtons.append(previousButton, skipButton);
+    navigationButtons.append(previousButton, delim, skipButton);
     this.exercise.append(navigationButtons);
+
+    previousButton.addEventListener("click", () => {
+      if (this.interval !== undefined) {
+        clearInterval(this.interval);
+      }
+    });
+
+    skipButton.addEventListener("click", () => {
+      if (this.interval !== undefined) {
+        clearInterval(this.interval);
+      }
+    });
+  }
+
+  hideExerciseLinks(): void {
+    const linksBlock = <HTMLElement>(
+      document.querySelector(".exercise-block__extra")
+    );
+    linksBlock.style.visibility = "hidden";
+  }
+
+  showExerciseLinks(): void {
+    const linksBlock = <HTMLElement>(
+      document.querySelector(".exercise-block__extra")
+    );
+    linksBlock.style.visibility = "visible";
+  }
+
+  disablePreviousButton() {
+    const reviousBtn = <HTMLButtonElement>(
+      document.querySelector(".exercise-block__button-prev")
+    );
+    reviousBtn.classList.add("inactive");
+    reviousBtn.disabled = true;
+  }
+
+  enablePreviousButton() {
+    const reviousBtn = <HTMLButtonElement>(
+      document.querySelector(".exercise-block__button-prev")
+    );
+    reviousBtn.classList.remove("inactive");
+    reviousBtn.disabled = false;
   }
 
   createCountDown(): void {
@@ -197,10 +280,7 @@ class ExerciseBlock {
         clearInterval(counter);
         countdown.style.display = "none";
         readyText.style.display = "none";
-        const quantity = <HTMLElement>(
-          document.querySelector(".exercise-block__quantity")
-        );
-        quantity.style.display = "none";
+        this.showExerciseLinks();
       }
       countNumber.textContent = `${curNumber}`;
       svgCircle2.style.strokeDashoffset = `${440 - (440 * curNumber) / 10}`;

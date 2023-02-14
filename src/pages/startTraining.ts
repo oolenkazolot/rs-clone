@@ -38,32 +38,65 @@ class StartTrainingPage {
     );
     if (this.currentExerciseIndex === 0) {
       curExercise.createCountDown();
+      curExercise.hideExerciseLinks();
+      curExercise.disablePreviousButton();
+    } else {
+      curExercise.enablePreviousButton();
     }
 
     document.addEventListener("click", (e) => {
       const target = <HTMLButtonElement>e.target;
+      if (target.classList.contains("exercise-block__button-done")) {
+        this.showRestModal();
+      }
       if (
-        target.classList.contains("exercise-block__button-done") ||
+        target.classList.contains("rest__skip-btn") ||
         target.classList.contains("exercise-block__button-skip")
       ) {
-        mainPageElement.innerHTML = "";
-        mainPageElement.append(
-          this.takeARest.draw(this.currentExerciseIndex, this.exerciseArray)
-        );
-      }
-      if (target.classList.contains("rest__skip-btn")) {
         this.loadNextExercise();
+      }
+      if (target.classList.contains("exercise-block__button-prev")) {
+        this.loadpreviousExercise();
       }
     });
   }
 
   private loadNextExercise(): void {
+    if (this.currentExerciseIndex === this.exerciseArray.length - 2) {
+      return;
+    }
     const page = <HTMLElement>document.querySelector(".startTraining-page");
     const nextExercise = new ExerciseBlock();
     page.innerHTML = "";
     this.currentExerciseIndex = this.currentExerciseIndex + 1;
     page.append(
       nextExercise.draw(this.exerciseArray[this.currentExerciseIndex])
+    );
+  }
+
+  private loadpreviousExercise(): void {
+    if (this.currentExerciseIndex === 0) {
+      return;
+    }
+    const page = <HTMLElement>document.querySelector(".startTraining-page");
+    const prevExercise = new ExerciseBlock();
+    if (this.currentExerciseIndex === 1) {
+      prevExercise.disablePreviousButton();
+    }
+    page.innerHTML = "";
+    this.currentExerciseIndex = this.currentExerciseIndex - 1;
+    page.append(
+      prevExercise.draw(this.exerciseArray[this.currentExerciseIndex])
+    );
+  }
+
+  private showRestModal() {
+    const pageContent = <HTMLElement>(
+      document.querySelector(".startTraining-page")
+    );
+    pageContent.innerHTML = "";
+    pageContent.append(
+      this.takeARest.draw(this.currentExerciseIndex, this.exerciseArray)
     );
   }
 }

@@ -11,6 +11,10 @@
   color: $color-second;
   margin: 0 auto;
 
+  @media all and(max-width: 414px) {
+    padding: 20px 20px 40px;
+  }
+
   &__header {
     width: 100%;
     display: flex;
@@ -28,6 +32,12 @@
     background-size: cover;
     border: none;
     cursor: pointer;
+
+    @media all and(max-width: 768px) {
+      width: 30px;
+      height: 15px;
+      background-size: contain;
+    }
   }
 
   &__volume {
@@ -39,6 +49,11 @@
     background-size: contain;
     border: none;
     cursor: pointer;
+
+    @media all and(max-width: 768px) {
+      width: 15px;
+      height: 15px;
+    }
   }
 
   &__settings {
@@ -51,6 +66,11 @@
     border: none;
     cursor: pointer;
     margin-left: 30px;
+
+    @media all and(max-width: 768px) {
+      width: 15px;
+      height: 15px;
+    }
   }
 
   &__gif {
@@ -61,6 +81,14 @@
     @media all and(max-width: 1000px) {
       width: 40%;
     }
+
+    @media all and(max-width: 768px) {
+      width: 65%;
+    }
+
+    @media all and(max-width: 500px) {
+      width: 90%;
+    }
   }
 
   &__info {
@@ -69,7 +97,7 @@
     text-transform: uppercase;
     font-size: 1.6rem;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 
     @media all and(max-width: 1000px) {
       font-size: 1.2rem;
@@ -80,7 +108,15 @@
     width: 50%;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+
+    @media all and(max-width: 768px) {
+      width: 70%;
+    }
+
+    @media all and(max-width: 500px) {
+      width: 100%;
+    }
   }
 
   &__info-link,
@@ -92,6 +128,12 @@
     height: 50px;
     font-size: 1.2rem;
     color: $color-second;
+
+    @media all and(max-width: 768px) {
+      font-size: 0.8rem;
+      height: 37px;
+    }
+
   }
 
   &__youtube {
@@ -124,6 +166,10 @@
     @media all and(max-width: 1000px) {
       font-size: 3.2rem;
     }
+
+    @media all and(max-width: 768px) {
+      font-size: 2.4rem;
+    }
   }
 
   &__button-done {
@@ -142,13 +188,20 @@
     &:hover {
       background-color: $color-main;
     }
+
+    @media all and(max-width: 768px) {
+      width: 100px;
+      height: 35px;
+      font-size: 1rem;
+      margin-bottom: 60px;
+    }
   }
 
   &__time-bar {
     position: relative;
     width: 100%;
     height: 45px;
-    background-color: $color-grey-violet;
+    background-color: $color-lavender-blush;
     margin-bottom: 80px;
   }
 
@@ -159,6 +212,7 @@
     width: 100%;
     height: 100%;
     background-color: $color-pink;
+    transition: linear 1s;
   }
 
   &__button-pause {
@@ -181,12 +235,30 @@
   &__buttons {
     width: 40%;
     display: flex;
+    justify-content: space-between;
     align-items: center;
+
+    @media all and(max-width: 768px) {
+      width: 60%;
+    }
+
+    @media all and(max-width: 500px) {
+      width: 80%;
+    }
+  }
+
+  &__delim {
+    width: 10px;
+    height: 50px;
+    background: url(../assets/svg/vertical.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top 6px center;
   }
 
   &__button-prev,
   &__button-skip {
-    width: 50%;
+    width: 49%;
     font-size: 1.2rem;
     border: none;
     cursor: pointer;
@@ -194,31 +266,40 @@
     @media all and(max-width: 1000px) {
       font-size: 1rem;
     }
+
+    @media all and(max-width: 768px) {
+      font-size: 0.8rem;
+    }
   }
 
   &__button-prev {
-    position: relative;
     background: url(../assets/svg/previous-icon.svg);
     background-position: left center;
     background-repeat: no-repeat;
+    background-size: contain;
   }
 
   &__button-skip {
     background: url(../assets/svg/next-icon.svg);
     background-position: right center;
     background-repeat: no-repeat;
+    background-size: contain;
   }
 
   .ready-text {
     width: 100%;
     position: absolute;
-    top: -50px;
+    top: -70px;
     left: 0;
     text-transform: uppercase;
-    font-size: 1.6rem;
+    font-size: 2.2rem;
     font-weight: 700;
     color: $color-pink;
     text-align: center;
+
+    @media all and(max-width: 768px) {
+      font-size: 1.8rem;
+    }
   }
 
   .countdown {
@@ -242,6 +323,7 @@
       width: 150px;
       height: 150px;
       transform: rotate(270deg);
+      transition: linear 1s;
 
       circle {
         width: 100%;
@@ -250,11 +332,13 @@
         stroke-width: 8;
         stroke: $color-lavender-blush;
         transform: translate(5px, 5px);
+        transition: linear 1s;
       }
 
       circle:nth-child(2) {
         stroke: $color-pink;
         stroke-dasharray: 440;
+        transition: linear 1s;
       }
     }
 
@@ -267,17 +351,6 @@
       justify-content: center;
       align-items: flex-start;
       z-index: 1000;
-
-      &::before {
-        content: "";
-        position: absolute;
-        top: -3px;
-        width: 15px;
-        height: 15px;
-        background-color: $color-pink;
-        border-radius: 50%;
-        // box-shadow: 0 0 20px $color-pink, 0 0 60px $color-pink;
-      }
     }
 
     &__number {
@@ -293,6 +366,8 @@
       font-size: 5.8rem;
     }
   }
+}
 
-
+.inactive {
+  opacity: 0.2;
 }

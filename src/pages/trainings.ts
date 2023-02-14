@@ -39,7 +39,7 @@ class TrainingsPage {
     mainPageElement.append(
       this.createTitle(),
       this.createAddWorkoutPlanCont(),
-      this.createContent(),
+      this.createWrapper(),
       this.createModal()
     );
   }
@@ -72,6 +72,10 @@ class TrainingsPage {
       const modal = document.querySelector(
         ".modal-addNewComplex"
       ) as HTMLElement;
+      const input = document.querySelector(
+        ".modal-addNewComplex__input"
+      ) as HTMLInputElement;
+      input.value = "";
       modal.classList.remove("invisible");
       // overlay.append(this.addNewComplex.fillComplexNameModal());
       // const mainElement = document.querySelector("main") as HTMLElement;
@@ -81,27 +85,40 @@ class TrainingsPage {
     return addWorkoutPlanCont;
   }
 
+  private createWrapper(): HTMLElement {
+    const wrapper = this.template.createElement(
+      "div",
+      "trainings__content-wrapper"
+    );
+    wrapper.append(this.createContent());
+    return wrapper;
+  }
+
   private createContent(): HTMLElement {
     const contentContainer: HTMLElement = this.template.createElement(
       "div",
       "workout-content-cont"
     );
-    for (let i = 0; i < workout_plans.length; i++) {
+    const workoutPlansInStore = JSON.parse(
+      localStorage.getItem("workoutPlans") || "[]"
+    );
+    const data = [...workoutPlansInStore, ...workout_plans];
+    for (let i = 0; i < data.length; i++) {
       const workoutBlock: HTMLElement = this.workoutBlock.createWorkoutBlockCont(
-        workout_plans[i].title
+        data[i].title
       );
       const wrapper = this.template.createElement("div", "workout-wrapper");
       workoutBlock.append(wrapper);
       contentContainer.append(workoutBlock);
       const buttons = this.slider.createNextPrevBtns(
-        workout_plans[i].block.length,
+        data[i].block.length,
         wrapper,
         false
       );
       workoutBlock.append(buttons);
-      for (let j = 0; j < workout_plans[i].block.length; j++) {
+      for (let j = 0; j < data[i].block.length; j++) {
         const link = this.template.createElement("a", "link-to-exerc");
-        const id: number = workout_plans[i].block[j].id;
+        const id: number = data[i].block[j].id;
         link.addEventListener("click", (e) => {
           e.preventDefault();
           if (this.router) {
@@ -114,12 +131,13 @@ class TrainingsPage {
             }
           }
         });
-        const block: IWorkoutMiniBlock = workout_plans[i].block[j];
+        const block: IWorkoutMiniBlock = data[i].block[j];
         const content: HTMLElement = this.workoutBlock.createWorkoutContent(
           block,
           i,
           j,
-          false
+          false,
+          data.length
         );
         this.workoutBlock.colorBackground(content);
         link.append(content);
@@ -162,6 +180,15 @@ class TrainingsPage {
       "modal-addNewComplex__create",
       "Create"
     );
+    create.addEventListener("click", () => {
+      this.addNewComplex.addComplexInLocalStore();
+      modal.classList.add("invisible");
+      const contentWrapper = document.querySelector(
+        ".trainings__content-wrapper"
+      ) as HTMLElement;
+      contentWrapper.innerHTML = "";
+      contentWrapper.append(this.createContent());
+    });
     buttons.append(cancel, create);
     wrapper.append(title, input, buttons);
     modal.append(wrapper);

@@ -1,5 +1,6 @@
 import Template from "../templates/template";
 import { ITemplate, IExercise } from "../types/index";
+import PauseModal from "../components/pauseModal";
 
 class ExerciseBlock {
   template: ITemplate;
@@ -160,6 +161,13 @@ class ExerciseBlock {
     }, 1000);
 
     this.interval = exerciseTime;
+
+    pauseButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      const pauseModal = new PauseModal(exercise);
+      pauseModal.draw();
+      clearInterval(exerciseTime);
+    });
 
     return timeBar;
   }

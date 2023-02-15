@@ -35,10 +35,14 @@ class SingleTrainingPage {
     const mainPageElement: HTMLElement = document.createElement("div");
     mainPageElement.classList.add("training");
     mainElement.append(mainPageElement);
+    const workoutPlansInStore = JSON.parse(
+      localStorage.getItem("workoutPlans") || "[]"
+    );
+    const data = [...workoutPlansInStore, ...workout_plans];
 
     if (id) {
-      workout_plans.forEach((group) => {
-        group.block.forEach((training) => {
+      data.forEach((group) => {
+        group.block.forEach((training: ISingleTraining) => {
           if (training.id === Number(id)) {
             this.workout = training;
           }
@@ -62,7 +66,12 @@ class SingleTrainingPage {
   }
 
   private createHeader(id: string): HTMLElement {
-    workout_plans.forEach((plan) => {
+    const workoutPlansInStore = JSON.parse(
+      localStorage.getItem("workoutPlans") || "[]"
+    );
+    const data = [...workoutPlansInStore, ...workout_plans];
+
+    data.forEach((plan) => {
       plan.block.forEach((training: ISingleTraining) => {
         if (training.id === Number(id)) {
           this.exQuantity = training.exercisesAmt;
@@ -92,6 +101,9 @@ class SingleTrainingPage {
       header.style.background = `url(${this.image}), ${this.color}`;
       header.style.backgroundRepeat = "no-repeat";
       header.style.backgroundPosition = "right bottom";
+      if (Number(id) > 11) {
+        header.style.backgroundPosition = "90% bottom";
+      }
       header.style.backgroundSize = "contain";
     }
 
@@ -114,7 +126,23 @@ class SingleTrainingPage {
       "header-upper__icon",
       "icon-trash"
     );
-    upperHeader.append(returnButton, trainingsName, trashIcon);
+    trashIcon.setAttribute("id", id);
+
+    trashIcon.addEventListener("click", () => {
+      this.deleteComplex(trashIcon);
+      if (this.router) {
+        const mainElement: HTMLElement | null = document.querySelector("main");
+        if (mainElement) {
+          mainElement.innerHTML = "";
+          this.router.navigate(`workouts`);
+        }
+      }
+    });
+
+    upperHeader.append(returnButton, trainingsName);
+    if (Number(id) > 11) {
+      upperHeader.append(trashIcon);
+    }
 
     const bottomHeader: HTMLElement = this.template.createElement(
       "div",
@@ -155,6 +183,22 @@ class SingleTrainingPage {
         trainingModal.draw(exercises[0]);
       }
     });
+  }
+
+  private deleteComplex(element: HTMLElement): void {
+    let workoutPlansInStore = JSON.parse(
+      localStorage.getItem("workoutPlans") || "[]"
+    );
+    const block = workoutPlansInStore[0].block;
+    for (let i = 0; i < block.length; i++) {
+      if (block[i].id === Number(element.getAttribute("id"))) {
+        block.splice(i, 1);
+        if (!block.length) {
+          workoutPlansInStore = [];
+        }
+      }
+    }
+    localStorage.setItem("workoutPlans", JSON.stringify(workoutPlansInStore));
   }
 }
 

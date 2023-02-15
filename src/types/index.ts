@@ -148,11 +148,10 @@ export interface IWorkoutBlock {
   createTitle: (titleText: string) => HTMLElement;
   createWorkoutContent: (
     data: IWorkoutMiniBlock,
-
     j: number,
-
     i: number,
-    flag: boolean
+    flag: boolean,
+    length: number
   ) => HTMLElement;
   createTextBlock: (
     descrTitleText: string,
@@ -169,7 +168,8 @@ export interface IWorkoutBlock {
     i: number,
     j: number,
     additClass: string,
-    flag: boolean
+    flag: boolean,
+    length: number
   ) => HTMLElement;
   createExercCont: (exercAmt: string) => HTMLElement;
   createTimeCont: (time: string) => HTMLElement;

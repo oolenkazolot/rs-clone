@@ -56,20 +56,32 @@
     }
   }
 
-  &__content {
-    font-size: 25px;
-    color: $color-black;
+  &__item-content {
+    display: flex;
+    justify-content: left;
+    align-items: center;
     max-width: 500px;
     width: 100%;
-    display: inline-block;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+    font-size: 25px;
+    color: $color-black;
+    text-transform: capitalize;
 
     @media (max-width: 768px) {
       font-size: 20px;
       max-width: 200px;
     }
+  }
+
+  &__item-title {
+    color: $color-main-second;
+    margin-right: 10px;
+  }
+
+  &__item-description {
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   &__btn {

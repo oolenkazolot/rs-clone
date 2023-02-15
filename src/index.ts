@@ -1,21 +1,32 @@
-import './sass/style.scss';
-import Router from './utils/Routing';
-import MainPage from './pages/main';
-import ErrorPage from './pages/error';
-import Header from './components/header';
-import Footer from './components/footer';
-import ModalSignIn from './components/modalSignIn';
-import ModalSignUp from './components/modalSignUp';
-import ModalQuestions from './components/modalQuestions';
-import TrainingsPage from './pages/trainings';
-import SingleTrainingPage from './pages/singleTraining';
-import ExercisesPage from './pages/exercises';
-import ChangeElements from './components/changeElements';
-import ProfilePage from './pages/profile';
-import TakeARest from './components/takeaRest';
-import StartTrainingPage from './pages/startTraining';
+import "./sass/style.scss";
+import Router from "./utils/Routing";
+import MainPage from "./pages/main";
+import ErrorPage from "./pages/error";
+import Header from "./components/header";
+import Footer from "./components/footer";
+import ModalSignIn from "./components/modalSignIn";
+import ModalSignUp from "./components/modalSignUp";
+import ModalQuestions from "./components/modalQuestions";
+import TrainingsPage from "./pages/trainings";
+import SingleTrainingPage from "./pages/singleTraining";
+import ExercisesPage from "./pages/exercises";
+import ChangeElements from "./components/changeElements";
+import ProfilePage from "./pages/profile";
+import TakeARest from "./components/takeaRest";
+import StartTrainingPage from "./pages/startTraining";
 
-import { IMainPage, IErrorPage, IRout, IHeader, IModalSignIn, IModalSignUp, IModalQuestions, ISingleTrainingPage, IProfilePage, IFooter } from './types/index';
+import {
+  IMainPage,
+  IErrorPage,
+  IRout,
+  IHeader,
+  IModalSignIn,
+  IModalSignUp,
+  IModalQuestions,
+  ISingleTrainingPage,
+  IProfilePage,
+  IFooter,
+} from "./types/index";
 
 const mainPage: IMainPage = new MainPage();
 const errorPage: IErrorPage = new ErrorPage();
@@ -47,29 +58,29 @@ const startTrainingPage = new StartTrainingPage();
 //список страниц с колбеками: путь и что делать
 const routs: IRout[] = [
   {
-    path: '',
+    path: "",
     cb: mainPage.draw.bind(mainPage),
   },
   {
-    path: 'workouts',
+    path: "workouts",
     cb: trainingsCreationPage.draw.bind(trainingsCreationPage),
   },
   {
-    path: 'exercises',
+    path: "exercises",
     cb: exercisesPage.draw.bind(exercisesPage),
   },
   {
-    path: 'profile',
+    path: "profile",
     cb: profilePage.draw.bind(profilePage),
   },
   {
-    path: 'workouts/:id',
+    path: "workouts/:id",
     cb: (id) => {
       singleTrainingPage.draw(id);
     },
   },
   {
-    path: 'startTraining',
+    path: "startTraining",
     cb: startTrainingPage.draw.bind(startTrainingPage),
   },
 ];

@@ -1,11 +1,6 @@
 import Template from "../templates/template";
 import Authorization from "../utils/auth.routes";
-import {
-  ITemplate,
-  IAuthorization,
-  ILineItem,
-  IUserInfo,
-} from "../types/index";
+import { ITemplate, IAuthorization, ILineItem } from "../types/index";
 import { getUserIdLocalStorage } from "../utils/auth";
 
 class Progress {
@@ -13,23 +8,33 @@ class Progress {
   private mainClass: string;
   private mainClassTwo: string;
   private authorization: IAuthorization;
-  private bmiData: Record<string, string>;
+  private bmiValue: number;
+  private bmiContent: string;
+  private bmiClassName: string;
 
   constructor() {
     this.template = new Template();
     this.mainClass = "progress";
     this.mainClassTwo = "bmi";
     this.authorization = new Authorization();
-    this.bmiData = {};
+    this.bmiValue = 0;
+    this.bmiContent = "";
+    this.bmiClassName = "";
   }
-  public createProgress(): HTMLElement {
+  public async createProgress(): Promise<HTMLElement> {
+    await this.calculateBmi();
+
     const progress: HTMLElement = this.template.createElement(
       "section",
       `${this.mainClass}`
     );
+
     const title: HTMLElement = this.createBlockTitle();
+
     const canvas: HTMLElement = this.createCanvas();
+
     const bmiBlock: HTMLElement = this.createBmiBlock();
+
     progress.append(title, canvas, bmiBlock);
     return progress;
   }
@@ -57,31 +62,43 @@ class Progress {
     return canvas;
   }
 
-  private calculateBmi(userInfo: IUserInfo): void {
+  private async calculateBmi(): Promise<void> {
+    const userId: string | undefined = getUserIdLocalStorage();
+    if (!userId) {
+      return;
+    }
+    const userInfo:
+      | Record<string, string>
+      | undefined = await this.authorization.getUserInfo(userId);
+    if (!userInfo) {
+      return;
+    }
     const height = Number(userInfo.height);
     const weight = Number(userInfo.weight);
-    const bmiValue: number = parseFloat(
-      (weight / Math.pow(height / 100, 2)).toFixed(1)
-    );
-    this.bmiData.value = bmiValue.toString();
-    if (bmiValue <= 18.5) {
-      this.bmiData.content = "underweight";
-      this.bmiData.className = `${this.mainClassTwo}__line-underweight`;
-    } else if (bmiValue > 18.5 && bmiValue <= 25) {
-      this.bmiData.content = "normal";
-      this.bmiData.className = `${this.mainClassTwo}__line-normal`;
-    } else if (bmiValue > 25 && bmiValue <= 30) {
-      this.bmiData.content = "overweight";
-      this.bmiData.className = `${this.mainClassTwo}__line-overweight`;
-    } else if (bmiValue > 30 && bmiValue <= 35) {
-      this.bmiData.content = "obesity 1 degree";
-      this.bmiData.className = `${this.mainClassTwo}__line-obesity1`;
-    } else if (bmiValue > 35 && bmiValue <= 40) {
-      this.bmiData.content = "obesity 2 degree";
-      this.bmiData.className = `${this.mainClassTwo}__line-obesity2`;
-    } else if (bmiValue > 40) {
-      this.bmiData.content = "obesity 3 degree";
-      this.bmiData.className = `${this.mainClassTwo}__line-obesity3`;
+    this.bmiValue = parseFloat((weight / Math.pow(height / 100, 2)).toFixed(1));
+    this.createBmiData();
+  }
+
+  private createBmiData(): void {
+    if (this.bmiValue <= 18.5) {
+      this.bmiContent = "underweight";
+      this.bmiClassName = `${this.mainClassTwo}__line-underweight`;
+    } else if (this.bmiValue > 18.5 && this.bmiValue <= 25) {
+      this.bmiContent = "normal";
+      this.bmiClassName = `${this.mainClassTwo}__line-normal`;
+    } else if (this.bmiValue > 25 && this.bmiValue <= 30) {
+      this.bmiContent = "overweight";
+      this.bmiClassName = `${this.mainClassTwo}__line-overweight`;
+    } else if (this.bmiValue > 30 && this.bmiValue <= 35) {
+      console.log("ggg");
+      this.bmiContent = "obesity 1 degree";
+      this.bmiClassName = `${this.mainClassTwo}__line-obesity1`;
+    } else if (this.bmiValue > 35 && this.bmiValue <= 40) {
+      this.bmiContent = "obesity 2 degree";
+      this.bmiClassName = `${this.mainClassTwo}__line-obesity2`;
+    } else if (this.bmiValue > 40) {
+      this.bmiContent = "obesity 3 degree";
+      this.bmiClassName = `${this.mainClassTwo}__line-obesity3`;
     }
   }
 
@@ -90,14 +107,6 @@ class Progress {
       "div",
       `${this.mainClassTwo}`
     );
-    this.calculateBmi({
-      userId: "gggg",
-      goal: "fffff",
-      load: "ggggg",
-      weight: "87",
-      height: "177",
-      units: "kg",
-    });
     const titleContainer: HTMLElement = this.createBmiTitle();
     const bmiContainer: HTMLElement = this.createBmiContainer();
     bmiBlock.append(titleContainer, bmiContainer);
@@ -123,24 +132,22 @@ class Progress {
       "div",
       `${this.mainClassTwo}__container`
     );
-    const parametersBlock: HTMLElement = this.createParametersBlock(
-      this.bmiData.value
-    );
+    const parametersBlock: HTMLElement = this.createParametersBlock();
     const bmiLine: HTMLElement = this.createBmiLine();
     const bmiTitle: HTMLElement = this.createBmiParametersTitle(
-      this.bmiData.content,
-      this.bmiData.className
+      this.bmiContent,
+      this.bmiClassName
     );
     bmiContainer.append(parametersBlock, bmiLine, bmiTitle);
     return bmiContainer;
   }
 
-  private createParametersBlock(bmi: string): HTMLElement {
+  private createParametersBlock(): HTMLElement {
     const parametersBlock: HTMLElement = this.template.createElement(
       "div",
       `${this.mainClassTwo}__parameters`
     );
-    const titles: HTMLElement[] = this.createTitles(bmi);
+    const titles: HTMLElement[] = this.createTitles(this.bmiValue.toString());
     parametersBlock.append(...titles);
     return parametersBlock;
   }
@@ -220,17 +227,16 @@ class Progress {
       `${this.mainClassTwo}__line-thumb`
     );
 
-    if (Number(this.bmiData.value) < 15) {
+    if (this.bmiValue < 15) {
       lineThumb.style.left = "0%";
       return lineThumb;
     }
-    if (Number(this.bmiData.value) > 40) {
+    if (this.bmiValue > 40) {
       lineThumb.style.left = "100%";
       return lineThumb;
     }
 
-    const left = ((Number(this.bmiData.value) - 15) * 100) / 25;
-
+    const left = ((this.bmiValue - 15) * 100) / 25;
     lineThumb.style.left = left.toString() + "%";
     return lineThumb;
   }
@@ -246,21 +252,6 @@ class Progress {
     );
     return bmiTitle;
   }
-
-  // private async getUserData(): Promise<void> {
-  //   const userId: string | undefined = getUserIdLocalStorage();
-  //   if (!userId) {
-  //     return;
-  //   }
-  //   const res: IUserInfo | undefined = await this.authorization.getUserInfo(
-  //     userId
-  //   );
-  //   console.log(res);
-
-  //   if (res && res.message) {
-  //     console.log(res.message);
-  //   }
-  // }
 }
 
 export default Progress;

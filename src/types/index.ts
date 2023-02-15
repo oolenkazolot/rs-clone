@@ -270,7 +270,7 @@ export type ICalendar = {
 };
 
 export type IProfilePage = {
-  draw: () => void;
+  draw: () => Promise<void>;
   router?: IRouter;
 };
 
@@ -285,7 +285,7 @@ export type IProgressData = {
 };
 
 export type IProgress = {
-  createProgress: () => HTMLElement;
+  createProgress: () => Promise<HTMLElement>;
 };
 
 export type ILineItem = {

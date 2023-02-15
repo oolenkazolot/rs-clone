@@ -84,7 +84,6 @@ class Authorization {
       const res: Promise<
         Record<string, string> | undefined
       > = await response.json();
-      console.log(res);
 
       return res;
     } catch (e) {

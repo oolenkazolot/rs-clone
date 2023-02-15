@@ -27,7 +27,7 @@ class ProfilePage {
     this.mainClass = "profile-page";
     this.progress = new Progress();
   }
-  public draw(): void {
+  public async draw(): Promise<void> {
     const mainElement: HTMLElement | null = document.querySelector(".main");
     if (!mainElement) {
       return;
@@ -46,7 +46,6 @@ class ProfilePage {
     const calendar: HTMLElement = this.calendar.createCalendar();
 
     const info: HTMLElement | undefined = this.info.createInfo();
-    console.log(info);
 
     if (!info) {
       return;
@@ -55,7 +54,8 @@ class ProfilePage {
       "div",
       `${this.mainClass}__container`
     );
-    const progress: HTMLElement = this.progress.createProgress();
+    const progress: HTMLElement = await this.progress.createProgress();
+
     container.append(calendar, info);
     profilePage.append(decorEl, title, container, progress);
     mainElement.append(profilePage);

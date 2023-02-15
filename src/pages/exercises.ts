@@ -43,6 +43,7 @@ class ExercisesPage {
       this.createMiniHeader(),
       this.createWeekGoalCont(),
       this.createExercisesBlock(),
+      this.createStartBtn(),
       this.createExercisesCont()
     );
   }
@@ -208,6 +209,29 @@ class ExercisesPage {
     const exercises: HTMLElement = this.slider.createExercises(0, 2);
     exerciseCont.append(exercises);
     return exerciseCont;
+  }
+
+  createStartBtn(): HTMLElement {
+    const startBtn: HTMLButtonElement = this.template.createBtn(
+      "exercises__startNow-btn",
+      "start now"
+    );
+    const link = this.template.createElement("a", "link-to-exerc");
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (this.router) {
+        console.log(this.router);
+        const mainElement: HTMLElement | null = document.querySelector("main");
+        if (mainElement) {
+          mainElement.innerHTML = "";
+          this.router.navigate("startTraining");
+        }
+      } else {
+        console.log("no");
+      }
+    });
+    link.append(startBtn);
+    return link;
   }
 }
 

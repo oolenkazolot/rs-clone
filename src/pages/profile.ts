@@ -5,12 +5,14 @@ import {
   IRouter,
   IInfo,
   IProgress,
+  IModalEditProfile,
 } from "../types/index";
 import Calendar from "../components/calendar";
 import Info from "../components/info";
 import AirDatepicker from "air-datepicker";
 import "air-datepicker/air-datepicker.css";
 import Progress from "../components/progress";
+import ModalEditProfile from "../components/modalEditProfile";
 
 class ProfilePage {
   private template: ITemplate;
@@ -19,12 +21,14 @@ class ProfilePage {
   public router?: IRouter;
   private mainClass: string;
   private progress: IProgress;
+  private modalEditProfile: IModalEditProfile;
 
   constructor() {
     this.template = new Template();
     this.calendar = new Calendar();
     this.info = new Info();
     this.mainClass = "profile-page";
+    this.modalEditProfile = new ModalEditProfile();
     this.progress = new Progress();
   }
   public async draw(): Promise<void> {
@@ -45,11 +49,11 @@ class ProfilePage {
     const decorEl: HTMLElement = this.createDecorEl();
     const calendar: HTMLElement = this.calendar.createCalendar();
 
-    const info: HTMLElement | undefined = this.info.createInfo();
-
+    const info: HTMLElement | undefined = await this.info.createInfo();
     if (!info) {
       return;
     }
+
     const container: HTMLElement = this.template.createElement(
       "div",
       `${this.mainClass}__container`
@@ -57,7 +61,8 @@ class ProfilePage {
     const progress: HTMLElement = await this.progress.createProgress();
 
     container.append(calendar, info);
-    profilePage.append(decorEl, title, container, progress);
+    const modalEditProfile: HTMLElement = this.modalEditProfile.createModal();
+    profilePage.append(decorEl, title, container, progress, modalEditProfile);
     mainElement.append(profilePage);
     new AirDatepicker("#airdatepicker");
   }

@@ -3,7 +3,6 @@ import {
   IAuthorizationData,
   IAnswerAuth,
   IAnswerAddUserInfo,
-  IUserInfo,
 } from "../types/index";
 
 class Authorization {

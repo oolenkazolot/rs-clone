@@ -1,7 +1,8 @@
 import Template from "../templates/template";
-import { ITemplate, IUserInfo, IAuthorization } from "../types/index";
+import { ITemplate, IAuthorization } from "../types/index";
 import Authorization from "../utils/auth.routes";
 import { getUserIdLocalStorage } from "../utils/auth";
+import { onOpenModal } from "../utils/component-utils";
 
 class Info {
   private template: ITemplate;
@@ -14,16 +15,21 @@ class Info {
     this.authorization = new Authorization();
   }
 
-  public createInfo(): HTMLElement | undefined {
+  public async createInfo(): Promise<HTMLElement | undefined> {
     const info: HTMLElement = this.template.createElement(
       "section",
       `${this.mainClass}`
     );
-    this.createItems(info);
+    const items: HTMLElement[] | undefined = await this.createItems();
+    const btnWrap: HTMLElement = this.createBtnWrap();
+    if (!items) {
+      return;
+    }
+    info.append(...items, btnWrap);
     return info;
   }
 
-  private async createItems(info: HTMLElement): Promise<void> {
+  private async createItems(): Promise<HTMLElement[] | undefined> {
     const userId: string | undefined = getUserIdLocalStorage();
     if (!userId) {
       return;
@@ -79,7 +85,7 @@ class Info {
       }
     }
 
-    info.append(...items);
+    return items;
   }
 
   private createItem(nameTitle: string, nameDescription: string): HTMLElement {
@@ -88,11 +94,7 @@ class Info {
       `${this.mainClass}__item`
     );
     const content: HTMLElement = this.createContent(nameTitle, nameDescription);
-    const btn: HTMLElement = this.template.createBtn(
-      `${this.mainClass}__btn`,
-      "edit"
-    );
-    item.append(content, btn);
+    item.append(content);
     return item;
   }
 
@@ -116,6 +118,25 @@ class Info {
     );
     content.append(title, description);
     return content;
+  }
+
+  private createBtnWrap(): HTMLElement {
+    const btnWrap: HTMLElement = this.template.createElement(
+      "div",
+      `${this.mainClass}__btn-wrap`
+    );
+    const btnEdit: HTMLButtonElement = this.createBtnEdit();
+    btnWrap.append(btnEdit);
+    return btnWrap;
+  }
+  private createBtnEdit(): HTMLButtonElement {
+    const btnEdit: HTMLButtonElement = this.template.createBtn(
+      `${this.mainClass}__edit`,
+      "Edit"
+    );
+    btnEdit.classList.add("btn");
+    btnEdit.addEventListener("click", onOpenModal("modal-edit-profile"));
+    return btnEdit;
   }
 }
 

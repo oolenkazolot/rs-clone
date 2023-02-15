@@ -275,7 +275,7 @@ export type IProfilePage = {
 };
 
 export type IInfo = {
-  createInfo: () => HTMLElement | undefined;
+  createInfo: () => Promise<HTMLElement | undefined>;
 };
 
 export type IProgressData = {
@@ -293,12 +293,6 @@ export type ILineItem = {
   value: string[];
 };
 
-export type IUserInfo = {
-  userId: string;
-  goal: string;
-  load: string;
-  weight: string;
-  height: string;
-  units: string;
-  message?: string;
+export type IModalEditProfile = {
+  createModal: () => HTMLElement;
 };

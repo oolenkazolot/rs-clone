@@ -189,7 +189,11 @@ class Slider {
       "div",
       "exercises-container"
     );
-    const block = workout_plans[i].block[j];
+    const workoutPlansInStore = JSON.parse(
+      localStorage.getItem("workoutPlans") || "[]"
+    );
+    const data = [...workoutPlansInStore, ...workout_plans];
+    const block = data[i].block[j];
     for (let k = 0; k < block.exercises.length; k++) {
       const exerciseData = block.exercises[k];
       const exercise = new Exercise(exerciseData).draw();
@@ -199,13 +203,27 @@ class Slider {
   }
 
   changeExerciseContent(prevBtn: HTMLElement, nextBtn: HTMLElement): void {
+    const workoutPlansInStore = JSON.parse(
+      localStorage.getItem("workoutPlans") || "[]"
+    );
+    const data = [...workoutPlansInStore, ...workout_plans];
     let i = 0;
-    let j = 2;
+    let j = 0;
+    if (data[i].block.length === 1) {
+      i = 1;
+      j = 1;
+    } else if (data[i].block.length === 2) {
+      i = 1;
+      j = 0;
+    } else {
+      i = 0;
+      j = 2;
+    }
     nextBtn.addEventListener("click", () => {
-      if (j < workout_plans[i].block.length - 1) {
+      if (j < data[i].block.length - 1) {
         j++;
       } else {
-        if (i < workout_plans.length - 1) {
+        if (i < data.length - 1) {
           j = 0;
           i++;
         } else {
@@ -225,10 +243,10 @@ class Slider {
       } else {
         if (i > 0) {
           i--;
-          j = workout_plans[i].block.length - 1;
+          j = data[i].block.length - 1;
         } else {
-          i = workout_plans.length - 1;
-          j = workout_plans[i].block.length - 1;
+          i = data.length - 1;
+          j = data[i].block.length - 1;
         }
       }
       const exercisesContainer = document.querySelector(

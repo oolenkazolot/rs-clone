@@ -163,15 +163,20 @@ class ExercisesPage {
       "exerc-slider"
     );
     let length = 0;
-    for (let i = 0; i < workout_plans.length; i++) {
-      for (let j = 0; j < workout_plans[i].block.length; j++) {
+    const workoutPlansInStore = JSON.parse(
+      localStorage.getItem("workoutPlans") || "[]"
+    );
+    const data = [...workoutPlansInStore, ...workout_plans];
+    for (let i = 0; i < data.length; i++) {
+      for (let j = 0; j < data[i].block.length; j++) {
         length++;
-        const block: IWorkoutMiniBlock = workout_plans[i].block[j];
+        const block: IWorkoutMiniBlock = data[i].block[j];
         const workoutBlock: HTMLElement = this.workoutBlock.createWorkoutContent(
           block,
           i,
           j,
-          true
+          true,
+          data.length
         );
         workoutBlock.classList.add("adapt");
         this.workoutBlock.colorBackground(workoutBlock);
@@ -206,7 +211,23 @@ class ExercisesPage {
       "div",
       "exercises-wrapper"
     );
-    const exercises: HTMLElement = this.slider.createExercises(0, 2);
+    const workoutPlansInStore = JSON.parse(
+      localStorage.getItem("workoutPlans") || "[]"
+    );
+    const data = [...workoutPlansInStore, ...workout_plans];
+    let i = 0;
+    let j = 0;
+    if (data[i].block.length === 1) {
+      i = 1;
+      j = 1;
+    } else if (data[i].block.length === 2) {
+      i = 1;
+      j = 0;
+    } else {
+      i = 0;
+      j = 2;
+    }
+    const exercises: HTMLElement = this.slider.createExercises(i, j);
     exerciseCont.append(exercises);
     return exerciseCont;
   }
@@ -220,14 +241,11 @@ class ExercisesPage {
     link.addEventListener("click", (e) => {
       e.preventDefault();
       if (this.router) {
-        console.log(this.router);
         const mainElement: HTMLElement | null = document.querySelector("main");
         if (mainElement) {
           mainElement.innerHTML = "";
           this.router.navigate("startTraining");
         }
-      } else {
-        console.log("no");
       }
     });
     link.append(startBtn);

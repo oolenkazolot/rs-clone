@@ -1,0 +1,173 @@
+.bmi {
+  &__title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &::after {
+      margin-left: 20px;
+      content: '';
+      width: 100%;
+      max-width: 200px;
+      height: 1px;
+      vertical-align: middle;
+      background-color: $color-second;
+    }
+
+    &::before {
+      margin-right: 20px;
+      content: '';
+      width: 100%;
+      max-width: 200px;
+      height: 1px;
+      vertical-align: middle;
+      background-color: $color-second;
+    }
+  }
+
+  &__title {
+    width: 200px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 500;
+    color: $color-second;
+    text-transform: capitalize;
+  }
+
+  &__container {
+    width: 100%;
+    max-width: 950px;
+    margin: 30px auto 0 auto;
+    padding: 20px;
+    text-align: center;
+    background-color: $bg-pink-light3;
+    border-radius: 5px;
+  }
+
+  &__parameters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: $color-black;
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
+  }
+
+  &__parameters-subtitle {
+    font-weight: bold;
+    margin-left: 10px;
+  }
+
+  &__line {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  &__line-underweight,
+  &__line-normal,
+  &__line-overweight,
+  &__line-obesity1,
+  &__line-obesity2,
+  &__line-obesity3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: $color-second;
+    padding-top: 20px;
+    text-transform: capitalize;
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
+  }
+
+  &__line-underweight {
+    color: $color-blue;
+  }
+
+  &__line-normal {
+    color: $color-green;
+  }
+
+  &__line-overweight {
+    color: $color-yellow;
+  }
+
+  &__line-obesity1 {
+    color: $color-orange;
+  }
+
+  &__line-obesity2,
+  &__line-obesity3 {
+    color: $color-red;
+  }
+
+  &__line-item {
+    position: relative;
+    min-height: 7px;
+    border-radius: 5px;
+
+    &.blue {
+      background-color: $color-blue;
+      width: 14%;
+
+      & .bmi__line-number {
+        left: 0;
+      }
+    }
+
+    &.green {
+      background-color: $color-green;
+      width: 26%;
+    }
+
+    &.yellow {
+      background-color: $color-yellow;
+      width: 20%;
+    }
+
+    &.orange {
+      background-color: $color-orange;
+      width: 20%;
+    }
+
+    &.red {
+      background-color: $color-red;
+      width: 20%;
+    }
+  }
+
+  &__line-thumb {
+    position: absolute;
+    top: -5px;
+    left: 0;
+    width: 6px;
+    height: 20px;
+    background-color: $color-second;
+    border-radius: 5px;
+  }
+
+  &__line-number {
+    position: absolute;
+    top: 7px;
+    left: -15px;
+    font-size: 18px;
+    color: $color-second;
+
+    &:nth-child(2) {
+      left: auto;
+      right: 0;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
+  }
+}

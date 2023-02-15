@@ -3,6 +3,7 @@ import {
   IAuthorizationData,
   IAnswerAuth,
   IAnswerAddUserInfo,
+  IUserInfo,
 } from "../types/index";
 
 class Authorization {
@@ -65,6 +66,26 @@ class Authorization {
         body: JSON.stringify(data),
       });
       const res: IAnswerAddUserInfo = await response.json();
+      return res;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      }
+    }
+  }
+
+  public async getUserInfo(
+    id: string
+  ): Promise<Record<string, string> | undefined> {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/userInfo/get/${id}`
+      );
+      const res: Promise<
+        Record<string, string> | undefined
+      > = await response.json();
+      console.log(res);
+
       return res;
     } catch (e) {
       if (e instanceof Error) {

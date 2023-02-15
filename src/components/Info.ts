@@ -1,43 +1,67 @@
 import Template from "../templates/template";
-import { ITemplate } from "../types/index";
+import { ITemplate, IUserInfo, IAuthorization } from "../types/index";
+import Authorization from "../utils/auth.routes";
+import { getUserIdLocalStorage } from "../utils/auth";
 
 class Info {
-  template: ITemplate;
-  mainClass: string;
+  private template: ITemplate;
+  private mainClass: string;
+  private authorization: IAuthorization;
 
   constructor() {
     this.template = new Template();
     this.mainClass = "info";
+    this.authorization = new Authorization();
   }
 
-  public createInfo(): HTMLElement {
+  public createInfo(): HTMLElement | undefined {
     const info: HTMLElement = this.template.createElement(
       "section",
       `${this.mainClass}`
     );
-    const items: HTMLElement[] = this.createItem();
-    info.append(...items);
+
+    this.createItem(info);
+
     return info;
   }
 
-  private createItem(): HTMLElement[] {
-    const obj: Record<string, string> = {
-      goal: "Goal: lose weight",
-      load: "Load: medium",
-      weight: "Weight: 53 kg",
-      height: "Height: 157 cm",
-    };
+  private async createItem(info: HTMLElement): Promise<void> {
+    const userId: string | undefined = getUserIdLocalStorage();
+
+    if (!userId) {
+      return;
+    }
+    const userInfo:
+      | Record<string, string>
+      | undefined = await this.authorization.getUserInfo(userId);
+    if (!userInfo) {
+      return;
+    }
+
+    // if (res && res.message) {
+    //   console.log(res.message);
+    // }
     const items: HTMLElement[] = [];
-    for (const key in obj) {
+    for (const key in userInfo) {
       const item: HTMLElement = this.template.createElement(
         "div",
         `${this.mainClass}__item`
       );
       const content: HTMLElement = this.template.createElement(
         "div",
-        `${this.mainClass}__content`,
-        obj[key]
+        `${this.mainClass}__item-content`
       );
+      const title: HTMLElement = this.template.createElement(
+        "div",
+        `${this.mainClass}__item-title`,
+        `${key}:`
+      );
+      const description: HTMLElement = this.template.createElement(
+        "div",
+        `${this.mainClass}__item-description`,
+        userInfo[key]
+      );
+      content.append(title, description);
       const btn: HTMLElement = this.template.createBtn(
         `${this.mainClass}__btn`,
         "edit"
@@ -46,7 +70,7 @@ class Info {
       items.push(item);
     }
 
-    return items;
+    info.append(...items);
   }
 }
 

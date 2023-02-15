@@ -44,7 +44,13 @@ class ProfilePage {
     );
     const decorEl: HTMLElement = this.createDecorEl();
     const calendar: HTMLElement = this.calendar.createCalendar();
-    const info: HTMLElement = this.info.createInfo();
+
+    const info: HTMLElement | undefined = this.info.createInfo();
+    console.log(info);
+
+    if (!info) {
+      return;
+    }
     const container: HTMLElement = this.template.createElement(
       "div",
       `${this.mainClass}__container`

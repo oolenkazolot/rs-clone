@@ -28,6 +28,7 @@ export interface IAuthorization {
   addUserInfo: (
     data: Record<string, string>
   ) => Promise<IAnswerAddUserInfo | undefined>;
+  getUserInfo: (id: string) => Promise<Record<string, string> | undefined>;
 }
 
 export interface IAnswerAuth {
@@ -274,7 +275,7 @@ export type IProfilePage = {
 };
 
 export type IInfo = {
-  createInfo: () => HTMLElement;
+  createInfo: () => HTMLElement | undefined;
 };
 
 export type IProgressData = {
@@ -290,4 +291,14 @@ export type IProgress = {
 export type ILineItem = {
   className: string;
   value: string[];
+};
+
+export type IUserInfo = {
+  userId: string;
+  goal: string;
+  load: string;
+  weight: string;
+  height: string;
+  units: string;
+  message?: string;
 };

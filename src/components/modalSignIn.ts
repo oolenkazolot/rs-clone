@@ -35,7 +35,8 @@ class ModalSignIn {
     const loginForm: HTMLElement = this.createLoginForm();
     const modal: HTMLElement = this.modal.createModal(
       "modal-sign-in",
-      loginForm
+      loginForm,
+      true
     );
     document.body.append(modal);
   }

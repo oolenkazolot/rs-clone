@@ -73,9 +73,17 @@ class Progress {
     if (!userInfo) {
       return;
     }
-    const height = Number(userInfo.height);
-    const weight = Number(userInfo.weight);
+
+    let height = Number(userInfo.height);
+    let weight = Number(userInfo.weight);
+
+    if (userInfo.units === "Lbs-inches") {
+      height = Number(userInfo.height) * 2.54;
+      weight = Number(userInfo.weight) * 0.45;
+    }
+
     this.bmiValue = parseFloat((weight / Math.pow(height / 100, 2)).toFixed(1));
+
     this.createBmiData();
   }
 

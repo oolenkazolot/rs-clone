@@ -18,7 +18,65 @@
     padding-top: 22px;
   }
 
+  &__message-form {
+    display: block;
+    &.error {
+      margin-top: 20px;
+      color: $color-error;
+    }
+  }
+
+  &__units-height,
+  &__units-weight {
+    display: inline-block;
+    min-width: 50px;
+    text-align: left;
+    padding-left: 10px;
+  }
+
   &__btn {
     margin-top: 20px;
+  }
+
+  &__img {
+    width: 20px;
+    margin-right: 10px;
+  }
+
+  &__input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: $color-black;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    &:focus {
+      outline: 1px solid $color-main-second;
+    }
+  }
+
+  &__input-item {
+    padding: 10px;
+    background: #f6f6f8;
+    color: #f60e50;
+    border-radius: 6px;
+    border: none;
+
+    &:focus {
+      outline: 1px solid $color-main;
+    }
+
+    &.error {
+      outline: 2px solid $color-red;
+    }
+  }
+
+  &__error {
+    padding-top: 10px;
+    color: $color-error;
   }
 }

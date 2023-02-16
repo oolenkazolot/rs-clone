@@ -11,41 +11,53 @@ class Modal {
     this.mainClass = "modal";
   }
 
-  public createModal(id: string, content: HTMLElement): HTMLElement {
+  public createModal(
+    id: string,
+    content: HTMLElement,
+    isShowIconClose: boolean
+  ): HTMLElement {
     const modal: HTMLElement = this.template.createElement(
       "div",
       this.mainClass
     );
     modal.id = id;
-    const backDrop: HTMLElement = this.createBackDrop(id);
-    const modalInner: HTMLElement = this.createModalInner(id);
+    const backDrop: HTMLElement = this.createBackDrop(id, isShowIconClose);
+    const modalInner: HTMLElement = this.createModalInner(id, isShowIconClose);
     modalInner.append(content);
     modal.append(backDrop, modalInner);
     return modal;
   }
 
-  private createBackDrop(id: string): HTMLElement {
+  private createBackDrop(id: string, isShowIconClose: boolean): HTMLElement {
     const backDrop = this.template.createElement(
       "div",
       `${this.mainClass}__backdrop`
     );
-    backDrop.onclick = onCloseModal(id);
-    return backDrop;
+    if (!isShowIconClose) {
+      return backDrop;
+    } else {
+      backDrop.onclick = onCloseModal(id);
+      return backDrop;
+    }
   }
 
-  private createModalInner(id: string): HTMLElement {
+  private createModalInner(id: string, isShowIconClose: boolean): HTMLElement {
     const modalInner: HTMLElement = this.template.createElement(
       "div",
       `${this.mainClass}__inner`
     );
-    const icon: HTMLElement = this.createIconClose();
-    const btnClose: HTMLButtonElement = this.template.createBtn(
-      "btn-close",
-      icon
-    );
-    btnClose.onclick = onCloseModal(id);
-    modalInner.append(btnClose);
-    return modalInner;
+    if (isShowIconClose) {
+      const icon: HTMLElement = this.createIconClose();
+      const btnClose: HTMLButtonElement = this.template.createBtn(
+        "btn-close",
+        icon
+      );
+      btnClose.onclick = onCloseModal(id);
+      modalInner.append(btnClose);
+      return modalInner;
+    } else {
+      return modalInner;
+    }
   }
 
   private createIconClose(): HTMLElement {

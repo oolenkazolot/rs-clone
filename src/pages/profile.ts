@@ -61,7 +61,14 @@ class ProfilePage {
     const progress: HTMLElement = await this.progress.createProgress();
 
     container.append(calendar, info);
-    const modalEditProfile: HTMLElement = this.modalEditProfile.createModal();
+    const modalEditProfile:
+      | HTMLElement
+      | undefined = await this.modalEditProfile.createModal(
+      this.draw.bind(this)
+    );
+    if (!modalEditProfile) {
+      return;
+    }
     profilePage.append(decorEl, title, container, progress, modalEditProfile);
     mainElement.append(profilePage);
     new AirDatepicker("#airdatepicker");

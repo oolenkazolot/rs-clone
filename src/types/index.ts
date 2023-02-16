@@ -25,10 +25,13 @@ export interface ISingleTrainingPage {
 export interface IAuthorization {
   registration: (data: IRegistrationData) => Promise<IAnswerAuth | undefined>;
   authorization: (data: IAuthorizationData) => Promise<IAnswerAuth | undefined>;
-  addUserInfo: (
+  createUserInfo: (
     data: Record<string, string>
   ) => Promise<IAnswerAddUserInfo | undefined>;
   getUserInfo: (id: string) => Promise<Record<string, string> | undefined>;
+  updateUserInfo: (
+    dataEditProfile: IDataEditProfile
+  ) => Promise<IAnswerAddUserInfo | undefined>;
 }
 
 export interface IAnswerAuth {
@@ -104,7 +107,11 @@ export interface IButton {
 }
 
 export interface IModal {
-  createModal: (id: string, content: HTMLElement) => HTMLElement;
+  createModal: (
+    id: string,
+    content: HTMLElement,
+    isShowIconClose: boolean
+  ) => HTMLElement;
 }
 
 export interface IInputIcon {
@@ -115,11 +122,14 @@ export interface IInputIcon {
 }
 
 export interface IInputImg {
+  mainClass: string;
   className?: string[];
   attributes: Record<string, string>;
   imgSrc: string;
   imgAlt: string;
-  validate: (inputValue: string) => IValidate;
+  validate: (inputValue: string, units: string) => IValidate;
+  units: string;
+  classNameUnits: string;
 }
 
 export interface IModalSignIn {
@@ -294,5 +304,13 @@ export type ILineItem = {
 };
 
 export type IModalEditProfile = {
-  createModal: () => HTMLElement;
+  createModal: (
+    drawProfilePage: () => Promise<void>
+  ) => Promise<HTMLElement | undefined>;
 };
+
+export interface IDataEditProfile {
+  id: string;
+  weight: string;
+  height: string;
+}

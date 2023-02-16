@@ -39,7 +39,8 @@ class ModalSignUp {
     const registrationForm: HTMLElement = this.createRegistrationForm();
     const modal: HTMLElement = this.modal.createModal(
       "modal-sign-up",
-      registrationForm
+      registrationForm,
+      true
     );
     document.body.append(modal);
   }
@@ -132,7 +133,6 @@ class ModalSignUp {
     const res: IAnswerAuth | undefined = await this.authorization.registration(
       dataInputAuth
     );
-    console.log(res);
 
     if (!res) {
       return;

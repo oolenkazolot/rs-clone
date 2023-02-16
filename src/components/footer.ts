@@ -55,7 +55,7 @@ class Footer {
     school.target = "_blank";
 
     this.footer.append(school);
-
+    document.body.append(this.footer);
     return this.footer;
   }
 }

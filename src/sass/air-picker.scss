@@ -1,0 +1,39 @@
+.calendar-wrap .air-datepicker-body--day-name {
+  color: $color-main-second;
+}
+
+.calendar-wrap .air-datepicker-cell.-current- {
+  color: $color-main-second;
+}
+
+.calendar-wrap .air-datepicker-cell.-selected- {
+  background: $color-main-second;
+}
+
+.calendar .calendar-wrap .air-datepicker-cell .-day- .-selected- .-focus- {
+  background: $color-main-second;
+}
+
+.calendar-wrap .air-datepicker-cell.-selected-.-current- {
+  background: $color-main-second;
+}
+
+.calendar-wrap .air-datepicker-nav {
+  border-bottom: 1px solid #db5ba1;
+}
+
+.calendar-wrap .air-datepicker-nav--title:hover {
+  background: $bg-pink-light2;
+}
+
+.calendar-wrap .air-datepicker-cell.-focus- {
+  background: $bg-pink-light2;
+}
+
+.calendar-wrap .air-datepicker-nav--action path {
+  stroke: $color-main-second;
+}
+
+.calendar-wrap .air-datepicker-nav--title i {
+  color: $color-main-second;
+}

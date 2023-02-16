@@ -5,3 +5,24 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+@mixin btn-edit {
+  min-width: 35px;
+  min-height: 25px;
+  padding: 2px 2px;
+  font-size: 14px;
+  text-transform: capitalize;
+  background: $bg-pink;
+  color: $color-white;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background: $hover;
+  }
+  &:active {
+    background: $active;
+  }
+}

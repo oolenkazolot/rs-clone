@@ -18,8 +18,14 @@
 @import './slider-control.scss';
 @import './execisesPage.scss';
 @import './exercise.scss';
+@import './profile-page.scss';
+@import './decor.scss';
+@import './air-picker.scss';
+@import './progress.scss';
+@import './bmi.scss';
 @import './addNewComplex.scss';
 @import './takeARest.scss';
+@import './edit-form.scss';
 
 @font-face {
   font-family: 'icomoon';
@@ -29,6 +35,14 @@
   font-weight: normal;
   font-style: normal;
   font-display: block;
+}
+
+@font-face {
+  font-family: 'MTTMilano-Medium';
+  src: url('//db.onlinewebfonts.com/t/68d7ff963a65763581b048ca3cc3d178.eot');
+  src: url('//db.onlinewebfonts.com/t/68d7ff963a65763581b048ca3cc3d178.eot?#iefix') format('embedded-opentype'), url('//db.onlinewebfonts.com/t/68d7ff963a65763581b048ca3cc3d178.woff2') format('woff2'),
+    url('//db.onlinewebfonts.com/t/68d7ff963a65763581b048ca3cc3d178.woff') format('woff'), url('//db.onlinewebfonts.com/t/68d7ff963a65763581b048ca3cc3d178.ttf') format('truetype'),
+    url('//db.onlinewebfonts.com/t/68d7ff963a65763581b048ca3cc3d178.svg#MTTMilano-Medium') format('svg');
 }
 
 [class^='icon-'],

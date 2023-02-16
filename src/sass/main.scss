@@ -1,5 +1,7 @@
+.main {
+  min-height: calc(100vh - 158px);
+}
 .intro {
-
   border-bottom: 5px solid $color-main;
 
   @media all and (max-width: 768px) {
@@ -17,7 +19,7 @@
     height: auto;
     display: flex;
     flex-direction: column;
-    
+
     @media all and (max-width: 420px) {
       display: none;
     }
@@ -99,7 +101,6 @@
       font-size: 1.8rem;
       line-height: 2.4rem;
     }
-
   }
 
   &__link {
@@ -130,11 +131,9 @@
       border-radius: 10px;
     }
   }
-
 }
 
 .about {
-
   &__wrapper {
     max-width: 1920px;
     display: flex;
@@ -207,7 +206,6 @@
       font-size: 1rem;
       line-height: 1.2rem;
     }
-
   }
 
   &__picture {
@@ -226,7 +224,6 @@
 }
 
 .features {
-
   &__wrapper {
     max-width: 1920px;
     margin: 0 auto;

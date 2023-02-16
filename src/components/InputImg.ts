@@ -1,30 +1,37 @@
 import { IInputImg, ITemplate, IValidate } from "../types/index";
 import { addClasses } from "../utils/component-utils";
 import Template from "../templates/template";
+const template: ITemplate = new Template();
 
 export function InputImg({
+  mainClass,
   className,
   attributes,
   imgSrc,
   imgAlt,
   validate,
+  units,
+  classNameUnits,
 }: IInputImg): HTMLElement {
-  const template: ITemplate = new Template();
-  const mainClass = "slide-info";
   const inputBlock: HTMLElement = template.createElement(
     "div",
     `${mainClass}__input`
   );
   addClasses(inputBlock, className);
+  const inputWrap: HTMLElement = template.createElement(
+    "div",
+    `${mainClass}__wrapper`
+  );
   const input: HTMLInputElement = createInput(mainClass, attributes);
   const error: HTMLElement = template.createElement(
     "span",
     `${mainClass}__error`
   );
+  const unitsEl: HTMLElement = createUnitsTitle(units, classNameUnits);
 
   if (validate) {
     input.onchange = () => {
-      const validateDate: IValidate = validate(input.value);
+      const validateDate: IValidate = validate(input.value, units);
       if (!validateDate.res) {
         input.classList.add("error");
         error.textContent = validateDate.message || "";
@@ -40,7 +47,8 @@ export function InputImg({
     imgAlt,
     `${mainClass}__img`
   );
-  inputBlock.append(img, input, error);
+  inputWrap.append(img, input, unitsEl);
+  inputBlock.append(inputWrap, error);
   return inputBlock;
 }
 
@@ -52,6 +60,15 @@ function createInput(
   input.classList.add(`${mainClass}__input-item`);
   addAttributes(input, attributes);
   return input;
+}
+
+function createUnitsTitle(units: string, classNameUnits: string): HTMLElement {
+  const unitsEl: HTMLElement = template.createElement(
+    "span",
+    `${classNameUnits}`,
+    units
+  );
+  return unitsEl;
 }
 
 function addAttributes(

@@ -11,6 +11,9 @@ function Button({
   const mainClass = "btn";
   const btn: HTMLButtonElement = document.createElement("button");
   btn.classList.add(mainClass);
+  if (type) {
+    btn.type = type;
+  }
   addClasses(btn, className);
   addContent(btn, content);
   if (variant) {

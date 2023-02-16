@@ -8,20 +8,17 @@ import pic1 from "../assets/images/pic1.jpg";
 import Authorization from "../utils/auth.routes";
 import Template from "../templates/template";
 import { ITemplate } from "../types/index";
-// import logo from '../assets/png/img1.png';
 
 class MainPage {
   public authorization: IAuthorization;
   public router?: IRouter;
   mainPageElement: HTMLDivElement;
-  footer: Footer;
   template: ITemplate;
 
   constructor() {
     this.authorization = new Authorization();
     this.mainPageElement = document.createElement("div");
     this.mainPageElement.classList.add("main-page");
-    this.footer = new Footer();
     this.template = new Template();
   }
 
@@ -178,7 +175,6 @@ class MainPage {
 
     mainElement.append(this.mainPageElement);
 
-    document.body.append(this.footer.draw());
     // this.registr();
   }
 

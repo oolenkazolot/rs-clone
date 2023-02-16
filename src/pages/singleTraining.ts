@@ -1,8 +1,15 @@
 import Template from "../templates/template";
 import Exercise from "../components/exercise";
-import { IRouter, ITemplate, IExercise, ISingleTraining } from "../types/index";
+import {
+  IRouter,
+  ITemplate,
+  IExercise,
+  ISingleTraining,
+  IWorkoutBlock,
+} from "../types/index";
 import TrainingModal from "../components/trainingModal";
 import workout_plans from "../utils/workout-plans-en";
+import WorkoutBlock from "../components/workoutBlock";
 
 class SingleTrainingPage {
   template: ITemplate;
@@ -13,6 +20,7 @@ class SingleTrainingPage {
   image: string;
   title: string;
   workout: ISingleTraining | undefined;
+  workoutBlock: IWorkoutBlock;
 
   constructor() {
     this.template = new Template();
@@ -22,6 +30,7 @@ class SingleTrainingPage {
     this.image = "";
     this.title = "";
     this.workout;
+    this.workoutBlock = new WorkoutBlock();
   }
 
   public draw(id: string | undefined): void {
@@ -61,6 +70,23 @@ class SingleTrainingPage {
         exercises.append(newEx.draw());
       });
 
+      if (!exercises.childNodes.length) {
+        const plus: HTMLElement = this.workoutBlock.createAddWorkoutPlanCont(
+          "Add new exercises",
+          false
+        );
+        plus.classList.add("singl-train__plus");
+        exercises.append(plus);
+        exercises.append(
+          this.template.createElement(
+            "div",
+            "singl-train__empty-text",
+            "Exercise list is empty"
+          )
+        );
+        exercises.classList.add("addit");
+      }
+      mainPageElement.append(this.createDetailsModal());
       this.showTrainingModal(this.workout?.exercises);
     }
   }
@@ -199,6 +225,15 @@ class SingleTrainingPage {
       }
     }
     localStorage.setItem("workoutPlans", JSON.stringify(workoutPlansInStore));
+  }
+
+  createDetailsModal(): HTMLElement {
+    const modal: HTMLElement = this.template.createElement(
+      "div",
+      "modal-addNewComplex"
+    );
+    modal.classList.add("invisible");
+    return modal;
   }
 }
 

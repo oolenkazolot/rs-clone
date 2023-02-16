@@ -175,6 +175,7 @@ export interface IWorkoutBlock {
   createTimeCont: (time: string) => HTMLElement;
   createLightnings: (j: number) => HTMLElement;
   colorBackground: (element: HTMLElement) => void;
+  createAddWorkoutPlanCont: (description: string, flag: boolean) => HTMLElement;
 }
 
 export interface IWorkoutMiniBlock {
@@ -258,4 +259,10 @@ export interface ISlider {
   ) => void;
   changeImgSizeInf: (direct: string) => void;
   createExercises: (i: number, j: number) => HTMLElement;
+}
+
+export interface IWorkoutPlan {
+  title: string;
+  image: string;
+  block: ISingleTraining[];
 }

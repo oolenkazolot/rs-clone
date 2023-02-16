@@ -115,8 +115,31 @@
     opacity: 0;
 }
 
-.link-to-training {
-    display: block;
-    width: 30px;
-    height: 30px;
+.singl-train__plus {
+    margin-top: 5rem;
+    @media (max-width: 670px) {
+        margin-top: 2rem;
+    }
+}
+
+.singl-train__empty-text {
+    font-size: 32px;
+    margin-top: 5rem;
+    color: $color-grey-violet;
+    @media (max-width: 670px) {
+        margin-top: 2rem;
+        font-size: 23px;
+    }
+}
+
+.addit {
+    align-items: center;
+    justify-content: center;
+}
+
+.backlayer__exerc-details {
+    position:static;
+    width: auto;
+    height: auto;
+    background:none;
 }

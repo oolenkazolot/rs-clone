@@ -38,7 +38,7 @@ class TrainingsPage {
     mainElement.append(mainPageElement);
     mainPageElement.append(
       this.createTitle(),
-      this.createAddWorkoutPlanCont(),
+      this.workoutBlock.createAddWorkoutPlanCont("Add new workout", true),
       this.createWrapper(),
       this.createModal()
     );
@@ -51,38 +51,6 @@ class TrainingsPage {
       "Workout Plans"
     );
     return title;
-  }
-
-  private createAddWorkoutPlanCont(): HTMLElement {
-    const addWorkoutPlanCont: HTMLElement = this.template.createElement(
-      "div",
-      "add-workout-plans-cont"
-    );
-    const text = this.template.createElement(
-      "p",
-      "add-workouts-text",
-      "Add new workout"
-    );
-    const plus = this.template.createElement("div", "plus-in-circle");
-    plus.innerHTML = plus_in_circle;
-
-    addWorkoutPlanCont.append(text, plus);
-
-    plus.addEventListener("click", () => {
-      const modal = document.querySelector(
-        ".modal-addNewComplex"
-      ) as HTMLElement;
-      const input = document.querySelector(
-        ".modal-addNewComplex__input"
-      ) as HTMLInputElement;
-      input.value = "";
-      modal.classList.remove("invisible");
-      // overlay.append(this.addNewComplex.fillComplexNameModal());
-      // const mainElement = document.querySelector("main") as HTMLElement;
-      // mainElement.innerHTML = "";
-      // mainElement.append(this.addNewComplex.showExercises());
-    });
-    return addWorkoutPlanCont;
   }
 
   private createWrapper(): HTMLElement {

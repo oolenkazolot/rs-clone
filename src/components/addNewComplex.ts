@@ -1,13 +1,8 @@
-import {
-  ITemplate,
-  IExercise,
-  IWorkoutMiniBlock,
-  ISingleTraining,
-} from "../types";
+import { ITemplate, ISingleTraining, IWorkoutPlan } from "../types";
 import Template from "../templates/template";
 import workout_plans from "../utils/workout-plans-en";
 import Exercise from "./exercise";
-import trainingsData from "../utils/trainings-data-en";
+import ExerciseDetails from "./exerciseDetails";
 
 class AddNewComplex {
   template: ITemplate;
@@ -38,7 +33,15 @@ class AddNewComplex {
             `${i} ${j} ${workout_plans[i].block[j].exercises[k].id}`
           );
           button.addEventListener("click", () => {
-            console.log(workout_plans[i].block[j]);
+            const exerciseDetails = new ExerciseDetails(exerciseData);
+            const modal = document.querySelector(
+              ".modal-addNewComplex"
+            ) as HTMLElement;
+            modal.innerHTML = "";
+            modal.append(
+              exerciseDetails.draw(workout_plans[i].block[j].exercises)
+            );
+            modal.classList.remove("invisible");
           });
           exercWrapper.append(button);
         }
@@ -52,7 +55,6 @@ class AddNewComplex {
     const i = matrix?.split(" ")[0];
     const j = matrix?.split(" ")[1];
     const k = matrix?.split(" ")[2];
-    console.log(i, j, k);
   }
 
   createComplexNameModal(): HTMLElement {
@@ -66,10 +68,10 @@ class AddNewComplex {
   }
 
   addComplexInLocalStore(): void {
-    const input = document.querySelector(
+    const input: HTMLInputElement = document.querySelector(
       ".modal-addNewComplex__input"
     ) as HTMLInputElement;
-    const dataInStorage = JSON.parse(
+    const dataInStorage: IWorkoutPlan[] = JSON.parse(
       localStorage.getItem("workoutPlans") || "[]"
     );
 
@@ -97,7 +99,7 @@ class AddNewComplex {
         exercises: [],
       };
     }
-    let data;
+    let data: IWorkoutPlan[];
 
     if (dataInStorage.length) {
       dataInStorage[0].block.push(newBlock);
@@ -112,6 +114,15 @@ class AddNewComplex {
       ];
     }
     localStorage.setItem("workoutPlans", JSON.stringify(data));
+  }
+
+  createSelectExercises(): HTMLElement {
+    const text: HTMLElement = this.template.createElement(
+      "div",
+      "singl-train__empty-text",
+      "Select An Exercise"
+    );
+    return text;
   }
 }
 

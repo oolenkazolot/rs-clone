@@ -12,16 +12,16 @@ class TakeARest {
     this.template = new Template();
   }
 
-  draw(): HTMLElement {
+  draw(index: number, exerciseArray: IExercise[]): HTMLElement {
     const modal: HTMLElement = this.template.createElement(
       "div",
       "exercisesModals"
     );
 
     document.body.append(modal);
-    const exercises = workout_plans[0].block[0].exercises;
-    const i = 0;
-    modal.append(this.createTakeARest(exercises, i));
+    // const exercises = workout_plans[0].block[0].exercises;
+    // const i = 0;
+    modal.append(this.createTakeARest(exerciseArray, index));
     return modal;
   }
 
@@ -36,7 +36,7 @@ class TakeARest {
       this.createCountDown(30),
       this.createButtons(),
       this.nextExerciseText(exercises, i),
-      this.createNextExerciseWrapper(exercises, i)
+      this.createNextExerciseWrapper(exercises, i + 1)
     );
     return wrapper;
   }

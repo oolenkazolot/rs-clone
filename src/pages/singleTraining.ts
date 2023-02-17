@@ -87,7 +87,6 @@ class SingleTrainingPage {
         exercises.classList.add("addit");
       }
       mainPageElement.append(this.createDetailsModal());
-      this.showTrainingModal(this.workout?.exercises);
     }
   }
 
@@ -192,23 +191,13 @@ class SingleTrainingPage {
     );
     bottomHeader.append(workoutName, workoutQuantity, workoutTime);
 
-    const beginButton: HTMLButtonElement = this.template.createBtn(
+    const startButton: HTMLAnchorElement = this.template.createLink(
       "training__button-start",
+      "/startTraining",
       "Start now"
     );
-    header.append(beginButton);
+    header.append(startButton);
     return header;
-  }
-
-  private showTrainingModal(exercises: IExercise[] | undefined) {
-    const startBtn = document.querySelector(".training__button-start");
-    startBtn?.addEventListener("click", (e) => {
-      e.preventDefault();
-      if (exercises) {
-        const trainingModal = new TrainingModal();
-        trainingModal.draw(exercises[0]);
-      }
-    });
   }
 
   private deleteComplex(element: HTMLElement): void {

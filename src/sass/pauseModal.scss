@@ -1,0 +1,82 @@
+.pause-modal__backlayer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.pause-modal {
+  width: 50%;
+  position: relative;
+  height: fit-content;
+  background: $color-white;
+  border-radius: 20px;
+  padding: 30px 20px;
+  font-size: 1.4rem;
+  color: $color-second;
+
+  @media all and(max-width: 1000px) {
+    width: 70%;
+  }
+
+  @media all and(max-width: 600px) {
+    width: 90%;
+  }
+
+  &__title {
+    width: 100%;
+    text-align: center;
+    font-size: 1.4rem;
+    color: $color-second;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  &__info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+
+    @media all and(max-width: 600px) {
+      font-size: 1.2rem;
+    }
+  }
+
+  &__exercise-gif {
+    width: 20%;
+  }
+
+  &__buttons {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+
+    @media all and(max-width: 500px) {
+      width: 100%;
+    }
+  }
+
+  &__button-restart,
+  &__button-continue {
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+    color: $color-white;
+    background-color: $color-pink;
+    margin-bottom: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.4rem;
+
+    @media all and(max-width: 600px) {
+      font-size: 1.1rem;
+    }
+  }
+}

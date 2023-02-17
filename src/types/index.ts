@@ -25,8 +25,12 @@ export interface ISingleTrainingPage {
 export interface IAuthorization {
   registration: (data: IRegistrationData) => Promise<IAnswerAuth | undefined>;
   authorization: (data: IAuthorizationData) => Promise<IAnswerAuth | undefined>;
-  addUserInfo: (
+  createUserInfo: (
     data: Record<string, string>
+  ) => Promise<IAnswerAddUserInfo | undefined>;
+  getUserInfo: (id: string) => Promise<Record<string, string> | undefined>;
+  updateUserInfo: (
+    dataEditProfile: IDataEditProfile
   ) => Promise<IAnswerAddUserInfo | undefined>;
 }
 
@@ -90,6 +94,10 @@ export interface IHeader {
   router?: IRouter;
 }
 
+export interface IFooter {
+  draw: () => void;
+}
+
 export interface IButton {
   content: string | HTMLElement;
   className?: string[];
@@ -99,7 +107,11 @@ export interface IButton {
 }
 
 export interface IModal {
-  createModal: (id: string, content: HTMLElement) => HTMLElement;
+  createModal: (
+    id: string,
+    content: HTMLElement,
+    isShowIconClose: boolean
+  ) => HTMLElement;
 }
 
 export interface IInputIcon {
@@ -110,11 +122,14 @@ export interface IInputIcon {
 }
 
 export interface IInputImg {
+  mainClass: string;
   className?: string[];
   attributes: Record<string, string>;
   imgSrc: string;
   imgAlt: string;
-  validate: (inputValue: string) => IValidate;
+  validate: (inputValue: string, units: string) => IValidate;
+  units: string;
+  classNameUnits: string;
 }
 
 export interface IModalSignIn {
@@ -148,11 +163,10 @@ export interface IWorkoutBlock {
   createTitle: (titleText: string) => HTMLElement;
   createWorkoutContent: (
     data: IWorkoutMiniBlock,
-
     j: number,
-
     i: number,
-    flag: boolean
+    flag: boolean,
+    length: number
   ) => HTMLElement;
   createTextBlock: (
     descrTitleText: string,
@@ -169,7 +183,8 @@ export interface IWorkoutBlock {
     i: number,
     j: number,
     additClass: string,
-    flag: boolean
+    flag: boolean,
+    length: number
   ) => HTMLElement;
   createExercCont: (exercAmt: string) => HTMLElement;
   createTimeCont: (time: string) => HTMLElement;
@@ -258,4 +273,44 @@ export interface ISlider {
   ) => void;
   changeImgSizeInf: (direct: string) => void;
   createExercises: (i: number, j: number) => HTMLElement;
+}
+
+export type ICalendar = {
+  createCalendar: () => HTMLElement;
+};
+
+export type IProfilePage = {
+  draw: () => Promise<void>;
+  router?: IRouter;
+};
+
+export type IInfo = {
+  createInfo: () => Promise<HTMLElement | undefined>;
+};
+
+export type IProgressData = {
+  name: string;
+  value: string;
+  units: string;
+};
+
+export type IProgress = {
+  createProgress: () => Promise<HTMLElement>;
+};
+
+export type ILineItem = {
+  className: string;
+  value: string[];
+};
+
+export type IModalEditProfile = {
+  createModal: (
+    drawProfilePage: () => Promise<void>
+  ) => Promise<HTMLElement | undefined>;
+};
+
+export interface IDataEditProfile {
+  id: string;
+  weight: string;
+  height: string;
 }

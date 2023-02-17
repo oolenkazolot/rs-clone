@@ -12,7 +12,7 @@ import { ButtonRadio } from "../components/ButtonRadio";
 import Button from "../components/Button";
 import { InputImg } from "../components/InputImg";
 import { isHeightValid } from "../utils/validate";
-import { isScalesValid } from "../utils/validate";
+import { isWeightValid } from "../utils/validate";
 import { formSlider, IFormSlider } from "../utils/formSlider";
 import Authorization from "../utils/auth.routes";
 import { onCloseModal } from "../utils/component-utils";
@@ -25,6 +25,8 @@ class ModalQuestions {
   mainClassSecond: string;
   slider: IFormSlider;
   authorization: IAuthorization;
+  unitsWeight: string;
+  unitsHeight: string;
 
   constructor() {
     this.modal = new Modal();
@@ -33,13 +35,16 @@ class ModalQuestions {
     this.mainClassSecond = "slide-info";
     this.slider = formSlider({ slideCount: 3 });
     this.authorization = new Authorization();
+    this.unitsWeight = "kg";
+    this.unitsHeight = "cm";
   }
 
   public draw(): void {
     const sliderWrap: HTMLElement = this.createSliderWrap();
     const modal: HTMLElement = this.modal.createModal(
       "modal-questions",
-      sliderWrap
+      sliderWrap,
+      false
     );
     document.body.append(modal);
   }
@@ -106,13 +111,37 @@ class ModalQuestions {
     return sliderForm;
   }
 
-  private onSubmitHandlerForm(e: Event, form: HTMLFormElement) {
+  private formValidation(formData: FormData): boolean {
+    const units: string[] | undefined = formData
+      .get("units")
+      ?.toString()
+      .split("-");
+    const valueHeight: string | undefined = formData.get("height")?.toString();
+    const valueWeight: string | undefined = formData.get("weight")?.toString();
+    if (!valueHeight || !valueWeight || !units) {
+      return false;
+    }
+    const heightValid: boolean = isHeightValid(valueHeight, units[1]).res;
+    const weightValid: boolean = isWeightValid(valueWeight, units[0]).res;
+
+    if (!weightValid || !heightValid) {
+      return false;
+    }
+    return true;
+  }
+
+  private onSubmitHandlerForm(e: Event, form: HTMLFormElement): void {
     e.preventDefault();
     const questions: string[] = ["goal", "load", "weight", "height", "units"];
     const formData: FormData = new FormData(form);
+    if (!this.formValidation(formData)) {
+      return;
+    }
+
     const valuesForm: Record<string, string> = {};
     questions.forEach((question) => {
       const val: string | null | File = formData.get(question);
+
       if (val) {
         valuesForm[question] = val.toString();
       }
@@ -221,7 +250,14 @@ class ModalQuestions {
       "div",
       `${this.mainClassSecond}__input-wrap`
     );
+    const inputsBlock: HTMLElement[] = this.createInputsBlock();
+    inputWrap.append(...inputsBlock);
+    return inputWrap;
+  }
+
+  private createInputsBlock(): HTMLElement[] {
     const inputBlockOne: HTMLElement = InputImg({
+      mainClass: this.mainClassSecond,
       className: [],
       attributes: {
         id: "weight",
@@ -232,10 +268,13 @@ class ModalQuestions {
       },
       imgSrc: "../assets/svg/scales.svg",
       imgAlt: "scales-img",
-      validate: isScalesValid,
+      validate: isWeightValid,
+      units: this.unitsWeight,
+      classNameUnits: `${this.mainClass}__units-weight`,
     });
 
     const inputBlockTwo: HTMLElement = InputImg({
+      mainClass: this.mainClassSecond,
       className: [],
       attributes: {
         id: "height",
@@ -247,22 +286,10 @@ class ModalQuestions {
       imgSrc: "../assets/svg/height.svg",
       imgAlt: "height-img",
       validate: isHeightValid,
+      units: this.unitsHeight,
+      classNameUnits: `${this.mainClass}__units-height`,
     });
-    const unitsWeight: HTMLElement = this.template.createElement(
-      "span",
-      `${this.mainClass}__units-weight`,
-      "kg"
-    );
-    inputBlockOne.append(unitsWeight);
-    const unitsHeight: HTMLElement = this.template.createElement(
-      "span",
-      `${this.mainClass}__units-height`,
-      "cm"
-    );
-    inputBlockTwo.append(unitsHeight);
-
-    inputWrap.append(inputBlockOne, inputBlockTwo);
-    return inputWrap;
+    return [inputBlockOne, inputBlockTwo];
   }
 
   private onChangeHandlerBtnRadio(e: Event): void {
@@ -283,6 +310,17 @@ class ModalQuestions {
       unitsWeight.textContent = "kg";
       unitsHeight.textContent = "cm";
     }
+    const inputWrap: HTMLElement | null = document.querySelector(
+      ".slide-info__input-wrap"
+    );
+    if (inputWrap) {
+      this.unitsHeight = this.unitsHeight === "cm" ? "inches" : "cm";
+      this.unitsWeight = this.unitsWeight === "kg" ? "Lbs" : "kg";
+      inputWrap.textContent = "";
+      const inputsBlock: HTMLElement[] = this.createInputsBlock();
+
+      inputWrap.append(...inputsBlock);
+    }
   }
 
   private createSlideAboutMeBtnBlock(): HTMLElement {
@@ -302,7 +340,7 @@ class ModalQuestions {
         className: `${this.mainClassSecond}__btn`,
         value: "kg-cm",
         checked: "checked",
-        onChange: this.onChangeHandlerBtnRadio,
+        onChange: this.onChangeHandlerBtnRadio.bind(this),
       },
       {
         forName: "kg-cm",
@@ -327,7 +365,7 @@ class ModalQuestions {
         name: "units",
         className: `${this.mainClassSecond}__btn`,
         value: "Lbs-inches",
-        onChange: this.onChangeHandlerBtnRadio,
+        onChange: this.onChangeHandlerBtnRadio.bind(this),
       },
       {
         forName: "Lbs-inches",
@@ -412,7 +450,7 @@ class ModalQuestions {
   ): Promise<void> {
     const res:
       | IAnswerAddUserInfo
-      | undefined = await this.authorization.addUserInfo(dataInfoUser);
+      | undefined = await this.authorization.createUserInfo(dataInfoUser);
 
     if (!res) {
       return;
@@ -432,7 +470,6 @@ class ModalQuestions {
   }
 
   private ErrorHandler(res: IAnswerAddUserInfo): void {
-    console.log(res.message);
     const inputs: NodeList = document.querySelectorAll(
       `${this.mainClassSecond}__input`
     );

@@ -17,6 +17,7 @@ class TakeARest {
       "div",
       "exercisesModals"
     );
+
     document.body.append(modal);
     // const exercises = workout_plans[0].block[0].exercises;
     // const i = 0;
@@ -94,9 +95,9 @@ class TakeARest {
     );
     skipButton.classList.add("exercises__startNow-btn");
     buttons.append(addButton, skipButton);
-    // addButton.addEventListener("click", () => {
-    //   this.addSeconds();
-    // });
+    addButton.addEventListener("click", () => {
+      this.addSeconds();
+    });
     return buttons;
   }
 
@@ -130,10 +131,12 @@ class TakeARest {
       "div",
       "next-exercise__title"
     );
-    exerciseTitle.innerHTML = `${exercises[i].title} ${exercises[i].quantity}`;
+    exerciseTitle.innerHTML = `${exercises[i + 1].title} ${
+      exercises[i + 1].quantity
+    }`;
     const linkEl: HTMLElement = this.template.createLink(
       "next-exercise__link",
-      exercises[i].youtube
+      exercises[i + 1].youtube
     );
     const tvEl: HTMLElement = this.template.createElement(
       "div",
@@ -158,7 +161,7 @@ class TakeARest {
       "next-exercise__img-wrapper"
     );
     const gif: HTMLImageElement = this.template.createImage(
-      exercises[i].example,
+      exercises[i + 1].example,
       "exercise",
       "next-exercise__gif"
     );
@@ -166,10 +169,10 @@ class TakeARest {
     const description: HTMLElement = this.template.createElement(
       "div",
       "next-exercise__description",
-      exercises[i].description
+      exercises[i + 1].description
     );
 
-    description.innerHTML = exercises[i].description.replace(
+    description.innerHTML = exercises[i + 1].description.replace(
       /\. /g,
       ". <br><span class='new-line'></span>"
     );
@@ -219,8 +222,32 @@ class TakeARest {
     const timerBody = document.querySelector(
       ".rest__timer-body"
     ) as HTMLElement;
-    const timer = document.querySelector(".rest__timer") as HTMLElement;
+
     timerBody.innerHTML = String(Number(timerBody.innerHTML) + 20);
+    const timerLine = document.querySelector(
+      ".rest__timer-line"
+    ) as HTMLElement;
+    const before = document.querySelector(
+      ".rest__timer-line-before"
+    ) as HTMLElement;
+
+    const prevStyle = window.getComputedStyle(timerLine).animation;
+    const regexp = /\d{2,}/g;
+    const prevVal = prevStyle.match(regexp);
+    const after = document.querySelector(
+      ".rest__timer-line-after"
+    ) as HTMLElement;
+    if (prevVal) {
+      after.style.animation = `overlay_right ${
+        Number(prevVal[0]) + 20
+      }s steps(1, end) forwards`;
+      before.style.animation = `overlay_left ${
+        Number(prevVal[0]) + 20
+      }s steps(1, end) forwards`;
+      timerLine.style.animation = `rotate ${
+        Number(prevVal[0]) + 20
+      }s linear forwards`;
+    }
   }
 }
 

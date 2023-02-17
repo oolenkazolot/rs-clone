@@ -43,6 +43,7 @@
     "webpack-merge": "^5.7.3"
   },
   "dependencies": {
+    "air-datepicker": "^3.3.5",
     "favicons-webpack-plugin": "^6.0.0",
     "file-loader": "^6.2.0",
     "node-loader": "^2.0.0",

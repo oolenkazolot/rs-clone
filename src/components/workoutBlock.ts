@@ -20,7 +20,9 @@ class WorkoutBlock {
       "div",
       "workout-block-cont"
     );
+
     workoutBlockCont.append(this.createTitle(titleText));
+
     return workoutBlockCont;
   }
 
@@ -42,7 +44,8 @@ class WorkoutBlock {
     data: IWorkoutMiniBlock,
     i: number,
     j: number,
-    flag: boolean
+    flag: boolean,
+    length: number
   ): HTMLElement {
     const workoutContentCont: HTMLElement = this.template.createElement(
       "div",
@@ -66,7 +69,9 @@ class WorkoutBlock {
       workoutContentCont.style.background = "#fff";
     }
     if (i < 5) {
-      workoutContentCont.append(this.createPngImage(i, j, additClass, flag));
+      workoutContentCont.append(
+        this.createPngImage(i, j, additClass, flag, length)
+      );
     }
 
     return workoutContentCont;
@@ -103,22 +108,23 @@ class WorkoutBlock {
     i: number,
     j: number,
     additClass: string,
-    flag: boolean
+    flag: boolean,
+    length: number
   ): HTMLImageElement {
     let png;
-    if (i === 0) {
+    if (length - 1 - i === 3) {
       png = absPng;
-    } else if (i === 1) {
+    } else if (length - 1 - i === 2) {
       png = butt;
-    } else if (i === 2) {
+    } else if (length - 1 - i === 1) {
       png = thigh;
-    } else if (i === 3) {
+    } else if (length - 1 - i === 0) {
       if (j === 0) {
         png = morning;
       } else {
         png = evening;
       }
-    } else if (i === 4) {
+    } else {
       png = wholeBody;
     }
     const pngImage: HTMLImageElement = this.template.createImage(

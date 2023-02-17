@@ -35,7 +35,7 @@
     background-position: left 10px center;
     border-radius: 7px;
   }
-  
+
   &__info {
     display: flex;
     flex-direction: column;
@@ -65,7 +65,7 @@
       line-height: 14px;
     }
   }
-  
+
   &__gif {
     width: 20%;
     height: auto;
@@ -76,6 +76,7 @@
       width: 100%;
       height: auto;
       border-radius: 5px;
+      border: 2px solid #ececef;
       align-self: center;
     }
   }

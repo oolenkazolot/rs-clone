@@ -3,6 +3,7 @@ import {
   IAuthorizationData,
   IAnswerAuth,
   IAnswerAddUserInfo,
+  IDataEditProfile,
 } from "../types/index";
 
 class Authorization {
@@ -19,7 +20,6 @@ class Authorization {
       });
 
       const res: IAnswerAuth = await response.json();
-      console.log(res);
 
       if (res) {
         return res;
@@ -53,11 +53,11 @@ class Authorization {
     }
   }
 
-  public async addUserInfo(
+  public async createUserInfo(
     data: Record<string, string>
   ): Promise<IAnswerAddUserInfo | undefined> {
     try {
-      const response = await fetch("http://localhost:5000/api/user/update", {
+      const response = await fetch("http://localhost:5000/api/user/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -66,6 +66,52 @@ class Authorization {
       });
       const res: IAnswerAddUserInfo = await response.json();
       return res;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      }
+    }
+  }
+
+  public async getUserInfo(
+    id: string
+  ): Promise<Record<string, string> | undefined> {
+    try {
+      const response = await fetch(`http://localhost:5000/api/user/get/${id}`);
+      const res: Promise<
+        Record<string, string> | undefined
+      > = await response.json();
+
+      return res;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      }
+    }
+  }
+
+  public async updateUserInfo(
+    dataEditProfile: IDataEditProfile
+  ): Promise<IAnswerAddUserInfo | undefined> {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/user/update/${dataEditProfile.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            weight: dataEditProfile.weight,
+            height: dataEditProfile.height,
+          }),
+        }
+      );
+      const res: IAnswerAddUserInfo | undefined = await response.json();
+
+      if (res) {
+        return res;
+      }
     } catch (e) {
       if (e instanceof Error) {
         throw new Error(e.message);

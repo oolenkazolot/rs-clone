@@ -104,6 +104,7 @@
 
   &__units-weight,
   &__units-height {
+    display: inline-block;
     min-width: 50px;
     text-align: left;
     padding-left: 10px;
@@ -139,6 +140,10 @@
 
     &:focus {
       outline: 1px solid $color-main;
+    }
+
+    &.error {
+      outline: 2px solid $color-red;
     }
   }
 
@@ -191,6 +196,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     color: $color-black;
 
     &:not(:last-child) {
@@ -204,5 +210,10 @@
 
   &__input-wrap {
     margin-top: 20px;
+  }
+
+  &__error {
+    padding-top: 20px;
+    color: $color-error;
   }
 }

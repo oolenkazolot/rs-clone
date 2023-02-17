@@ -8,9 +8,8 @@ class ExerciseBlock {
   counter: HTMLElement;
   interval: NodeJS.Timer | undefined;
   exercise: IExercise;
-  index: number;
 
-  constructor(exercise: IExercise, index: number) {
+  constructor(exercise: IExercise) {
     this.template = new Template();
     this.exerciseBlock = this.template.createElement("div", "exercise-block");
     this.counter = this.template.createElement(
@@ -18,7 +17,6 @@ class ExerciseBlock {
       "exercise-block__counter"
     );
     this.exercise = exercise;
-    this.index = index;
     this.interval;
   }
 
@@ -33,17 +31,18 @@ class ExerciseBlock {
     this.createCounter();
     this.createNavigationButtons();
 
-    // document.addEventListener("click", (e) => {
-    //   const target = <HTMLButtonElement>e.target;
-    //   if (target.classList.contains("pause-modal__button-continue")) {
-    //     // clearInterval(this.interval);
-    //     this.createThreeCount();
-    //     setTimeout(() => {
-    //       const duration = this.getExerciseDuration();
-    //       this.setTimeCounter(duration);
-    //     }, 3000);
-    //   }
-    // });
+    document.addEventListener("click", (e) => {
+      document.body.style.pointerEvents = "";
+      const target = <HTMLButtonElement>e.target;
+      if (target.classList.contains("pause-modal__button-continue")) {
+        clearInterval(this.interval);
+        this.createThreeCount();
+        setTimeout(() => {
+          const duration = this.getExerciseDuration();
+          this.setTimeCounter(duration);
+        }, 3000);
+      }
+    });
 
     return this.exerciseBlock;
   }

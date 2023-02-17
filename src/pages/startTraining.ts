@@ -16,7 +16,7 @@ class StartTrainingPage {
   constructor() {
     this.template = new Template();
     this.takeARest = new TakeARest();
-    this.exerciseArray = workout_plans[2].block[0].exercises; //get from local storage
+    this.exerciseArray = workout_plans[0].block[0].exercises; //get from local storage
     this.currentExerciseIndex = 0;
     this.done = false;
   }
@@ -34,13 +34,15 @@ class StartTrainingPage {
     mainElement.append(mainPageElement);
 
     const curExercise = new ExerciseBlock(
-      this.exerciseArray[this.currentExerciseIndex],
-      this.currentExerciseIndex
+      this.exerciseArray[this.currentExerciseIndex]
     );
     mainPageElement.append(curExercise.draw());
-    curExercise.hideExerciseLinks();
-    curExercise.disablePreviousButton();
-    curExercise.disableSkipButton();
+    if (this.currentExerciseIndex === 0) {
+      curExercise.createCountDown();
+      curExercise.hideExerciseLinks();
+      curExercise.disablePreviousButton();
+      curExercise.disableSkipButton();
+    }
 
     document.addEventListener("click", (e) => {
       const target = <HTMLButtonElement>e.target;
@@ -83,8 +85,7 @@ class StartTrainingPage {
     page.innerHTML = "";
     this.currentExerciseIndex = this.currentExerciseIndex + 1;
     const nextExercise = new ExerciseBlock(
-      this.exerciseArray[this.currentExerciseIndex],
-      this.currentExerciseIndex
+      this.exerciseArray[this.currentExerciseIndex]
     );
     page.append(nextExercise.draw());
   }
@@ -94,8 +95,7 @@ class StartTrainingPage {
     page.innerHTML = "";
     this.currentExerciseIndex = this.currentExerciseIndex - 1;
     const prevExercise = new ExerciseBlock(
-      this.exerciseArray[this.currentExerciseIndex],
-      this.currentExerciseIndex
+      this.exerciseArray[this.currentExerciseIndex]
     );
     page.append(prevExercise.draw());
   }
@@ -103,8 +103,7 @@ class StartTrainingPage {
   private restartExercise() {
     const page = <HTMLElement>document.querySelector(".startTraining-page");
     const curExercise = new ExerciseBlock(
-      this.exerciseArray[this.currentExerciseIndex],
-      this.currentExerciseIndex
+      this.exerciseArray[this.currentExerciseIndex]
     );
     page.innerHTML = "";
     page.append(curExercise.draw());

@@ -32,7 +32,6 @@ class ExerciseBlock {
     this.createNavigationButtons();
 
     document.addEventListener("click", (e) => {
-      document.body.style.pointerEvents = "";
       const target = <HTMLButtonElement>e.target;
       if (target.classList.contains("pause-modal__button-continue")) {
         clearInterval(this.interval);
@@ -40,6 +39,7 @@ class ExerciseBlock {
         setTimeout(() => {
           const duration = this.getExerciseDuration();
           this.setTimeCounter(duration);
+          document.body.style.pointerEvents = "";
         }, 3000);
       }
     });
@@ -289,11 +289,11 @@ class ExerciseBlock {
   }
 
   createThreeCount() {
+    document.body.style.pointerEvents = "none";
     const threeCounter: HTMLElement = this.template.createElement(
       "div",
       "counter-three"
     );
-    document.body.style.pointerEvents = "none";
     this.counter.append(threeCounter);
     let count = 3;
     threeCounter.textContent = `${count}`;

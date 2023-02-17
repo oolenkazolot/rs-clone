@@ -57,6 +57,23 @@ class PauseModal {
     );
     modalButtons.append(restartBtn, continueBtn);
     this.modal.append(modalButtons);
+
+    restartBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      this.closeModal();
+    });
+
+    continueBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      this.closeModal();
+    });
+  }
+
+  closeModal() {
+    const backLayer = <HTMLElement>(
+      document.querySelector(".exercise-modal__backlayer")
+    );
+    document.body.removeChild(backLayer);
   }
 }
 

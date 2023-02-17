@@ -57,7 +57,7 @@ class ExerciseModal {
   }
 
   private closeExerciseModal() {
-    this.backLayer.style.display = "none";
+    document.body.removeChild(this.backLayer);
   }
 
   private createExerciseInfo(): void {

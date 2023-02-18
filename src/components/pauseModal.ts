@@ -12,12 +12,12 @@ class PauseModal {
     this.exercise = exercise;
     this.backLayer = this.template.createElement(
       "div",
-      "exercise-modal__backlayer"
+      "pause-modal__backlayer"
     );
     this.modal = this.template.createElement("div", "pause-modal");
   }
 
-  public draw() {
+  public draw(): HTMLElement {
     this.backLayer.append(this.modal);
     const title: HTMLElement = this.template.createElement(
       "div",
@@ -39,7 +39,7 @@ class PauseModal {
     exerciseInfo.append(exerciseName, exerciseGif);
     this.modal.append(title, exerciseInfo);
     this.createModalButtons();
-    document.body.prepend(this.backLayer);
+    return this.backLayer;
   }
 
   private createModalButtons() {
@@ -71,9 +71,9 @@ class PauseModal {
 
   closeModal() {
     const backLayer = <HTMLElement>(
-      document.querySelector(".exercise-modal__backlayer")
+      document.querySelector(".pause-modal__backlayer")
     );
-    document.body.removeChild(backLayer);
+    backLayer.remove();
   }
 }
 

@@ -1,11 +1,9 @@
 .exercise-block {
+  position: relative;
   max-width: 1600px;
-  height: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
-  height: fit-content;
   background: $color-white;
   padding: 20px 80px 60px;
   font-size: 1.4rem;

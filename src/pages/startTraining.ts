@@ -8,17 +8,17 @@ import Congrats from "../components/congrats";
 class StartTrainingPage {
   template: ITemplate;
   public router?: IRouter;
-  takeARest;
+  takeARest: TakeARest;
   exerciseArray: IExercise[];
   currentExerciseIndex: number;
-  done: boolean;
+  counter: number;
 
   constructor() {
     this.template = new Template();
     this.takeARest = new TakeARest();
-    this.exerciseArray = workout_plans[0].block[0].exercises; //get from local storage
+    this.exerciseArray = workout_plans[2].block[0].exercises; //get from local storage
     this.currentExerciseIndex = 0;
-    this.done = false;
+    this.counter = 0;
   }
 
   public draw(): void {
@@ -37,28 +37,38 @@ class StartTrainingPage {
       this.exerciseArray[this.currentExerciseIndex]
     );
     mainPageElement.append(curExercise.draw());
-    if (this.currentExerciseIndex === 0) {
+    if (
+      this.currentExerciseIndex === 0 &&
+      this.exerciseArray[this.currentExerciseIndex].quantity
+        .toLowerCase()
+        .includes("x")
+    ) {
       curExercise.createCountDown();
       curExercise.hideExerciseLinks();
       curExercise.disablePreviousButton();
       curExercise.disableSkipButton();
+    } else {
+      curExercise.disablePreviousButton();
     }
 
     document.addEventListener("click", (e) => {
       const target = <HTMLButtonElement>e.target;
       if (target.classList.contains("exercise-block__button-done")) {
         this.showRestModal();
+        this.counter++;
       }
       if (target.classList.contains("exercise-block__button-next")) {
         if (this.currentExerciseIndex === this.exerciseArray.length - 1) {
-          this.showCongrats();
+          this.counter++;
+          this.showCongrats(this.counter);
         } else {
-          this.loadNextExercise();
+          this.showRestModal();
+          this.counter++;
         }
       }
       if (target.classList.contains("exercise-block__button-skip")) {
         if (this.currentExerciseIndex === this.exerciseArray.length - 1) {
-          this.showCongrats();
+          this.showCongrats(this.counter);
         } else {
           this.loadNextExercise();
         }
@@ -74,6 +84,7 @@ class StartTrainingPage {
         }
       }
       if (target.classList.contains("pause-modal__button-restart")) {
+        document.body.style.overflow = "";
         this.restartExercise();
       }
       e.preventDefault();
@@ -119,11 +130,11 @@ class StartTrainingPage {
     );
   }
 
-  private showCongrats() {
+  private showCongrats(counter: number) {
     const pageContent = <HTMLElement>(
       document.querySelector(".startTraining-page")
     );
-    const congrats = new Congrats();
+    const congrats = new Congrats(counter);
     pageContent.innerHTML = "";
     pageContent.append(congrats.draw());
   }

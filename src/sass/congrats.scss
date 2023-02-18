@@ -40,7 +40,18 @@
     }
   }
 
-  &__result {
+  &__icons {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto 60px;
+
+    @media (max-width: 900px) {
+      width: 90%
+    }
+  }
+
+  &__exercises-result {
     width: 200px;
     padding-left: 30px;
     display: flex;
@@ -48,8 +59,21 @@
     align-items: center;
     font-size: 1.4rem;
     color: $color-second;
-    margin: 0 auto 30px;
     background: url(../assets/png/weight2.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: contain;
+  }
+
+  &__minutes-result {
+    width: 200px;
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.4rem;
+    color: $color-second;
+    background: url(../assets/png/stopwatch.png);
     background-repeat: no-repeat;
     background-position: left center;
     background-size: contain;

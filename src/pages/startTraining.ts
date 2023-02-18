@@ -51,6 +51,8 @@ class StartTrainingPage {
       curExercise.disablePreviousButton();
     }
 
+    const start = Date.now();
+
     document.addEventListener("click", (e) => {
       const target = <HTMLButtonElement>e.target;
       if (target.classList.contains("exercise-block__button-done")) {
@@ -60,7 +62,9 @@ class StartTrainingPage {
       if (target.classList.contains("exercise-block__button-next")) {
         if (this.currentExerciseIndex === this.exerciseArray.length - 1) {
           this.counter++;
-          this.showCongrats(this.counter);
+          const resultTime = Date.now() - start;
+          const resultMins = new Date(resultTime).getMinutes();
+          this.showCongrats(this.counter, resultMins);
         } else {
           this.showRestModal();
           this.counter++;
@@ -68,7 +72,9 @@ class StartTrainingPage {
       }
       if (target.classList.contains("exercise-block__button-skip")) {
         if (this.currentExerciseIndex === this.exerciseArray.length - 1) {
-          this.showCongrats(this.counter);
+          const resultTime = Date.now() - start;
+          const resultMins = new Date(resultTime).getMinutes();
+          this.showCongrats(this.counter, resultMins);
         } else {
           this.loadNextExercise();
         }
@@ -130,11 +136,11 @@ class StartTrainingPage {
     );
   }
 
-  private showCongrats(counter: number) {
+  private showCongrats(counter: number, time: number) {
     const pageContent = <HTMLElement>(
       document.querySelector(".startTraining-page")
     );
-    const congrats = new Congrats(counter);
+    const congrats = new Congrats(counter, time);
     pageContent.innerHTML = "";
     pageContent.append(congrats.draw());
   }

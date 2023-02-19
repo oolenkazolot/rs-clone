@@ -60,7 +60,7 @@ class Congrats {
 
     const completeButton: HTMLAnchorElement = this.template.createLink(
       "congrats__button-complete",
-      "/workouts",
+      "/exercises",
       "Complete"
     );
     this.container.append(congratsText, iconsBlock, completeButton);

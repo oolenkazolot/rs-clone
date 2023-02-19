@@ -16,7 +16,7 @@ class StartTrainingPage {
   constructor() {
     this.template = new Template();
     this.takeARest = new TakeARest();
-    this.exerciseArray = workout_plans[2].block[0].exercises; //get from local storage
+    this.exerciseArray = [];
     this.currentExerciseIndex = 0;
     this.counter = 0;
   }
@@ -32,6 +32,15 @@ class StartTrainingPage {
     const mainPageElement: HTMLElement = document.createElement("div");
     mainPageElement.classList.add("startTraining-page");
     mainElement.append(mainPageElement);
+
+    const complexId: string = localStorage.complexID || "1";
+    workout_plans.forEach((plan) => {
+      plan.block.forEach((item) => {
+        if (item.id === Number(complexId)) {
+          this.exerciseArray = item.exercises;
+        }
+      });
+    });
 
     const curExercise = new ExerciseBlock(
       this.exerciseArray[this.currentExerciseIndex]
@@ -62,8 +71,7 @@ class StartTrainingPage {
       if (target.classList.contains("exercise-block__button-next")) {
         if (this.currentExerciseIndex === this.exerciseArray.length - 1) {
           this.counter++;
-          const resultTime = Date.now() - start;
-          const resultMins = new Date(resultTime).getMinutes();
+          const resultMins = this.getResultMinutes(start);
           this.showCongrats(this.counter, resultMins);
         } else {
           this.showRestModal();
@@ -72,8 +80,7 @@ class StartTrainingPage {
       }
       if (target.classList.contains("exercise-block__button-skip")) {
         if (this.currentExerciseIndex === this.exerciseArray.length - 1) {
-          const resultTime = Date.now() - start;
-          const resultMins = new Date(resultTime).getMinutes();
+          const resultMins = this.getResultMinutes(start);
           this.showCongrats(this.counter, resultMins);
         } else {
           this.loadNextExercise();
@@ -95,6 +102,12 @@ class StartTrainingPage {
       }
       e.preventDefault();
     });
+  }
+
+  private getResultMinutes(startNum: number) {
+    const resultTime = Date.now() - startNum;
+    const resultMins = new Date(resultTime).getMinutes();
+    return resultMins;
   }
 
   private loadNextExercise(): void {
@@ -143,6 +156,20 @@ class StartTrainingPage {
     const congrats = new Congrats(counter, time);
     pageContent.innerHTML = "";
     pageContent.append(congrats.draw());
+
+    const completeBtn = <HTMLAnchorElement>(
+      document.querySelector(".congrats__button-complete")
+    );
+    completeBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (this.router) {
+        const mainElement: HTMLElement | null = document.querySelector("main");
+        if (mainElement) {
+          mainElement.innerHTML = "";
+          this.router.navigate("exercises");
+        }
+      }
+    });
   }
 }
 

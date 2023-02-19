@@ -1,11 +1,12 @@
 .pause-modal__backlayer {
-  position: fixed;
+  position: absolute;
   width: 100%;
-  height: 100%;
+  height: calc(100vh + 120px);
   display: flex;
   justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
+  z-index: 20;
 }
 
 .pause-modal {

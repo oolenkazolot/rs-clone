@@ -35,14 +35,12 @@ class Info {
       return;
     }
 
-    console.log(userId);
     const userInfo:
       | Record<string, string>
       | undefined = await this.authorization.getUserInfo(userId);
     if (!userInfo) {
       return;
     }
-    console.log(userInfo);
     // if (res && res.message) {
     //   console.log(res.message);
     // }

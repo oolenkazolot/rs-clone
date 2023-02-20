@@ -1,7 +1,8 @@
 import Template from "../templates/template";
-import { ITemplate, IRouter } from "../types/index";
+import { ITemplate } from "../types/index";
 import Button from "../components/Button";
 import { onOpenModal } from "../utils/component-utils";
+import router from "./routerComponent";
 import {
   getUserTokenLocalStorage,
   removeUserLocalStorage,
@@ -9,7 +10,6 @@ import {
 
 class Header {
   template: ITemplate;
-  public router?: IRouter;
   mainClass: string;
   constructor() {
     this.template = new Template();
@@ -137,18 +137,13 @@ class Header {
 
   private onClickHandlerLinkMenu(e: Event, src: string) {
     e.preventDefault();
-
-    if (this.router) {
-      this.router.navigate(src);
-    }
+    router.navigate(src);
   }
 
   private exitApp() {
     removeUserLocalStorage();
     this.draw();
-    if (this.router) {
-      this.router.navigate("");
-    }
+    router.navigate("");
   }
 }
 

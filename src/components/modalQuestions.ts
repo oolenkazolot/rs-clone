@@ -150,7 +150,7 @@ class ModalQuestions {
     if (!userId) {
       return;
     }
-    valuesForm.id = userId;
+    valuesForm.userId = userId;
     this.sendInfoUser(valuesForm);
   }
 

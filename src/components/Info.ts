@@ -34,16 +34,20 @@ class Info {
     if (!userId) {
       return;
     }
+
+    console.log(userId);
     const userInfo:
       | Record<string, string>
       | undefined = await this.authorization.getUserInfo(userId);
     if (!userInfo) {
       return;
     }
+    console.log(userInfo);
     // if (res && res.message) {
     //   console.log(res.message);
     // }
     const items: HTMLElement[] = [];
+
     const units: string[] = userInfo.units.split("-");
 
     for (const key in userInfo) {

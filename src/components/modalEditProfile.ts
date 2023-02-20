@@ -96,6 +96,7 @@ class ModalEditProfile {
     if (!userInfo) {
       return;
     }
+
     const units: string[] = userInfo.units.split("-");
     const form: HTMLFormElement = this.template.createForm(
       `${this.mainClass}__form`,

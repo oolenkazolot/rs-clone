@@ -4,10 +4,10 @@ import TakeARest from "../components/takeaRest";
 import ExerciseBlock from "../components/exerciseBlock";
 import workout_plans from "../utils/workout-plans-en";
 import Congrats from "../components/congrats";
+import router from "../components/routerComponent";
 
 class StartTrainingPage {
   template: ITemplate;
-  public router?: IRouter;
   takeARest: TakeARest;
   exerciseArray: IExercise[];
   currentExerciseIndex: number;
@@ -163,12 +163,10 @@ class StartTrainingPage {
     );
     completeBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      if (this.router) {
-        const mainElement: HTMLElement | null = document.querySelector("main");
-        if (mainElement) {
-          mainElement.innerHTML = "";
-          this.router.navigate("exercises");
-        }
+      const mainElement: HTMLElement | null = document.querySelector("main");
+      if (mainElement) {
+        mainElement.innerHTML = "";
+        router.navigate("exercises");
       }
     });
   }

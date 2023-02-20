@@ -2,7 +2,6 @@ import Template from "../templates/template";
 import {
   ITemplate,
   ICalendar,
-  IRouter,
   IInfo,
   IProgress,
   IModalEditProfile,
@@ -18,7 +17,6 @@ class ProfilePage {
   private template: ITemplate;
   private calendar: ICalendar;
   private info: IInfo;
-  public router?: IRouter;
   private mainClass: string;
   private progress: IProgress;
   private modalEditProfile: IModalEditProfile;

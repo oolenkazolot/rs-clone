@@ -6,6 +6,7 @@ import SingleTrainingPage from "../pages/singleTraining";
 import ExercisesPage from "../pages/exercises";
 import ProfilePage from "../pages/profile";
 import StartTrainingPage from "../pages/startTraining";
+import Header from "../components/header";
 
 import {
   IMainPage,
@@ -13,6 +14,7 @@ import {
   IRout,
   ISingleTrainingPage,
   IProfilePage,
+  IHeader,
 } from "../types/index";
 
 //pages
@@ -23,6 +25,12 @@ const singleTrainingPage: ISingleTrainingPage = new SingleTrainingPage();
 const exercisesPage = new ExercisesPage();
 const profilePage: IProfilePage = new ProfilePage();
 const startTrainingPage = new StartTrainingPage();
+
+const drawHeader = () => {
+  const header: IHeader = new Header();
+  header.draw();
+};
+//
 
 //список страниц с колбеками: путь и что делать
 const routs: IRout[] = [
@@ -54,4 +62,7 @@ const routs: IRout[] = [
   },
 ];
 //объект роутера
-export default new Router(routs, errorPage.draw);
+
+const router = new Router(routs, errorPage.draw);
+router.addSubscribers(drawHeader);
+export default router;

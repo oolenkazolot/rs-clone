@@ -24,7 +24,7 @@ class Complex {
   public async getComplex(id: string): Promise<IDataComplex[] | undefined> {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/complex/get/${id}`
+        `http://localhost:5000/api/complex/get-all/${id}`
       );
       const res: Promise<IDataComplex[] | undefined> = await response.json();
 

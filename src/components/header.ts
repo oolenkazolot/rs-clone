@@ -120,6 +120,9 @@ class Header {
       "/",
       name
     );
+    if (router.isActiveRout(name)) {
+      link.classList.add("active");
+    }
     link.addEventListener("click", (e) => {
       this.onClickHandlerLinkMenu(e, name);
     });

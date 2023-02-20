@@ -1,5 +1,4 @@
-import { IRouter, IAuthorization } from "../types/index";
-import Footer from "../components/footer";
+import { IAuthorization } from "../types/index";
 import video1 from "../assets/video/v11.mp4";
 import video2 from "../assets/video/v2.mp4";
 import video3 from "../assets/video/v3.mp4";
@@ -11,7 +10,6 @@ import { ITemplate } from "../types/index";
 
 class MainPage {
   public authorization: IAuthorization;
-  public router?: IRouter;
   mainPageElement: HTMLDivElement;
   template: ITemplate;
 
@@ -174,14 +172,7 @@ class MainPage {
     this.createFeaturesSection();
 
     mainElement.append(this.mainPageElement);
-
-    // this.registr();
   }
-
-  // private async registr(): Promise<void> {
-  //   const res = await this.authorization.registration({ email: 'oolenka.zolot@gmail.com', password: 'gggggggg' });
-  //   console.log(res);
-  // }
 }
 
 export default MainPage;

@@ -3,10 +3,14 @@ import { IRout } from "../types/index";
 class Router {
   private routes: IRout[];
   private root: string;
+  private subscribers: (() => void)[];
   private errorAction: () => void;
+  private currentRout: string;
 
   constructor(routes: IRout[], errorAction: () => void) {
     this.routes = routes;
+    this.subscribers = [];
+    this.currentRout = "";
     this.root = "/"; //добавить наименование репозитория перед деплоем /women-workouts-clone/
     this.errorAction = errorAction;
   }
@@ -15,16 +19,42 @@ class Router {
   public navigate = (path: string): void => {
     window.history.pushState(null, "", this.root + path);
     this.action(path);
+    this.currentRout = path;
+    this.startSubscribers();
   };
 
   //метод для проверки какая сейчас страница при перезагрузке
   public init(): void {
     const path: string = window.location.pathname.replace(this.root, "");
+    this.currentRout = path.replace(/\/$/, "");
     this.action(path.replace(/\/$/, ""));
 
     window.addEventListener("popstate", (e) => {
       //перерисовка при нажатии кнопок в браузере forward/back
       this.action(window.location.pathname.replace(this.root, "")); //берет текущий путь, после того как сделал шаг назад
+    });
+    this.startSubscribers();
+  }
+
+  public addSubscribers(func: () => void): void {
+    this.subscribers.push(func);
+  }
+
+  public isActiveRout(rout: string, exact = false): boolean {
+    if (exact) {
+      return rout === this.currentRout;
+    }
+    const re = new RegExp(`^([\\w-]+\\/|)${rout}(\\/[\\w-]*|)$`);
+    return re.test(this.currentRout);
+  }
+
+  private startSubscribers(): void {
+    if (!this.subscribers.length) {
+      return;
+    }
+
+    this.subscribers.forEach((func: () => void) => {
+      func();
     });
   }
 

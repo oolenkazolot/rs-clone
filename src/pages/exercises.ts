@@ -1,7 +1,6 @@
 import Template from "../templates/template";
+import router from "../components/routerComponent";
 import {
-  IRouter,
-  ISingleTraining,
   ISlider,
   ITemplate,
   IWorkoutBlock,
@@ -10,13 +9,11 @@ import {
 import workout_plans from "../utils/workout-plans-en";
 import WorkoutBlock from "../components/workoutBlock";
 import Slider from "../components/slider";
-import Exercise from "../components/exercise";
 
 class ExercisesPage {
   template: ITemplate;
   workoutBlock: IWorkoutBlock;
   slider: ISlider;
-  public router?: IRouter;
   constructor() {
     this.template = new Template();
     this.workoutBlock = new WorkoutBlock();
@@ -241,12 +238,10 @@ class ExercisesPage {
     const link = this.template.createElement("a", "link-to-exerc");
     link.addEventListener("click", (e) => {
       e.preventDefault();
-      if (this.router) {
-        const mainElement: HTMLElement | null = document.querySelector("main");
-        if (mainElement) {
-          mainElement.innerHTML = "";
-          this.router.navigate("startTraining");
-        }
+      const mainElement: HTMLElement | null = document.querySelector("main");
+      if (mainElement) {
+        mainElement.innerHTML = "";
+        router.navigate("startTraining");
       }
     });
     link.append(startBtn);

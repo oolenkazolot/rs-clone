@@ -14,6 +14,12 @@
 
 .exercises-wrapper {
     padding: 2rem;
+    @media (max-width: 900px) {
+        padding: 1rem;
+    }
+    @media (max-width: 600px) {
+        padding: 0rem;
+    }
 }
 
 .wrap-exercise {
@@ -22,6 +28,11 @@
     align-items: center;
     gap: 2rem;
     padding: 2rem;
+    @media (max-width: 900px) {
+        gap: 1rem;
+        padding: 1rem;
+    }
+
 }
 
 .add-exerc-btn {
@@ -33,7 +44,26 @@
     text-transform: uppercase;
     font-size: 20px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-
+    cursor: pointer;
+    transition: 0.3s;
+    @media (max-width: 900px) {
+        font-size: 18px;
+        padding: 0.8rem 1rem;
+    }
+    @media (max-width: 600px) {
+        font-size: 16px;
+        padding: 0.8rem 0.8rem;
+        border-radius: 15px;
+    }
+    @media (max-width: 480px) {
+        font-size: 14px;
+        padding: 0.5rem 0.5rem;
+        border-radius: 15px;
+        border-radius: 12px;
+    }
+    &:hover {
+        background-color: $color-main-second;
+      }
 }
 
 .modal-overlay {
@@ -113,8 +143,40 @@
     opacity: 0;
 }
 
-.link-to-training {
-    display: block;
-    width: 30px;
-    height: 30px;
+.singl-train__plus {
+    margin-top: 5rem;
+    @media (max-width: 670px) {
+        margin-top: 2rem;
+    }
+}
+
+.singl-train__empty-text {
+    font-size: 32px;
+    margin-top: 5rem;
+    color: $color-grey-violet;
+    @media (max-width: 900px) {
+        margin-top: 3rem;
+    }
+    @media (max-width: 670px) {
+        margin-top: 2rem;
+        font-size: 23px;
+    }
+}
+
+.addit {
+    align-items: center;
+    justify-content: center;
+}
+
+.dateils__trash-icon {
+    position: absolute;
+    top: 20px; 
+    left: 30px;
+    width: 40px;
+    height: 40px;
+    fill: #f773b1;
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+        fill: #f60e50};
 }

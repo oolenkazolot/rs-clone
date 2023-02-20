@@ -6,11 +6,11 @@ import {
   IWorkoutBlock,
   ISlider,
 } from "../types/index";
-import { plus_in_circle } from "../components/svg";
 import workout_plans from "../utils/workout-plans-en";
 import WorkoutBlock from "../components/workoutBlock";
 import Slider from "../components/slider";
 import AddNewComplex from "../components/addNewComplex";
+import Complex from "../utils/сomplex.routes";
 
 class TrainingsPage {
   template: ITemplate;
@@ -18,14 +18,17 @@ class TrainingsPage {
   public router?: IRouter;
   slider: ISlider;
   addNewComplex;
+  complex;
   constructor() {
     this.template = new Template();
     this.workoutBlock = new WorkoutBlock();
     this.slider = new Slider();
     this.addNewComplex = new AddNewComplex();
+    this.complex = new Complex();
   }
 
-  public draw(): void {
+  public async draw() {
+    await this.addNewComplex.creatingArrayFromData();
     const mainElement: HTMLElement | null = document.querySelector("main");
     if (!mainElement) {
       return;
@@ -38,7 +41,7 @@ class TrainingsPage {
     mainElement.append(mainPageElement);
     mainPageElement.append(
       this.createTitle(),
-      this.createAddWorkoutPlanCont(),
+      this.workoutBlock.createAddWorkoutPlanCont("Add new workout", true),
       this.createWrapper(),
       this.createModal()
     );
@@ -51,38 +54,6 @@ class TrainingsPage {
       "Workout Plans"
     );
     return title;
-  }
-
-  private createAddWorkoutPlanCont(): HTMLElement {
-    const addWorkoutPlanCont: HTMLElement = this.template.createElement(
-      "div",
-      "add-workout-plans-cont"
-    );
-    const text = this.template.createElement(
-      "p",
-      "add-workouts-text",
-      "Add new workout"
-    );
-    const plus = this.template.createElement("div", "plus-in-circle");
-    plus.innerHTML = plus_in_circle;
-
-    addWorkoutPlanCont.append(text, plus);
-
-    plus.addEventListener("click", () => {
-      const modal = document.querySelector(
-        ".modal-addNewComplex"
-      ) as HTMLElement;
-      const input = document.querySelector(
-        ".modal-addNewComplex__input"
-      ) as HTMLInputElement;
-      input.value = "";
-      modal.classList.remove("invisible");
-      // overlay.append(this.addNewComplex.fillComplexNameModal());
-      // const mainElement = document.querySelector("main") as HTMLElement;
-      // mainElement.innerHTML = "";
-      // mainElement.append(this.addNewComplex.showExercises());
-    });
-    return addWorkoutPlanCont;
   }
 
   private createWrapper(): HTMLElement {
@@ -130,6 +101,7 @@ class TrainingsPage {
               this.router.navigate(`workouts/${id}`);
             }
           }
+          localStorage.setItem("complexId", JSON.stringify(id));
         });
         const block: IWorkoutMiniBlock = data[i].block[j];
         const content: HTMLElement = this.workoutBlock.createWorkoutContent(

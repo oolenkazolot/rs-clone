@@ -1,17 +1,20 @@
 import Template from "../templates/template";
 import { ITemplate, IExercise } from "../types/index";
 import ExerciseModal from "../components/exerciseModal";
+import ExerciseDetails from "./exerciseDetails";
 
 class Exercise {
   template: ITemplate;
   container: HTMLElement;
   exercise: IExercise;
+  flag: boolean;
 
-  constructor(exercise: IExercise) {
+  constructor(exercise: IExercise, flag: boolean) {
     this.template = new Template();
     this.container = this.template.createElement("div", "exercise");
     this.container.id = `${exercise.id}`;
     this.exercise = exercise;
+    this.flag = flag;
   }
 
   public draw(): HTMLElement {
@@ -48,8 +51,13 @@ class Exercise {
 
     this.container.addEventListener("click", (e) => {
       e.preventDefault();
-      const exerciseModal = new ExerciseModal(this.exercise);
-      exerciseModal.draw();
+      if (this.flag) {
+        const exerciseDetails = new ExerciseDetails(this.exercise);
+        exerciseDetails.draw(this.exercise);
+      } else {
+        const exerciseModal = new ExerciseModal(this.exercise);
+        exerciseModal.draw();
+      }
     });
 
     return this.container;

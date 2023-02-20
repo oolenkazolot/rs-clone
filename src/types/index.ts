@@ -321,3 +321,10 @@ export interface IWorkoutPlan {
   image: string;
   block: ISingleTraining[];
 }
+
+export interface IDataComplex {
+  _id: string;
+  userId: string;
+  name: string;
+  __v: string;
+}

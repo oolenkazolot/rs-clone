@@ -2,12 +2,15 @@ import { ITemplate } from "../types";
 import Template from "../templates/template";
 import workout_plans from "../utils/workout-plans-en";
 import Exercise from "./exercise";
+import Complex from "../utils/сomplex.routes";
 
 class Slider {
   template: ITemplate;
+  complex;
 
   constructor() {
     this.template = new Template();
+    this.complex = new Complex();
   }
 
   public createNextPrevBtns(
@@ -219,6 +222,7 @@ class Slider {
       i = 0;
       j = 2;
     }
+    localStorage.setItem("complexId", JSON.stringify(data[i].block[j].id));
     nextBtn.addEventListener("click", () => {
       if (j < data[i].block.length - 1) {
         j++;
@@ -231,6 +235,7 @@ class Slider {
           j = 0;
         }
       }
+      localStorage.setItem("complexId", JSON.stringify(data[i].block[j].id));
       const exercisesContainer = document.querySelector(
         ".exercises-wrapper"
       ) as HTMLElement;
@@ -249,6 +254,7 @@ class Slider {
           j = data[i].block.length - 1;
         }
       }
+      localStorage.setItem("complexId", JSON.stringify(data[i].block[j].id));
       const exercisesContainer = document.querySelector(
         ".exercises-wrapper"
       ) as HTMLElement;

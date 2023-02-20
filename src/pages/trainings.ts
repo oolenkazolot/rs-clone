@@ -6,11 +6,11 @@ import {
   IWorkoutBlock,
   ISlider,
 } from "../types/index";
-import { plus_in_circle } from "../components/svg";
 import workout_plans from "../utils/workout-plans-en";
 import WorkoutBlock from "../components/workoutBlock";
 import Slider from "../components/slider";
 import AddNewComplex from "../components/addNewComplex";
+import Complex from "../utils/сomplex.routes";
 
 class TrainingsPage {
   template: ITemplate;
@@ -18,14 +18,17 @@ class TrainingsPage {
   public router?: IRouter;
   slider: ISlider;
   addNewComplex;
+  complex;
   constructor() {
     this.template = new Template();
     this.workoutBlock = new WorkoutBlock();
     this.slider = new Slider();
     this.addNewComplex = new AddNewComplex();
+    this.complex = new Complex();
   }
 
-  public draw(): void {
+  public async draw() {
+    await this.addNewComplex.creatingArrayFromData();
     const mainElement: HTMLElement | null = document.querySelector("main");
     if (!mainElement) {
       return;
@@ -98,6 +101,7 @@ class TrainingsPage {
               this.router.navigate(`workouts/${id}`);
             }
           }
+          localStorage.setItem("complexId", JSON.stringify(id));
         });
         const block: IWorkoutMiniBlock = data[i].block[j];
         const content: HTMLElement = this.workoutBlock.createWorkoutContent(

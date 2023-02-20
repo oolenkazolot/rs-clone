@@ -7,7 +7,6 @@ import {
   ISingleTraining,
   IWorkoutBlock,
 } from "../types/index";
-import TrainingModal from "../components/trainingModal";
 import workout_plans from "../utils/workout-plans-en";
 import WorkoutBlock from "../components/workoutBlock";
 
@@ -70,7 +69,7 @@ class SingleTrainingPage {
         exercises.append(newEx.draw());
       });
 
-      if (!exercises.childNodes.length) {
+      if (Number(id) > 11) {
         const plus: HTMLElement = this.workoutBlock.createAddWorkoutPlanCont(
           "Add new exercises",
           false
@@ -88,6 +87,7 @@ class SingleTrainingPage {
       }
       mainPageElement.append(this.createDetailsModal());
     }
+    console.log(this.router);
   }
 
   private createHeader(id: string): HTMLElement {

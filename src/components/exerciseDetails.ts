@@ -1,12 +1,14 @@
 import Template from "../templates/template";
 import { ITemplate, IExercise } from "../types/index";
 import Exercise from "./exercise";
+import AddNewComplex from "./addNewComplex";
 
 class ExerciseDetails {
   template: ITemplate;
   exercise: IExercise;
   backLayer: HTMLElement;
   modal: HTMLElement;
+  addNewComplex;
 
   constructor(exercise: IExercise) {
     this.template = new Template();
@@ -16,9 +18,10 @@ class ExerciseDetails {
       "exercise-modal__backlayer"
     );
     this.modal = this.template.createElement("div", "exercise-modal");
+    this.addNewComplex = new AddNewComplex();
   }
 
-  public draw(exercises: IExercise[]): HTMLElement {
+  public draw(exercises: IExercise): HTMLElement {
     this.backLayer.append(this.modal);
     this.backLayer.classList.add("backlayer__exerc-details");
     const closeButton: HTMLButtonElement = this.template.createBtn(
@@ -128,6 +131,13 @@ class ExerciseDetails {
       "exercise-modal__button-save",
       "save"
     );
+    saveButton.setAttribute("id", String(this.exercise.id));
+    saveButton.addEventListener("click", () => {
+      console.log(saveButton.getAttribute("id"));
+      this.addNewComplex.addExerciseInLocalStorage(
+        Number(saveButton.getAttribute("id"))
+      );
+    });
     changeButtons.append(cancelButton, saveButton);
     changeBlock.append(changeButtons);
 

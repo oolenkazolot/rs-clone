@@ -1,9 +1,6 @@
 import { IExercise, ITemplate } from "../types";
 import Template from "../templates/template";
-import workout_plans from "../utils/workout-plans-en";
-import Exercise from "./exercise";
 import { volume, settings, arrowLeft, tv } from "../components/svg";
-import TrainingModal from "./trainingModal";
 
 class TakeARest {
   template: ITemplate;
@@ -36,7 +33,7 @@ class TakeARest {
       this.createCountDown(30),
       this.createButtons(),
       this.nextExerciseText(exercises, i),
-      this.createNextExerciseWrapper(exercises, i + 1)
+      this.createNextExerciseWrapper(exercises, i)
     );
     return wrapper;
   }
@@ -67,6 +64,7 @@ class TakeARest {
     settingsEl.innerHTML = settings;
     settingsCont.append(image, settingsEl);
     header.append(arrow, settingsCont);
+    console.log("here");
     return header;
   }
 
@@ -208,7 +206,7 @@ class TakeARest {
   }
 
   private countSeconds(element: HTMLElement, element2: HTMLElement): void {
-    setInterval(() => {
+    const int = setInterval(() => {
       if (Number(element.innerHTML) > 0) {
         element.innerHTML = String(Number(element.innerHTML) - 1);
         if (Number(element.innerHTML) === 0) {
@@ -216,6 +214,12 @@ class TakeARest {
         }
       }
     }, 1000);
+    setTimeout(() => {
+      const skipBtn = document.querySelector(".rest__skip-btn") as HTMLElement;
+      skipBtn.addEventListener("click", () => {
+        clearInterval(int);
+      });
+    }, 0);
   }
 
   private addSeconds(): void {

@@ -29,18 +29,13 @@ class AddNewComplex {
     for (let i = 0; i < trainingsData.trainings.length; i++) {
       const exercWrapper = this.template.createElement("div", "wrap-exercise");
       const exerciseData = trainingsData.trainings[i];
-      const exercise = new Exercise(exerciseData).draw();
+      const exercise = new Exercise(exerciseData, false).draw();
       exercWrapper.append(exercise);
       exercisesWrapper.append(exercWrapper);
       const button = this.template.createBtn("add-exerc-btn", "add");
       button.addEventListener("click", () => {
         const exerciseDetails = new ExerciseDetails(exerciseData);
-        const modal = document.querySelector(
-          ".modal-addNewComplex"
-        ) as HTMLElement;
-        modal.innerHTML = "";
-        modal.append(exerciseDetails.draw(trainingsData.trainings[i]));
-        modal.classList.remove("invisible");
+        exerciseDetails.draw(trainingsData.trainings[i]);
       });
       exercWrapper.append(button);
     }
@@ -131,11 +126,29 @@ class AddNewComplex {
     for (let i = 0; i < dataInStorage[0].block.length; i++) {
       const comlex = dataInStorage[0].block[i];
       if (String(comlex.id) === id) {
-        console.log(exercId);
-        console.log(trainingsData.trainings[exercId - 1]);
         dataInStorage[0].block[i].exercises.push(
           trainingsData.trainings[exercId - 1]
         );
+      }
+    }
+    localStorage.setItem("workoutPlans", JSON.stringify(dataInStorage));
+  }
+
+  deleteExerciseFromLocalStorage(exercId: number): void {
+    const dataInStorage: IWorkoutPlan[] = JSON.parse(
+      localStorage.getItem("workoutPlans") || "[]"
+    );
+    const id = localStorage.getItem("complexId");
+    for (let i = 0; i < dataInStorage[0].block.length; i++) {
+      const comlex = dataInStorage[0].block[i];
+      if (String(comlex.id) === id) {
+        const exercises = dataInStorage[0].block[i].exercises;
+        exercises.forEach((el, index) => {
+          if (el.id === exercId) {
+            console.log(el.id);
+            exercises.splice(index, 1);
+          }
+        });
       }
     }
     localStorage.setItem("workoutPlans", JSON.stringify(dataInStorage));

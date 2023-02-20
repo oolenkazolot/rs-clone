@@ -168,9 +168,15 @@
     justify-content: center;
 }
 
-.backlayer__exerc-details {
-    position:static;
-    width: auto;
-    height: auto;
-    background:none;
+.dateils__trash-icon {
+    position: absolute;
+    top: 20px; 
+    left: 30px;
+    width: 40px;
+    height: 40px;
+    fill: #f773b1;
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+        fill: #f60e50};
 }

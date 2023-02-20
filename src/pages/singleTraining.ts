@@ -65,8 +65,13 @@ class SingleTrainingPage {
       mainPageElement.append(exercises);
 
       this.workout?.exercises.forEach((exercise: IExercise) => {
-        const newEx = new Exercise(exercise);
-        exercises.append(newEx.draw());
+        if (Number(id) > 11) {
+          const newEx = new Exercise(exercise, true);
+          exercises.append(newEx.draw());
+        } else {
+          const newEx = new Exercise(exercise, false);
+          exercises.append(newEx.draw());
+        }
       });
 
       if (Number(id) > 11) {
@@ -76,13 +81,15 @@ class SingleTrainingPage {
         );
         plus.classList.add("singl-train__plus");
         exercises.append(plus);
-        exercises.append(
-          this.template.createElement(
-            "div",
-            "singl-train__empty-text",
-            "Exercise list is empty"
-          )
-        );
+        if (!this.workout?.exercises.length) {
+          exercises.append(
+            this.template.createElement(
+              "div",
+              "singl-train__empty-text",
+              "Exercise list is empty"
+            )
+          );
+        }
         exercises.classList.add("addit");
       }
       mainPageElement.append(this.createDetailsModal());

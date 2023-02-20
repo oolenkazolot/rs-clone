@@ -199,7 +199,7 @@ class Slider {
     const block = data[i].block[j];
     for (let k = 0; k < block.exercises.length; k++) {
       const exerciseData = block.exercises[k];
-      const exercise = new Exercise(exerciseData).draw();
+      const exercise = new Exercise(exerciseData, true).draw();
       container.append(exercise);
     }
     return container;
@@ -261,6 +261,22 @@ class Slider {
       exercisesContainer.innerHTML = "";
       exercisesContainer.append(slider.createExercises(i, j));
     });
+  }
+
+  getComplexParam(id: number) {
+    const workoutPlansInStore = JSON.parse(
+      localStorage.getItem("workoutPlans") || "[]"
+    );
+    const data = [...workoutPlansInStore, ...workout_plans];
+    const array: number[] = [];
+    for (let i = 0; i < data.length; i++) {
+      for (let j = 0; j < data[i].block.length; j++) {
+        if (data[i].block[j].id === id) {
+          array.push(i, j);
+        }
+      }
+    }
+    return array;
   }
 }
 

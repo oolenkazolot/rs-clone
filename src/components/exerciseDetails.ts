@@ -2,13 +2,17 @@ import Template from "../templates/template";
 import { ITemplate, IExercise } from "../types/index";
 import Exercise from "./exercise";
 import AddNewComplex from "./addNewComplex";
-
+import { trash } from "./svg";
+import Slider from "./slider";
+import WorkoutBlock from "./workoutBlock";
 class ExerciseDetails {
   template: ITemplate;
   exercise: IExercise;
   backLayer: HTMLElement;
   modal: HTMLElement;
   addNewComplex;
+  slider;
+  workoutBlock;
 
   constructor(exercise: IExercise) {
     this.template = new Template();
@@ -19,15 +23,23 @@ class ExerciseDetails {
     );
     this.modal = this.template.createElement("div", "exercise-modal");
     this.addNewComplex = new AddNewComplex();
+    this.slider = new Slider();
+    this.workoutBlock = new WorkoutBlock();
   }
 
   public draw(exercises: IExercise): HTMLElement {
     this.backLayer.append(this.modal);
-    this.backLayer.classList.add("backlayer__exerc-details");
+    const trashIcon = this.template.createElement("div", "dateils__trash-icon");
+    trashIcon.setAttribute("id", String(exercises.id));
+    trashIcon.innerHTML = trash;
+    trashIcon.addEventListener("click", () => {
+      this.addNewComplex.deleteExerciseFromLocalStorage(exercises.id);
+      this.forClickOnDelBtn();
+    });
     const closeButton: HTMLButtonElement = this.template.createBtn(
       "exercise-modal__button-close"
     );
-    this.modal.append(closeButton);
+    this.modal.append(trashIcon, closeButton);
 
     const exerciseGif: HTMLImageElement = document.createElement("img");
     exerciseGif.className = "exercise-modal__gif";
@@ -43,8 +55,9 @@ class ExerciseDetails {
       this.exercise.description
     );
     this.modal.append(exerciseDescription);
-
     this.createChangeBlock();
+
+    document.body.prepend(this.backLayer);
 
     closeButton.addEventListener("click", () => {
       this.closeExerciseModal();
@@ -65,6 +78,7 @@ class ExerciseDetails {
 
   private closeExerciseModal() {
     this.backLayer.style.display = "none";
+    document.body.removeChild(this.backLayer);
   }
 
   private createExerciseInfo(): void {
@@ -133,11 +147,12 @@ class ExerciseDetails {
     );
     saveButton.setAttribute("id", String(this.exercise.id));
     saveButton.addEventListener("click", () => {
-      console.log(saveButton.getAttribute("id"));
       this.addNewComplex.addExerciseInLocalStorage(
         Number(saveButton.getAttribute("id"))
       );
+      this.forClickOnSaveBtn();
     });
+
     changeButtons.append(cancelButton, saveButton);
     changeBlock.append(changeButtons);
 
@@ -198,6 +213,43 @@ class ExerciseDetails {
       }
       curQuantitySpan.textContent = `${minutes}:${seconds}`;
     }
+  }
+
+  forClickOnSaveBtn() {
+    this.closeExerciseModal();
+    const exerciseWrapper = document.querySelector(
+      ".exercises-wrapper"
+    ) as HTMLElement;
+    exerciseWrapper.innerHTML = "";
+    const largeWrapper = document.querySelector(
+      ".training__exercises"
+    ) as HTMLElement;
+    const complexId = localStorage.getItem("complexId");
+    const param: number[] = this.slider.getComplexParam(Number(complexId));
+    const plus: HTMLElement = this.workoutBlock.createAddWorkoutPlanCont(
+      "Add new exercises",
+      false
+    );
+    plus.classList.add("singl-train__plus");
+    exerciseWrapper.append(this.slider.createExercises(param[0], param[1]));
+    largeWrapper.append(plus);
+  }
+
+  forClickOnDelBtn() {
+    this.closeExerciseModal();
+    const exerciseWrapper = document.querySelector(
+      ".training__exercises"
+    ) as HTMLElement;
+    exerciseWrapper.innerHTML = "";
+    const complexId = localStorage.getItem("complexId");
+    const param: number[] = this.slider.getComplexParam(Number(complexId));
+    const plus: HTMLElement = this.workoutBlock.createAddWorkoutPlanCont(
+      "Add new exercises",
+      false
+    );
+    plus.classList.add("singl-train__plus");
+    exerciseWrapper.append(this.slider.createExercises(param[0], param[1]));
+    exerciseWrapper.append(plus);
   }
 }
 

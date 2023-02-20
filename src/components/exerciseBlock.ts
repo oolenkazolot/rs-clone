@@ -31,9 +31,10 @@ class ExerciseBlock {
     this.createCounter();
     this.createNavigationButtons();
 
-    document.addEventListener("click", (e) => {
+    this.exerciseBlock.addEventListener("click", (e) => {
       const target = <HTMLButtonElement>e.target;
       if (target.classList.contains("pause-modal__button-continue")) {
+        document.body.style.overflow = "";
         clearInterval(this.interval);
         this.createThreeCount();
         setTimeout(() => {
@@ -159,8 +160,10 @@ class ExerciseBlock {
     pauseButton.addEventListener("click", (e) => {
       e.preventDefault();
       clearInterval(this.interval);
-      const pauseModal = new PauseModal(this.exercise);
-      pauseModal.draw();
+      document.body.style.overflow = "hidden";
+      const modal = new PauseModal(this.exercise);
+      const pauseModal = modal.draw();
+      this.exerciseBlock.append(pauseModal);
     });
 
     return timeBar;

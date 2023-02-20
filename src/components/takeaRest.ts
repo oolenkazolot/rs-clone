@@ -1,9 +1,6 @@
 import { IExercise, ITemplate } from "../types";
 import Template from "../templates/template";
-import workout_plans from "../utils/workout-plans-en";
-import Exercise from "./exercise";
 import { volume, settings, arrowLeft, tv } from "../components/svg";
-import TrainingModal from "./trainingModal";
 
 class TakeARest {
   template: ITemplate;
@@ -17,10 +14,7 @@ class TakeARest {
       "div",
       "exercisesModals"
     );
-
     document.body.append(modal);
-    // const exercises = workout_plans[0].block[0].exercises;
-    // const i = 0;
     modal.append(this.createTakeARest(exerciseArray, index));
     return modal;
   }
@@ -36,7 +30,7 @@ class TakeARest {
       this.createCountDown(30),
       this.createButtons(),
       this.nextExerciseText(exercises, i),
-      this.createNextExerciseWrapper(exercises, i + 1)
+      this.createNextExerciseWrapper(exercises, i)
     );
     return wrapper;
   }

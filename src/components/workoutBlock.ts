@@ -7,12 +7,16 @@ import wholeBody from "../assets/png/whole_body2.png";
 import morning from "../assets/images/morning_evening.jpg";
 import evening from "../assets/images/morning_evening2.jpg";
 import { burbell, clock, lightning } from "../components/svg";
+import { plus_in_circle } from "../components/svg";
+import AddNewComplex from "./addNewComplex";
 
 class WorkoutBlock {
   template: ITemplate;
+  addNewComplex;
 
   constructor() {
     this.template = new Template();
+    this.addNewComplex = new AddNewComplex();
   }
 
   public createWorkoutBlockCont(titleText: string): HTMLElement {
@@ -198,7 +202,7 @@ class WorkoutBlock {
 
   public colorBackground(element: HTMLElement): void {
     const elNameAttribute: string | null = element.getAttribute("name");
-    let nameAttribute;
+    let nameAttribute = "";
     if (elNameAttribute) {
       nameAttribute = elNameAttribute.split(" ")[1];
     }
@@ -211,12 +215,60 @@ class WorkoutBlock {
     } else if (nameAttribute === "advanced") {
       element.style.background =
         "linear-gradient(90deg, rgba(254,151,135,1) 0%, rgba(247,242,242,1) 100%)";
-    } else if (nameAttribute === "warmup" || nameAttribute === "time") {
+    } else if (nameAttribute === "Warmup" || nameAttribute === "Time") {
       element.style.background =
         "linear-gradient(90deg, rgba(128,27,150,0.75674019604313) 0%, rgba(214,189,221,1) 78%)";
     } else {
       element.style.background =
         " linear-gradient(90deg, rgba(241,147,215,1) 0%, rgba(245,237,238,1) 100%)";
+    }
+  }
+
+  public createAddWorkoutPlanCont(
+    description: string,
+    flag: boolean
+  ): HTMLElement {
+    const addWorkoutPlanCont: HTMLElement = this.template.createElement(
+      "div",
+      "add-workout-plans-cont"
+    );
+    const text: HTMLElement = this.template.createElement(
+      "p",
+      "add-workouts-text",
+      description
+    );
+    const plus: HTMLElement = this.template.createElement(
+      "div",
+      "plus-in-circle"
+    );
+    plus.innerHTML = plus_in_circle;
+
+    addWorkoutPlanCont.append(text, plus);
+    plus.addEventListener("click", () => {
+      this.clickOnPlus(flag);
+    });
+    return addWorkoutPlanCont;
+  }
+
+  private clickOnPlus(flag: boolean): void {
+    const modal: HTMLElement = document.querySelector(
+      ".modal-addNewComplex"
+    ) as HTMLElement;
+    if (flag) {
+      const input: HTMLInputElement = document.querySelector(
+        ".modal-addNewComplex__input"
+      ) as HTMLInputElement;
+      input.value = "";
+      modal.classList.remove("invisible");
+    } else {
+      const exercisesWrapper: HTMLElement = document.querySelector(
+        ".training__exercises"
+      ) as HTMLElement;
+      exercisesWrapper.innerHTML = "";
+      exercisesWrapper.append(
+        this.addNewComplex.createSelectExercises(),
+        this.addNewComplex.showExercises()
+      );
     }
   }
 }

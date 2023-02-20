@@ -61,6 +61,7 @@ class TakeARest {
     settingsEl.innerHTML = settings;
     settingsCont.append(image, settingsEl);
     header.append(arrow, settingsCont);
+    console.log("here");
     return header;
   }
 
@@ -202,7 +203,7 @@ class TakeARest {
   }
 
   private countSeconds(element: HTMLElement, element2: HTMLElement): void {
-    setInterval(() => {
+    const int = setInterval(() => {
       if (Number(element.innerHTML) > 0) {
         element.innerHTML = String(Number(element.innerHTML) - 1);
         if (Number(element.innerHTML) === 0) {
@@ -210,6 +211,12 @@ class TakeARest {
         }
       }
     }, 1000);
+    setTimeout(() => {
+      const skipBtn = document.querySelector(".rest__skip-btn") as HTMLElement;
+      skipBtn.addEventListener("click", () => {
+        clearInterval(int);
+      });
+    }, 0);
   }
 
   private addSeconds(): void {

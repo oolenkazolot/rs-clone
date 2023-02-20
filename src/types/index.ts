@@ -190,6 +190,7 @@ export interface IWorkoutBlock {
   createTimeCont: (time: string) => HTMLElement;
   createLightnings: (j: number) => HTMLElement;
   colorBackground: (element: HTMLElement) => void;
+  createAddWorkoutPlanCont: (description: string, flag: boolean) => HTMLElement;
 }
 
 export interface IWorkoutMiniBlock {
@@ -313,4 +314,17 @@ export interface IDataEditProfile {
   id: string;
   weight: string;
   height: string;
+}
+
+export interface IWorkoutPlan {
+  title: string;
+  image: string;
+  block: ISingleTraining[];
+}
+
+export interface IDataComplex {
+  _id: string;
+  userId: string;
+  name: string;
+  __v: string;
 }

@@ -1,7 +1,14 @@
 import Template from "../templates/template";
 import Exercise from "../components/exercise";
-import { IRouter, ITemplate, IExercise, ISingleTraining } from "../types/index";
+import {
+  IRouter,
+  ITemplate,
+  IExercise,
+  ISingleTraining,
+  IWorkoutBlock,
+} from "../types/index";
 import workout_plans from "../utils/workout-plans-en";
+import WorkoutBlock from "../components/workoutBlock";
 
 class SingleTrainingPage {
   template: ITemplate;
@@ -12,6 +19,7 @@ class SingleTrainingPage {
   image: string;
   title: string;
   workout: ISingleTraining | undefined;
+  workoutBlock: IWorkoutBlock;
 
   constructor() {
     this.template = new Template();
@@ -21,6 +29,7 @@ class SingleTrainingPage {
     this.image = "";
     this.title = "";
     this.workout;
+    this.workoutBlock = new WorkoutBlock();
   }
 
   public draw(id: string | undefined): void {
@@ -56,10 +65,36 @@ class SingleTrainingPage {
       mainPageElement.append(exercises);
 
       this.workout?.exercises.forEach((exercise: IExercise) => {
-        const newEx = new Exercise(exercise);
-        exercises.append(newEx.draw());
+        if (Number(id) > 11) {
+          const newEx = new Exercise(exercise, true);
+          exercises.append(newEx.draw());
+        } else {
+          const newEx = new Exercise(exercise, false);
+          exercises.append(newEx.draw());
+        }
       });
+
+      if (Number(id) > 11) {
+        const plus: HTMLElement = this.workoutBlock.createAddWorkoutPlanCont(
+          "Add new exercises",
+          false
+        );
+        plus.classList.add("singl-train__plus");
+        exercises.append(plus);
+        if (!this.workout?.exercises.length) {
+          exercises.append(
+            this.template.createElement(
+              "div",
+              "singl-train__empty-text",
+              "Exercise list is empty"
+            )
+          );
+        }
+        exercises.classList.add("addit");
+      }
+      mainPageElement.append(this.createDetailsModal());
     }
+    console.log(this.router);
   }
 
   private createHeader(id: string): HTMLElement {
@@ -186,6 +221,15 @@ class SingleTrainingPage {
       }
     }
     localStorage.setItem("workoutPlans", JSON.stringify(workoutPlansInStore));
+  }
+
+  createDetailsModal(): HTMLElement {
+    const modal: HTMLElement = this.template.createElement(
+      "div",
+      "modal-addNewComplex"
+    );
+    modal.classList.add("invisible");
+    return modal;
   }
 }
 

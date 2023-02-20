@@ -228,6 +228,7 @@ class ExercisesPage {
       j = 2;
     }
     const exercises: HTMLElement = this.slider.createExercises(i, j);
+    localStorage.setItem("complexId", JSON.stringify(data[i].block[j].id));
     exerciseCont.append(exercises);
     return exerciseCont;
   }

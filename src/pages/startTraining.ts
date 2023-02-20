@@ -147,6 +147,7 @@ class StartTrainingPage {
     pageContent.append(
       this.takeARest.draw(this.currentExerciseIndex, this.exerciseArray)
     );
+    this.autoChange();
   }
 
   private showCongrats(counter: number, time: number) {
@@ -169,6 +170,29 @@ class StartTrainingPage {
           this.router.navigate("exercises");
         }
       }
+    });
+  }
+
+  private autoChange(): void {
+    let counter = 0;
+    const addBtn = document.querySelector(".rest__add-btn") as HTMLElement;
+    const skipBtn = document.querySelector(".rest__skip-btn") as HTMLElement;
+    addBtn.addEventListener("click", () => {
+      counter = counter - 20;
+    });
+    const int = setInterval(() => {
+      if (counter < 30) {
+        counter++;
+        if (counter === 30) {
+          this.loadNextExercise();
+          counter = 0;
+          clearInterval(int);
+        }
+      }
+    }, 1000);
+    skipBtn.addEventListener("click", () => {
+      counter = 0;
+      clearInterval(int);
     });
   }
 }

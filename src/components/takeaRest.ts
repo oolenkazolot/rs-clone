@@ -14,10 +14,7 @@ class TakeARest {
       "div",
       "exercisesModals"
     );
-
     document.body.append(modal);
-    // const exercises = workout_plans[0].block[0].exercises;
-    // const i = 0;
     modal.append(this.createTakeARest(exerciseArray, index));
     return modal;
   }

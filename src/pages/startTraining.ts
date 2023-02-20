@@ -8,17 +8,17 @@ import Congrats from "../components/congrats";
 class StartTrainingPage {
   template: ITemplate;
   public router?: IRouter;
-  takeARest;
+  takeARest: TakeARest;
   exerciseArray: IExercise[];
   currentExerciseIndex: number;
-  done: boolean;
+  counter: number;
 
   constructor() {
     this.template = new Template();
     this.takeARest = new TakeARest();
-    this.exerciseArray = workout_plans[0].block[0].exercises; //get from local storage
+    this.exerciseArray = [];
     this.currentExerciseIndex = 0;
-    this.done = false;
+    this.counter = 0;
   }
 
   public draw(): void {
@@ -33,32 +33,55 @@ class StartTrainingPage {
     mainPageElement.classList.add("startTraining-page");
     mainElement.append(mainPageElement);
 
+    const complexId: string = localStorage.complexID || "1";
+    workout_plans.forEach((plan) => {
+      plan.block.forEach((item) => {
+        if (item.id === Number(complexId)) {
+          this.exerciseArray = item.exercises;
+        }
+      });
+    });
+
     const curExercise = new ExerciseBlock(
       this.exerciseArray[this.currentExerciseIndex]
     );
     mainPageElement.append(curExercise.draw());
-    if (this.currentExerciseIndex === 0) {
+    if (
+      this.currentExerciseIndex === 0 &&
+      this.exerciseArray[this.currentExerciseIndex].quantity
+        .toLowerCase()
+        .includes("x")
+    ) {
       curExercise.createCountDown();
       curExercise.hideExerciseLinks();
       curExercise.disablePreviousButton();
       curExercise.disableSkipButton();
+    } else {
+      curExercise.disablePreviousButton();
     }
+
+    const start = Date.now();
 
     document.addEventListener("click", (e) => {
       const target = <HTMLButtonElement>e.target;
       if (target.classList.contains("exercise-block__button-done")) {
         this.showRestModal();
+        this.counter++;
       }
       if (target.classList.contains("exercise-block__button-next")) {
         if (this.currentExerciseIndex === this.exerciseArray.length - 1) {
-          this.showCongrats();
+          this.counter++;
+          const resultMins = this.getResultMinutes(start);
+          this.showCongrats(this.counter, resultMins);
         } else {
-          this.loadNextExercise();
+          this.showRestModal();
+          this.counter++;
         }
       }
       if (target.classList.contains("exercise-block__button-skip")) {
         if (this.currentExerciseIndex === this.exerciseArray.length - 1) {
-          this.showCongrats();
+          const resultMins = this.getResultMinutes(start);
+          this.showCongrats(this.counter, resultMins);
         } else {
           this.loadNextExercise();
         }
@@ -74,10 +97,17 @@ class StartTrainingPage {
         }
       }
       if (target.classList.contains("pause-modal__button-restart")) {
+        document.body.style.overflow = "";
         this.restartExercise();
       }
       e.preventDefault();
     });
+  }
+
+  private getResultMinutes(startNum: number) {
+    const resultTime = Date.now() - startNum;
+    const resultMins = new Date(resultTime).getMinutes();
+    return resultMins;
   }
 
   private loadNextExercise(): void {
@@ -120,47 +150,26 @@ class StartTrainingPage {
     this.autoChange();
   }
 
-  private showCongrats() {
+  private showCongrats(counter: number, time: number) {
     const pageContent = <HTMLElement>(
       document.querySelector(".startTraining-page")
     );
-    const congrats = new Congrats();
+    const congrats = new Congrats(counter, time);
     pageContent.innerHTML = "";
     pageContent.append(congrats.draw());
-    const completeBtn = document.querySelector(
-      ".congrats__button-complete"
-    ) as HTMLElement;
-    completeBtn.addEventListener("click", () => {
+
+    const completeBtn = <HTMLAnchorElement>(
+      document.querySelector(".congrats__button-complete")
+    );
+    completeBtn.addEventListener("click", (e) => {
+      e.preventDefault();
       if (this.router) {
         const mainElement: HTMLElement | null = document.querySelector("main");
         if (mainElement) {
           mainElement.innerHTML = "";
-          this.router.navigate(`workouts`);
+          this.router.navigate("exercises");
         }
       }
-    });
-  }
-
-  private autoChange(): void {
-    let counter = 0;
-    const addBtn = document.querySelector(".rest__add-btn") as HTMLElement;
-    const skipBtn = document.querySelector(".rest__skip-btn") as HTMLElement;
-    addBtn.addEventListener("click", () => {
-      counter = counter - 20;
-    });
-    const int = setInterval(() => {
-      if (counter < 30) {
-        counter++;
-        if (counter === 30) {
-          this.loadNextExercise();
-          counter = 0;
-          clearInterval(int);
-        }
-      }
-    }, 1000);
-    skipBtn.addEventListener("click", () => {
-      counter = 0;
-      clearInterval(int);
     });
   }
 }

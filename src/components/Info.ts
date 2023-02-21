@@ -34,6 +34,7 @@ class Info {
     if (!userId) {
       return;
     }
+
     const userInfo:
       | Record<string, string>
       | undefined = await this.authorization.getUserInfo(userId);
@@ -44,6 +45,7 @@ class Info {
     //   console.log(res.message);
     // }
     const items: HTMLElement[] = [];
+
     const units: string[] = userInfo.units.split("-");
 
     for (const key in userInfo) {

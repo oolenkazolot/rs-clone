@@ -1,7 +1,7 @@
 import Template from "../templates/template";
 import Exercise from "../components/exercise";
+import router from "../components/routerComponent";
 import {
-  IRouter,
   ITemplate,
   IExercise,
   ISingleTraining,
@@ -12,7 +12,6 @@ import WorkoutBlock from "../components/workoutBlock";
 
 class SingleTrainingPage {
   template: ITemplate;
-  public router?: IRouter;
   exQuantity: string;
   exTime: string;
   color: string;
@@ -94,7 +93,6 @@ class SingleTrainingPage {
       }
       mainPageElement.append(this.createDetailsModal());
     }
-    console.log(this.router);
   }
 
   private createHeader(id: string): HTMLElement {
@@ -162,12 +160,10 @@ class SingleTrainingPage {
 
     trashIcon.addEventListener("click", () => {
       this.deleteComplex(trashIcon);
-      if (this.router) {
-        const mainElement: HTMLElement | null = document.querySelector("main");
-        if (mainElement) {
-          mainElement.innerHTML = "";
-          this.router.navigate(`workouts`);
-        }
+      const mainElement: HTMLElement | null = document.querySelector("main");
+      if (mainElement) {
+        mainElement.innerHTML = "";
+        router.navigate(`workouts`);
       }
     });
 

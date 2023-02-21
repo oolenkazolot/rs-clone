@@ -1,6 +1,6 @@
 import Template from "../templates/template";
+import router from "../components/routerComponent";
 import {
-  IRouter,
   ITemplate,
   IWorkoutMiniBlock,
   IWorkoutBlock,
@@ -15,7 +15,6 @@ import Complex from "../utils/сomplex.routes";
 class TrainingsPage {
   template: ITemplate;
   workoutBlock: IWorkoutBlock;
-  public router?: IRouter;
   slider: ISlider;
   addNewComplex;
   complex;
@@ -92,14 +91,12 @@ class TrainingsPage {
         const id: number = data[i].block[j].id;
         link.addEventListener("click", (e) => {
           e.preventDefault();
-          if (this.router) {
-            const mainElement: HTMLElement | null = document.querySelector(
-              "main"
-            );
-            if (mainElement) {
-              mainElement.innerHTML = "";
-              this.router.navigate(`workouts/${id}`);
-            }
+          const mainElement: HTMLElement | null = document.querySelector(
+            "main"
+          );
+          if (mainElement) {
+            mainElement.innerHTML = "";
+            router.navigate(`workouts/${id}`);
           }
           localStorage.setItem("complexId", JSON.stringify(id));
         });

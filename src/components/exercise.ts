@@ -53,7 +53,7 @@ class Exercise {
       e.preventDefault();
       if (this.flag) {
         const exerciseDetails = new ExerciseDetails(this.exercise);
-        exerciseDetails.draw(this.exercise);
+        exerciseDetails.draw(this.exercise, false);
       } else {
         const exerciseModal = new ExerciseModal(this.exercise);
         exerciseModal.draw();

@@ -1,4 +1,9 @@
-import { IAnswerAddUserInfo, IDataComplex } from "../types/index";
+import {
+  IAnswerAddUserInfo,
+  IDataComplex,
+  ICreateExercise,
+  IServerExercises,
+} from "../types/index";
 
 class Complex {
   public async createUserInfo(
@@ -29,6 +34,72 @@ class Complex {
       const res: Promise<IDataComplex[] | undefined> = await response.json();
 
       return res;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      }
+    }
+  }
+
+  public async deleteComplex(id: string) {
+    try {
+      await fetch(`http://localhost:5000/api/complex/delete/${id}`, {
+        method: "DELETE",
+      });
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      }
+    }
+  }
+
+  public async createExercise(
+    data: Record<string, string>
+  ): Promise<ICreateExercise | undefined> {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/exercise/create",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const res: ICreateExercise = await response.json();
+      return res;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      }
+    }
+  }
+
+  public async getExercises(
+    id: string
+  ): Promise<IServerExercises[] | undefined> {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/exercise/get-all/${id}`
+      );
+      const res: Promise<
+        IServerExercises[] | undefined
+      > = await response.json();
+
+      return res;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      }
+    }
+  }
+
+  public async deleteExercise(id: string) {
+    try {
+      await fetch(`http://localhost:5000/api/exercise/delete/${id}`, {
+        method: "DELETE",
+      });
     } catch (e) {
       if (e instanceof Error) {
         throw new Error(e.message);

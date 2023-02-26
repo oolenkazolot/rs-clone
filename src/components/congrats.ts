@@ -1,5 +1,7 @@
 import Template from "../templates/template";
 import { ITemplate } from "../types/index";
+import Complex from "../utils/сomplex.routes";
+import { getUserIdLocalStorage } from "../utils/auth";
 
 class Congrats {
   template: ITemplate;
@@ -14,7 +16,8 @@ class Congrats {
     this.time = time;
   }
 
-  public draw(): HTMLElement {
+  public async draw() {
+    await this.saveCompletedComplex();
     const congratsText: HTMLElement = this.template.createElement(
       "div",
       "congrats__text",
@@ -65,6 +68,20 @@ class Congrats {
     );
     this.container.append(congratsText, iconsBlock, completeButton);
     return this.container;
+  }
+
+  async saveCompletedComplex() {
+    const complex = new Complex();
+    const userId1: string | undefined = getUserIdLocalStorage();
+    if (!userId1) {
+      return;
+    }
+    const complexId = localStorage.getItem("complexId");
+    await complex.fulfilledComplex({
+      userId: userId1,
+      idComplex: JSON.parse(String(complexId)),
+      time: String(this.time),
+    });
   }
 }
 

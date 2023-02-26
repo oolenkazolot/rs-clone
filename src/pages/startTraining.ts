@@ -1,11 +1,13 @@
 import Template from "../templates/template";
-import { IExercise, ITemplate } from "../types/index";
+import { IExercise, ITemplate, IWorkoutPlan } from "../types/index";
 import TakeARest from "../components/takeaRest";
 import ExerciseBlock from "../components/exerciseBlock";
 import PauseModal from "../components/pauseModal";
 import workout_plans from "../utils/workout-plans-en";
 import Congrats from "../components/congrats";
 import router from "../components/routerComponent";
+import AddNewComplex from "../components/addNewComplex";
+import SingleTrainingPage from "./singleTraining";
 
 class StartTrainingPage {
   template: ITemplate;
@@ -24,7 +26,7 @@ class StartTrainingPage {
     this.interval;
   }
 
-  public draw(): void {
+  public async draw() {
     const mainElement: HTMLElement | null = document.querySelector("main");
     if (!mainElement) {
       return;
@@ -36,10 +38,28 @@ class StartTrainingPage {
     mainPageElement.classList.add("startTraining-page");
     mainElement.append(mainPageElement);
 
-    const complexId: string = localStorage.complexId || "1";
-    workout_plans.forEach((plan) => {
+    const addNewComplex = new AddNewComplex();
+    const serverData = await addNewComplex.creatingArrayFromData();
+    let data: IWorkoutPlan[] = [];
+    const singlePage = new SingleTrainingPage();
+    const id = JSON.parse(String(localStorage.getItem("complexId")));
+    if (id) {
+      const exercises = await singlePage.transformExercises(id);
+      for (let i = 0; i < serverData[0].block.length; i++) {
+        if (id === serverData[0].block[i].id) {
+          serverData[0].block[i].exercises.push(...exercises);
+        }
+      }
+    }
+    if (serverData.length && serverData[0].block.length) {
+      data = [...serverData, ...workout_plans];
+    } else {
+      data = [...workout_plans];
+    }
+
+    data.forEach((plan) => {
       plan.block.forEach((item) => {
-        if (item.id === Number(complexId)) {
+        if (String(item.id) === String(id)) {
           this.exerciseArray = item.exercises;
         }
       });
@@ -104,6 +124,7 @@ class StartTrainingPage {
           clearInterval(this.interval);
           this.loadNextExercise();
         }
+        console.log(this.currentExerciseIndex);
       }
       if (target.classList.contains("rest__skip-btn")) {
         clearInterval(this.interval);
@@ -141,7 +162,7 @@ class StartTrainingPage {
             this.exerciseArray[this.currentExerciseIndex]
           );
           this.setTimeCounter(duration);
-          document.body.style.pointerEvents = "";
+          // document.body.style.pointerEvents = "";
         }, 3000);
       }
       if (
@@ -209,13 +230,13 @@ class StartTrainingPage {
     this.autoChange();
   }
 
-  private showCongrats(counter: number, time: number): void {
+  private async showCongrats(counter: number, time: number) {
     const pageContent = <HTMLElement>(
       document.querySelector(".startTraining-page")
     );
     const congrats = new Congrats(counter, time);
     pageContent.innerHTML = "";
-    pageContent.append(congrats.draw());
+    pageContent.append(await congrats.draw());
 
     const completeBtn = <HTMLAnchorElement>(
       document.querySelector(".congrats__button-complete")
@@ -284,11 +305,13 @@ class StartTrainingPage {
       const widthEl = <HTMLElement>(
         document.querySelector(".exercise-block__time-bar")
       );
-      const maxWidth = widthEl.clientWidth;
-      const track = <HTMLElement>(
-        document.querySelector(".exercise-block__track")
-      );
-      track.style.width = `${(maxWidth / duration) * Number(seconds)}px`;
+      if (widthEl) {
+        const maxWidth = widthEl.clientWidth;
+        const track = <HTMLElement>(
+          document.querySelector(".exercise-block__track")
+        );
+        track.style.width = `${(maxWidth / duration) * Number(seconds)}px`;
+      }
     }, 1000);
   }
 

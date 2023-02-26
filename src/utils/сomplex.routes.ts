@@ -3,6 +3,9 @@ import {
   IDataComplex,
   ICreateExercise,
   IServerExercises,
+  ICompletedComplexesReceived,
+  IFulfilledComplexReturned,
+  IWeeklyStat,
 } from "../types/index";
 
 class Complex {
@@ -100,6 +103,89 @@ class Complex {
       await fetch(`http://localhost:5000/api/exercise/delete/${id}`, {
         method: "DELETE",
       });
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      }
+    }
+  }
+
+  public async updateExercise(
+    id: string,
+    data: Record<string, string>
+  ): Promise<ICreateExercise | undefined> {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/exercise/update/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const res: ICreateExercise = await response.json();
+      return res;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      }
+    }
+  }
+
+  public async fulfilledComplex(
+    data: Record<string, string>
+  ): Promise<IFulfilledComplexReturned | undefined> {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/completed/create",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const res: IFulfilledComplexReturned = await response.json();
+      return res;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      }
+    }
+  }
+
+  public async getCompletedComplexes(
+    id: string
+  ): Promise<ICompletedComplexesReceived | undefined> {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/completed/get-all/${id}`
+      );
+      const res: Promise<
+        ICompletedComplexesReceived | undefined
+      > = await response.json();
+
+      return res;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      }
+    }
+  }
+
+  public async getWeeklyStatistic(
+    id: string
+  ): Promise<IWeeklyStat | undefined> {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/completed/weekly-workouts/${id}`
+      );
+      const res: Promise<IWeeklyStat | undefined> = await response.json();
+
+      return res;
     } catch (e) {
       if (e instanceof Error) {
         throw new Error(e.message);

@@ -11,20 +11,25 @@ import WorkoutBlock from "../components/workoutBlock";
 import Slider from "../components/slider";
 import AddNewComplex from "../components/addNewComplex";
 import SingleTrainingPage from "./singleTraining";
+import Complex from "../utils/сomplex.routes";
+import { getUserIdLocalStorage } from "../utils/auth";
 
 class ExercisesPage {
   template: ITemplate;
   workoutBlock: IWorkoutBlock;
   slider;
   addNewComplex;
+  complex;
   constructor() {
     this.template = new Template();
     this.workoutBlock = new WorkoutBlock();
     this.slider = new Slider();
     this.addNewComplex = new AddNewComplex();
+    this.complex = new Complex();
   }
 
   public async draw() {
+    this.getDayOfAWeek();
     const mainElement: HTMLElement | null = document.querySelector("main");
     if (!mainElement) {
       return;
@@ -40,32 +45,57 @@ class ExercisesPage {
     forDecor.append(this.createDecorationEl(), mainPageElement);
     mainPageElement.classList.add("exercises-page");
     mainElement.append(forDecor);
+    const miniHeader = await this.createMiniHeader();
+    const goalCont = await this.createWeekGoalCont();
+    if (miniHeader) {
+      mainPageElement.append(miniHeader);
+    }
+    if (goalCont) {
+      mainPageElement.append(goalCont);
+    }
     mainPageElement.append(
-      this.createMiniHeader(),
-      this.createWeekGoalCont(),
       await this.createExercisesBlock(),
       this.createStartBtn(),
       await this.createExercisesCont()
     );
   }
 
-  private createMiniHeader(): HTMLElement {
+  private async createMiniHeader() {
+    const statistic = await this.getCompletesExercisesStat();
     const container: HTMLElement = this.template.createElement(
       "div",
       "mini-header-cont"
     );
-    const workoutsCont: HTMLElement = this.miniHeaderBlock(
-      "../assets/png/weight2.png",
-      "0",
-      "Workouts"
-    );
-    const timeCont: HTMLElement = this.miniHeaderBlock(
-      "../assets/png/stopwatch.png",
-      "0",
-      "Minutes"
-    );
-    container.append(workoutsCont, timeCont);
-    return container;
+    if (statistic) {
+      const workoutsCont: HTMLElement = this.miniHeaderBlock(
+        "../assets/png/weight2.png",
+        String(statistic.totalCompletedComplexes),
+        "Workouts"
+      );
+      const timeCont: HTMLElement = this.miniHeaderBlock(
+        "../assets/png/stopwatch.png",
+        String(statistic.totalTime.hours),
+        "h"
+      );
+      const wrapper: HTMLElement = this.template.createElement(
+        "div",
+        "stat-wrapper"
+      );
+      const statNum: HTMLElement = this.template.createElement(
+        "div",
+        "stat-number",
+        String(statistic.totalTime.minutes)
+      );
+      const title: HTMLElement = this.template.createElement(
+        "p",
+        "stat-title",
+        "min"
+      );
+      wrapper.append(statNum, title);
+      timeCont.append(wrapper);
+      container.append(workoutsCont, timeCont);
+      return container;
+    }
   }
 
   private miniHeaderBlock(
@@ -101,7 +131,13 @@ class ExercisesPage {
     return container;
   }
 
-  private createWeekGoalCont(): HTMLElement {
+  private async createWeekGoalCont() {
+    const userId1: string | undefined = getUserIdLocalStorage();
+    if (!userId1) {
+      return;
+    }
+    const stat = await this.complex.getWeeklyStatistic(userId1);
+    console.log(stat);
     const weekGoalCont: HTMLElement = this.template.createElement(
       "div",
       "week-goal-cont"
@@ -140,12 +176,17 @@ class ExercisesPage {
       "div",
       "days-cont"
     );
+    const dayOfAWeek = this.getDayOfAWeek();
     for (let i = 0; i < 7; i++) {
       const circle: HTMLElement = this.template.createElement(
         "div",
         "days-circle",
         WEEKDAYS[i]
       );
+      circle.classList.remove("days-circle-pink");
+      if (dayOfAWeek === i + 1) {
+        circle.classList.add("days-circle-pink");
+      }
       daysCont.append(circle);
       const checkMark = this.template.createElement("div", "check-mark");
       checkMark.classList.add("hidden");
@@ -266,6 +307,21 @@ class ExercisesPage {
     });
     link.append(startBtn);
     return link;
+  }
+
+  private getDayOfAWeek() {
+    const date = new Date();
+    const dayOfAWeek = [7, 1, 2, 3, 4, 5, 6][date.getDay()];
+    return dayOfAWeek;
+  }
+
+  private async getCompletesExercisesStat() {
+    const userId1: string | undefined = getUserIdLocalStorage();
+    if (!userId1) {
+      return;
+    }
+    const result = await this.complex.getCompletedComplexes(userId1);
+    return result;
   }
 }
 

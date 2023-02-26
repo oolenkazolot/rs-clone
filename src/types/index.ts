@@ -354,3 +354,25 @@ export interface IServerExercises {
   count: string;
   __v: number;
 }
+
+export interface ICompletedComplexesReceived {
+  totalCompletedComplexes: number;
+  totalTime: {
+    hours: number;
+    minutes: number;
+  };
+}
+
+export interface IFulfilledComplexReturned {
+  userId: string;
+  idComplex: string;
+  date: string;
+  time: number;
+  _id: "string";
+  _v: number;
+}
+
+export interface IWeeklyStat {
+  weeklyWorkouts: number[];
+  goal: string;
+}

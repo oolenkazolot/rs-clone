@@ -388,5 +388,5 @@ export interface IFulfilledComplexReturned {
 
 export interface IWeeklyStat {
   weeklyWorkouts: number[];
-  goal: string;
+  load: string;
 }

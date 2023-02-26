@@ -17,7 +17,7 @@ class PauseModal {
     this.modal = this.template.createElement("div", "pause-modal");
   }
 
-  public draw(): void {
+  public draw(): HTMLElement {
     this.backLayer.append(this.modal);
     const title: HTMLElement = this.template.createElement(
       "div",
@@ -39,7 +39,7 @@ class PauseModal {
     exerciseInfo.append(exerciseName, exerciseGif);
     this.modal.append(title, exerciseInfo);
     this.createModalButtons();
-    document.body.prepend(this.backLayer);
+    return this.backLayer;
   }
 
   private createModalButtons() {

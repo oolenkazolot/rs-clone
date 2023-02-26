@@ -77,7 +77,6 @@ class StartTrainingPage {
         .includes("x")
     ) {
       curExercise.createCountDown();
-
       curExercise.hideExerciseLinks();
       curExercise.disablePreviousButton();
       curExercise.disableSkipButton();
@@ -96,12 +95,19 @@ class StartTrainingPage {
 
     const start = Date.now();
 
-    document.addEventListener("click", (e) => {
+    mainPageElement.addEventListener("click", (e) => {
       const target = <HTMLButtonElement>e.target;
       if (target.classList.contains("exercise-block__button-done")) {
-        clearInterval(this.interval);
-        this.showRestModal();
-        this.counter++;
+        if (this.currentExerciseIndex === this.exerciseArray.length - 1) {
+          clearInterval(this.interval);
+          this.counter++;
+          const resultMins = this.getResultMinutes(start);
+          this.showCongrats(this.counter, resultMins);
+        } else {
+          clearInterval(this.interval);
+          this.showRestModal();
+          this.counter++;
+        }
       }
       if (target.classList.contains("exercise-block__button-next")) {
         if (this.currentExerciseIndex === this.exerciseArray.length - 1) {
@@ -124,7 +130,6 @@ class StartTrainingPage {
           clearInterval(this.interval);
           this.loadNextExercise();
         }
-        console.log(this.currentExerciseIndex);
       }
       if (target.classList.contains("rest__skip-btn")) {
         clearInterval(this.interval);
@@ -150,7 +155,7 @@ class StartTrainingPage {
         const modal = new PauseModal(
           this.exerciseArray[this.currentExerciseIndex]
         );
-        modal.draw();
+        mainPageElement.prepend(modal.draw());
       }
       if (target.classList.contains("pause-modal__button-continue")) {
         this.closeModal();
@@ -162,9 +167,13 @@ class StartTrainingPage {
             this.exerciseArray[this.currentExerciseIndex]
           );
           this.setTimeCounter(duration);
-          // document.body.style.pointerEvents = "";
+          document.body.style.pointerEvents = "";
         }, 3000);
       }
+    });
+
+    document.addEventListener("click", (e) => {
+      const target = <HTMLElement>e.target;
       if (
         target.classList.contains("header__link") ||
         target.classList.contains("header__btn")
@@ -280,37 +289,39 @@ class StartTrainingPage {
       const quantity = <HTMLElement>(
         document.querySelector(".exercise-block__current-quantity")
       );
-      const timeLeft = quantity.textContent;
-      let minutes = timeLeft?.slice(0, 2);
-      let seconds = timeLeft?.slice(3);
-      if (Number(seconds) === 0) {
-        if (Number(minutes) === 0) {
-          clearInterval(this.interval);
-          const nextBtn = <HTMLButtonElement>(
-            document.querySelector(".exercise-block__button-next")
-          );
-          nextBtn.style.display = "block";
+      if (quantity) {
+        const timeLeft = quantity.textContent;
+        let minutes = timeLeft?.slice(0, 2);
+        let seconds = timeLeft?.slice(3);
+        if (Number(seconds) === 0) {
+          if (Number(minutes) === 0) {
+            clearInterval(this.interval);
+            const nextBtn = <HTMLButtonElement>(
+              document.querySelector(".exercise-block__button-next")
+            );
+            nextBtn.style.display = "block";
+          }
+          if (Number(minutes) > 0 && Number(minutes) <= 10) {
+            minutes = `0${Number(minutes) - 1}`;
+            seconds = "59";
+          }
+        } else {
+          seconds = `${Number(seconds) - 1}`;
+          if (Number(seconds) < 10) {
+            seconds = `0${seconds}`;
+          }
         }
-        if (Number(minutes) > 0 && Number(minutes) <= 10) {
-          minutes = `0${Number(minutes) - 1}`;
-          seconds = "59";
-        }
-      } else {
-        seconds = `${Number(seconds) - 1}`;
-        if (Number(seconds) < 10) {
-          seconds = `0${seconds}`;
-        }
-      }
-      quantity.textContent = `${minutes}:${seconds}`;
-      const widthEl = <HTMLElement>(
-        document.querySelector(".exercise-block__time-bar")
-      );
-      if (widthEl) {
-        const maxWidth = widthEl.clientWidth;
-        const track = <HTMLElement>(
-          document.querySelector(".exercise-block__track")
+        quantity.textContent = `${minutes}:${seconds}`;
+        const widthEl = <HTMLElement>(
+          document.querySelector(".exercise-block__time-bar")
         );
-        track.style.width = `${(maxWidth / duration) * Number(seconds)}px`;
+        if (widthEl) {
+          const maxWidth = widthEl.clientWidth;
+          const track = <HTMLElement>(
+            document.querySelector(".exercise-block__track")
+          );
+          track.style.width = `${(maxWidth / duration) * Number(seconds)}px`;
+        }
       }
     }, 1000);
   }
@@ -347,7 +358,7 @@ class StartTrainingPage {
     const backLayer = <HTMLElement>(
       document.querySelector(".pause-modal__backlayer")
     );
-    document.body.removeChild(backLayer);
+    backLayer.remove();
   }
 }
 

@@ -137,7 +137,6 @@ class ExercisesPage {
       return;
     }
     const stat = await this.complex.getWeeklyStatistic(userId1);
-    console.log(stat);
     const weekGoalCont: HTMLElement = this.template.createElement(
       "div",
       "week-goal-cont"
@@ -154,15 +153,23 @@ class ExercisesPage {
     const weekGoalNum: HTMLElement = this.template.createElement(
       "div",
       "week-goal-num",
-      "0/0"
+      `${stat?.weeklyWorkouts.length}/${stat?.load}`
     );
     statCont.append(weekGoalText, weekGoalNum);
-    const daysCont: HTMLElement = this.createDaysCont();
-    weekGoalCont.append(statCont, daysCont);
+    const daysCont = await this.createDaysCont();
+    weekGoalCont.append(statCont);
+    if (daysCont) {
+      weekGoalCont.append(daysCont);
+    }
     return weekGoalCont;
   }
 
-  private createDaysCont(): HTMLElement {
+  private async createDaysCont() {
+    const userId1: string | undefined = getUserIdLocalStorage();
+    if (!userId1) {
+      return;
+    }
+    const stat = await this.complex.getWeeklyStatistic(userId1);
     const WEEKDAYS: string[] = [
       "Mon",
       "Tue",
@@ -190,6 +197,9 @@ class ExercisesPage {
       daysCont.append(circle);
       const checkMark = this.template.createElement("div", "check-mark");
       checkMark.classList.add("hidden");
+      if (stat?.weeklyWorkouts.includes(i + 1)) {
+        checkMark.classList.remove("hidden");
+      }
       circle.append(checkMark);
     }
     return daysCont;

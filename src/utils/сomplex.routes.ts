@@ -106,6 +106,30 @@ class Complex {
       }
     }
   }
+
+  public async updateExercise(
+    id: string,
+    data: Record<string, string>
+  ): Promise<ICreateExercise | undefined> {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/exercise/update/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const res: ICreateExercise = await response.json();
+      return res;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      }
+    }
+  }
 }
 
 export default Complex;

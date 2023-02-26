@@ -233,9 +233,6 @@ class Slider {
   }
 
   async changeExerciseContent(prevBtn: HTMLElement, nextBtn: HTMLElement) {
-    // const workoutPlansInStore = JSON.parse(
-    //   localStorage.getItem("workoutPlans") || "[]"
-    // );
     const addNewComplex = new AddNewComplex();
     const serverData = await addNewComplex.creatingArrayFromData();
     let data: IWorkoutPlan[] = [];
@@ -276,8 +273,9 @@ class Slider {
       const exercisesContainer = document.querySelector(
         ".exercises-wrapper"
       ) as HTMLElement;
+      const newExercises = await slider.createExercises(i, j);
       exercisesContainer.innerHTML = "";
-      exercisesContainer.append(await slider.createExercises(i, j));
+      exercisesContainer.append(newExercises);
     });
     prevBtn.addEventListener("click", async () => {
       if (j > 0) {
@@ -295,8 +293,9 @@ class Slider {
       const exercisesContainer = document.querySelector(
         ".exercises-wrapper"
       ) as HTMLElement;
+      const newExercises = await slider.createExercises(i, j);
       exercisesContainer.innerHTML = "";
-      exercisesContainer.append(await slider.createExercises(i, j));
+      exercisesContainer.append(newExercises);
     });
   }
 

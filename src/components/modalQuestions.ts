@@ -168,7 +168,7 @@ class ModalQuestions {
         question: "What load would you like?",
         name: "load",
         nameBtn: ["Low", "Middle", "High"],
-        values: ["Low", "Middle", "High"],
+        values: ["1", "3", "5"],
       },
     ];
 

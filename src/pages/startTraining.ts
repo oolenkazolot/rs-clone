@@ -57,7 +57,7 @@ class StartTrainingPage {
         .includes("x")
     ) {
       curExercise.createCountDown();
-      // document.body.style.pointerEvents = "none";
+
       curExercise.hideExerciseLinks();
       curExercise.disablePreviousButton();
       curExercise.disableSkipButton();
@@ -301,7 +301,6 @@ class StartTrainingPage {
   }
 
   createThreeCount(): void {
-    // document.body.style.pointerEvents = "none";
     const threeCounter: HTMLElement = this.template.createElement(
       "div",
       "counter-three"

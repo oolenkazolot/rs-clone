@@ -48,6 +48,10 @@ class Header {
       "Women Workouts"
     );
     logo.append(spanOne, spanTwo);
+    logo.addEventListener("click", (e) => {
+      e.preventDefault();
+      router.navigate("");
+    });
     return logo;
   }
 

@@ -31,30 +31,16 @@ class ExerciseBlock {
     this.createCounter();
     this.createNavigationButtons();
 
-    this.exerciseBlock.addEventListener("click", (e) => {
-      const target = <HTMLButtonElement>e.target;
-      if (target.classList.contains("pause-modal__button-continue")) {
-        document.body.style.overflow = "";
-        clearInterval(this.interval);
-        this.createThreeCount();
-        setTimeout(() => {
-          const duration = this.getExerciseDuration();
-          this.setTimeCounter(duration);
-          document.body.style.pointerEvents = "";
-        }, 3000);
-      }
-    });
-
     return this.exerciseBlock;
   }
 
-  private getExerciseDuration(): number {
-    const durMins = Number(this.exercise.quantity.slice(0, 2));
-    const durSeconds = Number(this.exercise.quantity.slice(3));
-    const duration: number =
-      durMins !== 0 ? durMins * 60 + durSeconds : durSeconds;
-    return duration;
-  }
+  // getExerciseDuration(exercise: IExercise): number {
+  //   const durMins = Number(exercise.quantity.slice(0, 2));
+  //   const durSeconds = Number(exercise.quantity.slice(3));
+  //   const duration: number =
+  //     durMins !== 0 ? durMins * 60 + durSeconds : durSeconds;
+  //   return duration;
+  // }
 
   private createBlocksHeader(): void {
     const blockHeader: HTMLElement = this.template.createElement(
@@ -148,61 +134,7 @@ class ExerciseBlock {
       "Next"
     );
     timeBar.append(track, pauseButton, nextButton);
-
-    clearInterval(this.interval);
-    this.createThreeCount();
-    setTimeout(() => {
-      const duration = this.getExerciseDuration();
-      this.setTimeCounter(duration);
-      document.body.style.pointerEvents = "";
-    }, 3000);
-
-    pauseButton.addEventListener("click", (e) => {
-      e.preventDefault();
-      clearInterval(this.interval);
-      document.body.style.overflow = "hidden";
-      const modal = new PauseModal(this.exercise);
-      const pauseModal = modal.draw();
-      this.exerciseBlock.append(pauseModal);
-    });
-
     return timeBar;
-  }
-
-  setTimeCounter(duration: number): void {
-    clearInterval(this.interval);
-    this.interval = setInterval(() => {
-      const quantity = <HTMLElement>(
-        document.querySelector(".exercise-block__current-quantity")
-      );
-      const timeLeft = quantity.textContent;
-      let minutes = timeLeft?.slice(0, 2);
-      let seconds = timeLeft?.slice(3);
-      if (Number(seconds) === 0) {
-        if (Number(minutes) === 0) {
-          clearInterval(this.interval);
-          this.showNextButton();
-        }
-        if (Number(minutes) > 0 && Number(minutes) <= 10) {
-          minutes = `0${Number(minutes) - 1}`;
-          seconds = "59";
-        }
-      } else {
-        seconds = `${Number(seconds) - 1}`;
-        if (Number(seconds) < 10) {
-          seconds = `0${seconds}`;
-        }
-      }
-      quantity.textContent = `${minutes}:${seconds}`;
-      const widthEl = <HTMLElement>(
-        document.querySelector(".exercise-block__time-bar")
-      );
-      const maxWidth = widthEl.clientWidth;
-      const track = <HTMLElement>(
-        document.querySelector(".exercise-block__track")
-      );
-      track.style.width = `${(maxWidth / duration) * Number(seconds)}px`;
-    }, 1000);
   }
 
   private createNavigationButtons(): void {
@@ -224,18 +156,6 @@ class ExerciseBlock {
     );
     navigationButtons.append(previousButton, delim, skipButton);
     this.exerciseBlock.append(navigationButtons);
-
-    previousButton.addEventListener("click", () => {
-      if (this.interval !== undefined) {
-        clearInterval(this.interval);
-      }
-    });
-
-    skipButton.addEventListener("click", () => {
-      if (this.interval !== undefined) {
-        clearInterval(this.interval);
-      }
-    });
   }
 
   hideExerciseLinks(): void {
@@ -364,6 +284,7 @@ class ExerciseBlock {
         readyText.style.display = "none";
         this.showExerciseLinks();
         this.enableSkipButton();
+        document.body.style.pointerEvents = "";
       }
       countNumber.textContent = `${curNumber}`;
       svgCircle2.style.strokeDashoffset = `${440 - (440 * curNumber) / 10}`;

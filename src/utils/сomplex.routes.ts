@@ -3,6 +3,8 @@ import {
   IDataComplex,
   ICreateExercise,
   IServerExercises,
+  ICompletedComplexesReceived,
+  IFulfilledComplexReturned,
 } from "../types/index";
 
 class Complex {
@@ -123,6 +125,48 @@ class Complex {
         }
       );
       const res: ICreateExercise = await response.json();
+      return res;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      }
+    }
+  }
+
+  public async fulfilledComplex(
+    data: Record<string, string>
+  ): Promise<IFulfilledComplexReturned | undefined> {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/completed/create",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const res: IFulfilledComplexReturned = await response.json();
+      return res;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      }
+    }
+  }
+
+  public async getCompletedComplexes(
+    id: string
+  ): Promise<ICompletedComplexesReceived | undefined> {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/completed/get-all/${id}`
+      );
+      const res: Promise<
+        ICompletedComplexesReceived | undefined
+      > = await response.json();
+
       return res;
     } catch (e) {
       if (e instanceof Error) {

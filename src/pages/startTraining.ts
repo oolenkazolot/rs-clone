@@ -150,13 +150,13 @@ class StartTrainingPage {
     this.autoChange();
   }
 
-  private showCongrats(counter: number, time: number) {
+  private async showCongrats(counter: number, time: number) {
     const pageContent = <HTMLElement>(
       document.querySelector(".startTraining-page")
     );
     const congrats = new Congrats(counter, time);
     pageContent.innerHTML = "";
-    pageContent.append(congrats.draw());
+    pageContent.append(await congrats.draw());
 
     const completeBtn = <HTMLAnchorElement>(
       document.querySelector(".congrats__button-complete")

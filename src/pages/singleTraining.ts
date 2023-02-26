@@ -169,6 +169,14 @@ class SingleTrainingPage {
       "header-upper__return",
       "/workouts"
     );
+    returnButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      const mainElement: HTMLElement | null = document.querySelector("main");
+      if (mainElement) {
+        mainElement.innerHTML = "";
+        router.navigate("workouts");
+      }
+    });
     const trainingsName: HTMLSpanElement = document.createElement("span");
     trainingsName.className = "header-upper__name";
     trainingsName.textContent = this.title;

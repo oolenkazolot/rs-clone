@@ -48,7 +48,7 @@
 
 .stat-wrapper {
   display: flex;
-  flex-direction: column;
+  gap: 3px;
   align-items: center;
 }
 
@@ -370,4 +370,8 @@
 
 .link-to-startTraining {
   display: block;
+}
+
+.days-circle-pink {
+  color: $color-pink;
 }

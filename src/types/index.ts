@@ -25,13 +25,9 @@ export interface ISingleTrainingPage {
 export interface IAuthorization {
   registration: (data: IRegistrationData) => Promise<IAnswerAuth | undefined>;
   authorization: (data: IAuthorizationData) => Promise<IAnswerAuth | undefined>;
-  createUserInfo: (
-    data: Record<string, string>
-  ) => Promise<IAnswerAddUserInfo | undefined>;
+  createUserInfo: (data: Record<string, string>) => Promise<IAnswerAddUserInfo | undefined>;
   getUserInfo: (id: string) => Promise<Record<string, string> | undefined>;
-  updateUserInfo: (
-    dataEditProfile: IDataEditProfile
-  ) => Promise<IAnswerAddUserInfo | undefined>;
+  updateUserInfo: (dataEditProfile: IDataEditProfile) => Promise<IAnswerAddUserInfo | undefined>;
 }
 
 export interface IAnswerAuth {
@@ -51,42 +47,16 @@ export interface IAuthorizationData {
 }
 
 export interface ITemplate {
-  createElement: (
-    tagName: string,
-    myClass: string,
-    content?: string
-  ) => HTMLElement;
-  createLink: (
-    myClass: string,
-    href: string,
-    content?: string
-  ) => HTMLAnchorElement;
-  createBtn: (
-    myClass: string,
-    content?: string | HTMLElement | undefined,
-    type?: string
-  ) => HTMLButtonElement;
+  createElement: (tagName: string, myClass: string, content?: string) => HTMLElement;
+  createLink: (myClass: string, href: string, content?: string) => HTMLAnchorElement;
+  createBtn: (myClass: string, content?: string | HTMLElement | undefined, type?: string) => HTMLButtonElement;
   createForm: (className: string, action: string) => HTMLFormElement;
   createIcon: (className: string, classNameIcon: string) => HTMLElement;
   createVideo: (src: string) => HTMLVideoElement;
-  createImage: (
-    src: string,
-    alt: string,
-    imgClassName: string
-  ) => HTMLImageElement;
-  createLabel: (
-    className?: string | undefined,
-    forName?: string | undefined,
-    content?: string | undefined
-  ) => HTMLLabelElement;
-  createInput: (
-    mainClass: string,
-    attributes: Record<string, string>
-  ) => HTMLInputElement;
-  addAttributes: (
-    input: HTMLInputElement,
-    attributes: Record<string, string>
-  ) => void;
+  createImage: (src: string, alt: string, imgClassName: string) => HTMLImageElement;
+  createLabel: (className?: string | undefined, forName?: string | undefined, content?: string | undefined) => HTMLLabelElement;
+  createInput: (mainClass: string, attributes: Record<string, string>) => HTMLInputElement;
+  addAttributes: (input: HTMLInputElement, attributes: Record<string, string>) => void;
 }
 
 export interface IHeader {
@@ -107,11 +77,7 @@ export interface IButton {
 }
 
 export interface IModal {
-  createModal: (
-    id: string,
-    content: HTMLElement,
-    isShowIconClose: boolean
-  ) => HTMLElement;
+  createModal: (id: string, content: HTMLElement, isShowIconClose: boolean) => HTMLElement;
 }
 
 export interface IInputIcon {
@@ -171,13 +137,7 @@ export interface IDataUser {
 export interface IWorkoutBlock {
   createWorkoutBlockCont: (titleText: string) => HTMLElement;
   createTitle: (titleText: string) => HTMLElement;
-  createWorkoutContent: (
-    data: IWorkoutMiniBlock,
-    j: number,
-    i: number,
-    flag: boolean,
-    length: number
-  ) => HTMLElement;
+  createWorkoutContent: (data: IWorkoutMiniBlock, j: number, i: number, flag: boolean, length: number) => HTMLElement;
   createTextBlock: (
     descrTitleText: string,
 
@@ -189,13 +149,7 @@ export interface IWorkoutBlock {
 
     complexityLevel?: boolean
   ) => HTMLElement;
-  createPngImage: (
-    i: number,
-    j: number,
-    additClass: string,
-    flag: boolean,
-    length: number
-  ) => HTMLElement;
+  createPngImage: (i: number, j: number, additClass: string, flag: boolean, length: number) => HTMLElement;
   createExercCont: (exercAmt: string) => HTMLElement;
   createTimeCont: (time: string) => HTMLElement;
   createLightnings: (j: number) => HTMLElement;
@@ -264,25 +218,10 @@ export type ISingleTraining = {
 };
 
 export interface ISlider {
-  createNextPrevBtns: (
-    length: number,
-    wrapper: HTMLElement,
-    flag: boolean
-  ) => HTMLElement;
-  slider: (
-    nextBtn: HTMLButtonElement,
-    prevBtn: HTMLButtonElement,
-    wrapper: HTMLElement,
-    length: number,
-    flag: boolean
-  ) => void;
+  createNextPrevBtns: (length: number, wrapper: HTMLElement, flag: boolean) => HTMLElement;
+  slider: (nextBtn: HTMLButtonElement, prevBtn: HTMLButtonElement, wrapper: HTMLElement, length: number, flag: boolean) => void;
   changeImgSise: (flag: boolean, n: number, length: number) => void;
-  slide: (
-    nextBtn: HTMLButtonElement,
-    prevBtn: HTMLButtonElement,
-    wrapper: HTMLElement,
-    length: number
-  ) => void;
+  slide: (nextBtn: HTMLButtonElement, prevBtn: HTMLButtonElement, wrapper: HTMLElement, length: number) => void;
   changeImgSizeInf: (direct: string) => void;
   createExercises: (i: number, j: number) => HTMLElement;
   changeExerciseContent: (prevBtn: HTMLElement, nextBtn: HTMLElement) => void;
@@ -317,9 +256,7 @@ export type ILineItem = {
 };
 
 export type IModalEditProfile = {
-  createModal: (
-    drawProfilePage: () => Promise<void>
-  ) => Promise<HTMLElement | undefined>;
+  createModal: (drawProfilePage: () => Promise<void>) => Promise<HTMLElement | undefined>;
 };
 
 export interface IDataEditProfile {
@@ -367,4 +304,26 @@ export interface IParamsWeightChart {
 
 export interface IWeightChartComponent {
   getChart: () => HTMLElement;
+}
+
+export interface ICompletedComplexesReceived {
+  totalCompletedComplexes: number;
+  totalTime: {
+    hours: number;
+    minutes: number;
+  };
+}
+
+export interface IFulfilledComplexReturned {
+  userId: string;
+  idComplex: string;
+  date: string;
+  time: number;
+  _id: 'string';
+  _v: number;
+}
+
+export interface IWeeklyStat {
+  weeklyWorkouts: number[];
+  goal: string;
 }

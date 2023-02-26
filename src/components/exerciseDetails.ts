@@ -31,7 +31,11 @@ class ExerciseDetails {
     this.complex = new Complex();
   }
 
-  public async draw(exercises: IExerciseAdd, flag: boolean) {
+  public async draw(
+    exercises: IExerciseAdd,
+    flag: boolean,
+    flagTrash?: boolean
+  ) {
     this.backLayer.append(this.modal);
     const complexId = localStorage.getItem("complexId");
     const trashIcon = this.template.createElement("div", "dateils__trash-icon");
@@ -50,7 +54,10 @@ class ExerciseDetails {
     const closeButton: HTMLButtonElement = this.template.createBtn(
       "exercise-modal__button-close"
     );
-    this.modal.append(trashIcon, closeButton);
+    if (!flagTrash) {
+      this.modal.append(trashIcon);
+    }
+    this.modal.append(closeButton);
 
     const exerciseGif: HTMLImageElement = document.createElement("img");
     exerciseGif.className = "exercise-modal__gif";
@@ -157,13 +164,16 @@ class ExerciseDetails {
       "save"
     );
     saveButton.setAttribute("id", String(this.exercise.id));
-    if (flag) {
-      saveButton.addEventListener("click", async () => {
-        const exerciseCount = document.querySelector(
-          ".exercise-modal__current-quantity"
-        ) as HTMLElement;
-        const exerciseId = saveButton.getAttribute("id");
-        const complexId = JSON.parse(String(localStorage.getItem("complexId")));
+    saveButton.addEventListener("click", async () => {
+      const exerciseCount = document.querySelector(
+        ".exercise-modal__current-quantity"
+      ) as HTMLElement;
+      const trashIcon = document.querySelector(
+        ".dateils__trash-icon"
+      ) as HTMLElement;
+      const exerciseId = saveButton.getAttribute("id");
+      const complexId = JSON.parse(String(localStorage.getItem("complexId")));
+      if (flag) {
         if (exerciseId && complexId) {
           await this.complex.createExercise({
             idComplex: complexId,
@@ -171,10 +181,19 @@ class ExerciseDetails {
             count: exerciseCount.innerHTML,
           });
         }
-        this.forClickOnSaveBtn();
-        this.createServerExercises(complexId);
-      });
-    }
+      } else {
+        const exerciseIdServer = trashIcon.getAttribute("serverId");
+        if (exerciseId && complexId && exerciseIdServer) {
+          await this.complex.updateExercise(exerciseIdServer, {
+            idComplex: complexId,
+            idExercise: exerciseId,
+            count: exerciseCount.innerHTML,
+          });
+        }
+      }
+      this.forClickOnSaveBtn();
+      this.createServerExercises(complexId);
+    });
     changeButtons.append(cancelButton, saveButton);
     changeBlock.append(changeButtons);
 
@@ -197,13 +216,29 @@ class ExerciseDetails {
     const exerciseText = <string>curQuantitySpan.textContent;
     if (exerciseText.toLowerCase().includes("x")) {
       const curNumber = Number(exerciseText.slice(1));
-      if (curNumber === 0) {
+      if (curNumber === 1) {
         return;
       }
       curQuantitySpan.textContent = `X${curNumber - 1}`;
     } else {
-      const minutes: string = exerciseText.slice(0, 2);
-      const seconds: string = exerciseText.slice(3);
+      let minutes: string = exerciseText.slice(0, 2);
+      let seconds: string = exerciseText.slice(3);
+      if (Number(seconds) === 1 && Number(minutes) === 0) {
+        return;
+      } else if (Number(seconds) === 0) {
+        if (Number(minutes) < 10) {
+          minutes = `0${Number(minutes) - 1}`;
+        } else {
+          minutes = `${Number(minutes) - 1}`;
+        }
+        seconds = "59";
+      } else {
+        if (Number(seconds) <= 10) {
+          seconds = `0${Number(seconds) - 1}`;
+        } else {
+          seconds = `${Number(seconds) - 1}`;
+        }
+      }
       curQuantitySpan.textContent = `${minutes}:${seconds}`;
     }
   }
@@ -239,15 +274,6 @@ class ExerciseDetails {
 
   async forClickOnSaveBtn() {
     this.closeExerciseModal();
-    const largeWrapper = document.querySelector(
-      ".training__exercises"
-    ) as HTMLElement;
-    const plus: HTMLElement = this.workoutBlock.createAddWorkoutPlanCont(
-      "Add new exercises",
-      false
-    );
-    plus.classList.add("singl-train__plus");
-    largeWrapper.append(plus);
   }
 
   async forClickOnDelBtn() {
@@ -268,53 +294,29 @@ class ExerciseDetails {
     const largeWrapper = document.querySelector(
       ".training__exercises"
     ) as HTMLElement;
-    if (exerciseWrapper) {
-      exerciseWrapper.innerHTML = "";
-      if (exercises) {
-        exercQt.innerHTML = `${String(exercises.length)} exercises`;
-        exercTime.innerHTML = `${String(
-          Math.round((exercises.length * 45) / 60)
-        )} minutes`;
-        for (let i = 0; i < exercises.length; i++) {
-          const id = exercises[i].idExercise;
-          const serverId = exercises[i]._id;
-          const serverQt = exercises[i].count;
-          trainingsData.trainings.forEach((el) => {
-            if (String(el.id) === id) {
-              const exercise = new Exercise(
-                this.createObj(el, serverId, serverQt),
-                true
-              ).draw();
-              exerciseWrapper.append(exercise);
-            }
-          });
-        }
+    largeWrapper.innerHTML = "";
+    if (exercises) {
+      exercQt.innerHTML = String(exercises.length);
+      exercTime.innerHTML = String(Math.round((exercises.length * 45) / 60));
+      for (let i = 0; i < exercises.length; i++) {
+        const id = exercises[i].idExercise;
+        const serverId = exercises[i]._id;
+        const serverQt = exercises[i].count;
+        trainingsData.trainings.forEach((el) => {
+          if (String(el.id) === id) {
+            const exercise = new Exercise(
+              this.createObj(el, serverId, serverQt),
+              true
+            ).draw();
+            largeWrapper.append(exercise);
+          }
+        });
       }
-    } else {
-      largeWrapper.innerHTML = "";
-      if (exercises) {
-        exercQt.innerHTML = String(exercises.length);
-        exercTime.innerHTML = String(Math.round((exercises.length * 45) / 60));
-        for (let i = 0; i < exercises.length; i++) {
-          const id = exercises[i].idExercise;
-          const serverId = exercises[i]._id;
-          const serverQt = exercises[i].count;
-          trainingsData.trainings.forEach((el) => {
-            if (String(el.id) === id) {
-              const exercise = new Exercise(
-                this.createObj(el, serverId, serverQt),
-                true
-              ).draw();
-              largeWrapper.append(exercise);
-            }
-          });
-        }
-        const plus: HTMLElement = this.workoutBlock.createAddWorkoutPlanCont(
-          "Add new exercises",
-          false
-        );
-        largeWrapper.append(plus);
-      }
+      const plus: HTMLElement = this.workoutBlock.createAddWorkoutPlanCont(
+        "Add new exercises",
+        false
+      );
+      largeWrapper.append(plus);
     }
   }
 

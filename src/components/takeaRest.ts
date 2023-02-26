@@ -61,7 +61,6 @@ class TakeARest {
     settingsEl.innerHTML = settings;
     settingsCont.append(image, settingsEl);
     header.append(arrow, settingsCont);
-    console.log("here");
     return header;
   }
 

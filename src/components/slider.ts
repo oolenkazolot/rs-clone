@@ -233,9 +233,6 @@ class Slider {
   }
 
   async changeExerciseContent(prevBtn: HTMLElement, nextBtn: HTMLElement) {
-    // const workoutPlansInStore = JSON.parse(
-    //   localStorage.getItem("workoutPlans") || "[]"
-    // );
     const addNewComplex = new AddNewComplex();
     const serverData = await addNewComplex.creatingArrayFromData();
     let data: IWorkoutPlan[] = [];

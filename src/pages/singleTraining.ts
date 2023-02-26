@@ -227,7 +227,8 @@ class SingleTrainingPage {
       "/startTraining",
       "Start now"
     );
-    startButton.addEventListener("click", (e) => {
+    const link = this.template.createElement("a", "link-to-exerc");
+    link.addEventListener("click", (e) => {
       e.preventDefault();
       const mainElement: HTMLElement | null = document.querySelector("main");
       if (mainElement) {
@@ -235,7 +236,8 @@ class SingleTrainingPage {
         router.navigate("startTraining");
       }
     });
-    header.append(startButton);
+    link.append(startButton);
+    header.append(link);
     return header;
   }
 

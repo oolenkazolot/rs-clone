@@ -35,7 +35,7 @@ class AddNewComplex {
       const button = this.template.createBtn("add-exerc-btn", "add");
       button.addEventListener("click", () => {
         const exerciseDetails = new ExerciseDetails(exerciseData);
-        exerciseDetails.draw(trainingsData.trainings[i], true);
+        exerciseDetails.draw(trainingsData.trainings[i], true, true);
       });
       exercWrapper.append(button);
     }

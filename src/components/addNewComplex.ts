@@ -21,7 +21,7 @@ class AddNewComplex {
     this.complex = new Complex();
   }
 
-  showExercises(): HTMLElement {
+  showExercises(flag: boolean): HTMLElement {
     const exercisesWrapper = this.template.createElement(
       "div",
       "exercises-wrapper"
@@ -29,13 +29,13 @@ class AddNewComplex {
     for (let i = 0; i < trainingsData.trainings.length; i++) {
       const exercWrapper = this.template.createElement("div", "wrap-exercise");
       const exerciseData = trainingsData.trainings[i];
-      const exercise = new Exercise(exerciseData, false).draw();
+      const exercise = new Exercise(exerciseData, flag).draw();
       exercWrapper.append(exercise);
       exercisesWrapper.append(exercWrapper);
       const button = this.template.createBtn("add-exerc-btn", "add");
       button.addEventListener("click", () => {
         const exerciseDetails = new ExerciseDetails(exerciseData);
-        exerciseDetails.draw(trainingsData.trainings[i]);
+        exerciseDetails.draw(trainingsData.trainings[i], true);
       });
       exercWrapper.append(button);
     }
@@ -63,49 +63,6 @@ class AddNewComplex {
     const input: HTMLInputElement = document.querySelector(
       ".modal-addNewComplex__input"
     ) as HTMLInputElement;
-    const dataInStorage: IWorkoutPlan[] = JSON.parse(
-      localStorage.getItem("workoutPlans") || "[]"
-    );
-
-    let newBlock: ISingleTraining;
-    if (dataInStorage.length) {
-      newBlock = {
-        id: dataInStorage[0].block[dataInStorage[0].block.length - 1].id + 1,
-        title: input.value || "no name",
-        exercisesAmt: "0",
-        exercisesTime: "0",
-        image: "../assets/png/whole_body2.png",
-        color:
-          "linear-gradient(90deg, rgb(241, 147, 215) 0%, rgb(245, 237, 238) 100%)",
-        exercises: [],
-      };
-    } else {
-      newBlock = {
-        id: 12,
-        title: input.value || "no name",
-        exercisesAmt: "0",
-        exercisesTime: "0",
-        image: "../assets/png/whole_body2.png",
-        color:
-          "linear-gradient(90deg, rgb(241, 147, 215) 0%, rgb(245, 237, 238) 100%)",
-        exercises: [],
-      };
-    }
-    let data: IWorkoutPlan[];
-
-    if (dataInStorage.length) {
-      dataInStorage[0].block.push(newBlock);
-      data = dataInStorage;
-    } else {
-      data = [
-        {
-          title: "Workouts you created",
-          image: "",
-          block: [newBlock],
-        },
-      ];
-    }
-    localStorage.setItem("workoutPlans", JSON.stringify(data));
 
     const userId1: string | undefined = getUserIdLocalStorage();
     if (!userId1) {
@@ -115,43 +72,6 @@ class AddNewComplex {
       userId: userId1,
       name: input.value || "no name",
     });
-  }
-
-  addExerciseInLocalStorage(exercId: number): void {
-    const dataInStorage: IWorkoutPlan[] = JSON.parse(
-      localStorage.getItem("workoutPlans") || "[]"
-    );
-    const id = localStorage.getItem("complexId");
-
-    for (let i = 0; i < dataInStorage[0].block.length; i++) {
-      const comlex = dataInStorage[0].block[i];
-      if (String(comlex.id) === id) {
-        dataInStorage[0].block[i].exercises.push(
-          trainingsData.trainings[exercId - 1]
-        );
-      }
-    }
-    localStorage.setItem("workoutPlans", JSON.stringify(dataInStorage));
-  }
-
-  deleteExerciseFromLocalStorage(exercId: number): void {
-    const dataInStorage: IWorkoutPlan[] = JSON.parse(
-      localStorage.getItem("workoutPlans") || "[]"
-    );
-    const id = localStorage.getItem("complexId");
-    for (let i = 0; i < dataInStorage[0].block.length; i++) {
-      const comlex = dataInStorage[0].block[i];
-      if (String(comlex.id) === id) {
-        const exercises = dataInStorage[0].block[i].exercises;
-        exercises.forEach((el, index) => {
-          if (el.id === exercId) {
-            console.log(el.id);
-            exercises.splice(index, 1);
-          }
-        });
-      }
-    }
-    localStorage.setItem("workoutPlans", JSON.stringify(dataInStorage));
   }
 
   createSelectExercises(): HTMLElement {
@@ -174,9 +94,6 @@ class AddNewComplex {
 
   async creatingArrayFromData() {
     const data = await this.getComplexes();
-    if (data) {
-      const a = data[0];
-    }
     const array: IWorkoutPlan[] = [
       {
         title: "Workouts you created",
@@ -187,8 +104,8 @@ class AddNewComplex {
     if (data !== undefined) {
       for (let i = 0; i < Number(data.length); i++) {
         const elem: ISingleTraining = {
-          id: 12 + i,
-          title: "kjh;kj",
+          id: data[i]._id,
+          title: data[i].name,
           exercisesAmt: "0",
           exercisesTime: "0",
           image: "../assets/png/whole_body2.png",
@@ -199,6 +116,7 @@ class AddNewComplex {
         array[0].block.push(elem);
       }
     }
+    return array;
   }
 }
 

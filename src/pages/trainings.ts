@@ -11,11 +11,12 @@ import WorkoutBlock from "../components/workoutBlock";
 import Slider from "../components/slider";
 import AddNewComplex from "../components/addNewComplex";
 import Complex from "../utils/сomplex.routes";
+import SingleTrainingPage from "./singleTraining";
 
 class TrainingsPage {
   template: ITemplate;
   workoutBlock: IWorkoutBlock;
-  slider: ISlider;
+  slider;
   addNewComplex;
   complex;
   constructor() {
@@ -27,7 +28,6 @@ class TrainingsPage {
   }
 
   public async draw() {
-    await this.addNewComplex.creatingArrayFromData();
     const mainElement: HTMLElement | null = document.querySelector("main");
     if (!mainElement) {
       return;
@@ -41,8 +41,8 @@ class TrainingsPage {
     mainPageElement.append(
       this.createTitle(),
       this.workoutBlock.createAddWorkoutPlanCont("Add new workout", true),
-      this.createWrapper(),
-      this.createModal()
+      await this.createWrapper(),
+      await this.createModal()
     );
   }
 
@@ -55,24 +55,40 @@ class TrainingsPage {
     return title;
   }
 
-  private createWrapper(): HTMLElement {
+  private async createWrapper() {
     const wrapper = this.template.createElement(
       "div",
       "trainings__content-wrapper"
     );
-    wrapper.append(this.createContent());
+    wrapper.append(await this.createContent());
     return wrapper;
   }
 
-  private createContent(): HTMLElement {
+  private async createContent() {
     const contentContainer: HTMLElement = this.template.createElement(
       "div",
       "workout-content-cont"
     );
-    const workoutPlansInStore = JSON.parse(
-      localStorage.getItem("workoutPlans") || "[]"
-    );
-    const data = [...workoutPlansInStore, ...workout_plans];
+    const serverData = await this.addNewComplex.creatingArrayFromData();
+    // const workoutPlansInStore = JSON.parse(
+    //   localStorage.getItem("workoutPlans") || "[]"
+    // );
+    for (let i = 0; i < serverData[0].block.length; i++) {
+      const id = String(serverData[0].block[i].id);
+      const singleTraining = new SingleTrainingPage();
+      const exercisesTransformed = await singleTraining.transformExercises(id);
+      for (let i = 0; i < serverData[0].block.length; i++) {
+        if (id === serverData[0].block[i].id) {
+          serverData[0].block[i].exercises.push(...exercisesTransformed);
+        }
+      }
+    }
+    let data = [];
+    if (serverData.length && serverData[0].block.length) {
+      data = [...serverData, ...workout_plans];
+    } else {
+      data = [...workout_plans];
+    }
     for (let i = 0; i < data.length; i++) {
       const workoutBlock: HTMLElement = this.workoutBlock.createWorkoutBlockCont(
         data[i].title
@@ -83,12 +99,13 @@ class TrainingsPage {
       const buttons = this.slider.createNextPrevBtns(
         data[i].block.length,
         wrapper,
-        false
+        false,
+        wrapper
       );
       workoutBlock.append(buttons);
       for (let j = 0; j < data[i].block.length; j++) {
         const link = this.template.createElement("a", "link-to-exerc");
-        const id: number = data[i].block[j].id;
+        const id: number | string = data[i].block[j].id;
         link.addEventListener("click", (e) => {
           e.preventDefault();
           const mainElement: HTMLElement | null = document.querySelector(
@@ -116,7 +133,7 @@ class TrainingsPage {
     return contentContainer;
   }
 
-  private createModal(): HTMLElement {
+  private async createModal() {
     const modal: HTMLElement = this.template.createElement(
       "div",
       "modal-addNewComplex"
@@ -149,14 +166,14 @@ class TrainingsPage {
       "modal-addNewComplex__create",
       "Create"
     );
-    create.addEventListener("click", () => {
-      this.addNewComplex.addComplexInLocalStore();
+    create.addEventListener("click", async () => {
+      await this.addNewComplex.addComplexInLocalStore();
       modal.classList.add("invisible");
       const contentWrapper = document.querySelector(
         ".trainings__content-wrapper"
       ) as HTMLElement;
       contentWrapper.innerHTML = "";
-      contentWrapper.append(this.createContent());
+      contentWrapper.append(await this.createContent());
     });
     buttons.append(cancel, create);
     wrapper.append(title, input, buttons);

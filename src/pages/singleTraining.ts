@@ -6,9 +6,13 @@ import {
   IExercise,
   ISingleTraining,
   IWorkoutBlock,
+  IExerciseAdd,
 } from "../types/index";
 import workout_plans from "../utils/workout-plans-en";
 import WorkoutBlock from "../components/workoutBlock";
+import AddNewComplex from "../components/addNewComplex";
+import Complex from "../utils/сomplex.routes";
+import trainingsData from "../utils/trainings-data-en";
 
 class SingleTrainingPage {
   template: ITemplate;
@@ -19,6 +23,8 @@ class SingleTrainingPage {
   title: string;
   workout: ISingleTraining | undefined;
   workoutBlock: IWorkoutBlock;
+  addNewComplex;
+  complex;
 
   constructor() {
     this.template = new Template();
@@ -29,9 +35,11 @@ class SingleTrainingPage {
     this.title = "";
     this.workout;
     this.workoutBlock = new WorkoutBlock();
+    this.addNewComplex = new AddNewComplex();
+    this.complex = new Complex();
   }
 
-  public draw(id: string | undefined): void {
+  public async draw(id: string | undefined) {
     const mainElement: HTMLElement | null = document.querySelector("main");
     if (!mainElement) {
       return;
@@ -42,21 +50,26 @@ class SingleTrainingPage {
     const mainPageElement: HTMLElement = document.createElement("div");
     mainPageElement.classList.add("training");
     mainElement.append(mainPageElement);
-    const workoutPlansInStore = JSON.parse(
-      localStorage.getItem("workoutPlans") || "[]"
-    );
-    const data = [...workoutPlansInStore, ...workout_plans];
-
+    // const workoutPlansInStore = JSON.parse(
+    //   localStorage.getItem("workoutPlans") || "[]"
+    // );
+    const serverData = await this.addNewComplex.creatingArrayFromData();
     if (id) {
+      const exercisesTransformed = await this.transformExercises(id);
+      for (let i = 0; i < serverData[0].block.length; i++) {
+        if (id === serverData[0].block[i].id) {
+          serverData[0].block[i].exercises.push(...exercisesTransformed);
+        }
+      }
+      const data = [...serverData, ...workout_plans];
       data.forEach((group) => {
         group.block.forEach((training: ISingleTraining) => {
-          if (training.id === Number(id)) {
+          if (String(training.id) === id) {
             this.workout = training;
           }
         });
       });
-
-      const pageHeader = this.createHeader(id);
+      const pageHeader = await this.createHeader(id);
       mainPageElement.append(pageHeader);
 
       const exercises = document.createElement("div");
@@ -64,7 +77,7 @@ class SingleTrainingPage {
       mainPageElement.append(exercises);
 
       this.workout?.exercises.forEach((exercise: IExercise) => {
-        if (Number(id) > 11) {
+        if (id.length > 2) {
           const newEx = new Exercise(exercise, true);
           exercises.append(newEx.draw());
         } else {
@@ -73,7 +86,7 @@ class SingleTrainingPage {
         }
       });
 
-      if (Number(id) > 11) {
+      if (id.length > 2) {
         const plus: HTMLElement = this.workoutBlock.createAddWorkoutPlanCont(
           "Add new exercises",
           false
@@ -95,17 +108,25 @@ class SingleTrainingPage {
     }
   }
 
-  private createHeader(id: string): HTMLElement {
-    const workoutPlansInStore = JSON.parse(
-      localStorage.getItem("workoutPlans") || "[]"
-    );
-    const data = [...workoutPlansInStore, ...workout_plans];
-
+  public async createHeader(id: string) {
+    // const workoutPlansInStore = JSON.parse(
+    //   localStorage.getItem("workoutPlans") || "[]"
+    // );
+    const serverData = await this.addNewComplex.creatingArrayFromData();
+    const exercises = await this.transformExercises(id);
+    for (let i = 0; i < serverData[0].block.length; i++) {
+      if (id === serverData[0].block[i].id) {
+        serverData[0].block[i].exercises.push(...exercises);
+      }
+    }
+    const data = [...serverData, ...workout_plans];
     data.forEach((plan) => {
       plan.block.forEach((training: ISingleTraining) => {
-        if (training.id === Number(id)) {
-          this.exQuantity = training.exercisesAmt;
-          this.exTime = training.exercisesTime;
+        if (String(training.id) === id) {
+          this.exQuantity = String(training.exercises.length);
+          this.exTime = String(
+            Math.round((training.exercises.length * 45) / 60)
+          );
           this.color = training.color;
           this.image = training.image;
           this.title = training.title;
@@ -131,7 +152,7 @@ class SingleTrainingPage {
       header.style.background = `url(${this.image}), ${this.color}`;
       header.style.backgroundRepeat = "no-repeat";
       header.style.backgroundPosition = "right bottom";
-      if (Number(id) > 11) {
+      if (id.length > 2) {
         header.style.backgroundPosition = "90% bottom";
       }
       header.style.backgroundSize = "contain";
@@ -158,17 +179,16 @@ class SingleTrainingPage {
     );
     trashIcon.setAttribute("id", id);
 
-    trashIcon.addEventListener("click", () => {
-      this.deleteComplex(trashIcon);
+    trashIcon.addEventListener("click", async () => {
+      await this.deleteComplex(trashIcon);
       const mainElement: HTMLElement | null = document.querySelector("main");
       if (mainElement) {
         mainElement.innerHTML = "";
         router.navigate(`workouts`);
       }
     });
-
     upperHeader.append(returnButton, trainingsName);
-    if (Number(id) > 11) {
+    if (id.length > 2) {
       upperHeader.append(trashIcon);
     }
 
@@ -203,20 +223,17 @@ class SingleTrainingPage {
     return header;
   }
 
-  private deleteComplex(element: HTMLElement): void {
-    let workoutPlansInStore = JSON.parse(
-      localStorage.getItem("workoutPlans") || "[]"
-    );
-    const block = workoutPlansInStore[0].block;
-    for (let i = 0; i < block.length; i++) {
-      if (block[i].id === Number(element.getAttribute("id"))) {
-        block.splice(i, 1);
-        if (!block.length) {
-          workoutPlansInStore = [];
-        }
+  private async deleteComplex(element: HTMLElement) {
+    const id = element.getAttribute("id");
+    if (id) {
+      await this.complex.deleteComplex(id);
+      const exercises = await this.complex.getExercises(id);
+      if (exercises) {
+        exercises.forEach(async (el) => {
+          await this.complex.deleteExercise(el._id);
+        });
       }
     }
-    localStorage.setItem("workoutPlans", JSON.stringify(workoutPlansInStore));
   }
 
   createDetailsModal(): HTMLElement {
@@ -226,6 +243,28 @@ class SingleTrainingPage {
     );
     modal.classList.add("invisible");
     return modal;
+  }
+
+  public async transformExercises(id: string) {
+    const exercisesFromServer = await this.complex.getExercises(id);
+    const exercises: IExerciseAdd[] = [];
+    exercisesFromServer?.forEach((el) => {
+      for (let i = 0; i < trainingsData.trainings.length; i++) {
+        if (el.idExercise === String(trainingsData.trainings[i].id)) {
+          const object: IExerciseAdd = {
+            id: trainingsData.trainings[i].id,
+            title: trainingsData.trainings[i].title,
+            description: trainingsData.trainings[i].description,
+            example: trainingsData.trainings[i].example,
+            youtube: trainingsData.trainings[i].youtube,
+            quantity: el.count,
+            serverId: el._id,
+          };
+          exercises.push(object);
+        }
+      }
+    });
+    return exercises;
   }
 }
 

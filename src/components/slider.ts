@@ -1,8 +1,10 @@
-import { ITemplate } from "../types";
+import { ITemplate, IWorkoutPlan } from "../types";
 import Template from "../templates/template";
 import workout_plans from "../utils/workout-plans-en";
 import Exercise from "./exercise";
 import Complex from "../utils/сomplex.routes";
+import AddNewComplex from "./addNewComplex";
+import SingleTrainingPage from "../pages/singleTraining";
 
 class Slider {
   template: ITemplate;
@@ -16,7 +18,8 @@ class Slider {
   public createNextPrevBtns(
     length: number,
     wrapper: HTMLElement,
-    flag: boolean
+    flag: boolean,
+    largeWrapper: HTMLElement
   ): HTMLElement {
     const buttonsCont: HTMLElement = this.template.createElement(
       "div",
@@ -38,7 +41,7 @@ class Slider {
     }
     buttonsCont.append(prevBtn, nextBtn);
     if (flag) {
-      this.slide(nextBtn, prevBtn, wrapper, length);
+      this.slide(nextBtn, prevBtn, wrapper, length, largeWrapper);
     } else {
       this.slider(nextBtn, prevBtn, wrapper, length, flag);
     }
@@ -118,36 +121,41 @@ class Slider {
     nextBtn: HTMLButtonElement,
     prevBtn: HTMLButtonElement,
     wrapper: HTMLElement,
-    length: number
+    length: number,
+    largeWrapper: HTMLElement
   ): void {
     let direction: number;
     const delta = 100 / length;
     nextBtn.addEventListener("click", function () {
       direction = -1;
       nextBtn.disabled = true;
-      wrapper.style.justifyContent = "flex-start";
+      // largeWrapper.style.alignItems = "flex-start";
       wrapper.style.transform = `translate(-${delta}%)`;
       slider.changeImgSizeInf("forward");
     });
     prevBtn.addEventListener("click", function () {
       direction = 1;
       prevBtn.disabled = true;
-      wrapper.style.justifyContent = "flex-end";
+      // largeWrapper.style.alignItems = "flex-end";
       wrapper.style.transform = `translate(${delta}%)`;
       slider.changeImgSizeInf("backward");
     });
 
     wrapper.addEventListener("transitionend", function () {
       if (direction === -1) {
-        if (wrapper.firstElementChild) {
-          wrapper.appendChild(wrapper.firstElementChild);
+        if (nextBtn.disabled) {
+          if (wrapper.firstElementChild) {
+            wrapper.appendChild(wrapper.firstElementChild);
+          }
+          nextBtn.disabled = false;
         }
-        nextBtn.disabled = false;
       } else if (direction === 1) {
-        if (wrapper.lastElementChild) {
-          wrapper.prepend(wrapper.lastElementChild);
+        if (prevBtn.disabled) {
+          if (wrapper.lastElementChild) {
+            wrapper.prepend(wrapper.lastElementChild);
+          }
+          prevBtn.disabled = false;
         }
-        prevBtn.disabled = false;
       }
 
       wrapper.style.transition = "none";
@@ -187,29 +195,55 @@ class Slider {
     }
   }
 
-  createExercises(i: number, j: number): HTMLElement {
+  async createExercises(i: number, j: number) {
     const container: HTMLElement = this.template.createElement(
       "div",
       "exercises-container"
     );
-    const workoutPlansInStore = JSON.parse(
-      localStorage.getItem("workoutPlans") || "[]"
-    );
-    const data = [...workoutPlansInStore, ...workout_plans];
+    // const workoutPlansInStore = JSON.parse(
+    //   localStorage.getItem("workoutPlans") || "[]"
+    // );
+    const addNewComplex = new AddNewComplex();
+    const serverData = await addNewComplex.creatingArrayFromData();
+    let data: IWorkoutPlan[] = [];
+    const singlePage = new SingleTrainingPage();
+    const id = localStorage.getItem("complexId");
+    if (id) {
+      const exercises = await singlePage.transformExercises(JSON.parse(id));
+      for (let i = 0; i < serverData[0].block.length; i++) {
+        if (JSON.parse(id) === serverData[0].block[i].id) {
+          serverData[0].block[i].exercises.push(...exercises);
+        }
+      }
+    }
+    if (serverData.length && serverData[0].block.length) {
+      data = [...serverData, ...workout_plans];
+    } else {
+      data = [...workout_plans];
+    }
     const block = data[i].block[j];
-    for (let k = 0; k < block.exercises.length; k++) {
-      const exerciseData = block.exercises[k];
-      const exercise = new Exercise(exerciseData, true).draw();
-      container.append(exercise);
+    if (block.exercises.length) {
+      for (let k = 0; k < block.exercises.length; k++) {
+        const exerciseData = block.exercises[k];
+        const exercise = new Exercise(exerciseData, false).draw();
+        container.append(exercise);
+      }
     }
     return container;
   }
 
-  changeExerciseContent(prevBtn: HTMLElement, nextBtn: HTMLElement): void {
-    const workoutPlansInStore = JSON.parse(
-      localStorage.getItem("workoutPlans") || "[]"
-    );
-    const data = [...workoutPlansInStore, ...workout_plans];
+  async changeExerciseContent(prevBtn: HTMLElement, nextBtn: HTMLElement) {
+    // const workoutPlansInStore = JSON.parse(
+    //   localStorage.getItem("workoutPlans") || "[]"
+    // );
+    const addNewComplex = new AddNewComplex();
+    const serverData = await addNewComplex.creatingArrayFromData();
+    let data: IWorkoutPlan[] = [];
+    if (serverData.length && serverData[0].block.length) {
+      data = [...serverData, ...workout_plans];
+    } else {
+      data = [...workout_plans];
+    }
     let i = 0;
     let j = 0;
     if (data[i].block.length === 1) {
@@ -218,12 +252,15 @@ class Slider {
     } else if (data[i].block.length === 2) {
       i = 1;
       j = 0;
+    } else if (data[i].block.length === 0) {
+      i = 1;
+      j = 2;
     } else {
       i = 0;
       j = 2;
     }
     localStorage.setItem("complexId", JSON.stringify(data[i].block[j].id));
-    nextBtn.addEventListener("click", () => {
+    nextBtn.addEventListener("click", async () => {
       if (j < data[i].block.length - 1) {
         j++;
       } else {
@@ -240,9 +277,9 @@ class Slider {
         ".exercises-wrapper"
       ) as HTMLElement;
       exercisesContainer.innerHTML = "";
-      exercisesContainer.append(slider.createExercises(i, j));
+      exercisesContainer.append(await slider.createExercises(i, j));
     });
-    prevBtn.addEventListener("click", () => {
+    prevBtn.addEventListener("click", async () => {
       if (j > 0) {
         j--;
       } else {
@@ -259,15 +296,17 @@ class Slider {
         ".exercises-wrapper"
       ) as HTMLElement;
       exercisesContainer.innerHTML = "";
-      exercisesContainer.append(slider.createExercises(i, j));
+      exercisesContainer.append(await slider.createExercises(i, j));
     });
   }
 
-  getComplexParam(id: number) {
+  async getComplexParam(id: number) {
     const workoutPlansInStore = JSON.parse(
       localStorage.getItem("workoutPlans") || "[]"
     );
-    const data = [...workoutPlansInStore, ...workout_plans];
+    const addNewComplex = new AddNewComplex();
+    const serverData = await addNewComplex.creatingArrayFromData();
+    const data = [...serverData, ...workout_plans];
     const array: number[] = [];
     for (let i = 0; i < data.length; i++) {
       for (let j = 0; j < data[i].block.length; j++) {

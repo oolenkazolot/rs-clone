@@ -149,6 +149,16 @@ export interface IExercise {
   quantity: string;
 }
 
+export interface IExerciseAdd {
+  id: number;
+  title: string;
+  description: string;
+  example: string;
+  youtube: string;
+  quantity: string;
+  serverId?: string;
+}
+
 export interface IValidate {
   res: boolean;
   message?: string;
@@ -199,6 +209,7 @@ export interface IWorkoutMiniBlock {
   exercisesTime: string;
   complexityLevel?: boolean;
   color: string;
+  exercises: IExercise[];
 }
 
 export interface IDataInputRadio {
@@ -243,7 +254,7 @@ export interface IErrorUserInfo {
 export type IBtnRadio = HTMLInputElement | HTMLLabelElement;
 
 export type ISingleTraining = {
-  id: number;
+  id: number | string;
   title: string;
   image: string;
   exercisesAmt: string;
@@ -274,6 +285,7 @@ export interface ISlider {
   ) => void;
   changeImgSizeInf: (direct: string) => void;
   createExercises: (i: number, j: number) => HTMLElement;
+  changeExerciseContent: (prevBtn: HTMLElement, nextBtn: HTMLElement) => void;
 }
 
 export type ICalendar = {
@@ -327,4 +339,18 @@ export interface IDataComplex {
   userId: string;
   name: string;
   __v: string;
+}
+
+export interface ICreateExercise {
+  idComplex: string;
+  idExercise: string;
+  count: string;
+}
+
+export interface IServerExercises {
+  _id: string;
+  idComplex: string;
+  idExercise: string;
+  count: string;
+  __v: number;
 }

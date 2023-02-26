@@ -1,10 +1,12 @@
 import Template from "../templates/template";
-import { ITemplate, IExercise } from "../types/index";
+import { ITemplate, IExercise, IExerciseAdd } from "../types/index";
 import Exercise from "./exercise";
 import AddNewComplex from "./addNewComplex";
 import { trash } from "./svg";
 import Slider from "./slider";
 import WorkoutBlock from "./workoutBlock";
+import Complex from "../utils/сomplex.routes";
+import trainingsData from "../utils/trainings-data-en";
 class ExerciseDetails {
   template: ITemplate;
   exercise: IExercise;
@@ -13,6 +15,7 @@ class ExerciseDetails {
   addNewComplex;
   slider;
   workoutBlock;
+  complex;
 
   constructor(exercise: IExercise) {
     this.template = new Template();
@@ -25,16 +28,24 @@ class ExerciseDetails {
     this.addNewComplex = new AddNewComplex();
     this.slider = new Slider();
     this.workoutBlock = new WorkoutBlock();
+    this.complex = new Complex();
   }
 
-  public draw(exercises: IExercise): HTMLElement {
+  public async draw(exercises: IExerciseAdd, flag: boolean) {
     this.backLayer.append(this.modal);
+    const complexId = localStorage.getItem("complexId");
     const trashIcon = this.template.createElement("div", "dateils__trash-icon");
     trashIcon.setAttribute("id", String(exercises.id));
+    if (exercises.serverId) {
+      trashIcon.setAttribute("serverId", exercises.serverId);
+    }
     trashIcon.innerHTML = trash;
-    trashIcon.addEventListener("click", () => {
-      this.addNewComplex.deleteExerciseFromLocalStorage(exercises.id);
+    trashIcon.addEventListener("click", async () => {
+      if (exercises.serverId) {
+        await this.complex.deleteExercise(exercises.serverId);
+      }
       this.forClickOnDelBtn();
+      this.createServerExercises(JSON.parse(String(complexId)));
     });
     const closeButton: HTMLButtonElement = this.template.createBtn(
       "exercise-modal__button-close"
@@ -55,7 +66,7 @@ class ExerciseDetails {
       this.exercise.description
     );
     this.modal.append(exerciseDescription);
-    this.createChangeBlock();
+    this.createChangeBlock(flag);
 
     document.body.prepend(this.backLayer);
 
@@ -105,7 +116,7 @@ class ExerciseDetails {
     this.modal.append(exerciseInfo);
   }
 
-  private createChangeBlock(): void {
+  private async createChangeBlock(flag: boolean) {
     const changeBlock = this.template.createElement(
       "div",
       "exercise-modal__change"
@@ -146,13 +157,24 @@ class ExerciseDetails {
       "save"
     );
     saveButton.setAttribute("id", String(this.exercise.id));
-    saveButton.addEventListener("click", () => {
-      this.addNewComplex.addExerciseInLocalStorage(
-        Number(saveButton.getAttribute("id"))
-      );
-      this.forClickOnSaveBtn();
-    });
-
+    if (flag) {
+      saveButton.addEventListener("click", async () => {
+        const exerciseCount = document.querySelector(
+          ".exercise-modal__current-quantity"
+        ) as HTMLElement;
+        const exerciseId = saveButton.getAttribute("id");
+        const complexId = JSON.parse(String(localStorage.getItem("complexId")));
+        if (exerciseId && complexId) {
+          await this.complex.createExercise({
+            idComplex: complexId,
+            idExercise: exerciseId,
+            count: exerciseCount.innerHTML,
+          });
+        }
+        this.forClickOnSaveBtn();
+        this.createServerExercises(complexId);
+      });
+    }
     changeButtons.append(cancelButton, saveButton);
     changeBlock.append(changeButtons);
 
@@ -215,41 +237,102 @@ class ExerciseDetails {
     }
   }
 
-  forClickOnSaveBtn() {
+  async forClickOnSaveBtn() {
     this.closeExerciseModal();
-    const exerciseWrapper = document.querySelector(
-      ".exercises-wrapper"
-    ) as HTMLElement;
-    exerciseWrapper.innerHTML = "";
     const largeWrapper = document.querySelector(
       ".training__exercises"
     ) as HTMLElement;
-    const complexId = localStorage.getItem("complexId");
-    const param: number[] = this.slider.getComplexParam(Number(complexId));
     const plus: HTMLElement = this.workoutBlock.createAddWorkoutPlanCont(
       "Add new exercises",
       false
     );
     plus.classList.add("singl-train__plus");
-    exerciseWrapper.append(this.slider.createExercises(param[0], param[1]));
     largeWrapper.append(plus);
   }
 
-  forClickOnDelBtn() {
+  async forClickOnDelBtn() {
     this.closeExerciseModal();
+  }
+
+  private async createServerExercises(id: string) {
+    const exercises = await this.complex.getExercises(id);
+    const exercQt = document.querySelector(
+      ".header-bottom__quantity"
+    ) as HTMLElement;
+    const exercTime = document.querySelector(
+      ".header-bottom__time"
+    ) as HTMLElement;
     const exerciseWrapper = document.querySelector(
+      ".exercises-wrapper"
+    ) as HTMLElement;
+    const largeWrapper = document.querySelector(
       ".training__exercises"
     ) as HTMLElement;
-    exerciseWrapper.innerHTML = "";
-    const complexId = localStorage.getItem("complexId");
-    const param: number[] = this.slider.getComplexParam(Number(complexId));
-    const plus: HTMLElement = this.workoutBlock.createAddWorkoutPlanCont(
-      "Add new exercises",
-      false
-    );
-    plus.classList.add("singl-train__plus");
-    exerciseWrapper.append(this.slider.createExercises(param[0], param[1]));
-    exerciseWrapper.append(plus);
+    if (exerciseWrapper) {
+      exerciseWrapper.innerHTML = "";
+      if (exercises) {
+        exercQt.innerHTML = `${String(exercises.length)} exercises`;
+        exercTime.innerHTML = `${String(
+          Math.round((exercises.length * 45) / 60)
+        )} minutes`;
+        for (let i = 0; i < exercises.length; i++) {
+          const id = exercises[i].idExercise;
+          const serverId = exercises[i]._id;
+          const serverQt = exercises[i].count;
+          trainingsData.trainings.forEach((el) => {
+            if (String(el.id) === id) {
+              const exercise = new Exercise(
+                this.createObj(el, serverId, serverQt),
+                true
+              ).draw();
+              exerciseWrapper.append(exercise);
+            }
+          });
+        }
+      }
+    } else {
+      largeWrapper.innerHTML = "";
+      if (exercises) {
+        exercQt.innerHTML = String(exercises.length);
+        exercTime.innerHTML = String(Math.round((exercises.length * 45) / 60));
+        for (let i = 0; i < exercises.length; i++) {
+          const id = exercises[i].idExercise;
+          const serverId = exercises[i]._id;
+          const serverQt = exercises[i].count;
+          trainingsData.trainings.forEach((el) => {
+            if (String(el.id) === id) {
+              const exercise = new Exercise(
+                this.createObj(el, serverId, serverQt),
+                true
+              ).draw();
+              largeWrapper.append(exercise);
+            }
+          });
+        }
+        const plus: HTMLElement = this.workoutBlock.createAddWorkoutPlanCont(
+          "Add new exercises",
+          false
+        );
+        largeWrapper.append(plus);
+      }
+    }
+  }
+
+  private createObj(
+    element: IExerciseAdd,
+    servId: string,
+    servQt: string
+  ): IExerciseAdd {
+    const object: IExerciseAdd = {
+      id: element.id,
+      title: element.title,
+      description: element.description,
+      example: element.example,
+      youtube: element.youtube,
+      quantity: servQt,
+      serverId: servId,
+    };
+    return object;
   }
 }
 

@@ -9,18 +9,22 @@ import {
 import workout_plans from "../utils/workout-plans-en";
 import WorkoutBlock from "../components/workoutBlock";
 import Slider from "../components/slider";
+import AddNewComplex from "../components/addNewComplex";
+import SingleTrainingPage from "./singleTraining";
 
 class ExercisesPage {
   template: ITemplate;
   workoutBlock: IWorkoutBlock;
-  slider: ISlider;
+  slider;
+  addNewComplex;
   constructor() {
     this.template = new Template();
     this.workoutBlock = new WorkoutBlock();
     this.slider = new Slider();
+    this.addNewComplex = new AddNewComplex();
   }
 
-  public draw(): void {
+  public async draw() {
     const mainElement: HTMLElement | null = document.querySelector("main");
     if (!mainElement) {
       return;
@@ -39,9 +43,9 @@ class ExercisesPage {
     mainPageElement.append(
       this.createMiniHeader(),
       this.createWeekGoalCont(),
-      this.createExercisesBlock(),
+      await this.createExercisesBlock(),
       this.createStartBtn(),
-      this.createExercisesCont()
+      await this.createExercisesCont()
     );
   }
 
@@ -150,7 +154,7 @@ class ExercisesPage {
     return daysCont;
   }
 
-  private createExercisesBlock(): HTMLElement {
+  private async createExercisesBlock() {
     const exercBlock: HTMLElement = this.template.createElement(
       "div",
       "exerc-block"
@@ -160,10 +164,21 @@ class ExercisesPage {
       "exerc-slider"
     );
     let length = 0;
-    const workoutPlansInStore = JSON.parse(
-      localStorage.getItem("workoutPlans") || "[]"
-    );
-    const data = [...workoutPlansInStore, ...workout_plans];
+    const serverData = await this.addNewComplex.creatingArrayFromData();
+    // const workoutPlansInStore = JSON.parse(
+    //   localStorage.getItem("workoutPlans") || "[]"
+    // );
+    for (let i = 0; i < serverData[0].block.length; i++) {
+      const id = String(serverData[0].block[i].id);
+      const singleTraining = new SingleTrainingPage();
+      const exercisesTransformed = await singleTraining.transformExercises(id);
+      for (let i = 0; i < serverData[0].block.length; i++) {
+        if (id === serverData[0].block[i].id) {
+          serverData[0].block[i].exercises.push(...exercisesTransformed);
+        }
+      }
+    }
+    const data = [...serverData, ...workout_plans];
     for (let i = 0; i < data.length; i++) {
       for (let j = 0; j < data[i].block.length; j++) {
         length++;
@@ -192,7 +207,8 @@ class ExercisesPage {
     const buttons: HTMLElement = this.slider.createNextPrevBtns(
       length,
       exercSlider,
-      true
+      true,
+      exercBlock
     );
     exercBlock.append(exercSlider, buttons);
     return exercBlock;
@@ -203,15 +219,16 @@ class ExercisesPage {
     return decorEl;
   }
 
-  private createExercisesCont(): HTMLElement {
+  private async createExercisesCont() {
     const exerciseCont = this.template.createElement(
       "div",
       "exercises-wrapper"
     );
-    const workoutPlansInStore = JSON.parse(
-      localStorage.getItem("workoutPlans") || "[]"
-    );
-    const data = [...workoutPlansInStore, ...workout_plans];
+    // const workoutPlansInStore = JSON.parse(
+    //   localStorage.getItem("workoutPlans") || "[]"
+    // );
+    const serverData = await this.addNewComplex.creatingArrayFromData();
+    const data = [...serverData, ...workout_plans];
     let i = 0;
     let j = 0;
     if (data[i].block.length === 1) {
@@ -220,11 +237,14 @@ class ExercisesPage {
     } else if (data[i].block.length === 2) {
       i = 1;
       j = 0;
+    } else if (data[i].block.length === 0) {
+      i = 1;
+      j = 2;
     } else {
       i = 0;
       j = 2;
     }
-    const exercises: HTMLElement = this.slider.createExercises(i, j);
+    const exercises: HTMLElement = await this.slider.createExercises(i, j);
     localStorage.setItem("complexId", JSON.stringify(data[i].block[j].id));
     exerciseCont.append(exercises);
     return exerciseCont;

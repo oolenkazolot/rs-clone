@@ -59,8 +59,8 @@ class WorkoutBlock {
     workoutContentCont.append(
       this.createTextBlock(
         data.title,
-        data.exercisesAmt,
-        data.exercisesTime,
+        String(data.exercises.length),
+        String(Math.round((data.exercises.length * 45) / 60)),
         j,
         data.complexityLevel
       )
@@ -267,7 +267,7 @@ class WorkoutBlock {
       exercisesWrapper.innerHTML = "";
       exercisesWrapper.append(
         this.addNewComplex.createSelectExercises(),
-        this.addNewComplex.showExercises()
+        this.addNewComplex.showExercises(false)
       );
     }
   }

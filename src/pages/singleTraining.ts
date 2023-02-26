@@ -219,7 +219,17 @@ class SingleTrainingPage {
       "/startTraining",
       "Start now"
     );
-    header.append(startButton);
+    const link = this.template.createElement("a", "link-to-exerc");
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const mainElement: HTMLElement | null = document.querySelector("main");
+      if (mainElement) {
+        mainElement.innerHTML = "";
+        router.navigate("startTraining");
+      }
+    });
+    link.append(startButton);
+    header.append(link);
     return header;
   }
 

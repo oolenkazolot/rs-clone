@@ -5,6 +5,7 @@ import {
   IServerExercises,
   ICompletedComplexesReceived,
   IFulfilledComplexReturned,
+  IWeeklyStat,
 } from "../types/index";
 
 class Complex {
@@ -166,6 +167,23 @@ class Complex {
       const res: Promise<
         ICompletedComplexesReceived | undefined
       > = await response.json();
+
+      return res;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      }
+    }
+  }
+
+  public async getWeeklyStatistic(
+    id: string
+  ): Promise<IWeeklyStat | undefined> {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/completed/weekly-workouts/${id}`
+      );
+      const res: Promise<IWeeklyStat | undefined> = await response.json();
 
       return res;
     } catch (e) {

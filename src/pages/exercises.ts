@@ -19,11 +19,13 @@ class ExercisesPage {
   workoutBlock: IWorkoutBlock;
   slider;
   addNewComplex;
+  complex;
   constructor() {
     this.template = new Template();
     this.workoutBlock = new WorkoutBlock();
     this.slider = new Slider();
     this.addNewComplex = new AddNewComplex();
+    this.complex = new Complex();
   }
 
   public async draw() {
@@ -43,16 +45,19 @@ class ExercisesPage {
     forDecor.append(this.createDecorationEl(), mainPageElement);
     mainPageElement.classList.add("exercises-page");
     mainElement.append(forDecor);
+    const miniHeader = await this.createMiniHeader();
+    const goalCont = await this.createWeekGoalCont();
+    if (miniHeader) {
+      mainPageElement.append(miniHeader);
+    }
+    if (goalCont) {
+      mainPageElement.append(goalCont);
+    }
     mainPageElement.append(
-      this.createWeekGoalCont(),
       await this.createExercisesBlock(),
       this.createStartBtn(),
       await this.createExercisesCont()
     );
-    const miniHeader = await this.createMiniHeader();
-    if (miniHeader) {
-      mainPageElement.prepend(miniHeader);
-    }
   }
 
   private async createMiniHeader() {
@@ -126,7 +131,13 @@ class ExercisesPage {
     return container;
   }
 
-  private createWeekGoalCont() {
+  private async createWeekGoalCont() {
+    const userId1: string | undefined = getUserIdLocalStorage();
+    if (!userId1) {
+      return;
+    }
+    const stat = await this.complex.getWeeklyStatistic(userId1);
+    console.log(stat);
     const weekGoalCont: HTMLElement = this.template.createElement(
       "div",
       "week-goal-cont"
@@ -305,12 +316,11 @@ class ExercisesPage {
   }
 
   private async getCompletesExercisesStat() {
-    const complex = new Complex();
     const userId1: string | undefined = getUserIdLocalStorage();
     if (!userId1) {
       return;
     }
-    const result = await complex.getCompletedComplexes(userId1);
+    const result = await this.complex.getCompletedComplexes(userId1);
     return result;
   }
 }

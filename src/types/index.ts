@@ -371,3 +371,8 @@ export interface IFulfilledComplexReturned {
   _id: "string";
   _v: number;
 }
+
+export interface IWeeklyStat {
+  weeklyWorkouts: number[];
+  goal: string;
+}

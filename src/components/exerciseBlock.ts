@@ -169,13 +169,18 @@ class ExerciseBlock {
     const linksBlock = <HTMLElement>(
       document.querySelector(".exercise-block__extra")
     );
-    linksBlock.style.visibility = "visible";
+    if (linksBlock) {
+      linksBlock.style.visibility = "visible";
+    }
   }
 
   showNextButton(): void {
     const nextBtn = <HTMLButtonElement>(
       document.querySelector(".exercise-block__button-next")
     );
+    if (!nextBtn) {
+      return;
+    }
     nextBtn.style.display = "block";
   }
 
@@ -183,6 +188,9 @@ class ExerciseBlock {
     const previousBtn = <HTMLButtonElement>(
       document.querySelector(".exercise-block__button-prev")
     );
+    if (!previousBtn) {
+      return;
+    }
     previousBtn.classList.add("inactive");
     previousBtn.disabled = true;
   }
@@ -191,6 +199,9 @@ class ExerciseBlock {
     const previousBtn = <HTMLButtonElement>(
       document.querySelector(".exercise-block__button-prev")
     );
+    if (!previousBtn) {
+      return;
+    }
     previousBtn.classList.remove("inactive");
     previousBtn.disabled = false;
   }
@@ -199,6 +210,9 @@ class ExerciseBlock {
     const skipBtn = <HTMLButtonElement>(
       document.querySelector(".exercise-block__button-skip")
     );
+    if (!skipBtn) {
+      return;
+    }
     skipBtn.classList.add("inactive");
     skipBtn.disabled = true;
   }
@@ -207,6 +221,9 @@ class ExerciseBlock {
     const skipBtn = <HTMLButtonElement>(
       document.querySelector(".exercise-block__button-skip")
     );
+    if (!skipBtn) {
+      return;
+    }
     skipBtn.classList.remove("inactive");
     skipBtn.disabled = false;
   }

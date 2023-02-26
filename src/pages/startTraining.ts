@@ -57,7 +57,7 @@ class StartTrainingPage {
         .includes("x")
     ) {
       curExercise.createCountDown();
-      document.body.style.pointerEvents = "none";
+      // document.body.style.pointerEvents = "none";
       curExercise.hideExerciseLinks();
       curExercise.disablePreviousButton();
       curExercise.disableSkipButton();
@@ -141,7 +141,7 @@ class StartTrainingPage {
             this.exerciseArray[this.currentExerciseIndex]
           );
           this.setTimeCounter(duration);
-          document.body.style.pointerEvents = "";
+          // document.body.style.pointerEvents = "";
         }, 3000);
       }
       if (
@@ -191,7 +191,7 @@ class StartTrainingPage {
           this.exerciseArray[this.currentExerciseIndex]
         );
         this.setTimeCounter(duration);
-        document.body.style.pointerEvents = "";
+        // document.body.style.pointerEvents = "";
       }, 3000);
     }
     page.innerHTML = "";
@@ -301,7 +301,7 @@ class StartTrainingPage {
   }
 
   createThreeCount(): void {
-    document.body.style.pointerEvents = "none";
+    // document.body.style.pointerEvents = "none";
     const threeCounter: HTMLElement = this.template.createElement(
       "div",
       "counter-three"

@@ -276,8 +276,9 @@ class Slider {
       const exercisesContainer = document.querySelector(
         ".exercises-wrapper"
       ) as HTMLElement;
+      const newExercises = await slider.createExercises(i, j);
       exercisesContainer.innerHTML = "";
-      exercisesContainer.append(await slider.createExercises(i, j));
+      exercisesContainer.append(newExercises);
     });
     prevBtn.addEventListener("click", async () => {
       if (j > 0) {
@@ -295,8 +296,9 @@ class Slider {
       const exercisesContainer = document.querySelector(
         ".exercises-wrapper"
       ) as HTMLElement;
+      const newExercises = await slider.createExercises(i, j);
       exercisesContainer.innerHTML = "";
-      exercisesContainer.append(await slider.createExercises(i, j));
+      exercisesContainer.append(newExercises);
     });
   }
 

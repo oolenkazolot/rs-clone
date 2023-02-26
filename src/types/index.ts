@@ -354,3 +354,17 @@ export interface IServerExercises {
   count: string;
   __v: number;
 }
+
+export interface IPointWeightChart {
+  date: Date;
+  weight: number;
+}
+
+export interface IParamsWeightChart {
+  className?: string;
+  data: IPointWeightChart[];
+}
+
+export interface IWeightChartComponent {
+  getChart: () => HTMLElement;
+}

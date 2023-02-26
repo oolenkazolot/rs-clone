@@ -25,6 +25,7 @@ class ExercisesPage {
   }
 
   public async draw() {
+    this.getDayOfAWeek();
     const mainElement: HTMLElement | null = document.querySelector("main");
     if (!mainElement) {
       return;
@@ -140,12 +141,17 @@ class ExercisesPage {
       "div",
       "days-cont"
     );
+    const dayOfAWeek = this.getDayOfAWeek();
     for (let i = 0; i < 7; i++) {
       const circle: HTMLElement = this.template.createElement(
         "div",
         "days-circle",
         WEEKDAYS[i]
       );
+      circle.classList.remove("days-circle-pink");
+      if (dayOfAWeek === i + 1) {
+        circle.classList.add("days-circle-pink");
+      }
       daysCont.append(circle);
       const checkMark = this.template.createElement("div", "check-mark");
       checkMark.classList.add("hidden");
@@ -266,6 +272,12 @@ class ExercisesPage {
     });
     link.append(startBtn);
     return link;
+  }
+
+  private getDayOfAWeek() {
+    const date = new Date();
+    const dayOfAWeek = [7, 1, 2, 3, 4, 5, 6][date.getDay()];
+    return dayOfAWeek;
   }
 }
 

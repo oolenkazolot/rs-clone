@@ -61,7 +61,7 @@ class Info {
         case "load": {
           const itemLoad: HTMLElement = this.createItem(
             `${key}:`,
-            userInfo.load
+            `${userInfo.load} workouts per week`
           );
           items.push(itemLoad);
           break;

@@ -77,7 +77,6 @@ class StartTrainingPage {
         .includes("x")
     ) {
       curExercise.createCountDown();
-
       curExercise.hideExerciseLinks();
       curExercise.disablePreviousButton();
       curExercise.disableSkipButton();
@@ -156,7 +155,7 @@ class StartTrainingPage {
         const modal = new PauseModal(
           this.exerciseArray[this.currentExerciseIndex]
         );
-        modal.draw();
+        mainPageElement.prepend(modal.draw());
       }
       if (target.classList.contains("pause-modal__button-continue")) {
         this.closeModal();
@@ -171,6 +170,10 @@ class StartTrainingPage {
           document.body.style.pointerEvents = "";
         }, 3000);
       }
+    });
+
+    document.addEventListener("click", (e) => {
+      const target = <HTMLElement>e.target;
       if (
         target.classList.contains("header__link") ||
         target.classList.contains("header__btn")
@@ -355,7 +358,7 @@ class StartTrainingPage {
     const backLayer = <HTMLElement>(
       document.querySelector(".pause-modal__backlayer")
     );
-    document.body.removeChild(backLayer);
+    backLayer.remove();
   }
 }
 

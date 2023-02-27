@@ -58,6 +58,12 @@ class TakeARest {
       "div",
       "rest__settings"
     );
+    settingsEl.addEventListener("click", () => {
+      const settingsModal = document.querySelector(
+        ".settingsModal"
+      ) as HTMLElement;
+      settingsModal.classList.remove("invisible");
+    });
     settingsEl.innerHTML = settings;
     settingsCont.append(image, settingsEl);
     header.append(arrow, settingsCont);

@@ -8,6 +8,7 @@ import Congrats from "../components/congrats";
 import router from "../components/routerComponent";
 import AddNewComplex from "../components/addNewComplex";
 import SingleTrainingPage from "./singleTraining";
+import { mug, lightning2 } from "../components/svg";
 
 class StartTrainingPage {
   template: ITemplate;
@@ -36,8 +37,14 @@ class StartTrainingPage {
     mainElement.textContent = "";
     const mainPageElement: HTMLElement = document.createElement("div");
     mainPageElement.classList.add("startTraining-page");
-    mainElement.append(mainPageElement);
-
+    const setttingsModal: HTMLElement = this.template.createElement(
+      "div",
+      "settingsModal"
+    );
+    setttingsModal.classList.add("invisible");
+    setttingsModal.classList.add("modal-addNewComplex");
+    setttingsModal.append(this.createSettingsModal());
+    mainElement.append(mainPageElement, setttingsModal);
     const addNewComplex = new AddNewComplex();
     const serverData = await addNewComplex.creatingArrayFromData();
     let data: IWorkoutPlan[] = [];
@@ -359,6 +366,80 @@ class StartTrainingPage {
       document.querySelector(".pause-modal__backlayer")
     );
     backLayer.remove();
+  }
+
+  private createSettingsModal(): HTMLElement {
+    const wrapper: HTMLElement = this.template.createElement(
+      "div",
+      "modal-addNewComplex__addName"
+    );
+    wrapper.classList.add("settings__modal");
+    const title: HTMLElement = this.template.createElement(
+      "h2",
+      "modal-addNewComplex__title",
+      "Workout Settings"
+    );
+    const restTimeBlock = this.createSettingsTimeBlock(
+      "Rest time",
+      "30 secs",
+      mug
+    );
+    const loadBlock = this.createSettingsTimeBlock(
+      "Load",
+      "3 times per week",
+      lightning2
+    );
+    const doneWrap: HTMLElement = this.template.createElement(
+      "div",
+      "settings__button-wrap"
+    );
+    const done: HTMLButtonElement = this.template.createBtn(
+      "modal-addNewComplex__create",
+      "Done"
+    );
+    doneWrap.append(done);
+    done.classList.add("settings__done-btn");
+    done.addEventListener("click", () => {
+      const settingsModal = document.querySelector(
+        ".settingsModal"
+      ) as HTMLElement;
+      settingsModal.classList.add("invisible");
+    });
+    wrapper.append(title, restTimeBlock, loadBlock, doneWrap);
+    return wrapper;
+  }
+
+  private createSettingsTimeBlock(
+    title1: string,
+    content: string,
+    svg: string
+  ): HTMLElement {
+    const restTimeBlock: HTMLElement = this.template.createElement(
+      "div",
+      "settingsMiniBlock"
+    );
+    const square: HTMLElement = this.template.createElement(
+      "div",
+      "settings-square"
+    );
+    square.innerHTML = svg;
+    const textWrapper = this.template.createElement(
+      "div",
+      "settings__text-wrapper"
+    );
+    const textTitle: HTMLElement = this.template.createElement(
+      "div",
+      "settings__text-title",
+      title1
+    );
+    const textContent = this.template.createElement(
+      "div",
+      "settings__text-content",
+      content
+    );
+    textWrapper.append(textTitle, textContent);
+    restTimeBlock.append(square, textWrapper);
+    return restTimeBlock;
   }
 }
 

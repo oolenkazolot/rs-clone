@@ -332,7 +332,52 @@
     }
 }
 
+.settingsMiniBlock {
+    display: flex;
+    justify-content: space-between;
+    align-items: self-end;
+    font-size: 20px;
+    margin-bottom: 2rem;
+}
 
+.settings-square {
+    width: 60px;
+    height: 60px;
+    fill: $color-pink;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings__text-title {
+    font-size: 22px;
+}
+
+.settings__text-wrapper {
+    cursor: pointer;
+    width: 50%;
+}
+
+.modal-addNewComplex__addName {
+    min-width: 30%;
+}
+.settings__done-btn {
+    margin: 0;
+}
+.settings__modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.modal-addNewComplex__title {
+    text-align: center;
+}
+.settings__button-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
 @keyframes rotate {
     0% {
         transform: rotate(360deg);

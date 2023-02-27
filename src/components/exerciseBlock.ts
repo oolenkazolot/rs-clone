@@ -61,6 +61,12 @@ class ExerciseBlock {
     const settingsButton: HTMLButtonElement = this.template.createBtn(
       "exercise-block__settings"
     );
+    settingsButton.addEventListener("click", () => {
+      const settingsModal = document.querySelector(
+        ".settingsModal"
+      ) as HTMLElement;
+      settingsModal.classList.remove("invisible");
+    });
     settings.append(volumeButton, settingsButton);
     blockHeader.append(returnButton, settings);
   }

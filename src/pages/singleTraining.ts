@@ -222,13 +222,15 @@ class SingleTrainingPage {
     );
     bottomHeader.append(workoutName, workoutQuantity, workoutTime);
 
-    const startButton: HTMLAnchorElement = this.template.createLink(
+    const startButton = this.template.createBtn(
       "training__button-start",
-      "/startTraining",
       "Start now"
     );
-    const link = this.template.createElement("a", "link-to-exerc");
-    link.addEventListener("click", (e) => {
+    console.log(this.exTime);
+    if (this.exTime === "0") {
+      startButton.disabled = true;
+    }
+    startButton.addEventListener("click", (e) => {
       e.preventDefault();
       const mainElement: HTMLElement | null = document.querySelector("main");
       if (mainElement) {
@@ -236,10 +238,8 @@ class SingleTrainingPage {
         router.navigate("startTraining");
       }
     });
-    if (exercises.length) {
-      link.append(startButton);
-    }
-    header.append(link);
+
+    header.append(startButton);
     return header;
   }
 

@@ -258,7 +258,6 @@
         height: 100%;
         z-index: 3;
         background-color: #dce6e6;
-        animation:overlay_left 30s steps(1, end) forwards;
     }
         
     &__timer-line-after {
@@ -269,7 +268,6 @@
         height: 100%;
         z-index: 3;
         background-color: #f773b1;
-        animation: overlay_right 30s steps(1, end) forwards;
     }
 
     &__timer-body {
@@ -318,7 +316,6 @@
         left: 0;
         width: 100%;
         height: 100%;
-        animation: rotate 30s linear forwards;
         z-index: 2;
         &::after {
             content: "";
@@ -351,11 +348,40 @@
 
 .settings__text-title {
     font-size: 22px;
+    text-align: center;
+}
+
+.settings__text-content[type="number"]::-webkit-outer-spin-button,
+.settings__text-content[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.settings__text-content[type="number"] {
+-moz-appearance: textfield;
+  }
+.settings__text-content[type="number"]:hover,
+.settings__text-content[type="number"]:focus {
+    -moz-appearance: number-input;
+  }
+
+.settings__text-content {
+    padding: 0.8rem;
+    text-align: center;
+    border-radius: 15px;
+    border: 2px solid #e3e3e3;
+    outline: none;
+    transition: 0.3s;
+    font-size: 15px;
+    &:hover,
+    &:focus,
+    &:active {
+        border: 2px solid  rgb(247, 115, 177);
+    }
 }
 
 .settings__text-wrapper {
     cursor: pointer;
-    width: 50%;
 }
 
 .modal-addNewComplex__addName {

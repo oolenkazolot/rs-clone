@@ -6,6 +6,7 @@ import {
   ICompletedComplexesReceived,
   IFulfilledComplexReturned,
   IWeeklyStat,
+  IUserSettings,
 } from "../types/index";
 
 class Complex {
@@ -185,6 +186,71 @@ class Complex {
       );
       const res: Promise<IWeeklyStat | undefined> = await response.json();
 
+      return res;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      }
+    }
+  }
+
+  public async getUserSettings(id: string): Promise<IUserSettings | undefined> {
+    try {
+      const response = await fetch(`http://localhost:5000/api/user/get/${id}`);
+      const res: Promise<IUserSettings | undefined> = await response.json();
+
+      return res;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      }
+    }
+  }
+
+  public async updateRestTime(
+    id: string,
+    data: {
+      timeRest: string;
+    }
+  ): Promise<IUserSettings | undefined> {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/user/update-rest/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const res: IUserSettings = await response.json();
+      return res;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      }
+    }
+  }
+
+  public async updateLoad(
+    id: string,
+    data: {
+      load: string;
+    }
+  ): Promise<IUserSettings | undefined> {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/user/update-load/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const res: IUserSettings = await response.json();
       return res;
     } catch (e) {
       if (e instanceof Error) {

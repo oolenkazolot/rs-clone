@@ -1,6 +1,8 @@
 import { IExercise, ITemplate } from "../types";
 import Template from "../templates/template";
 import { volume, settings, arrowLeft, tv } from "../components/svg";
+import Complex from "../utils/сomplex.routes";
+import { getUserIdLocalStorage } from "../utils/auth";
 
 class TakeARest {
   template: ITemplate;
@@ -9,25 +11,34 @@ class TakeARest {
     this.template = new Template();
   }
 
-  draw(index: number, exerciseArray: IExercise[]): HTMLElement {
+  async draw(index: number, exerciseArray: IExercise[]) {
     const modal: HTMLElement = this.template.createElement(
       "div",
       "exercisesModals"
     );
     document.body.append(modal);
-    modal.append(this.createTakeARest(exerciseArray, index));
+    const takeARest = await this.createTakeARest(exerciseArray, index);
+    if (takeARest) {
+      modal.append(takeARest);
+    }
     return modal;
   }
 
-  createTakeARest(exercises: IExercise[], i: number): HTMLElement {
+  async createTakeARest(exercises: IExercise[], i: number) {
     const wrapper: HTMLElement = this.template.createElement(
       "div",
       "rest__wrapper"
     );
+    const userId1: string | undefined = getUserIdLocalStorage();
+    if (!userId1) {
+      return;
+    }
+    const complex = new Complex();
+    const userData = await complex.getUserSettings(userId1);
     wrapper.append(
       this.createSetiingsCont(),
       this.createTitle(),
-      this.createCountDown(30),
+      this.createCountDown(Number(userData?.timeRest) || 20),
       this.createButtons(),
       this.nextExerciseText(exercises, i),
       this.createNextExerciseWrapper(exercises, i)
@@ -189,19 +200,22 @@ class TakeARest {
       "div",
       "rest__timer-line-before"
     );
+    timerLineBefore.style.animation = `overlay_left ${seconds}s steps(1, end) forwards`;
     const timerLine: HTMLElement = this.template.createElement(
       "div",
       "rest__timer-line"
     );
+    timerLine.style.animation = `rotate ${seconds}s linear forwards`;
     const timerLineAfter: HTMLElement = this.template.createElement(
       "div",
       "rest__timer-line-after"
     );
+    timerLineAfter.style.animation = `overlay_right ${seconds}s steps(1, end) forwards`;
     const timerBody: HTMLElement = this.template.createElement(
       "div",
       "rest__timer-body"
     );
-    timerBody.innerHTML = "30";
+    timerBody.innerHTML = String(seconds);
     this.countSeconds(timerBody, timer);
     timer.append(timerLineBefore, timerLine, timerLineAfter, timerBody);
     return timer;
@@ -211,9 +225,6 @@ class TakeARest {
     const int = setInterval(() => {
       if (Number(element.innerHTML) > 0) {
         element.innerHTML = String(Number(element.innerHTML) - 1);
-        if (Number(element.innerHTML) === 0) {
-          element2.style.display = "none";
-        }
       }
     }, 1000);
     setTimeout(() => {

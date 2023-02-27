@@ -9,6 +9,8 @@ import router from "../components/routerComponent";
 import AddNewComplex from "../components/addNewComplex";
 import SingleTrainingPage from "./singleTraining";
 import { mug, lightning2 } from "../components/svg";
+import Complex from "../utils/сomplex.routes";
+import { getUserIdLocalStorage } from "../utils/auth";
 
 class StartTrainingPage {
   template: ITemplate;
@@ -17,6 +19,7 @@ class StartTrainingPage {
   currentExerciseIndex: number;
   counter: number;
   interval: NodeJS.Timer | undefined;
+  complex;
 
   constructor() {
     this.template = new Template();
@@ -25,6 +28,7 @@ class StartTrainingPage {
     this.currentExerciseIndex = 0;
     this.counter = 0;
     this.interval;
+    this.complex = new Complex();
   }
 
   public async draw() {
@@ -41,10 +45,17 @@ class StartTrainingPage {
       "div",
       "settingsModal"
     );
+
+    const userId1: string | undefined = getUserIdLocalStorage();
+    if (!userId1) {
+      return;
+    }
+
     setttingsModal.classList.add("invisible");
     setttingsModal.classList.add("modal-addNewComplex");
-    setttingsModal.append(this.createSettingsModal());
+    setttingsModal.append(this.createSettingsModal(userId1));
     mainElement.append(mainPageElement, setttingsModal);
+
     const addNewComplex = new AddNewComplex();
     const serverData = await addNewComplex.creatingArrayFromData();
     let data: IWorkoutPlan[] = [];
@@ -232,15 +243,20 @@ class StartTrainingPage {
     page.append(curExercise.draw());
   }
 
-  private showRestModal(): void {
+  private async showRestModal() {
     const pageContent = <HTMLElement>(
       document.querySelector(".startTraining-page")
     );
     pageContent.innerHTML = "";
     pageContent.append(
-      this.takeARest.draw(this.currentExerciseIndex, this.exerciseArray)
+      await this.takeARest.draw(this.currentExerciseIndex, this.exerciseArray)
     );
-    this.autoChange();
+    const userId1: string | undefined = getUserIdLocalStorage();
+    if (!userId1) {
+      return;
+    }
+    const userData = await this.complex.getUserSettings(userId1);
+    this.autoChange(Number(userData?.timeRest) || 20);
   }
 
   private async showCongrats(counter: number, time: number) {
@@ -264,7 +280,7 @@ class StartTrainingPage {
     });
   }
 
-  private autoChange(): void {
+  private autoChange(seconds: number): void {
     let counter = 0;
     const addBtn = document.querySelector(".rest__add-btn") as HTMLElement;
     const skipBtn = document.querySelector(".rest__skip-btn") as HTMLElement;
@@ -272,9 +288,9 @@ class StartTrainingPage {
       counter = counter - 20;
     });
     const int = setInterval(() => {
-      if (counter < 30) {
+      if (counter < seconds) {
         counter++;
-        if (counter === 30) {
+        if (counter === seconds) {
           this.loadNextExercise();
           counter = 0;
           clearInterval(int);
@@ -365,7 +381,7 @@ class StartTrainingPage {
     backLayer.remove();
   }
 
-  private createSettingsModal(): HTMLElement {
+  private createSettingsModal(id: string): HTMLElement {
     const wrapper: HTMLElement = this.template.createElement(
       "div",
       "modal-addNewComplex__addName"
@@ -377,14 +393,18 @@ class StartTrainingPage {
       "Workout Settings"
     );
     const restTimeBlock = this.createSettingsTimeBlock(
-      "Rest time",
-      "30 secs",
-      mug
+      "Rest time, seconds",
+      "20",
+      mug,
+      false,
+      "settings__rest"
     );
     const loadBlock = this.createSettingsTimeBlock(
-      "Load",
-      "3 times per week",
-      lightning2
+      "Number of Workouts",
+      "3",
+      lightning2,
+      true,
+      "settings_load"
     );
     const doneWrap: HTMLElement = this.template.createElement(
       "div",
@@ -396,11 +416,27 @@ class StartTrainingPage {
     );
     doneWrap.append(done);
     done.classList.add("settings__done-btn");
-    done.addEventListener("click", () => {
+    done.addEventListener("click", async () => {
       const settingsModal = document.querySelector(
         ".settingsModal"
       ) as HTMLElement;
       settingsModal.classList.add("invisible");
+      const restTimeInput = document.querySelector(
+        ".settings__rest"
+      ) as HTMLInputElement;
+      const loadInput = document.querySelector(
+        ".settings_load"
+      ) as HTMLInputElement;
+      if (restTimeInput.value) {
+        await this.complex.updateRestTime(id, {
+          timeRest: restTimeInput.value,
+        });
+      }
+      if (loadInput.value) {
+        await this.complex.updateLoad(id, {
+          load: loadInput.value,
+        });
+      }
     });
     wrapper.append(title, restTimeBlock, loadBlock, doneWrap);
     return wrapper;
@@ -409,7 +445,9 @@ class StartTrainingPage {
   private createSettingsTimeBlock(
     title1: string,
     content: string,
-    svg: string
+    svg: string,
+    flag: boolean,
+    addClass: string
   ): HTMLElement {
     const restTimeBlock: HTMLElement = this.template.createElement(
       "div",
@@ -429,11 +467,22 @@ class StartTrainingPage {
       "settings__text-title",
       title1
     );
-    const textContent = this.template.createElement(
-      "div",
-      "settings__text-content",
-      content
-    );
+    const textContent = document.createElement("input");
+    textContent.placeholder = content;
+    textContent.className = "settings__text-content";
+    textContent.classList.add(addClass);
+    if (flag) {
+      textContent.addEventListener("input", () => {
+        textContent.value = textContent.value.replace(/([^1-7]){1}/g, "");
+        if (textContent.value.length > 1) {
+          textContent.value = textContent.value.slice(0, 1);
+        }
+      });
+    } else {
+      textContent.addEventListener("input", () => {
+        textContent.value = textContent.value.replace(/([^0-9])/g, "");
+      });
+    }
     textWrapper.append(textTitle, textContent);
     restTimeBlock.append(square, textWrapper);
     return restTimeBlock;

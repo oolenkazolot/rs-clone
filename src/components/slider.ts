@@ -232,6 +232,14 @@ class Slider {
         const exercise = new Exercise(exerciseData, false).draw();
         container.append(exercise);
       }
+    } else {
+      setTimeout(() => {
+        const startBtn = document.querySelector(
+          ".exercises__startNow-btn"
+        ) as HTMLButtonElement;
+        console.log(startBtn);
+        startBtn.disabled = true;
+      }, 0);
     }
     return container;
   }
@@ -262,6 +270,10 @@ class Slider {
     }
     localStorage.setItem("complexId", JSON.stringify(data[i].block[j].id));
     nextBtn.addEventListener("click", async () => {
+      const startBtn = document.querySelector(
+        ".exercises__startNow-btn"
+      ) as HTMLButtonElement;
+      startBtn.disabled = false;
       if (j < data[i].block.length - 1) {
         j++;
       } else {
@@ -282,6 +294,10 @@ class Slider {
       exercisesContainer.append(newExercises);
     });
     prevBtn.addEventListener("click", async () => {
+      const startBtn = document.querySelector(
+        ".exercises__startNow-btn"
+      ) as HTMLButtonElement;
+      startBtn.disabled = false;
       if (j > 0) {
         j--;
       } else {

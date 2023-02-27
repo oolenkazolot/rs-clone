@@ -7,6 +7,7 @@ import Slider from "./slider";
 import WorkoutBlock from "./workoutBlock";
 import Complex from "../utils/сomplex.routes";
 import trainingsData from "../utils/trainings-data-en";
+import router from "../components/routerComponent";
 class ExerciseDetails {
   template: ITemplate;
   exercise: IExercise;
@@ -47,7 +48,15 @@ class ExerciseDetails {
     trashIcon.addEventListener("click", async () => {
       if (exercises.serverId) {
         await this.complex.deleteExercise(exercises.serverId);
+        const exercAfter = await this.complex.getExercises(exercises.serverId);
+        if (exercAfter && !exercAfter.length) {
+          const startBtn = document.querySelector(
+            ".training__button-start"
+          ) as HTMLButtonElement;
+          startBtn.disabled = true;
+        }
       }
+
       this.forClickOnDelBtn();
       this.createServerExercises(JSON.parse(String(complexId)));
     });
@@ -171,6 +180,10 @@ class ExerciseDetails {
       const trashIcon = document.querySelector(
         ".dateils__trash-icon"
       ) as HTMLElement;
+      const startBtn = document.querySelector(
+        ".training__button-start"
+      ) as HTMLButtonElement;
+      startBtn.disabled = false;
       const exerciseId = saveButton.getAttribute("id");
       const complexId = JSON.parse(String(localStorage.getItem("complexId")));
       if (flag) {

@@ -114,6 +114,14 @@ export interface IModal {
   ) => HTMLElement;
 }
 
+export interface IModalMobileMenu {
+  createModal: (
+    id: string,
+    content: HTMLElement,
+    isShowIconClose: boolean
+  ) => HTMLElement;
+}
+
 export interface IInputIcon {
   className?: string[];
   attributes: Record<string, string>;

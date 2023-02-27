@@ -1,5 +1,6 @@
 import Template from "../templates/template";
-import { ITemplate, IPreloader } from "../types/index";
+import ModalMobileMenu from "../components/modalMobileMenu";
+import { ITemplate, IModalMobileMenu } from "../types/index";
 import Button from "../components/Button";
 import { onOpenModal } from "../utils/component-utils";
 import router from "./routerComponent";
@@ -7,14 +8,15 @@ import {
   getUserTokenLocalStorage,
   removeUserLocalStorage,
 } from "../utils/auth";
-import Preloader from "../components/preloader";
 
 class Header {
   template: ITemplate;
   mainClass: string;
+  modalMobileMenu: IModalMobileMenu;
   constructor() {
     this.template = new Template();
     this.mainClass = "header";
+    this.modalMobileMenu = new ModalMobileMenu();
   }
 
   public draw(): void {
@@ -28,7 +30,12 @@ class Header {
     header.classList.add(`${this.mainClass}`);
     const wrap: HTMLElement = this.createWrap();
     if (isAuth) {
-      wrap.append(this.createListMenu(), this.createBtnSignOut());
+      wrap.append(
+        this.createListMenu(),
+        this.createModal(),
+        this.createBtnSignOut(),
+        this.createBurgerBtn()
+      );
       header.append(this.createLogo(), wrap);
     } else {
       wrap.append(this.createButtons());
@@ -48,7 +55,12 @@ class Header {
       "logo__content",
       "Women Workouts"
     );
-    logo.append(spanOne, spanTwo);
+    const spanThree: HTMLElement = this.template.createElement(
+      "span",
+      "logo__mobile",
+      "WW"
+    );
+    logo.append(spanOne, spanTwo, spanThree);
     logo.addEventListener("click", (e) => {
       this.onclickHandlerLogo(e);
     });
@@ -58,7 +70,6 @@ class Header {
   private onclickHandlerLogo(e: Event): void {
     e.preventDefault();
     router.navigate("");
-    this.activePreloader();
   }
 
   private createButtons(): HTMLElement {
@@ -91,12 +102,47 @@ class Header {
     return btnSignOut;
   }
 
+  private createModal(): HTMLElement {
+    const modal: HTMLElement = this.modalMobileMenu.createModal(
+      "modal-mobile",
+      this.createVerticalMenu(),
+      true
+    );
+    return modal;
+  }
+
   private createWrap(): HTMLElement {
     const wrap: HTMLElement = this.template.createElement(
       "div",
       `${this.mainClass}__wrap`
     );
     return wrap;
+  }
+
+  private createBurgerBtn(): HTMLElement {
+    const btn: HTMLElement = this.template.createElement(
+      "button",
+      `${this.mainClass}__mobile-btn`
+    );
+    btn.addEventListener("click", () => {
+      onOpenModal("modal-mobile")();
+    });
+    const icon: HTMLElement = this.template.createIcon(
+      `${this.mainClass}__mobile-icon`,
+      "icon-burger-btn"
+    );
+    btn.append(icon);
+    return btn;
+  }
+
+  private createVerticalMenu(): HTMLElement {
+    const mainClass = "vertical-menu";
+    const verticalMenu: HTMLElement = this.template.createElement(
+      "div",
+      `${mainClass}`
+    );
+    verticalMenu.append(this.createListMenu());
+    return verticalMenu;
   }
 
   private createListMenu(): HTMLElement {
@@ -150,29 +196,13 @@ class Header {
 
   private onClickHandlerLinkMenu(e: Event, src: string) {
     e.preventDefault();
-    this.activePreloader();
-
     router.navigate(src);
   }
 
   private exitApp(): void {
     removeUserLocalStorage();
-    this.activePreloader();
     this.draw();
     router.navigate("");
-  }
-
-  private activePreloader(): void {
-    document.body.classList.remove("loaded");
-
-    setTimeout(function () {
-      document.body.classList.add("loaded_hiding");
-    }, 500);
-
-    setTimeout(function () {
-      document.body.classList.add("loaded");
-      document.body.classList.remove("loaded_hiding");
-    }, 800);
   }
 }
 

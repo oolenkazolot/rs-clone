@@ -10,15 +10,8 @@ export default class Preloader {
   }
 
   public draw(): void {
-    window.onload = function () {
-      document.body.classList.add("loaded_hiding");
-      window.setTimeout(function () {
-        document.body.classList.add("loaded");
-        document.body.classList.remove("loaded_hiding");
-      }, 500);
-    };
-
     const preloader: HTMLElement = this.createPreloader();
+    document.body.classList.add("loaded");
     document.body.prepend(preloader);
   }
 

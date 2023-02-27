@@ -29,6 +29,7 @@ class ExercisesPage {
   }
 
   public async draw() {
+    document.body.classList.remove("loaded");
     this.getDayOfAWeek();
     const mainElement: HTMLElement | null = document.querySelector("main");
     if (!mainElement) {
@@ -59,8 +60,17 @@ class ExercisesPage {
       this.createStartBtn(),
       await this.createExercisesCont()
     );
+    this.activePreloader();
     forDecor.append(mainPageElement);
     mainElement.append(forDecor);
+  }
+
+  private activePreloader(): void {
+    document.body.classList.add("loaded_hiding");
+    setTimeout(function () {
+      document.body.classList.add("loaded");
+      document.body.classList.remove("loaded_hiding");
+    }, 500);
   }
 
   private async createMiniHeader() {

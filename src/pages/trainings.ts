@@ -159,6 +159,8 @@ class TrainingsPage {
       "modal-addNewComplex__cancel",
       "Cancel"
     );
+    cancel.classList.add("btn");
+    cancel.classList.add("btn--second");
     cancel.addEventListener("click", () => {
       modal.classList.add("invisible");
     });
@@ -166,6 +168,7 @@ class TrainingsPage {
       "modal-addNewComplex__create",
       "Create"
     );
+    create.classList.add("btn");
     create.addEventListener("click", async () => {
       await this.addNewComplex.addComplexInLocalStore();
       modal.classList.add("invisible");

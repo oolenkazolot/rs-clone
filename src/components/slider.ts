@@ -25,17 +25,21 @@ class Slider {
       "div",
       "buttons-cont"
     );
-    const nextBtn: HTMLButtonElement = this.template.createBtn(
-      "next-btn",
-      "next"
+    const nextBtn: HTMLButtonElement = this.template.createBtn("next-btn");
+    const iconNext: HTMLElement = this.template.createIcon(
+      "prev-btn__icon",
+      "icon-arrow_forward_ios"
     );
+    nextBtn.append(iconNext);
     if (length <= 1 && !flag) {
       nextBtn.disabled = true;
     }
-    const prevBtn: HTMLButtonElement = this.template.createBtn(
-      "prev-btn",
-      "prev"
+    const prevBtn: HTMLButtonElement = this.template.createBtn("prev-btn");
+    const iconPrev: HTMLElement = this.template.createIcon(
+      "prev-btn__icon",
+      "icon-arrow_back_ios"
     );
+    prevBtn.append(iconPrev);
     if (!flag) {
       prevBtn.disabled = true;
     }

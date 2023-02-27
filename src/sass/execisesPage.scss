@@ -353,8 +353,9 @@
   display: block;
   padding: 0.8rem 1.5rem;
   border-radius: 15px;
-  background-color: rgb(247, 115, 177);
+  background: $bg-pink;
   color: $color-white;
+  font-family: inherit;
   text-transform: uppercase;
   transition: $transition;
   font-size: 20px;
@@ -365,7 +366,10 @@
   margin-bottom: 1rem;
 
   &:hover {
-    background-color: $color-main-second;
+    background: $hover;
+  }
+  &:active {
+    background: $active;
   }
 }
 
@@ -374,5 +378,5 @@
 }
 
 .days-circle-pink {
-  color: $color-pink;
+  color: $color-main;
 }

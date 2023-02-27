@@ -171,6 +171,9 @@ class TakeARest {
       "next-exercise__link",
       exercises[i + 1].youtube
     );
+    linkEl.addEventListener("click", () => {
+      console.log("click");
+    });
     const tvEl: HTMLElement = this.template.createElement(
       "div",
       "next-exercise__tv"

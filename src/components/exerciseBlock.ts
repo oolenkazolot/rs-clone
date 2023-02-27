@@ -229,7 +229,6 @@ class ExerciseBlock {
   }
 
   createThreeCount() {
-    document.body.style.pointerEvents = "none";
     const threeCounter: HTMLElement = this.template.createElement(
       "div",
       "counter-three"
@@ -301,7 +300,7 @@ class ExerciseBlock {
         readyText.style.display = "none";
         this.showExerciseLinks();
         this.enableSkipButton();
-        document.body.style.pointerEvents = "";
+        const main = document.querySelector("main");
       }
       countNumber.textContent = `${curNumber}`;
       svgCircle2.style.strokeDashoffset = `${440 - (440 * curNumber) / 10}`;

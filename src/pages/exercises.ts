@@ -42,11 +42,12 @@ class ExercisesPage {
       "for-decor"
     );
     const mainPageElement: HTMLElement = document.createElement("div");
-    forDecor.append(this.createDecorationEl(), mainPageElement);
     mainPageElement.classList.add("exercises-page");
-    mainElement.append(forDecor);
+
     const miniHeader = await this.createMiniHeader();
     const goalCont = await this.createWeekGoalCont();
+    forDecor.append(this.createDecorationEl());
+
     if (miniHeader) {
       mainPageElement.append(miniHeader);
     }
@@ -58,6 +59,8 @@ class ExercisesPage {
       this.createStartBtn(),
       await this.createExercisesCont()
     );
+    forDecor.append(mainPageElement);
+    mainElement.append(forDecor);
   }
 
   private async createMiniHeader() {

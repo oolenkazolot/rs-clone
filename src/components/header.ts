@@ -1,5 +1,5 @@
 import Template from "../templates/template";
-import { ITemplate } from "../types/index";
+import { ITemplate, IPreloader } from "../types/index";
 import Button from "../components/Button";
 import { onOpenModal } from "../utils/component-utils";
 import router from "./routerComponent";
@@ -7,6 +7,7 @@ import {
   getUserTokenLocalStorage,
   removeUserLocalStorage,
 } from "../utils/auth";
+import Preloader from "../components/preloader";
 
 class Header {
   template: ITemplate;
@@ -49,10 +50,15 @@ class Header {
     );
     logo.append(spanOne, spanTwo);
     logo.addEventListener("click", (e) => {
-      e.preventDefault();
-      router.navigate("");
+      this.onclickHandlerLogo(e);
     });
     return logo;
+  }
+
+  private onclickHandlerLogo(e: Event): void {
+    e.preventDefault();
+    router.navigate("");
+    this.activePreloader();
   }
 
   private createButtons(): HTMLElement {
@@ -144,13 +150,29 @@ class Header {
 
   private onClickHandlerLinkMenu(e: Event, src: string) {
     e.preventDefault();
+    this.activePreloader();
+
     router.navigate(src);
   }
 
-  private exitApp() {
+  private exitApp(): void {
     removeUserLocalStorage();
+    this.activePreloader();
     this.draw();
     router.navigate("");
+  }
+
+  private activePreloader(): void {
+    document.body.classList.remove("loaded");
+
+    setTimeout(function () {
+      document.body.classList.add("loaded_hiding");
+    }, 500);
+
+    setTimeout(function () {
+      document.body.classList.add("loaded");
+      document.body.classList.remove("loaded_hiding");
+    }, 800);
   }
 }
 

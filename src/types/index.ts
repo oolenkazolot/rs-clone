@@ -390,3 +390,7 @@ export interface IWeeklyStat {
   weeklyWorkouts: number[];
   load: string;
 }
+
+export interface IPreloader {
+  draw: () => void;
+}

@@ -88,7 +88,6 @@ class StartTrainingPage {
           this.exerciseArray[this.currentExerciseIndex]
         );
         this.setTimeCounter(duration);
-        document.body.style.pointerEvents = "";
       }, 3000);
       curExercise.disablePreviousButton();
     }
@@ -167,7 +166,6 @@ class StartTrainingPage {
             this.exerciseArray[this.currentExerciseIndex]
           );
           this.setTimeCounter(duration);
-          document.body.style.pointerEvents = "";
         }, 3000);
       }
     });
@@ -221,7 +219,6 @@ class StartTrainingPage {
           this.exerciseArray[this.currentExerciseIndex]
         );
         this.setTimeCounter(duration);
-        document.body.style.pointerEvents = "";
       }, 3000);
     }
     page.innerHTML = "";

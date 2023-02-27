@@ -304,9 +304,9 @@ class Slider {
   }
 
   async getComplexParam(id: number) {
-    const workoutPlansInStore = JSON.parse(
-      localStorage.getItem("workoutPlans") || "[]"
-    );
+    // const workoutPlansInStore = JSON.parse(
+    //   localStorage.getItem("workoutPlans") || "[]"
+    // );
     const addNewComplex = new AddNewComplex();
     const serverData = await addNewComplex.creatingArrayFromData();
     const data = [...serverData, ...workout_plans];

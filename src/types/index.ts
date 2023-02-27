@@ -402,3 +402,15 @@ export interface IWeeklyStat {
 export interface IPreloader {
   draw: () => void;
 }
+
+export interface IUserSettings {
+  _id: string;
+  userId: string;
+  goal: string;
+  timeRest: string;
+  load: string;
+  weight: string;
+  height: string;
+  units: string;
+  __v: number;
+}

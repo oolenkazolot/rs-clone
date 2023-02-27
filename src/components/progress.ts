@@ -1,7 +1,13 @@
 import Template from "../templates/template";
 import Authorization from "../utils/auth.routes";
-import { ITemplate, IAuthorization, ILineItem } from "../types/index";
+import {
+  ITemplate,
+  IAuthorization,
+  ILineItem,
+  IWeightChartComponent,
+} from "../types/index";
 import { getUserIdLocalStorage } from "../utils/auth";
+import WeightChartComponent from "../components/WeightChartComponent";
 
 class Progress {
   private template: ITemplate;
@@ -54,12 +60,25 @@ class Progress {
   }
 
   private createCanvas(): HTMLElement {
-    const canvas: HTMLElement = this.template.createElement(
-      "div",
-      `${this.mainClass}__canvas`,
-      "canvas"
-    );
-    return canvas;
+    const weightChart: IWeightChartComponent = new WeightChartComponent({
+      className: `${this.mainClass}__canvas`,
+      data: [
+        {
+          date: new Date("2023-02-20"),
+          weight: 56,
+        },
+        {
+          date: new Date("2023-02-23"),
+          weight: 60,
+        },
+        {
+          date: new Date(),
+          weight: 102,
+        },
+      ],
+    });
+
+    return weightChart.getChart();
   }
 
   private async calculateBmi(): Promise<void> {

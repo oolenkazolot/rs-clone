@@ -355,6 +355,20 @@ export interface IServerExercises {
   __v: number;
 }
 
+export interface IPointWeightChart {
+  date: Date;
+  weight: number;
+}
+
+export interface IParamsWeightChart {
+  className?: string;
+  data: IPointWeightChart[];
+}
+
+export interface IWeightChartComponent {
+  getChart: () => HTMLElement;
+}
+
 export interface ICompletedComplexesReceived {
   totalCompletedComplexes: number;
   totalTime: {
@@ -375,4 +389,8 @@ export interface IFulfilledComplexReturned {
 export interface IWeeklyStat {
   weeklyWorkouts: number[];
   load: string;
+}
+
+export interface IPreloader {
+  draw: () => void;
 }

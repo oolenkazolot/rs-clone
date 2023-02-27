@@ -1,6 +1,6 @@
 import { IExercise, ITemplate } from "../types";
 import Template from "../templates/template";
-import { volume, settings, arrowLeft, tv } from "../components/svg";
+import { volume, settings, arrowLeft, tv, mute } from "../components/svg";
 import Complex from "../utils/сomplex.routes";
 import { getUserIdLocalStorage } from "../utils/auth";
 
@@ -64,7 +64,20 @@ class TakeARest {
       "div",
       "rest__volume"
     );
-    image.innerHTML = volume;
+    const sound = localStorage.getItem("sound");
+    if (sound === "muted") {
+      image.innerHTML = mute;
+    } else {
+      image.innerHTML = volume;
+    }
+    image.addEventListener("click", () => {
+      const sound = localStorage.getItem("sound");
+      if (sound === "muted") {
+        image.innerHTML = volume;
+      } else {
+        image.innerHTML = mute;
+      }
+    });
     const settingsEl: HTMLElement = this.template.createElement(
       "div",
       "rest__settings"
@@ -222,15 +235,36 @@ class TakeARest {
   }
 
   private countSeconds(element: HTMLElement, element2: HTMLElement): void {
+    const tiktak = new Audio();
+    const sound = localStorage.getItem("sound");
+    tiktak.src = "../assets/sounds/tiktak.mp3";
+    if (sound === "unmuted") {
+      tiktak.play();
+    }
     const int = setInterval(() => {
       if (Number(element.innerHTML) > 0) {
         element.innerHTML = String(Number(element.innerHTML) - 1);
+        if (Number(element.innerHTML) === 0) {
+          tiktak.pause();
+        }
       }
     }, 1000);
     setTimeout(() => {
       const skipBtn = document.querySelector(".rest__skip-btn") as HTMLElement;
+      const volumeBtn = document.querySelector(".rest__volume") as HTMLElement;
       skipBtn.addEventListener("click", () => {
         clearInterval(int);
+        tiktak.pause();
+      });
+      volumeBtn.addEventListener("click", () => {
+        const sound = localStorage.getItem("sound");
+        if (sound === "unmuted") {
+          tiktak.pause();
+          localStorage.setItem("sound", "muted");
+        } else if (sound === "muted") {
+          tiktak.play();
+          localStorage.setItem("sound", "unmuted");
+        }
       });
     }, 0);
   }

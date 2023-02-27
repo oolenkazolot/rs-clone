@@ -171,13 +171,11 @@ class TakeARest {
       "next-exercise__link",
       exercises[i + 1].youtube
     );
-    linkEl.addEventListener("click", () => {
-      console.log("click");
-    });
     const tvEl: HTMLElement = this.template.createElement(
       "div",
       "next-exercise__tv"
     );
+
     linkEl.append(tvEl);
     tvEl.innerHTML = tv;
     wrapper.append(exerciseTitle, linkEl);
@@ -261,6 +259,10 @@ class TakeARest {
         }
       }
     }, 1000);
+
+    router.subscribersOnce.push(() => {
+      tiktak.pause();
+    });
     setTimeout(() => {
       const skipBtn = document.querySelector(".rest__skip-btn") as HTMLElement;
       const volumeBtn = document.querySelector(".rest__volume") as HTMLElement;

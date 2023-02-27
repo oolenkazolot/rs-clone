@@ -67,35 +67,36 @@
 
 .add-workout-plans-cont {
   --borderWidth: 3px;
-  background: white;
+  border: 2px solid #f60e50;
   position: relative;
   border-radius: 15px;
 }
-.add-workout-plans-cont:after {
-  content: '';
-  position: absolute;
-  top: calc(-1 * var(--borderWidth));
-  left: calc(-1 * var(--borderWidth));
-  height: calc(100% + var(--borderWidth) * 2);
-  width: calc(100% + var(--borderWidth) * 2);
-  background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #f60e50, #a166ab, #5073b8);
-  border-radius: 15px;
-  z-index: -1;
-  animation: myanimation 4s ease alternate infinite;
-  background-size: 300% 300%;
-}
+// .add-workout-plans-cont:after {
+//   content: '';
+//   position: absolute;
+//   top: calc(-1 * var(--borderWidth));
+//   left: calc(-1 * var(--borderWidth));
+//   height: calc(100% + var(--borderWidth) * 2);
+//   width: calc(100% + var(--borderWidth) * 2);
+//   background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #f60e50, #a166ab, #5073b8);
+//   border-radius: 15px;
+//   z-index: -1;
+//   animation: myanimation 4s ease alternate infinite;
+//   background-size: 300% 300%;
+// }
 
-@keyframes myanimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
+
+// @keyframes myanimation {
+//   0% {
+//     background-position: 0% 50%;
+//   }
+//   50% {
+//     background-position: 100% 50%;
+//   }
+//   100% {
+//     background-position: 0% 50%;
+//   }
+// }
 
 .workout-content-container {
   width: 500px;
@@ -222,7 +223,7 @@
 .workout-plans-png {
   height: 350px;
   position: absolute;
-  right: -5rem;
+  right: 0;
   @media (max-width: 1280px) {
     height: 250px;
   }

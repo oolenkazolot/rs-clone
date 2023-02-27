@@ -35,51 +35,47 @@ class Progress {
       `${this.mainClass}`
     );
 
-    const title: HTMLElement = this.createBlockTitle();
-
-    const canvas: HTMLElement = this.createCanvas();
-
     const bmiBlock: HTMLElement = this.createBmiBlock();
 
-    progress.append(title, canvas, bmiBlock);
+    progress.append(bmiBlock);
     return progress;
   }
 
-  private createBlockTitle(): HTMLElement {
-    const blockTitle: HTMLElement = this.template.createElement(
-      "div",
-      `${this.mainClass}__title`
-    );
-    const title: HTMLElement = this.template.createElement(
-      "h2",
-      `${this.mainClass}__title-content`,
-      "Weight dynamics"
-    );
-    blockTitle.append(title);
-    return blockTitle;
-  }
+  // private createBlockTitle(): HTMLElement {
+  //   const blockTitle: HTMLElement = this.template.createElement(
+  //     "div",
+  //     `${this.mainClass}__title`
+  //   );
+  //   const title: HTMLElement = this.template.createElement(
+  //     "h2",
+  //     `${this.mainClass}__title-content`,
+  //     "Weight dynamics"
+  //   );
+  //   blockTitle.append(title);
+  //   return blockTitle;
+  // }
 
-  private createCanvas(): HTMLElement {
-    const weightChart: IWeightChartComponent = new WeightChartComponent({
-      className: `${this.mainClass}__canvas`,
-      data: [
-        {
-          date: new Date("2023-02-20"),
-          weight: 56,
-        },
-        {
-          date: new Date("2023-02-23"),
-          weight: 60,
-        },
-        {
-          date: new Date(),
-          weight: 102,
-        },
-      ],
-    });
+  // private createCanvas(): HTMLElement {
+  //   const weightChart: IWeightChartComponent = new WeightChartComponent({
+  //     className: `${this.mainClass}__canvas`,
+  //     data: [
+  //       {
+  //         date: new Date("2023-02-20"),
+  //         weight: 56,
+  //       },
+  //       {
+  //         date: new Date("2023-02-23"),
+  //         weight: 60,
+  //       },
+  //       {
+  //         date: new Date(),
+  //         weight: 102,
+  //       },
+  //     ],
+  //   });
 
-    return weightChart.getChart();
-  }
+  //   return weightChart.getChart();
+  // }
 
   private async calculateBmi(): Promise<void> {
     const userId: string | undefined = getUserIdLocalStorage();

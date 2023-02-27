@@ -239,6 +239,9 @@ class StartTrainingPage {
     ) {
       clearInterval(this.interval);
       curExercise.createThreeCount();
+      if (!router.isActiveRout("startTraining")) {
+        return;
+      }
       setTimeout(() => {
         const duration = this.getExerciseDuration(
           this.exerciseArray[this.currentExerciseIndex]
@@ -246,6 +249,9 @@ class StartTrainingPage {
         this.setTimeCounter(duration);
         this.sound();
       }, 3000);
+    }
+    if (!page) {
+      return;
     }
     page.innerHTML = "";
     page.append(curExercise.draw());

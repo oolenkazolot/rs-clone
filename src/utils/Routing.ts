@@ -6,10 +6,12 @@ class Router {
   private subscribers: (() => void)[];
   private errorAction: () => void;
   private currentRout: string;
+  public subscribersOnce: (() => void)[];
 
   constructor(routes: IRout[], errorAction: () => void) {
     this.routes = routes;
     this.subscribers = [];
+    this.subscribersOnce = [];
     this.currentRout = "";
     this.root = "/"; //добавить наименование репозитория перед деплоем /women-workouts-clone/
     this.errorAction = errorAction;
@@ -49,13 +51,19 @@ class Router {
   }
 
   private startSubscribers(): void {
-    if (!this.subscribers.length) {
-      return;
+    if (this.subscribers.length) {
+      this.subscribers.forEach((func: () => void) => {
+        func();
+      });
     }
 
-    this.subscribers.forEach((func: () => void) => {
-      func();
-    });
+    if (this.subscribersOnce.length) {
+      this.subscribersOnce.forEach((func: () => void) => {
+        func();
+      });
+    }
+
+    this.subscribersOnce = [];
   }
 
   //метод для вызова колбека соответствущего роута

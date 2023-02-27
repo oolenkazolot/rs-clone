@@ -348,7 +348,7 @@
 .settings-square {
   width: 60px;
   height: 60px;
-  fill: $color-pink;
+  fill: $color-main-second;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -395,7 +395,7 @@
 .modal-addNewComplex__addName {
   width: 400px;
   @media (max-width: 430px) {
-    width:98%;
+    width: 98%;
   }
 }
 .settings__done-btn {

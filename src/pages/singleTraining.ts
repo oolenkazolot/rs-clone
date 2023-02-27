@@ -236,7 +236,9 @@ class SingleTrainingPage {
         router.navigate("startTraining");
       }
     });
-    link.append(startButton);
+    if (exercises.length) {
+      link.append(startButton);
+    }
     header.append(link);
     return header;
   }

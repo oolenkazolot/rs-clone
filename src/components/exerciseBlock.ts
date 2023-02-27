@@ -1,6 +1,7 @@
 import Template from "../templates/template";
 import { ITemplate, IExercise } from "../types/index";
 import PauseModal from "../components/pauseModal";
+import router from "../components/routerComponent";
 
 class ExerciseBlock {
   template: ITemplate;
@@ -51,6 +52,14 @@ class ExerciseBlock {
     const returnButton: HTMLButtonElement = this.template.createBtn(
       "exercise-block__button-return"
     );
+    returnButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      const mainElement: HTMLElement | null = document.querySelector("main");
+      if (mainElement) {
+        mainElement.innerHTML = "";
+        router.navigate("exercises");
+      }
+    });
     const settings: HTMLElement = this.template.createElement(
       "div",
       "exercise-block__settings-block"
@@ -65,7 +74,6 @@ class ExerciseBlock {
     }
 
     volumeButton.addEventListener("click", () => {
-      console.log("click");
       this.sound(volumeButton);
     });
 

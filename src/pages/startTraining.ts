@@ -52,6 +52,13 @@ class StartTrainingPage {
     }
 
     setttingsModal.classList.add("invisible");
+
+    setttingsModal.addEventListener("click", (e) => {
+      const target = e.target as HTMLElement;
+      if (target.classList.contains("settingsModal"))
+        setttingsModal.classList.add("invisible");
+    });
+
     setttingsModal.classList.add("modal-addNewComplex");
     setttingsModal.append(this.createSettingsModal(userId1));
     mainElement.append(mainPageElement, setttingsModal);

@@ -393,7 +393,10 @@
 }
 
 .modal-addNewComplex__addName {
-  min-width: 30%;
+  width: 400px;
+  @media (max-width: 430px) {
+    width:98%;
+  }
 }
 .settings__done-btn {
   margin: 0;

@@ -3,6 +3,7 @@ import Template from "../templates/template";
 import { volume, settings, arrowLeft, tv, mute } from "../components/svg";
 import Complex from "../utils/сomplex.routes";
 import { getUserIdLocalStorage } from "../utils/auth";
+import router from "../components/routerComponent";
 
 class TakeARest {
   template: ITemplate;
@@ -56,6 +57,14 @@ class TakeARest {
       "rest__arrow-left"
     );
     arrow.innerHTML = arrowLeft;
+    arrow.addEventListener("click", (e) => {
+      e.preventDefault();
+      const mainElement: HTMLElement | null = document.querySelector("main");
+      if (mainElement) {
+        mainElement.innerHTML = "";
+        router.navigate("exercises");
+      }
+    });
     const settingsCont: HTMLElement = this.template.createElement(
       "div",
       "rest__settings-cont"
@@ -252,7 +261,14 @@ class TakeARest {
     setTimeout(() => {
       const skipBtn = document.querySelector(".rest__skip-btn") as HTMLElement;
       const volumeBtn = document.querySelector(".rest__volume") as HTMLElement;
+      const arrowBack = document.querySelector(
+        ".rest__arrow-left"
+      ) as HTMLElement;
       skipBtn.addEventListener("click", () => {
+        clearInterval(int);
+        tiktak.pause();
+      });
+      arrowBack.addEventListener("click", () => {
         clearInterval(int);
         tiktak.pause();
       });

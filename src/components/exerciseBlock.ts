@@ -1,6 +1,7 @@
 import Template from "../templates/template";
 import { ITemplate, IExercise } from "../types/index";
 import PauseModal from "../components/pauseModal";
+import router from "../components/routerComponent";
 
 class ExerciseBlock {
   template: ITemplate;
@@ -51,6 +52,14 @@ class ExerciseBlock {
     const returnButton: HTMLButtonElement = this.template.createBtn(
       "exercise-block__button-return"
     );
+    returnButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      const mainElement: HTMLElement | null = document.querySelector("main");
+      if (mainElement) {
+        mainElement.innerHTML = "";
+        router.navigate("exercises");
+      }
+    });
     const settings: HTMLElement = this.template.createElement(
       "div",
       "exercise-block__settings-block"
@@ -58,6 +67,16 @@ class ExerciseBlock {
     const volumeButton: HTMLButtonElement = this.template.createBtn(
       "exercise-block__volume"
     );
+
+    const sound = localStorage.getItem("sound");
+    if (sound === "muted") {
+      volumeButton.style.background = "url(../assets/svg/mute.svg)";
+    }
+
+    volumeButton.addEventListener("click", () => {
+      this.sound(volumeButton);
+    });
+
     const settingsButton: HTMLButtonElement = this.template.createBtn(
       "exercise-block__settings"
     );
@@ -114,6 +133,9 @@ class ExerciseBlock {
         "exercise-block__button-done",
         "Done"
       );
+      doneButton.addEventListener("click", () => {
+        this.playDoneBtn();
+      });
       this.counter.append(doneButton);
     } else {
       const countdownBar: HTMLElement = this.createCountdownBar();
@@ -312,6 +334,27 @@ class ExerciseBlock {
       svgCircle2.style.strokeDashoffset = `${440 - (440 * curNumber) / 10}`;
       countDot.style.transform = `rotateZ(${curNumber * 36}deg)`;
     }, 1000);
+  }
+
+  private sound(element: HTMLElement): void {
+    const sound = localStorage.getItem("sound");
+
+    if (sound === "muted") {
+      element.style.background = "url(../assets/svg/volume.svg)";
+      localStorage.setItem("sound", "unmuted");
+    } else {
+      element.style.background = "url(../assets/svg/mute.svg)";
+      localStorage.setItem("sound", "muted");
+    }
+  }
+
+  private playDoneBtn(): void {
+    const doneSound = new Audio();
+    const sound = localStorage.getItem("sound");
+    doneSound.src = "../assets/sounds/done.mp3";
+    if (sound === "unmuted") {
+      doneSound.play();
+    }
   }
 }
 

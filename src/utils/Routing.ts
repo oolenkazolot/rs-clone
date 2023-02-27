@@ -1,4 +1,4 @@
-import { IRout } from '../types/index';
+import { IRout } from "../types/index";
 
 class Router {
   private routes: IRout[];
@@ -12,14 +12,14 @@ class Router {
     this.routes = routes;
     this.subscribers = [];
     this.subscribersOnce = [];
-    this.currentRout = '';
-    this.root = '/'; //добавить наименование репозитория перед деплоем /women-workouts-clone/
+    this.currentRout = "";
+    this.root = "/"; //добавить наименование репозитория перед деплоем /women-workouts-clone/
     this.errorAction = errorAction;
   }
 
   //метод для перехода на страницу
   public navigate = (path: string): void => {
-    window.history.pushState(null, '', this.root + path);
+    window.history.pushState(null, "", this.root + path);
     this.action(path);
     this.currentRout = path;
     this.startSubscribers();
@@ -27,13 +27,13 @@ class Router {
 
   //метод для проверки какая сейчас страница при перезагрузке
   public init(): void {
-    const path: string = window.location.pathname.replace(this.root, '');
-    this.currentRout = path.replace(/\/$/, '');
-    this.action(path.replace(/\/$/, ''));
+    const path: string = window.location.pathname.replace(this.root, "");
+    this.currentRout = path.replace(/\/$/, "");
+    this.action(path.replace(/\/$/, ""));
 
-    window.addEventListener('popstate', (e) => {
+    window.addEventListener("popstate", (e) => {
       //перерисовка при нажатии кнопок в браузере forward/back
-      this.action(window.location.pathname.replace(this.root, '')); //берет текущий путь, после того как сделал шаг назад
+      this.action(window.location.pathname.replace(this.root, "")); //берет текущий путь, после того как сделал шаг назад
     });
     this.startSubscribers();
   }
@@ -69,8 +69,8 @@ class Router {
   //метод для вызова колбека соответствущего роута
   private action(path: string): void {
     const current: IRout | undefined = this.routes.find((rout: IRout) => {
-      if (rout.path.indexOf('/:') !== -1) {
-        return rout.path.replace(/\/:.+$/, '') === path.replace(/\/[\w]+$/, '');
+      if (rout.path.indexOf("/:") !== -1) {
+        return rout.path.replace(/\/:.+$/, "") === path.replace(/\/[\w]+$/, "");
       }
       return rout.path === path;
     });
@@ -85,14 +85,14 @@ class Router {
 
   //метод возвращвет параметр для ссылки вида products/:id
   private getParam(path: string, current: string): string | undefined {
-    if (current.indexOf('/:') === -1) {
+    if (current.indexOf("/:") === -1) {
       return;
     }
     const match: string[] | null = path.match(/\/.+$/);
 
     let param: string | undefined;
     if (match) {
-      param = match[0].replace('/', '');
+      param = match[0].replace("/", "");
     }
 
     return param;

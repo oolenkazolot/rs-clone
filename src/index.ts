@@ -4,6 +4,7 @@ import Footer from "./components/footer";
 import ModalSignIn from "./components/modalSignIn";
 import ModalSignUp from "./components/modalSignUp";
 import ModalQuestions from "./components/modalQuestions";
+import Preloader from "./components/preloader";
 import router from "./components/routerComponent";
 
 import {
@@ -12,7 +13,11 @@ import {
   IModalSignUp,
   IModalQuestions,
   IFooter,
+  IPreloader,
 } from "./types/index";
+
+const preloader: IPreloader = new Preloader();
+preloader.draw();
 
 const header: IHeader = new Header();
 header.draw();

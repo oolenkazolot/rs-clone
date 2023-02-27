@@ -177,14 +177,6 @@ class StartTrainingPage {
         }, 3000);
       }
     });
-
-    document.addEventListener('click', (e) => {
-      const target = <HTMLElement>e.target;
-      if (target.classList.contains('header__link') || target.classList.contains('header__btn')) {
-        clearInterval(this.interval);
-      }
-      e.preventDefault();
-    });
   }
 
   private getResultMinutes(startNum: number) {

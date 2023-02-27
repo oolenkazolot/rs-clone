@@ -66,6 +66,13 @@ class Congrats {
       "/exercises",
       "Complete"
     );
+
+    const finishSound = new Audio();
+    finishSound.src = "../assets/sounds/finish.mp3";
+    const sound = localStorage.getItem("sound");
+    if (sound === "unmuted") {
+      finishSound.play();
+    }
     this.container.append(congratsText, iconsBlock, completeButton);
     return this.container;
   }

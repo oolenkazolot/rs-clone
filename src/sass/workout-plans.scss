@@ -70,7 +70,9 @@
   background: white;
   position: relative;
   border-radius: 15px;
+  z-index: 2;
 }
+
 .add-workout-plans-cont:after {
   content: '';
   position: absolute;
@@ -222,7 +224,7 @@
 .workout-plans-png {
   height: 350px;
   position: absolute;
-  right: -5rem;
+  right: 0;
   @media (max-width: 1280px) {
     height: 250px;
   }

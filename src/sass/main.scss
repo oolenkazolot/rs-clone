@@ -12,6 +12,10 @@
     max-width: 1920px;
     display: flex;
     margin: 0 auto;
+
+    @media (max-width: 420px) {
+      flex-direction: column;
+    }
   }
 
   &__left {
@@ -20,8 +24,8 @@
     display: flex;
     flex-direction: column;
 
-    @media all and (max-width: 420px) {
-      display: none;
+    @media (max-width: 420px) {
+      width: 100%;
     }
   }
 

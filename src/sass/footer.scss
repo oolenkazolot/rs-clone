@@ -28,11 +28,15 @@
     padding-right: 15px;
     font-size: 1.2rem;
     font-weight: 600;
-    color: $color-pink;
-    transition: $transition;
+    @include bg-text;
+    transition: opacity $transition;
 
     &:hover {
-      color: $color-main;
+      opacity: 0.7;
+    }
+
+    &:active {
+      opacity: 0.7;
     }
 
     @media (max-width: 576px) {
@@ -42,7 +46,7 @@
 
   &__year {
     font-size: 1.2rem;
-    color: $color-pink;
+    @include bg-text;
     font-weight: 600;
 
     @media (max-width: 576px) {
@@ -56,6 +60,15 @@
     background: url(../assets/svg/rs-school.svg);
     background-position: center;
     background-repeat: no-repeat;
+    transition: opacity $transition;
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    &:active {
+      opacity: 0.7;
+    }
 
     @media (max-width: 576px) {
       height: 20px;

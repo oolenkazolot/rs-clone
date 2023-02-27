@@ -9,11 +9,7 @@
   background-color: $color-white;
   box-shadow: 0px 4px 15px 0px rgba(25, 26, 30, 0.08);
   position: relative;
-  z-index: 1;
-
-  @media (max-width: 576px) {
-    flex-direction: column;
-  }
+  z-index: 20;
 
   &__wrap {
     display: flex;
@@ -25,17 +21,35 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 768px) {
+      display: none;
+
+      .vertical-menu & {
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+      }
+    }
   }
 
   &__list-item {
     &:not(:last-child) {
       margin-right: 30px;
+
+      @media (max-width: 768px) {
+        margin-right: 0;
+
+        &:not(:last-child) {
+          margin-bottom: 20px;
+        }
+      }
     }
   }
 
   &__link {
     font-size: 20px;
-    @include bg-text;
+    color: $color-main-second;
     text-transform: capitalize;
   }
 
@@ -54,15 +68,34 @@
     }
   }
 
-  &__buttons {
+  &__btn {
+    margin-left: 20px;
+
     @media (max-width: 576px) {
-      margin-top: 20px;
+      margin-left: 10px;
     }
   }
 
-  &__btn {
-    &:last-child {
-      margin-left: 20px;
+  &__mobile-btn {
+    display: none;
+    margin-left: 20px;
+    font-size: 30px;
+    @include bg-text;
+    border: none;
+    outline: none;
+    line-height: 0;
+    transition: opacity 0.3s;
+    cursor: pointer;
+
+    @media (max-width: 768px) {
+      display: block;
+
+      &:hover {
+        opacity: 0.7;
+      }
+      &:active {
+        opacity: 0.7;
+      }
     }
   }
 }
@@ -91,11 +124,34 @@
     .logo:active {
       background-image: $active;
     }
+
+    @media (max-width: 576px) {
+      display: none;
+    }
   }
 
-  &__content:last-child {
+  &__content:nth-child(2) {
     font-weight: 400;
     font-size: 14px;
     letter-spacing: 5px;
+  }
+
+  &__mobile {
+    display: none;
+    @include bg-text;
+    font-size: 27px;
+
+    @media (max-width: 576px) {
+      display: block;
+    }
+  }
+}
+
+.vertical-menu {
+  display: none;
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

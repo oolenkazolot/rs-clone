@@ -30,6 +30,7 @@
 @import './edit-form.scss';
 @import './weightChart.scss';
 @import './preloader.scss';
+@import './modalMobileMenu.scss';
 
 @font-face {
   font-family: 'icomoon';
@@ -65,6 +66,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-burger-btn:before {
+  content: '\e907';
+  color: $color-main;
+}
 .icon-mail_outline:before {
   content: '\e901';
 }

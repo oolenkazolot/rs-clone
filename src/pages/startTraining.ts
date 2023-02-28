@@ -138,7 +138,10 @@ class StartTrainingPage {
         if (this.currentExerciseIndex === this.exerciseArray.length - 1) {
           clearInterval(this.interval);
           this.counter++;
-          const resultMins = this.getResultMinutes(start);
+          let resultMins = this.getResultMinutes(start);
+          if (resultMins === 0) {
+            resultMins = 1;
+          }
           this.showCongrats(this.counter, resultMins);
         } else {
           clearInterval(this.interval);
@@ -149,7 +152,10 @@ class StartTrainingPage {
       if (target.classList.contains("exercise-block__button-skip")) {
         if (this.currentExerciseIndex === this.exerciseArray.length - 1) {
           clearInterval(this.interval);
-          const resultMins = this.getResultMinutes(start);
+          let resultMins = this.getResultMinutes(start);
+          if (resultMins === 0) {
+            resultMins = 1;
+          }
           this.showCongrats(this.counter, resultMins);
         } else {
           clearInterval(this.interval);

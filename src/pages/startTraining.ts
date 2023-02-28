@@ -113,6 +113,7 @@ class StartTrainingPage {
           this.exerciseArray[this.currentExerciseIndex]
         );
         this.setTimeCounter(duration);
+        this.sound();
       }, 3000);
       curExercise.disablePreviousButton();
     }

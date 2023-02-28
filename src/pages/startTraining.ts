@@ -139,7 +139,7 @@ class StartTrainingPage {
           clearInterval(this.interval);
           this.counter++;
           let resultMins = this.getResultMinutes(start);
-          if(resultMins === 0) {
+          if (resultMins === 0) {
             resultMins = 1;
           }
           this.showCongrats(this.counter, resultMins);
@@ -153,7 +153,7 @@ class StartTrainingPage {
         if (this.currentExerciseIndex === this.exerciseArray.length - 1) {
           clearInterval(this.interval);
           let resultMins = this.getResultMinutes(start);
-          if(resultMins === 0) {
+          if (resultMins === 0) {
             resultMins = 1;
           }
           this.showCongrats(this.counter, resultMins);

@@ -71,6 +71,8 @@ class ExerciseBlock {
     const sound = localStorage.getItem("sound");
     if (sound === "muted") {
       volumeButton.style.background = "url(../assets/svg/mute.svg)";
+    } else {
+      volumeButton.style.background = "url(../assets/svg/volume.svg)";
     }
 
     volumeButton.addEventListener("click", () => {
@@ -352,7 +354,7 @@ class ExerciseBlock {
     const doneSound = new Audio();
     const sound = localStorage.getItem("sound");
     doneSound.src = "../assets/sounds/done.mp3";
-    if (sound === "unmuted") {
+    if (sound === "unmuted" || !sound) {
       doneSound.play();
     }
   }

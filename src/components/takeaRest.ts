@@ -248,7 +248,7 @@ class TakeARest {
     const tiktak = new Audio();
     const sound = localStorage.getItem("sound");
     tiktak.src = "../assets/sounds/tiktak.mp3";
-    if (sound === "unmuted") {
+    if (sound === "unmuted" || !sound) {
       tiktak.play();
     }
     const int = setInterval(() => {

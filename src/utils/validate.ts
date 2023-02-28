@@ -55,7 +55,7 @@ export function isWeightValid(weight: string, units: string): IValidate {
   const valueWeight: number =
     units === "Lbs" ? Number(weight) * 0.45 : Number(weight);
 
-  if (valueWeight < 1 || valueWeight > 3000) {
+  if (valueWeight < 1 || valueWeight > 1500) {
     return {
       res: false,
       message: "Enter the correct weight",

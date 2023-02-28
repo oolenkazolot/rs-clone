@@ -55,7 +55,7 @@ const baseConfig = {
   },
   output: {
     filename: 'index.js',
-    // publicPath: '/rs-clone-deploy/',
+    publicPath: '/rs-clone-deploy/',
     path: path.resolve(__dirname, './dist'),
     assetModuleFilename: 'images/[name][ext]',
   },

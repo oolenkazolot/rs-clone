@@ -33,14 +33,6 @@
 @import './modalMobileMenu.scss';
 
 @font-face {
-  font-family: 'MTTMilano-Medium';
-  src: url('//db.onlinewebfonts.com/t/68d7ff963a65763581b048ca3cc3d178.eot');
-  src: url('//db.onlinewebfonts.com/t/68d7ff963a65763581b048ca3cc3d178.eot?#iefix') format('embedded-opentype'), url('//db.onlinewebfonts.com/t/68d7ff963a65763581b048ca3cc3d178.woff2') format('woff2'),
-    url('//db.onlinewebfonts.com/t/68d7ff963a65763581b048ca3cc3d178.woff') format('woff'), url('//db.onlinewebfonts.com/t/68d7ff963a65763581b048ca3cc3d178.ttf') format('truetype'),
-    url('//db.onlinewebfonts.com/t/68d7ff963a65763581b048ca3cc3d178.svg#MTTMilano-Medium') format('svg');
-}
-
-@font-face {
   font-family: 'icomoon';
   src: url('../assets/font/fonts/icomoon.eot?7gfrnh');
   src: url('../assets/font/fonts/icomoon.eot?7gfrnh#iefix') format('embedded-opentype'), url('../assets/font/fonts/icomoon.ttf?7gfrnh') format('truetype'),
@@ -100,7 +92,7 @@
 }
 
 body {
-  font-family: 'MTTMilano-Medium', sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 14px;
 }
 

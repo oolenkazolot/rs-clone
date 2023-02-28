@@ -101,6 +101,7 @@ class StartTrainingPage {
         .toLowerCase()
         .includes("x")
     ) {
+      clearInterval(this.interval);
       curExercise.createCountDown();
       curExercise.hideExerciseLinks();
       curExercise.disablePreviousButton();
@@ -226,6 +227,7 @@ class StartTrainingPage {
   }
 
   private showExercise(): void {
+    clearInterval(this.interval);
     const page = <HTMLElement>document.querySelector(".startTraining-page");
     const curExercise = new ExerciseBlock(
       this.exerciseArray[this.currentExerciseIndex]

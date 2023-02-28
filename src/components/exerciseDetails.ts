@@ -48,7 +48,9 @@ class ExerciseDetails {
     trashIcon.addEventListener("click", async () => {
       if (exercises.serverId) {
         await this.complex.deleteExercise(exercises.serverId);
-        const exercAfter = await this.complex.getExercises(exercises.serverId);
+        const exercAfter = await this.complex.getExercises(
+          JSON.parse(String(complexId))
+        );
         if (exercAfter && !exercAfter.length) {
           const startBtn = document.querySelector(
             ".training__button-start"

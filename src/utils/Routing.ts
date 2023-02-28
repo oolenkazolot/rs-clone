@@ -13,7 +13,7 @@ class Router {
     this.subscribers = [];
     this.subscribersOnce = [];
     this.currentRout = "";
-    this.root = "/"; //добавить наименование репозитория перед деплоем /women-workouts-clone/
+    this.root = "/rs-clone-deploy/"; //добавить наименование репозитория перед деплоем /women-workouts-clone/
     this.errorAction = errorAction;
   }
 

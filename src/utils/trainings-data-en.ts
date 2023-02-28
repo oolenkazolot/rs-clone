@@ -579,7 +579,7 @@ const trainingsData = {
       title: "quad stretch left",
       description:
         "Stand up tall and shift your weight to the right leg. Lift your left foot and grasp it with your left hand. Pull the left foot toward your butt until you feel the stretch in your quads. Hold this position.",
-      example: "../assets/images/quad_stretch_left.jpg/",
+      example: "../assets/images/quad_stretch_left.jpg",
       youtube: "https://www.youtube.com/watch?v=TfcRyYf7WLg",
       quantity: "00:30",
     },

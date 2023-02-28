@@ -42,14 +42,6 @@
   font-display: block;
 }
 
-@font-face {
-  font-family: 'MTTMilano-Medium';
-  src: url('//db.onlinewebfonts.com/t/68d7ff963a65763581b048ca3cc3d178.eot');
-  src: url('//db.onlinewebfonts.com/t/68d7ff963a65763581b048ca3cc3d178.eot?#iefix') format('embedded-opentype'), url('//db.onlinewebfonts.com/t/68d7ff963a65763581b048ca3cc3d178.woff2') format('woff2'),
-    url('//db.onlinewebfonts.com/t/68d7ff963a65763581b048ca3cc3d178.woff') format('woff'), url('//db.onlinewebfonts.com/t/68d7ff963a65763581b048ca3cc3d178.ttf') format('truetype'),
-    url('//db.onlinewebfonts.com/t/68d7ff963a65763581b048ca3cc3d178.svg#MTTMilano-Medium') format('svg');
-}
-
 [class^='icon-'],
 [class*=' icon-'] {
   /* use !important to prevent issues with browser extensions that change fonts */
@@ -100,7 +92,7 @@
 }
 
 body {
-  font-family: 'MTTMilano-Medium', sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 14px;
 }
 

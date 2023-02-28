@@ -237,7 +237,6 @@ class Slider {
         const startBtn = document.querySelector(
           ".exercises__startNow-btn"
         ) as HTMLButtonElement;
-        console.log(startBtn);
         startBtn.disabled = true;
       }, 0);
     }

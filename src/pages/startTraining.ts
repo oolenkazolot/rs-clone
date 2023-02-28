@@ -113,7 +113,6 @@ class StartTrainingPage {
           this.exerciseArray[this.currentExerciseIndex]
         );
         this.setTimeCounter(duration);
-        this.sound();
         this.enableCounterBlock();
       }, 3000);
       curExercise.disablePreviousButton();
@@ -240,7 +239,6 @@ class StartTrainingPage {
           this.exerciseArray[this.currentExerciseIndex]
         );
         this.setTimeCounter(duration);
-        this.sound();
         this.enableCounterBlock();
       }, 3000);
     }
@@ -377,9 +375,6 @@ class StartTrainingPage {
     const updateCounter = () => {
       count = count - 1;
       threeCounter.textContent = `${count}`;
-      if (count === 0) {
-        this.sound();
-      }
     };
     threeCounter.addEventListener("animationiteration", updateCounter);
     threeCounter.addEventListener("animationend", updateCounter);
@@ -497,15 +492,6 @@ class StartTrainingPage {
     textWrapper.append(textTitle, textContent);
     restTimeBlock.append(square, textWrapper);
     return restTimeBlock;
-  }
-
-  private sound() {
-    const whistle = new Audio();
-    const sound = localStorage.getItem("sound");
-    whistle.src = "../assets/sounds/wistle.mp3";
-    if (sound === "unmuted" || !sound) {
-      whistle.play();
-    }
   }
 
   disableCounterBlock() {

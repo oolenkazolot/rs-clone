@@ -114,6 +114,7 @@ class StartTrainingPage {
         );
         this.setTimeCounter(duration);
         this.sound();
+        this.enableCounterBlock();
       }, 3000);
       curExercise.disablePreviousButton();
     }
@@ -185,6 +186,7 @@ class StartTrainingPage {
       if (target.classList.contains("pause-modal__button-continue")) {
         this.closeModal();
         document.body.style.overflow = "";
+        this.disableCounterBlock();
         clearInterval(this.interval);
         this.createThreeCount();
         setTimeout(() => {
@@ -192,6 +194,7 @@ class StartTrainingPage {
             this.exerciseArray[this.currentExerciseIndex]
           );
           this.setTimeCounter(duration);
+          this.enableCounterBlock();
         }, 3000);
       }
     });
@@ -238,6 +241,7 @@ class StartTrainingPage {
         );
         this.setTimeCounter(duration);
         this.sound();
+        this.enableCounterBlock();
       }, 3000);
     }
     if (!page) {
@@ -502,6 +506,26 @@ class StartTrainingPage {
     if (sound === "unmuted" || !sound) {
       whistle.play();
     }
+  }
+
+  disableCounterBlock() {
+    const counterBlock = <HTMLButtonElement>(
+      document.querySelector(".exercise-block__counter")
+    );
+    if (!counterBlock) {
+      return;
+    }
+    counterBlock.style.pointerEvents = "none";
+  }
+
+  enableCounterBlock() {
+    const counterBlock = <HTMLButtonElement>(
+      document.querySelector(".exercise-block__counter")
+    );
+    if (!counterBlock) {
+      return;
+    }
+    counterBlock.style.pointerEvents = "";
   }
 }
 

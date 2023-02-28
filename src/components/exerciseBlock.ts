@@ -2,6 +2,7 @@ import Template from "../templates/template";
 import { ITemplate, IExercise } from "../types/index";
 import PauseModal from "../components/pauseModal";
 import router from "../components/routerComponent";
+import ExerciseModal from "../components/exerciseModal";
 
 class ExerciseBlock {
   template: ITemplate;
@@ -106,11 +107,18 @@ class ExerciseBlock {
       "div",
       "exercise-block__extra"
     );
-    const infoLink: HTMLAnchorElement = this.template.createLink(
+    const infoLink: HTMLElement = this.template.createLink(
       "exercise-block__info-link",
       "#",
       "Info"
     );
+
+    infoLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      const exerciseModal = new ExerciseModal(this.exercise);
+      exerciseModal.draw();
+    });
+
     const youtubeLink: HTMLAnchorElement = this.template.createLink(
       "exercise-block__youtube",
       this.exercise.youtube,
@@ -142,6 +150,7 @@ class ExerciseBlock {
     } else {
       const countdownBar: HTMLElement = this.createCountdownBar();
       this.counter.append(countdownBar);
+      this.counter.style.pointerEvents = "none";
     }
     this.exerciseBlock.append(this.counter);
   }
@@ -256,6 +265,28 @@ class ExerciseBlock {
     }
     skipBtn.classList.remove("inactive");
     skipBtn.disabled = false;
+  }
+
+  disablePauseButton(): void {
+    const pauseBtn = <HTMLButtonElement>(
+      document.querySelector(".exercise-block__button-pause")
+    );
+    if (!pauseBtn) {
+      return;
+    }
+    pauseBtn.classList.add("inactive");
+    pauseBtn.disabled = true;
+  }
+
+  enablePauseButton(): void {
+    const pauseBtn = <HTMLButtonElement>(
+      document.querySelector(".exercise-block__button-pause")
+    );
+    if (!pauseBtn) {
+      return;
+    }
+    pauseBtn.classList.remove("inactive");
+    pauseBtn.disabled = false;
   }
 
   createThreeCount() {

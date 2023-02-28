@@ -580,7 +580,7 @@ const trainingsData = {
       title: "растяжка левой ноги",
       description:
         "Встаньте прямо и перенесите вес на правую ногу. Поднимите левую ногу и возьмитесь за нее левой рукой. Подтяните левую ногу к ягодицам, пока не почувствуете растяжение в квадрицепсах. Держите эту позицию.",
-      example: "../assets/images/quad_stretch_left.jpg/",
+      example: "../assets/images/quad_stretch_left.jpg",
       youtube: "https://www.youtube.com/watch?v=TfcRyYf7WLg",
       quantity: "00:30",
     },

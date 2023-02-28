@@ -226,6 +226,7 @@ class SingleTrainingPage {
       "training__button-start",
       "Start now"
     );
+
     if (this.exTime === "0") {
       startButton.disabled = true;
     }

@@ -12,6 +12,7 @@ import AirDatepicker from "air-datepicker";
 import "air-datepicker/air-datepicker.css";
 import Progress from "../components/progress";
 import ModalEditProfile from "../components/modalEditProfile";
+import { activePreloader } from "../utils/preloader";
 
 class ProfilePage {
   private template: ITemplate;
@@ -30,6 +31,7 @@ class ProfilePage {
     this.progress = new Progress();
   }
   public async draw(): Promise<void> {
+    document.body.classList.remove("loaded");
     const mainElement: HTMLElement | null = document.querySelector(".main");
     if (!mainElement) {
       return;
@@ -67,6 +69,8 @@ class ProfilePage {
     if (!modalEditProfile) {
       return;
     }
+    activePreloader(document.body);
+
     profilePage.append(decorEl, title, container, progress, modalEditProfile);
     mainElement.append(profilePage);
     new AirDatepicker("#airdatepicker");

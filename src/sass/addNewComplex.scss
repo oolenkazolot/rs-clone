@@ -13,13 +13,13 @@
 }
 
 .exercises-wrapper {
-  padding: 2rem;
-  @media (max-width: 900px) {
-    padding: 1rem;
-  }
-  @media (max-width: 600px) {
-    padding: 0rem;
-  }
+  margin-top: 20px;
+  // @media (max-width: 900px) {
+  //   padding: 1rem;
+  // }
+  // @media (max-width: 600px) {
+  //   padding: 0rem;
+  // }
 }
 
 .wrap-exercise {
@@ -27,15 +27,13 @@
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
-  padding: 2rem;
   @media (max-width: 900px) {
     gap: 1rem;
-    padding: 1rem;
   }
 }
 
 .add-exerc-btn {
-  background-color: rgb(247, 115, 177);
+  background: $bg-pink;
   padding: 0.8rem 1.5rem;
   border: none;
   border-radius: 20px;
@@ -61,7 +59,7 @@
     border-radius: 12px;
   }
   &:hover {
-    background-color: $color-main-second;
+    background: $hover;
   }
 }
 

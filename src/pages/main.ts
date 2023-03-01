@@ -7,77 +7,87 @@ import pic1 from "../assets/images/pic1.jpg";
 import Authorization from "../utils/auth.routes";
 import Template from "../templates/template";
 import { ITemplate } from "../types/index";
+import { activePreloader } from "../utils/preloader";
 
 class MainPage {
   public authorization: IAuthorization;
   mainPageElement: HTMLDivElement;
   template: ITemplate;
+  isLoaded: number;
 
   constructor() {
     this.authorization = new Authorization();
     this.mainPageElement = document.createElement("div");
     this.mainPageElement.classList.add("main-page");
     this.template = new Template();
+    this.isLoaded = 0;
   }
 
   private createIntroSection(): void {
-    const introSection: HTMLElement = document.createElement("section");
-    introSection.className = "main__intro intro";
-
+    document.body.classList.remove("loaded");
+    const mainClass = "intro";
+    const introSection: HTMLElement = this.template.createElement(
+      "section",
+      `main__${mainClass}`
+    );
+    introSection.classList.add(mainClass);
     const introWrapper: HTMLElement = this.template.createElement(
       "div",
-      "intro__wrapper"
+      `${mainClass}__wrapper`
     );
-    introSection.append(introWrapper);
-
-    const leftVideos: HTMLElement = this.template.createElement(
-      "div",
-      "intro__left"
+    const leftVideos: HTMLElement = this.createVideoBlock(
+      [video1, video2],
+      `${mainClass}__left`
     );
-    introWrapper.append(leftVideos);
-
-    const upperVideo: HTMLVideoElement = this.template.createVideo(video1);
-    leftVideos.append(upperVideo);
-
-    const bottomVideo: HTMLVideoElement = this.template.createVideo(video2);
-    leftVideos.append(bottomVideo);
-
+    const rightVideos: HTMLElement = this.createVideoBlock(
+      [video3, video4],
+      `${mainClass}__left`
+    );
     const central: HTMLElement = this.template.createElement(
       "div",
-      "intro__center"
+      `${mainClass}__center`
     );
-    introWrapper.append(central);
-
     const centralText: HTMLElement = this.template.createElement(
       "h2",
-      "intro__text"
+      `${mainClass}__text`
     );
     centralText.innerHTML =
       "Find Your Inner Energy and Strength.<br> Join Our Comunity for Support.";
-    central.append(centralText);
-
+    introWrapper.append(leftVideos, central, rightVideos);
     const googleLink: HTMLAnchorElement = this.template.createLink(
-      "intro__link",
+      `${mainClass}__link`,
       "https://play.google.com/store/apps/details?id=com.betterlifewithapps.womenworkouts&hl=en&gl=US"
     );
     googleLink.target = "_blank";
-    central.append(googleLink);
-
-    const rightVideos: HTMLElement = this.template.createElement(
-      "div",
-      "intro__left"
-    );
-    introWrapper.append(rightVideos);
-
-    const upperRightVideo: HTMLVideoElement = this.template.createVideo(video3);
-    rightVideos.append(upperRightVideo);
-
-    const bottomRightVideo: HTMLVideoElement = this.template.createVideo(
-      video4
-    );
-    rightVideos.append(bottomRightVideo);
-
+    central.append(centralText, googleLink);
+    introSection.append(introWrapper);
     this.mainPageElement.append(introSection);
+  }
+
+  private createVideoBlock(
+    videoFiles: string[],
+    className: string
+  ): HTMLElement {
+    const block: HTMLElement = this.template.createElement("div", className);
+    videoFiles.map((video) => {
+      const videoEl: HTMLVideoElement = this.template.createVideo(video);
+      this.addHandlerCanplay(videoEl);
+      return block.append(videoEl);
+    });
+    return block;
+  }
+
+  private addHandlerCanplay(
+    element: HTMLAudioElement | HTMLVideoElement
+  ): void {
+    element.addEventListener("canplay", (e) => {
+      this.isLoaded += 1;
+
+      if (this.isLoaded === 4) {
+        this.isLoaded = 0;
+        activePreloader(document.body);
+      }
+    });
   }
 
   private createAboutSection(): void {

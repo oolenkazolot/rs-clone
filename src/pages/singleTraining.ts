@@ -13,6 +13,7 @@ import WorkoutBlock from "../components/workoutBlock";
 import AddNewComplex from "../components/addNewComplex";
 import Complex from "../utils/сomplex.routes";
 import trainingsData from "../utils/trainings-data-en";
+import { activePreloader } from "../utils/preloader";
 
 class SingleTrainingPage {
   template: ITemplate;
@@ -40,6 +41,7 @@ class SingleTrainingPage {
   }
 
   public async draw(id: string | undefined) {
+    document.body.classList.remove("loaded");
     const mainElement: HTMLElement | null = document.querySelector("main");
     if (!mainElement) {
       return;
@@ -105,6 +107,7 @@ class SingleTrainingPage {
         exercises.classList.add("addit");
       }
       mainPageElement.append(this.createDetailsModal());
+      activePreloader(document.body);
     }
   }
 

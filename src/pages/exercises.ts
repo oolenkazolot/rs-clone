@@ -13,6 +13,7 @@ import AddNewComplex from "../components/addNewComplex";
 import SingleTrainingPage from "./singleTraining";
 import Complex from "../utils/сomplex.routes";
 import { getUserIdLocalStorage } from "../utils/auth";
+import { activePreloader } from "../utils/preloader";
 
 class ExercisesPage {
   template: ITemplate;
@@ -60,18 +61,19 @@ class ExercisesPage {
       this.createStartBtn(),
       await this.createExercisesCont()
     );
-    this.activePreloader();
+    activePreloader(document.body);
+    // this.activePreloader();
     forDecor.append(mainPageElement);
     mainElement.append(forDecor);
   }
 
-  private activePreloader(): void {
-    document.body.classList.add("loaded_hiding");
-    setTimeout(function () {
-      document.body.classList.add("loaded");
-      document.body.classList.remove("loaded_hiding");
-    }, 500);
-  }
+  // private activePreloader(): void {
+  //   document.body.classList.add("loaded_hiding");
+  //   setTimeout(function () {
+  //     document.body.classList.add("loaded");
+  //     document.body.classList.remove("loaded_hiding");
+  //   }, 500);
+  // }
 
   private async createMiniHeader() {
     const statistic = await this.getCompletesExercisesStat();

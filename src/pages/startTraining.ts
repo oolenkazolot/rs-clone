@@ -11,6 +11,7 @@ import SingleTrainingPage from "./singleTraining";
 import { mug, lightning2 } from "../components/svg";
 import Complex from "../utils/сomplex.routes";
 import { getUserIdLocalStorage } from "../utils/auth";
+import { activePreloader } from "../utils/preloader";
 
 class StartTrainingPage {
   template: ITemplate;
@@ -32,6 +33,7 @@ class StartTrainingPage {
   }
 
   public async draw() {
+    document.body.classList.remove("loaded");
     const mainElement: HTMLElement | null = document.querySelector("main");
     if (!mainElement) {
       return;
@@ -203,6 +205,7 @@ class StartTrainingPage {
         }, 3000);
       }
     });
+    activePreloader(document.body);
   }
 
   private getResultMinutes(startNum: number) {

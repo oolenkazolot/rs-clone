@@ -19,7 +19,8 @@ class StartTrainingPage {
   currentExerciseIndex: number;
   counter: number;
   interval: NodeJS.Timer | undefined;
-  complex;
+  complex: Complex;
+  timeout: NodeJS.Timeout | undefined;
 
   constructor() {
     this.template = new Template();
@@ -28,6 +29,7 @@ class StartTrainingPage {
     this.currentExerciseIndex = 0;
     this.counter = 0;
     this.interval;
+    this.timeout;
     this.complex = new Complex();
   }
 
@@ -101,14 +103,17 @@ class StartTrainingPage {
         .toLowerCase()
         .includes("x")
     ) {
+      clearTimeout(this.timeout);
+      clearInterval(this.interval);
       curExercise.createCountDown();
       curExercise.hideExerciseLinks();
       curExercise.disablePreviousButton();
       curExercise.disableSkipButton();
     } else {
       clearInterval(this.interval);
+      clearTimeout(this.timeout);
       curExercise.createThreeCount();
-      setTimeout(() => {
+      this.timeout = setTimeout(() => {
         const duration = this.getExerciseDuration(
           this.exerciseArray[this.currentExerciseIndex]
         );
@@ -125,11 +130,13 @@ class StartTrainingPage {
       if (target.classList.contains("exercise-block__button-done")) {
         if (this.currentExerciseIndex === this.exerciseArray.length - 1) {
           clearInterval(this.interval);
+          clearTimeout(this.timeout);
           this.counter++;
           const resultMins = this.getResultMinutes(start);
           this.showCongrats(this.counter, resultMins);
         } else {
           clearInterval(this.interval);
+          clearTimeout(this.timeout);
           this.showRestModal();
           this.counter++;
         }
@@ -152,12 +159,14 @@ class StartTrainingPage {
       if (target.classList.contains("exercise-block__button-skip")) {
         if (this.currentExerciseIndex === this.exerciseArray.length - 1) {
           clearInterval(this.interval);
+          clearTimeout(this.timeout);
           let resultMins = this.getResultMinutes(start);
           if (resultMins === 0) {
             resultMins = 1;
           }
           this.showCongrats(this.counter, resultMins);
         } else {
+          clearTimeout(this.timeout);
           clearInterval(this.interval);
           this.loadNextExercise();
         }
@@ -171,11 +180,13 @@ class StartTrainingPage {
           return;
         } else {
           clearInterval(this.interval);
+          clearTimeout(this.timeout);
           this.loadPreviousExercise();
         }
       }
       if (target.classList.contains("pause-modal__button-restart")) {
         this.closeModal();
+        clearTimeout(this.timeout);
         clearInterval(this.interval);
         document.body.style.overflow = "";
         this.restartExercise();
@@ -193,8 +204,9 @@ class StartTrainingPage {
         document.body.style.overflow = "";
         this.disableCounterBlock();
         clearInterval(this.interval);
+        clearTimeout(this.timeout);
         this.createThreeCount();
-        setTimeout(() => {
+        this.timeout = setTimeout(() => {
           const duration = this.getExerciseDuration(
             this.exerciseArray[this.currentExerciseIndex]
           );
@@ -226,6 +238,8 @@ class StartTrainingPage {
   }
 
   private showExercise(): void {
+    clearInterval(this.interval);
+    clearTimeout(this.timeout);
     const page = <HTMLElement>document.querySelector(".startTraining-page");
     const curExercise = new ExerciseBlock(
       this.exerciseArray[this.currentExerciseIndex]
@@ -240,7 +254,7 @@ class StartTrainingPage {
       if (!router.isActiveRout("startTraining")) {
         return;
       }
-      setTimeout(() => {
+      this.timeout = setTimeout(() => {
         const duration = this.getExerciseDuration(
           this.exerciseArray[this.currentExerciseIndex]
         );

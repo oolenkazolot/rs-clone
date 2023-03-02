@@ -21,6 +21,7 @@ class StartTrainingPage {
   interval: NodeJS.Timer | undefined;
   complex: Complex;
   timeout: NodeJS.Timeout | undefined;
+  resultMins: number;
 
   constructor() {
     this.template = new Template();
@@ -30,6 +31,7 @@ class StartTrainingPage {
     this.counter = 0;
     this.interval;
     this.timeout;
+    this.resultMins = 0;
     this.complex = new Complex();
   }
 
@@ -92,6 +94,8 @@ class StartTrainingPage {
       });
     });
 
+    this.resultMins = 0;
+    this.counter = 0;
     this.currentExerciseIndex = 0;
     const curExercise = new ExerciseBlock(
       this.exerciseArray[this.currentExerciseIndex]
@@ -132,8 +136,11 @@ class StartTrainingPage {
           clearInterval(this.interval);
           clearTimeout(this.timeout);
           this.counter++;
-          const resultMins = this.getResultMinutes(start);
-          this.showCongrats(this.counter, resultMins);
+          this.resultMins = this.getResultMinutes(start);
+          if (this.resultMins === 0) {
+            this.resultMins = 1;
+          }
+          this.showCongrats(this.counter, this.resultMins);
         } else {
           clearInterval(this.interval);
           clearTimeout(this.timeout);
@@ -145,11 +152,11 @@ class StartTrainingPage {
         if (this.currentExerciseIndex === this.exerciseArray.length - 1) {
           clearInterval(this.interval);
           this.counter++;
-          let resultMins = this.getResultMinutes(start);
-          if (resultMins === 0) {
-            resultMins = 1;
+          this.resultMins = this.getResultMinutes(start);
+          if (this.resultMins === 0) {
+            this.resultMins = 1;
           }
-          this.showCongrats(this.counter, resultMins);
+          this.showCongrats(this.counter, this.resultMins);
         } else {
           clearInterval(this.interval);
           this.showRestModal();
@@ -160,11 +167,11 @@ class StartTrainingPage {
         if (this.currentExerciseIndex === this.exerciseArray.length - 1) {
           clearInterval(this.interval);
           clearTimeout(this.timeout);
-          let resultMins = this.getResultMinutes(start);
-          if (resultMins === 0) {
-            resultMins = 1;
+          this.resultMins = this.getResultMinutes(start);
+          if (this.resultMins === 0) {
+            this.resultMins = 1;
           }
-          this.showCongrats(this.counter, resultMins);
+          this.showCongrats(this.counter, this.resultMins);
         } else {
           clearTimeout(this.timeout);
           clearInterval(this.interval);

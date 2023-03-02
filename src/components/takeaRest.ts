@@ -81,10 +81,10 @@ class TakeARest {
     }
     image.addEventListener("click", () => {
       const sound = localStorage.getItem("sound");
-      if (sound === "muted") {
-        image.innerHTML = volume;
-      } else {
+      if (sound === "unmuted" || !sound) {
         image.innerHTML = mute;
+      } else {
+        image.innerHTML = volume;
       }
     });
     const settingsEl: HTMLElement = this.template.createElement(
@@ -279,7 +279,7 @@ class TakeARest {
       });
       volumeBtn.addEventListener("click", () => {
         const sound = localStorage.getItem("sound");
-        if (sound === "unmuted") {
+        if (sound === "unmuted" || !sound) {
           tiktak.pause();
           localStorage.setItem("sound", "muted");
         } else if (sound === "muted") {

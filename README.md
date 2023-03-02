@@ -1,4 +1,3 @@
-# rs-clone
 # Women Workouts Clone
 
 ## Technical stack application:

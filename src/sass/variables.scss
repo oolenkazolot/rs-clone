@@ -1,0 +1,37 @@
+// color
+$color-main: #f60e50;
+$color-main-second: #e93478;
+$color-second: #3a393a;
+$color-lavender-blush: #feecf4;
+$color-sugar-plum: #4b2738;
+$color-dark-blue: #333e48;
+$color-gray: #878787;
+$color-black: #000;
+$color-white: #fff;
+$color-pink: #f773b1;
+$color-error: red;
+$color-grey-violet: rgb(58, 57, 58);
+$color-grey-light: rgb(158, 156, 158);
+
+// color bmi
+$color-blue: #01b4bc;
+$color-green: #5fa55a;
+$color-yellow: #f6d51f;
+$color-orange: #fa8925;
+$color-red: #fa5457;
+
+// background
+$bg-light-gray: #efefef;
+$bg-pink: linear-gradient(270deg, #f60e50 0%, #db5ba1 100%);
+$bg-pink-light: linear-gradient(90deg, rgba(255, 192, 203, 1) 0%, rgba(245, 237, 238, 1) 100%);
+$bg-pink-light2: linear-gradient(90deg, rgba(219, 91, 161, 0.6) 0%, rgba(245, 237, 238, 1) 100%);
+$bg-pink-light3: #db5ba15e;
+$bg-hover: rgba(219, 91, 161, 0.6);
+
+// another
+$transition: 0.3s;
+$hover: linear-gradient(0deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), linear-gradient(270deg, #f60e50 0%, #db5ba1 100%);
+$active: linear-gradient(0deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), linear-gradient(270deg, #f60e50 0%, #db5ba1 100%);
+
+//border
+$color-border: #dbdbdb;

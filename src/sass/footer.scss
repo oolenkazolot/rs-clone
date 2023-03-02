@@ -1,0 +1,78 @@
+@import './mixins.scss';
+
+.footer {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  box-shadow: 0px 4px 15px 0px rgba(25, 26, 30, 0.08);
+
+  &__hubs {
+    padding-left: 30px;
+    background: url(../assets/svg/github.svg);
+    background-size: contain;
+    background-position: left center;
+    background-repeat: no-repeat;
+
+    @media (max-width: 576px) {
+      display: flex;
+      flex-direction: column;
+      background-size: 15%;
+      background-position: left top 3px;
+      padding-left: 25px;
+    }
+  }
+
+  &__hubs-link {
+    padding-right: 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    @include bg-text;
+    transition: opacity $transition;
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    &:active {
+      opacity: 0.7;
+    }
+
+    @media (max-width: 576px) {
+      padding-right: 0px;
+    }
+  }
+
+  &__year {
+    font-size: 1.2rem;
+    @include bg-text;
+    font-weight: 600;
+
+    @media (max-width: 576px) {
+      font-size: 0.8rem;
+    }
+  }
+
+  &__school {
+    width: 60px;
+    height: 30px;
+    background: url(../assets/svg/rs-school.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: opacity $transition;
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    &:active {
+      opacity: 0.7;
+    }
+
+    @media (max-width: 576px) {
+      height: 20px;
+      margin-bottom: 5px;
+    }
+  }
+}

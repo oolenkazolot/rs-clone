@@ -1,0 +1,144 @@
+.training {
+  max-width: 1100px;
+  margin: 0 auto;
+  height: 100%;
+
+  &__header {
+    width: 100%;
+    padding: 0 0 20px;
+
+    @media all and(max-width: 500px) {
+      background-position: right -30px bottom;
+    }
+  }
+
+  &__button-start {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 35px;
+    border-radius: 7px;
+    background-color: $color-pink;
+    color: $color-white;
+    text-transform: uppercase;
+    transition: $transition;
+    border: none;
+    cursor: pointer;
+    margin: 0 auto 0;
+
+    &:hover {
+      background-color: $color-main;
+    }
+  }
+}
+
+.header-upper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 20px 40px;
+
+  @media all and(max-width: 500px) {
+    padding: 20px;
+  }
+
+  &__return {
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    background: url(../assets/png/arrow_left.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 20px;
+
+    @media all and (max-width: 500px) {
+      width: 20px;
+      margin-right: 10px;
+    }
+  }
+
+  &__name {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: $color-second;
+
+    @media all and (max-width: 500px) {
+      font-size: 1.1rem;
+    }
+  }
+
+  &__icon {
+    width: 30px;
+    height: 30px;
+    background: url(../assets/svg/trash.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-left: auto;
+    cursor: pointer;
+  }
+}
+
+.header-bottom {
+  width: 100%;
+  padding: 20px 40px 0;
+
+  @media all and(max-width: 500px) {
+    padding: 20px 20px 0;
+  }
+
+  &__name {
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: $color-second;
+    margin-bottom: 20px;
+
+    @media all and (max-width: 500px) {
+      font-size: 1rem;
+    }
+  }
+
+  &__quantity,
+  &__time {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: $color-second;
+    margin-bottom: 10px;
+    padding-left: 45px;
+
+    @media all and (max-width: 500px) {
+      font-size: 1rem;
+      padding-left: 25px;
+    }
+  }
+
+  &__quantity {
+    background: url(../assets/png/gantel.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: left center;
+  }
+
+  &__time {
+    background: url(../assets/svg/clock.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: left center;
+  }
+}
+
+.exercises {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+
+  @media all and (max-width: 1000px) {
+    width: 100%;
+    padding: 10px;
+  }
+  
+}

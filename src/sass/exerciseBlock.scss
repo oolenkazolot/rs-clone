@@ -1,0 +1,423 @@
+.exercise-block {
+  position: relative;
+  max-width: 1600px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: $bg-light-gray;
+  padding: 20px 80px 60px;
+  font-size: 1.4rem;
+  color: $color-second;
+  margin: 0 auto;
+
+  @media all and(max-width: 414px) {
+    padding: 20px 20px 40px;
+  }
+
+  &__header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  &__button-return {
+    width: 40px;
+    height: 20px;
+    background: url(../assets/png/arrow_left.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border: none;
+    cursor: pointer;
+
+    @media all and(max-width: 768px) {
+      width: 30px;
+      height: 15px;
+      background-size: contain;
+    }
+  }
+
+  &__volume {
+    width: 20px;
+    height: 20px;
+    background: url(../assets/svg/volume.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+
+    @media all and(max-width: 768px) {
+      width: 15px;
+      height: 15px;
+    }
+  }
+
+  &__settings {
+    width: 20px;
+    height: 20px;
+    background: url(../assets/svg/settings.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+    margin-left: 30px;
+
+    @media all and(max-width: 768px) {
+      width: 15px;
+      height: 15px;
+    }
+  }
+
+  &__gif {
+    width: 30%;
+    height: auto;
+    margin-bottom: 20px;
+
+    @media all and(max-width: 1000px) {
+      width: 40%;
+    }
+
+    @media all and(max-width: 768px) {
+      width: 65%;
+    }
+
+    @media all and(max-width: 500px) {
+      width: 90%;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    text-transform: uppercase;
+    font-size: 1.6rem;
+    align-items: center;
+    margin-bottom: 50px;
+
+    @media all and(max-width: 1000px) {
+      font-size: 1.2rem;
+    }
+
+    @media all and(max-width: 768px) {
+      margin-bottom: 30px;
+    }
+  }
+
+  &__extra {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+
+    @media all and(max-width: 768px) {
+      width: 70%;
+    }
+
+    @media all and(max-width: 500px) {
+      width: 100%;
+    }
+  }
+
+  &__info-link,
+  &__youtube {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 80px;
+    height: 50px;
+    font-size: 1.2rem;
+    color: $color-second;
+
+    @media all and(max-width: 768px) {
+      font-size: 0.8rem;
+      height: 37px;
+    }
+  }
+
+  &__youtube {
+    background: url(../assets/svg/tv.svg);
+    background-size: 30%;
+    background-position: top center;
+    background-repeat: no-repeat;
+  }
+
+  &__info-link {
+    background: url(../assets/svg/info.svg);
+    background-size: 30%;
+    background-position: top center;
+    background-repeat: no-repeat;
+  }
+
+  &__counter {
+    width: 300px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__current-quantity {
+    text-transform: uppercase;
+    font-size: 4.2rem;
+    margin-bottom: 10px;
+
+    @media all and(max-width: 1000px) {
+      font-size: 3.2rem;
+    }
+
+    @media all and(max-width: 768px) {
+      font-size: 2.2rem;
+      margin-bottom: 5px;
+    }
+  }
+
+  &__button-done {
+    width: 150px;
+    height: 45px;
+    border-radius: 7px;
+    background: $bg-pink;
+    color: $color-white;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    transition: $transition;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 80px;
+
+    &:hover {
+      background: $hover;
+    }
+
+    @media all and(max-width: 768px) {
+      width: 100px;
+      height: 35px;
+      font-size: 1rem;
+      margin-bottom: 60px;
+    }
+  }
+
+  &__time-bar {
+    position: relative;
+    width: 100%;
+    height: 45px;
+    background-color: $color-lavender-blush;
+    margin-bottom: 80px;
+  }
+
+  &__track {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $bg-pink;
+    transition: linear 1s;
+  }
+
+  &__button-pause,
+  &__button-next {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    color: $color-second;
+    font-size: 1.4rem;
+    border: none;
+    cursor: pointer;
+  }
+
+  &__button-pause {
+    background: url(../assets/png/pause.png) transparent;
+    background-position: left 100px center;
+    background-repeat: no-repeat;
+    background-size: 7%;
+    padding-left: 20px;
+  }
+
+  &__button-next {
+    display: none;
+    background: $bg-pink;
+    color: $color-white;
+    transition: $transition;
+
+    &:hover {
+      background: $hover;
+    }
+  }
+
+  &__buttons {
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media all and(max-width: 768px) {
+      width: 60%;
+    }
+
+    @media all and(max-width: 500px) {
+      width: 80%;
+    }
+  }
+
+  &__delim {
+    width: 10px;
+    height: 50px;
+    background: url(../assets/svg/vertical.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top 6px center;
+  }
+
+  &__button-prev,
+  &__button-skip {
+    width: 49%;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+    transition: opacity $transition;
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    @media all and(max-width: 1000px) {
+      font-size: 1rem;
+    }
+
+    @media all and(max-width: 768px) {
+      font-size: 0.8rem;
+    }
+  }
+
+  &__button-prev {
+    background: url(../assets/svg/previous-icon.svg);
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  &__button-skip {
+    background: url(../assets/svg/next-icon.svg);
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  .ready-text {
+    width: 100%;
+    position: absolute;
+    top: -70px;
+    left: 0;
+    text-transform: uppercase;
+    font-size: 2.2rem;
+    font-weight: 700;
+    @include bg-text;
+    text-align: center;
+
+    @media all and(max-width: 768px) {
+      font-size: 1.8rem;
+      top: -50px;
+    }
+  }
+
+  .countdown {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: $bg-light-gray;
+
+    &__circle {
+      position: relative;
+      width: 150px;
+      height: 150px;
+    }
+
+    svg {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      transform: rotate(270deg);
+      transition: linear 1s;
+
+      circle {
+        width: 100%;
+        height: 100%;
+        fill: transparent;
+        stroke-width: 8;
+        stroke: $color-lavender-blush;
+        transform: translate(5px, 5px);
+        transition: linear 1s;
+      }
+
+      circle:nth-child(2) {
+        stroke: $color-main-second;
+        stroke-dasharray: 440;
+        transition: linear 1s;
+      }
+    }
+
+    &__dot {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      z-index: 1000;
+    }
+
+    &__number {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      top: 0;
+      left: 0;
+      @include bg-text;
+      font-size: 5.8rem;
+    }
+  }
+}
+
+.inactive {
+  opacity: 0.5;
+}
+
+.counter-three {
+  position: absolute;
+  width: 100%;
+  top: -200px;
+  left: 0px;
+  text-align: center;
+}
+
+@keyframes fade {
+  0%,
+  25% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.fading {
+  animation: fade 1s ease-out forwards 3;
+  font-size: 250px;
+  @include bg-text;
+}

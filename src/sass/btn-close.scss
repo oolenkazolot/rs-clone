@@ -1,0 +1,15 @@
+.btn-close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 14px;
+  background: none;
+  border: none;
+  color: $color-grey-light;
+  transition: color $transition;
+  cursor: pointer;
+
+  &:hover {
+    color: $color-main-second;
+  }
+}

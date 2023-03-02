@@ -1,0 +1,162 @@
+@import 'variables.scss';
+@import './main.scss';
+@import './error.scss';
+@import './header.scss';
+@import './modal.scss';
+@import './login-form.scss';
+@import './registration-form.scss';
+@import './input.scss';
+@import './btn-close.scss';
+@import './footer.scss';
+@import './training.scss';
+@import './exerciseModal.scss';
+@import './workout-plans.scss';
+@import './exercise.scss';
+@import './exerciseBlock.scss';
+@import './slider-questions.scss';
+@import './slider-points.scss';
+@import './slider-control.scss';
+@import './execisesPage.scss';
+@import './exercise.scss';
+@import './profile-page.scss';
+@import './decor.scss';
+@import './air-picker.scss';
+@import './progress.scss';
+@import './bmi.scss';
+@import './addNewComplex.scss';
+@import './takeARest.scss';
+@import './pauseModal.scss';
+@import './congrats.scss';
+@import './edit-form.scss';
+@import './weightChart.scss';
+@import './preloader.scss';
+@import './modalMobileMenu.scss';
+
+@font-face {
+  font-family: 'icomoon';
+  src: url('../assets/font/fonts/icomoon.eot?7gfrnh');
+  src: url('../assets/font/fonts/icomoon.eot?7gfrnh#iefix') format('embedded-opentype'), url('../assets/font/fonts/icomoon.ttf?7gfrnh') format('truetype'),
+    url('../assets/font/fonts/icomoon.woff?7gfrnh') format('woff'), url('../assets/font/fonts/icomoon.svg?7gfrnh#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^='icon-'],
+[class*=' icon-'] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-burger-btn:before {
+  content: '\e907';
+  color: $color-main;
+}
+.icon-mail_outline:before {
+  content: '\e901';
+}
+.icon-lock_outline:before {
+  content: '\e900';
+}
+.icon-arrow_forward_ios:before {
+  content: '\e905';
+}
+.icon-arrow_back_ios:before {
+  content: '\e906';
+}
+.icon-close:before {
+  content: '\e902';
+}
+.icon-eye-blocked:before {
+  content: '\e903';
+}
+.icon-eye:before {
+  content: '\e904';
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+}
+
+a {
+  font-family: inherit;
+  text-decoration: none;
+}
+
+li {
+  list-style-type: none;
+}
+
+.btn {
+  min-width: 100px;
+  min-height: 44px;
+  padding: 5px 10px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  background: $bg-pink;
+  color: $color-white;
+  border-radius: 25px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background: $hover;
+  }
+  &:active {
+    background: $active;
+  }
+
+  &--second {
+    position: relative;
+    border: 0;
+    background: none;
+    color: #f60e50;
+    opacity: 1;
+
+    &:before {
+      background: linear-gradient(270deg, #f60e50 0%, #db5ba1 100%);
+      border-radius: 25px;
+      bottom: 0;
+      content: '';
+      left: 0;
+      inset: 0;
+      -webkit-mask: linear-gradient(#f60e50 0 0) content-box, linear-gradient(#f60e50 0 0);
+      mask: linear-gradient(#f60e50 0 0) content-box, linear-gradient(#f60e50 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      padding: 2px;
+      pointer-events: none;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    &:hover {
+      opacity: 0.6;
+      background: none;
+      &:before {
+        background: linear-gradient(0deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), linear-gradient(270deg, #f60e50 0%, #db5ba1 100%);
+      }
+    }
+  }
+}

@@ -1,0 +1,181 @@
+.modal-addNewComplex {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: calc(100vh + 85px);
+  position: fixed;
+  top: -85px;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s;
+}
+
+.exercises-wrapper {
+  padding: 2rem;
+  @media (max-width: 900px) {
+    padding: 1rem;
+  }
+  @media (max-width: 600px) {
+    padding: 0rem;
+  }
+}
+
+.wrap-exercise {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  @media (max-width: 900px) {
+    gap: 1rem;
+    padding: 1rem;
+  }
+}
+
+.add-exerc-btn {
+  background-color: rgb(247, 115, 177);
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  text-transform: uppercase;
+  font-size: 20px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  cursor: pointer;
+  transition: 0.3s;
+  @media (max-width: 900px) {
+    font-size: 18px;
+    padding: 0.8rem 1rem;
+  }
+  @media (max-width: 600px) {
+    font-size: 16px;
+    padding: 0.8rem 0.8rem;
+    border-radius: 15px;
+  }
+  @media (max-width: 480px) {
+    font-size: 14px;
+    padding: 0.5rem 0.5rem;
+    border-radius: 15px;
+    border-radius: 12px;
+  }
+  &:hover {
+    background-color: $color-main-second;
+  }
+}
+
+.modal-overlay {
+  width: 100vw;
+  height: 100vh;
+  background-color: $bg-light-gray;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 100;
+  display: none;
+}
+
+.modal-addNewComplex__addName {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 20px;
+  color: $color-grey-violet;
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 370px) {
+    padding: 1rem;
+  }
+}
+
+.modal-addNewComplex__title {
+  font-size: 26px;
+  letter-spacing: 1.5px;
+  margin-bottom: 2rem;
+}
+
+.modal-addNewComplex__input {
+  padding: 0.8rem;
+  font-size: 16px;
+  text-align: center;
+  border-radius: 15px;
+  border: 2px solid #e3e3e3;
+  margin-bottom: 2rem;
+  outline: none;
+  transition: 0.3s;
+  &:hover,
+  &:focus,
+  &:active {
+    border: 2px solid $color-main-second;
+  }
+}
+
+.modal-addNewComplex__btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-addNewComplex__create,
+.modal-addNewComplex__cancel {
+  display: block;
+  padding: 0.8rem 1rem;
+  border-radius: 20px;
+  background: $bg-pink;
+  color: $color-white;
+  text-transform: uppercase;
+  transition: $transition;
+  font-size: 14px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border: none;
+  cursor: pointer;
+  margin: 0 auto 0;
+
+  &:hover {
+    background: $hover;
+  }
+}
+
+.invisible {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.singl-train__plus {
+  margin-top: 5rem;
+  @media (max-width: 670px) {
+    margin-top: 2rem;
+  }
+}
+
+.singl-train__empty-text {
+  font-size: 32px;
+  margin-top: 5rem;
+  color: $color-grey-violet;
+  @media (max-width: 900px) {
+    margin-top: 3rem;
+  }
+  @media (max-width: 670px) {
+    margin-top: 2rem;
+    font-size: 23px;
+  }
+}
+
+.addit {
+  align-items: center;
+  justify-content: center;
+}
+
+.dateils__trash-icon {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  width: 40px;
+  height: 40px;
+  fill: #f773b1;
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    fill: #f60e50;
+  }
+}

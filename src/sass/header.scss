@@ -1,0 +1,157 @@
+@import './mixins.scss';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 60px;
+  padding: 20px;
+  background-color: $color-white;
+  box-shadow: 0px 4px 15px 0px rgba(25, 26, 30, 0.08);
+  position: relative;
+  z-index: 20;
+
+  &__wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+      display: none;
+
+      .vertical-menu & {
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+      }
+    }
+  }
+
+  &__list-item {
+    &:not(:last-child) {
+      margin-right: 30px;
+
+      @media (max-width: 768px) {
+        margin-right: 0;
+
+        &:not(:last-child) {
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+
+  &__link {
+    font-size: 20px;
+    color: $color-main-second;
+    text-transform: capitalize;
+  }
+
+  &__link-border {
+    display: block;
+    height: 2px;
+    width: 100%;
+    max-width: 0;
+    margin-top: 1px;
+    background: $bg-pink;
+    transition: max-width 0.5s;
+
+    .header__link.active &,
+    .header__link:hover & {
+      max-width: 100%;
+    }
+  }
+
+  &__btn {
+    margin-left: 20px;
+
+    @media (max-width: 576px) {
+      margin-left: 10px;
+    }
+  }
+
+  &__mobile-btn {
+    display: none;
+    margin-left: 20px;
+    font-size: 30px;
+    @include bg-text;
+    border: none;
+    outline: none;
+    line-height: 0;
+    transition: opacity 0.3s;
+    cursor: pointer;
+
+    @media (max-width: 768px) {
+      display: block;
+
+      &:hover {
+        opacity: 0.7;
+      }
+      &:active {
+        opacity: 0.7;
+      }
+    }
+  }
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+  font-weight: 700;
+  font-size: 25px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  @media (max-width: 576px) {
+    font-size: 22px;
+  }
+
+  &__content {
+    @include bg-text;
+
+    .logo:hover & {
+      background-image: $hover;
+    }
+    .logo:active {
+      background-image: $active;
+    }
+
+    @media (max-width: 576px) {
+      display: none;
+    }
+  }
+
+  &__content:nth-child(2) {
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 5px;
+  }
+
+  &__mobile {
+    display: none;
+    @include bg-text;
+    font-size: 27px;
+
+    @media (max-width: 576px) {
+      display: block;
+    }
+  }
+}
+
+.vertical-menu {
+  display: none;
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

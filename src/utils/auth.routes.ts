@@ -11,13 +11,16 @@ class Authorization {
     data: IRegistrationData
   ): Promise<IAnswerAuth | undefined> {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://rs-clone-back-production-b4b7.up.railway.app/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       const res: IAnswerAuth = await response.json();
 
@@ -35,13 +38,16 @@ class Authorization {
     data: IAuthorizationData
   ): Promise<IAnswerAuth | undefined> {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://rs-clone-back-production-b4b7.up.railway.app/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       const res: IAnswerAuth = await response.json();
 
@@ -57,13 +63,16 @@ class Authorization {
     data: Record<string, string>
   ): Promise<IAnswerAddUserInfo | undefined> {
     try {
-      const response = await fetch("http://localhost:5000/api/user/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://rs-clone-back-production-b4b7.up.railway.app/api/user/create",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       const res: IAnswerAddUserInfo = await response.json();
       return res;
     } catch (e) {
@@ -77,7 +86,9 @@ class Authorization {
     id: string
   ): Promise<Record<string, string> | undefined> {
     try {
-      const response = await fetch(`http://localhost:5000/api/user/get/${id}`);
+      const response = await fetch(
+        `https://rs-clone-back-production-b4b7.up.railway.app/api/user/get/${id}`
+      );
       const res: Promise<
         Record<string, string> | undefined
       > = await response.json();
@@ -95,7 +106,7 @@ class Authorization {
   ): Promise<IAnswerAddUserInfo | undefined> {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/user/update/${dataEditProfile.id}`,
+        `https://rs-clone-back-production-b4b7.up.railway.app/api/user/update/${dataEditProfile.id}`,
         {
           method: "PUT",
           headers: {

@@ -166,6 +166,7 @@ class StartTrainingPage {
         }
       }
       if (target.classList.contains("exercise-block__button-skip")) {
+        document.body.classList.remove("loaded");
         if (this.currentExerciseIndex === this.exerciseArray.length - 1) {
           clearInterval(this.interval);
           clearTimeout(this.timeout);
@@ -179,6 +180,7 @@ class StartTrainingPage {
           clearInterval(this.interval);
           this.loadNextExercise();
         }
+        inActivePreloader(document.body);
       }
       if (target.classList.contains("rest__skip-btn")) {
         clearInterval(this.interval);
@@ -223,7 +225,6 @@ class StartTrainingPage {
           this.enableCounterBlock();
         }, 3000);
       }
-      //inActivePreloader(document.body);
     });
     inActivePreloader(document.body);
   }

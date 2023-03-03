@@ -6,8 +6,8 @@
 - Backend: Node.js/Exspress
 - Database: Mongo DB
 - Library: Moment.js., DatePicker
-- Used Webpack
-- Saving and loading something using Local storage
+- Module bundler: Webpack
+- Web Storage API: Local storage
 
 ## Backend:
 

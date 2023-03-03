@@ -11,7 +11,6 @@ import ExerciseDetails from "./exerciseDetails";
 import { getUserIdLocalStorage } from "../utils/auth";
 import Complex from "../utils/сomplex.routes";
 import trainingsData from "../utils/trainings-data-en";
-import { activePreloader } from "../utils/preloader";
 
 class AddNewComplex {
   template: ITemplate;

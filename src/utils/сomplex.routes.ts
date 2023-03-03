@@ -14,16 +14,13 @@ class Complex {
     data: Record<string, string>
   ): Promise<IAnswerAddUserInfo | undefined> {
     try {
-      const response = await fetch(
-        "https://rs-clone-back-production-b4b7.up.railway.app/api/complex/create",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      const response = await fetch("http://localhost:5000/api/complex/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       const res: IAnswerAddUserInfo = await response.json();
       return res;
     } catch (e) {
@@ -36,7 +33,7 @@ class Complex {
   public async getComplex(id: string): Promise<IDataComplex[] | undefined> {
     try {
       const response = await fetch(
-        `https://rs-clone-back-production-b4b7.up.railway.app/api/complex/get-all/${id}`
+        `http://localhost:5000/api/complex/get-all/${id}`
       );
       const res: Promise<IDataComplex[] | undefined> = await response.json();
 
@@ -50,12 +47,9 @@ class Complex {
 
   public async deleteComplex(id: string) {
     try {
-      await fetch(
-        `https://rs-clone-back-production-b4b7.up.railway.app/api/complex/delete/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      await fetch(`http://localhost:5000/api/complex/delete/${id}`, {
+        method: "DELETE",
+      });
     } catch (e) {
       if (e instanceof Error) {
         throw new Error(e.message);
@@ -68,7 +62,7 @@ class Complex {
   ): Promise<ICreateExercise | undefined> {
     try {
       const response = await fetch(
-        "https://rs-clone-back-production-b4b7.up.railway.app/api/exercise/create",
+        "http://localhost:5000/api/exercise/create",
         {
           method: "POST",
           headers: {
@@ -91,7 +85,7 @@ class Complex {
   ): Promise<IServerExercises[] | undefined> {
     try {
       const response = await fetch(
-        `https://rs-clone-back-production-b4b7.up.railway.app/api/exercise/get-all/${id}`
+        `http://localhost:5000/api/exercise/get-all/${id}`
       );
       const res: Promise<
         IServerExercises[] | undefined
@@ -107,12 +101,9 @@ class Complex {
 
   public async deleteExercise(id: string) {
     try {
-      await fetch(
-        `https://rs-clone-back-production-b4b7.up.railway.app/api/exercise/delete/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      await fetch(`http://localhost:5000/api/exercise/delete/${id}`, {
+        method: "DELETE",
+      });
     } catch (e) {
       if (e instanceof Error) {
         throw new Error(e.message);
@@ -126,7 +117,7 @@ class Complex {
   ): Promise<ICreateExercise | undefined> {
     try {
       const response = await fetch(
-        `https://rs-clone-back-production-b4b7.up.railway.app/api/exercise/update/${id}`,
+        `http://localhost:5000/api/exercise/update/${id}`,
         {
           method: "PUT",
           headers: {
@@ -149,7 +140,7 @@ class Complex {
   ): Promise<IFulfilledComplexReturned | undefined> {
     try {
       const response = await fetch(
-        "https://rs-clone-back-production-b4b7.up.railway.app/api/completed/create",
+        "http://localhost:5000/api/completed/create",
         {
           method: "POST",
           headers: {
@@ -172,7 +163,7 @@ class Complex {
   ): Promise<ICompletedComplexesReceived | undefined> {
     try {
       const response = await fetch(
-        `https://rs-clone-back-production-b4b7.up.railway.app/api/completed/get-all/${id}`
+        `http://localhost:5000/api/completed/get-all/${id}`
       );
       const res: Promise<
         ICompletedComplexesReceived | undefined
@@ -191,7 +182,7 @@ class Complex {
   ): Promise<IWeeklyStat | undefined> {
     try {
       const response = await fetch(
-        `https://rs-clone-back-production-b4b7.up.railway.app/api/completed/weekly-workouts/${id}`
+        `http://localhost:5000/api/completed/weekly-workouts/${id}`
       );
       const res: Promise<IWeeklyStat | undefined> = await response.json();
 
@@ -205,9 +196,7 @@ class Complex {
 
   public async getUserSettings(id: string): Promise<IUserSettings | undefined> {
     try {
-      const response = await fetch(
-        `https://rs-clone-back-production-b4b7.up.railway.app/api/user/get/${id}`
-      );
+      const response = await fetch(`http://localhost:5000/api/user/get/${id}`);
       const res: Promise<IUserSettings | undefined> = await response.json();
 
       return res;
@@ -226,7 +215,7 @@ class Complex {
   ): Promise<IUserSettings | undefined> {
     try {
       const response = await fetch(
-        `https://rs-clone-back-production-b4b7.up.railway.app/api/user/update-rest/${id}`,
+        `http://localhost:5000/api/user/update-rest/${id}`,
         {
           method: "PUT",
           headers: {
@@ -252,7 +241,7 @@ class Complex {
   ): Promise<IUserSettings | undefined> {
     try {
       const response = await fetch(
-        `https://rs-clone-back-production-b4b7.up.railway.app/api/user/update-load/${id}`,
+        `http://localhost:5000/api/user/update-load/${id}`,
         {
           method: "PUT",
           headers: {

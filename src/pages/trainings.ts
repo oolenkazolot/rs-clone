@@ -12,7 +12,7 @@ import Slider from "../components/slider";
 import AddNewComplex from "../components/addNewComplex";
 import Complex from "../utils/сomplex.routes";
 import SingleTrainingPage from "./singleTraining";
-import { activePreloader } from "../utils/preloader";
+import { inActivePreloader } from "../utils/preloader";
 
 class TrainingsPage {
   template: ITemplate;
@@ -46,6 +46,7 @@ class TrainingsPage {
       await this.createWrapper(),
       await this.createModal()
     );
+    inActivePreloader(document.body);
   }
 
   private createTitle(): HTMLElement {
@@ -180,9 +181,8 @@ class TrainingsPage {
       ) as HTMLElement;
       contentWrapper.innerHTML = "";
       contentWrapper.append(await this.createContent());
-      activePreloader(document.body);
+      inActivePreloader(document.body);
     });
-    activePreloader(document.body);
     buttons.append(cancel, create);
     wrapper.append(title, input, buttons);
     modal.append(wrapper);

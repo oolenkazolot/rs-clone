@@ -7,7 +7,7 @@ import pic1 from "../assets/images/pic1.jpg";
 import Authorization from "../utils/auth.routes";
 import Template from "../templates/template";
 import { ITemplate } from "../types/index";
-import { activePreloader } from "../utils/preloader";
+import { inActivePreloader } from "../utils/preloader";
 
 class MainPage {
   public authorization: IAuthorization;
@@ -71,23 +71,10 @@ class MainPage {
     const block: HTMLElement = this.template.createElement("div", className);
     videoFiles.map((video) => {
       const videoEl: HTMLVideoElement = this.template.createVideo(video);
-      this.addHandlerCanplay(videoEl);
+      videoEl.addEventListener("canplay", handlerVideoCanplay);
       return block.append(videoEl);
     });
     return block;
-  }
-
-  private addHandlerCanplay(
-    element: HTMLAudioElement | HTMLVideoElement
-  ): void {
-    element.addEventListener("canplay", (e) => {
-      this.isLoaded += 1;
-
-      if (this.isLoaded === 4) {
-        this.isLoaded = 0;
-        activePreloader(document.body);
-      }
-    });
   }
 
   private createAboutSection(): void {
@@ -184,5 +171,19 @@ class MainPage {
     mainElement.append(this.mainPageElement);
   }
 }
+
+function handlerVideoCanplay(e: Event): void {
+  handlerVideoCanplay.prototype.isLoaded += 1;
+
+  if (handlerVideoCanplay.prototype.isLoaded === 4) {
+    handlerVideoCanplay.prototype.isLoaded = 0;
+    inActivePreloader(document.body);
+  }
+  if (e.currentTarget) {
+    e.currentTarget.removeEventListener("canplay", handlerVideoCanplay);
+  }
+}
+
+handlerVideoCanplay.prototype.isLoaded = 0;
 
 export default MainPage;

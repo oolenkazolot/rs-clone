@@ -12,7 +12,7 @@ import AirDatepicker from "air-datepicker";
 import "air-datepicker/air-datepicker.css";
 import Progress from "../components/progress";
 import ModalEditProfile from "../components/modalEditProfile";
-import { activePreloader } from "../utils/preloader";
+import { inActivePreloader } from "../utils/preloader";
 
 class ProfilePage {
   private template: ITemplate;
@@ -69,7 +69,7 @@ class ProfilePage {
     if (!modalEditProfile) {
       return;
     }
-    activePreloader(document.body);
+    inActivePreloader(document.body);
 
     profilePage.append(decorEl, title, container, progress, modalEditProfile);
     mainElement.append(profilePage);

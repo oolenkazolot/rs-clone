@@ -5,7 +5,7 @@
 - Frontend: HTML5, SCSS, CSS, TypeScript
 - Backend: Node.js/Exspress
 - Database: Mongo DB
-- Library: Moment.js., DatePicker
+- Library: Mongoose, Express-validator, Moment.js., DatePicker
 - Module bundler: Webpack
 - Web Storage API: Local storage
 

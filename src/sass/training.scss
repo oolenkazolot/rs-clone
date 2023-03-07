@@ -19,7 +19,7 @@
     width: 150px;
     height: 35px;
     border-radius: 7px;
-    background-color: $color-pink;
+    background: $bg-pink;
     color: $color-white;
     text-transform: uppercase;
     transition: $transition;
@@ -28,7 +28,7 @@
     margin: 0 auto 0;
 
     &:hover {
-      background-color: $color-main;
+      background: $hover;
     }
   }
 }
@@ -140,5 +140,4 @@
     width: 100%;
     padding: 10px;
   }
-  
 }

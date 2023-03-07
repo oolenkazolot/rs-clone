@@ -2,6 +2,7 @@ import Template from "../templates/template";
 import { ITemplate } from "../types/index";
 import Complex from "../utils/сomplex.routes";
 import { getUserIdLocalStorage } from "../utils/auth";
+import { inActivePreloader } from "../utils/preloader";
 
 class Congrats {
   template: ITemplate;

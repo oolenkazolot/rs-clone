@@ -311,8 +311,10 @@ class ExerciseDetails {
     ) as HTMLElement;
     largeWrapper.innerHTML = "";
     if (exercises) {
-      exercQt.innerHTML = String(exercises.length);
-      exercTime.innerHTML = String(Math.round((exercises.length * 45) / 60));
+      exercQt.innerHTML = String(`${exercises.length} exercises`);
+      exercTime.innerHTML = String(
+        `${Math.round((exercises.length * 45) / 60)} minutes`
+      );
       for (let i = 0; i < exercises.length; i++) {
         const id = exercises[i].idExercise;
         const serverId = exercises[i]._id;

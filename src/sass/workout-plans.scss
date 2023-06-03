@@ -61,7 +61,7 @@
 }
 
 .add-workouts-text {
-  font-size: 24px;
+  font-size: 18px;
   color: $color-grey-violet;
 }
 
@@ -84,7 +84,6 @@
 //   animation: myanimation 4s ease alternate infinite;
 //   background-size: 300% 300%;
 // }
-
 
 // @keyframes myanimation {
 //   0% {
@@ -223,7 +222,7 @@
 .workout-plans-png {
   height: 350px;
   position: absolute;
-  right: 0;
+  right: -10%;
   @media (max-width: 1280px) {
     height: 250px;
   }

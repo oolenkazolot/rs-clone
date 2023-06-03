@@ -11,6 +11,7 @@ import SingleTrainingPage from "./singleTraining";
 import { mug, lightning2 } from "../components/svg";
 import Complex from "../utils/сomplex.routes";
 import { getUserIdLocalStorage } from "../utils/auth";
+import { inActivePreloader } from "../utils/preloader";
 
 class StartTrainingPage {
   template: ITemplate;
@@ -36,6 +37,7 @@ class StartTrainingPage {
   }
 
   public async draw() {
+    document.body.classList.remove("loaded");
     const mainElement: HTMLElement | null = document.querySelector("main");
     if (!mainElement) {
       return;
@@ -164,6 +166,7 @@ class StartTrainingPage {
         }
       }
       if (target.classList.contains("exercise-block__button-skip")) {
+        document.body.classList.remove("loaded");
         if (this.currentExerciseIndex === this.exerciseArray.length - 1) {
           clearInterval(this.interval);
           clearTimeout(this.timeout);
@@ -177,6 +180,7 @@ class StartTrainingPage {
           clearInterval(this.interval);
           this.loadNextExercise();
         }
+        inActivePreloader(document.body);
       }
       if (target.classList.contains("rest__skip-btn")) {
         clearInterval(this.interval);
@@ -222,6 +226,7 @@ class StartTrainingPage {
         }, 3000);
       }
     });
+    inActivePreloader(document.body);
   }
 
   private getResultMinutes(startNum: number) {
@@ -298,16 +303,17 @@ class StartTrainingPage {
     );
     const congrats = new Congrats(counter, time);
     pageContent.innerHTML = "";
+
     pageContent.append(await congrats.draw());
 
     const completeBtn = <HTMLAnchorElement>(
       document.querySelector(".congrats__button-complete")
     );
+
     completeBtn.addEventListener("click", (e) => {
       e.preventDefault();
       const mainElement: HTMLElement | null = document.querySelector("main");
       if (mainElement) {
-        mainElement.innerHTML = "";
         router.navigate("exercises");
       }
     });
@@ -427,14 +433,14 @@ class StartTrainingPage {
     );
     const restTimeBlock = this.createSettingsTimeBlock(
       "Rest time, seconds",
-      "20",
+      "Enter seconds",
       mug,
       false,
       "settings__rest"
     );
     const loadBlock = this.createSettingsTimeBlock(
       "Number of Workouts",
-      "3",
+      "Enter number of workouts",
       lightning2,
       true,
       "settings_load"
@@ -449,6 +455,7 @@ class StartTrainingPage {
     );
     doneWrap.append(done);
     done.classList.add("settings__done-btn");
+    done.classList.add("btn");
     done.addEventListener("click", async () => {
       const settingsModal = document.querySelector(
         ".settingsModal"
@@ -471,6 +478,7 @@ class StartTrainingPage {
         });
       }
     });
+
     wrapper.append(title, restTimeBlock, loadBlock, doneWrap);
     return wrapper;
   }

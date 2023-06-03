@@ -1,87 +1,128 @@
 # Women Workouts Clone
 
+Women Workouts Clone is an application clone designed for women, offering personalized workouts that take into account their fitness level, goals, and preferences. It includes a variety of exercises for different parts of the body, providing workouts of varying intensity and duration. The app also provides detailed instructions and video tutorials for each exercise. Additionally, it offers progress tracking and workout statistics
+
+[Link](https://oolenkazolot.github.io/rs-clone-deploy/)
+
 ## Technical stack application:
 
 - Frontend: HTML5, SCSS, CSS, TypeScript
-- Backend: Node.js/Exspress
-- Database: Mongo DB
-- Library: Mongoose, Express-validator, Moment.js., DatePicker
+- Backend: Node.js/Express
+- Database: MongoDB
+- Library: Moment.js., DatePicker
 - Module bundler: Webpack
 - Web Storage API: Local storage
 
 ## Backend:
 
-- Сервер отдаёт корректные ответы, отдаёт HTTP ошибки с нормальными body, по которым можно понять, что произошло, пишет читаемые логи
-- Реализована регистрация и авторизация пользователей с использованием JSON Web Token (JWT)
-- Аутентификация
-- Middleware для валидации/аутентификации
-- Использовалась ORM(mongoose)
-- Подключение и работа с БД: MongoDB
+- The server returns correct responses and provides HTTP errors with informative bodies that help understand what happened. It writes readable logs
+- User registration and authorization are implemented using JSON Web Tokens (JWT)
+- Authentication
+- Middleware for validation/authentication
+- An ORM (mongoose) was used
+- Connection and interaction with MongoDB database
 
 ## Frontend:
 
-- Реализован роутинг, а само приложение является SPA
-- Реализован модальное окно со слайдером для ввода информации о пользователе
-- Реализован бесконечный слайдер на странице Exercises/слайдер на странице Workouts
-- Реализованы модальные окна для создания нового комплекса, настроек комплекса,редактирования упражнений, редактирования профиля
-- Все введенные в модальнных окнах отправляются в БД и далее учитываются при расчете ИМТ, определении графика тренировок
-- Реализован preloader
-- Приложение адаптировано и работает на телефоне/планшете/PC.
-- Приложение выполнено в едином стиле
-- Верстка главной страницы по собственному дизайну
+- Routing has been implemented, and the application itself is an SPA (Single-Page Application).
+- A modal window with a slider for entering user information has been implemented
+- An infinite slider on the Exercises page and a slider on the Workouts page have been implemented.
+- Modal windows have been implemented for creating a new complex, complex settings, exercise editing, and profile editing
+- All input data from the modal windows are sent to the database and are taken into account in calculating BMI (Body Mass Index) and determining the training schedule
+- A preloader has been implemented
+- The application is responsive and works on phones, tablets, and PCs
+- The application is designed with a consistent style
+- The layout of the main page is custom-designed
+
+## Main page
+
+<image src="src/assets/screenshots/Screenshot_1.png" alt="main-page-1">
+<image src="src/assets/screenshots/Screenshot_2.png" alt="main-page-2">
 
 ## Header:
 
-- Адаптивный header, изменяющий свой вид и состояние в зависимости от авторизации пользователя и в зависимости от выбранной страницы
-- Pеализовано мобильное меню
+- An adaptive header that changes its appearance and state depending on the user's authentication status and the selected page has been implemented.
+- A mobile menu has been implemented.
 
-## Модальные окна Login in/Sign up/Qestions
+<image src="src/assets/screenshots/Screenshot_3.png" alt="header-not-auth">
+<image src="src/assets/screenshots/Screenshot_4.png" alt="header-auth">
 
-- Присутствует валидация полей email и password по отдельным критериям
-- Данные также валидируются на сервере в случае несовпадения или наличия пользователя с таким именем регистрация не происходит
-- Реализовано модальное окно Qestions со слайдером,для получения информации о пользователе, его цели, необходимой нагрузке, весе и росте, единицах измерения
-- Присутствует валидация полей вес и рост по отдельным критериям в завистимости от единицы измерения
-- Данные также валидируются на сервере
-- Все полученные данные из модальных окон хранятся в БД
+## Modal windows: Login, Sign up, Questions
 
-## Cтраница Workouts
+- Field validation for email and password is implemented according to separate criteria
+- The data is also validated on the server to prevent registration in case of mismatches or if a user with the same name already exists
+- A Questions modal window with a slider is implemented to obtain information about the user, their goals, required workload, weight, height, and units of measurement
+- Field validation for weight and height is implemented based on separate criteria depending on the unit of measurement
+- The data is also validated on the server
+- All data obtained from the modal windows is stored in the database
 
-- Адаптивный слайдер, динамически отображающий количество упражнений для выбранного комплекса;
-- Функционал создания/удаления собственного комплекса;
-- Функционал добавления/удаления новых упражнений в созданных копмлексах;
-- Функционал редактирования длительности и количества упражнений в созданных комплексах;
-- Подсчет на карточке комплекса количества упражнений и их длительности;
-- Весь функционал работает в связке с сервером
+<image src="src/assets/screenshots/Screenshot_5.png" alt="log-in">
+<image src="src/assets/screenshots/Screenshot_6.png" alt="sign-up">
+<div>
+  <image src="src/assets/screenshots/Screenshot_7.png" alt="questions-1">
+  <image src="src/assets/screenshots/Screenshot_8.png" alt="questions-2">
+  <image src="src/assets/screenshots/Screenshot_9.png" alt="questions-3">
+</div>
 
-## Страница Exercises
+## Workouts page
 
-- Отображение итогового количества пройденных тренировок и затраченного на них времени на основании данных сервера;
-- В блоке Week goal определение текущего дня недели и выделение его стилем;
-- Отображение количества дней, в которых были тренировки и установленного плана на основании данных сервера;
-- Отметка галочкой дня недели, в которых была выполнена хотя бы одна тренировка;
-- Бесконечный адаптивный слайдер под динамически изменяющееся количество картинок;
-- Динамическое под слайдером отображение упражнений, входящих в комплекс, в зависимости от активного комплекса;
+- An adaptive slider that dynamically displays the number of exercises for the selected complex is implemented
+- Functionality for creating/deleting custom complexes is implemented
+- Functionality for adding/deleting new exercises in created complexes is implemented
+- Functionality for editing the duration and quantity of exercises in created complexes is implemented
+- The count of exercises and their duration is calculated and displayed on the complex card.
+- All the functionality works in conjunction with the server
 
-## Страница Workouts/id
+<image src="src/assets/screenshots/Screenshot_10.png" alt="workouts-page-1">
+<image src="src/assets/screenshots/Screenshot_11.png" alt="workouts-page-2">
+<image src="src/assets/screenshots/Screenshot_12.png" alt="workouts-page-3">
+<image src="src/assets/screenshots/Screenshot_13.png" alt="workouts-page-4">
+<image src="src/assets/screenshots/Screenshot_14.png" alt="workouts-page-5">
 
-- При отрисовке страницы происходит анализ - является ли комплекс дефолтным или созданным пользователем, eсли это созданный пользователем комплекс, то появляется иконка с корзиной и активируется возможность удаления комплекса;
-- при нажатии на стрелку назад происходит переадресация на страницу workouts;
-- Со страницы реализован старт тренировки (если комплекс пустой, старт страницы заблокирован);
-- Со страницы есть возможность управлять комплексом;
+## Exercises page
 
-## Страница Start training (after click the button "START NOW"):
+- Display of the total number of completed workouts and the time spent on them based on server data
+- In the Week goal section, determination of the current day of the week and highlighting it with a specific style
+- Display of the number of days with workouts and the set plan based on server data
+- Checkbox marking for the days of the week with at least one completed workout
+- Infinite adaptive slider with dynamically changing images
+- Dynamic display of exercises included in the complex below the slider, depending on the active complex
 
-- Динамическая смена компонентов внутри страницы (смена упражнений и отдыха, поздравление с окончанием тренировки)
-- Возможность остановить/продолжить/перезапустить выполнение упражнения
-- Модальное окно (take a rest): круговой анимированный таймер обратного отсчета и возможность добавить 20 секунд к таймеру обратного отсчета или пропустить;
-- Учёт количества выполненных упражнений и затраченного времени;
-- Вызов модального окна с подробностями упражнения при клике на него
-- Звуковое сопровождение: звук победы при прохождении комплекса, звук нажатия на кнопку done, звук часов во время отдыха. Возможность отключить звук
-- Модальное окно настроек (after click the button "START NOW"), cохранение длительности паузы между упражнениями, cохранение уровня нагрузки (количество тренировок в неделю);
+<image src="src/assets/screenshots/Screenshot_15.png" alt="exercises-page">
+<image src="src/assets/screenshots/Screenshot_16.png" alt="exercises-page-info">
 
-## Страница Profile
+## Workouts/id page
 
-- Реализован профиль пользователя
-- Реализован блок с вычислением ИМТ на основе введенных пользователем роста и веса. Вычисление реализовано в единицах измерения веса и роста: кг/см и фунты/дюймы.
-- Реализован функционал редактирования данных пользователя: вес, рост, единицы измерения
-- Весь функционал работает в связке с сервером
+- When the page is rendered, an analysis is performed to determine whether the complex is default or user-created. If it is a user-created complex, a delete icon appears, and the ability to delete the complex is activated
+- When the back arrow is clicked, a redirection to the Workouts page occurs
+- The ability to start a workout is implemented on the page (if the complex is empty, the start of the page is blocked)
+- There is the ability to manage the complex from the page
+
+<image src="src/assets/screenshots/Screenshot_17.png" alt="workouts-id">
+
+## Start Training page (after clicking the "START NOW" button)
+
+- Dynamic swapping of components within the page (changing exercises and rest periods, congratulatory message upon completion of the workout)
+- Ability to pause/resume/restart exercise execution
+- Modal window (take a rest): circular animated countdown timer and the option to add 20 seconds to the countdown timer or skip it
+- Tracking of the number of completed exercises and elapsed time
+- Triggering a modal window with exercise details when clicked
+- Sound effects: victory sound upon completing the complex, button click sound, clock ticking sound during rest periods. Ability to disable sound
+- Settings modal window (after clicking the "START NOW" button): saving pause duration between exercises, saving the workout intensity level (number of workouts per week)
+
+<image src="src/assets/screenshots/Screenshot_18.png" alt="exercise-1">
+<image src="src/assets/screenshots/Screenshot_19.png" alt="take-rest">
+<image src="src/assets/screenshots/Screenshot_20.png" alt="exercise-2">
+<image src="src/assets/screenshots/Screenshot_21.png" alt="exercise-info">
+<image src="src/assets/screenshots/Screenshot_22.png" alt="workout-settings">
+<image src="src/assets/screenshots/Screenshot_23.png" alt="well-done">
+
+## Profile page
+
+- User profile is implemented
+- A section for calculating BMI (Body Mass Index) based on user-entered weight and height is implemented. The calculation is performed in both weight and height units: kg/cm and pounds/inches
+- Functionality for editing user data is implemented: weight, height, and units of measurement
+- All functionality is integrated with the server
+
+<image src="src/assets/screenshots/Screenshot_24.png" alt="profile-page">
+<image src="src/assets/screenshots/Screenshot_25.png" alt="settings-profile">

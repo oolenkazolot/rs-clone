@@ -1,16 +1,16 @@
-const path = require('path');
-const { merge } = require('webpack-merge');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const EslintPlugin = require('eslint-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
+const path = require("path");
+const { merge } = require("webpack-merge");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const EslintPlugin = require("eslint-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 const baseConfig = {
-  entry: path.resolve(__dirname, './src/index.ts'),
-  devtool: 'inline-source-map',
-  mode: 'development',
+  entry: path.resolve(__dirname, "./src/index.ts"),
+  devtool: "inline-source-map",
+  mode: "development",
   devServer: {
     port: 3000,
     historyApiFallback: true,
@@ -19,45 +19,50 @@ const baseConfig = {
     rules: [
       {
         test: /\.ts$/,
-        use: 'ts-loader',
+        use: "ts-loader",
         exclude: /node_modules/,
       },
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.scss$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          "sass-loader",
+        ],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
         options: {
-          name: 'assets/[name].[ext]',
+          name: "assets/[name].[ext]",
         },
-        loader: 'file-loader',
+        loader: "file-loader",
       },
       {
         test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'file-loader',
+        loader: "file-loader",
         options: {
-          name: 'assets/font/[name].[ext]',
+          name: "assets/font/[name].[ext]",
         },
       },
       {
         test: /\.mp4$/,
-        use: 'file-loader?name=video/[name].[ext]',
+        use: "file-loader?name=video/[name].[ext]",
       },
     ],
   },
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: [".ts", ".js"],
   },
   output: {
-    filename: 'index.js',
+    filename: "index.js",
     // publicPath: '/rs-clone-deploy/',
-    path: path.resolve(__dirname, './dist'),
-    assetModuleFilename: 'images/[name][ext]',
+    path: path.resolve(__dirname, "./dist"),
+    assetModuleFilename: "images/[name][ext]",
   },
 
   performance: {
@@ -68,33 +73,33 @@ const baseConfig = {
 
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'style.css',
-      chunkFilename: '[id].css',
+      filename: "style.css",
+      chunkFilename: "[id].css",
       ignoreOrder: false, // Enable to remove warnings about conflicting order
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './src/index.html'),
-      filename: 'index.html',
+      template: path.resolve(__dirname, "./src/index.html"),
+      filename: "index.html",
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './src/404.html'),
-      filename: '404.html',
+      template: path.resolve(__dirname, "./src/404.html"),
+      filename: "404.html",
     }),
     new FaviconsWebpackPlugin({
-      logo: './src/assets/favicons/favicon.png',
-      mode: 'webapp',
-      devMode: 'webapp',
-      prefix: 'assets/favicons/',
+      logo: "./src/assets/favicons/favicon.png",
+      mode: "webapp",
+      devMode: "webapp",
+      prefix: "assets/favicons/",
       cache: true,
       inject: true,
     }),
     new CleanWebpackPlugin(),
-    new EslintPlugin({ extensions: 'ts' }),
+    new EslintPlugin({ extensions: "ts" }),
     new CopyPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, 'src/assets'),
-          to: path.resolve(__dirname, 'dist/assets'),
+          from: path.resolve(__dirname, "src/assets"),
+          to: path.resolve(__dirname, "dist/assets"),
         },
       ],
     }),
@@ -102,8 +107,10 @@ const baseConfig = {
 };
 
 module.exports = ({ mode }) => {
-  const isProductionMode = mode === 'prod';
-  const envConfig = isProductionMode ? require('./webpack.prod.config') : require('./webpack.dev.config');
+  const isProductionMode = mode === "prod";
+  const envConfig = isProductionMode
+    ? require("./webpack.prod.config")
+    : require("./webpack.dev.config");
 
   return merge(baseConfig, envConfig);
 };

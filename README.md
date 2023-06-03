@@ -88,7 +88,8 @@ Women Workouts Clone is an application clone designed for women, offering person
 - Infinite adaptive slider with dynamically changing images
 - Dynamic display of exercises included in the complex below the slider, depending on the active complex
 
-<image src="src/assets/screenshots/Screenshot_15.png" alt="exercises-page">
+<image src="src/assets/screenshots/Screenshot_15.png" alt="exercises-page-1">
+<image src="src/assets/screenshots/Screenshot_17.png" alt="exercises-page-2">
 <image src="src/assets/screenshots/Screenshot_16.png" alt="exercises-page-info">
 
 ## Workouts/id page
@@ -99,6 +100,7 @@ Women Workouts Clone is an application clone designed for women, offering person
 - There is the ability to manage the complex from the page
 
 <image src="src/assets/screenshots/Screenshot_17.png" alt="workouts-id">
+<image src="src/assets/screenshots/Screenshot_27.png" alt="workouts-id">
 
 ## Start Training page (after clicking the "START NOW" button)
 
@@ -126,3 +128,18 @@ Women Workouts Clone is an application clone designed for women, offering person
 
 <image src="src/assets/screenshots/Screenshot_24.png" alt="profile-page">
 <image src="src/assets/screenshots/Screenshot_25.png" alt="settings-profile">
+
+## Mobile view
+
+<image src="src/assets/screenshots/Screenshot_28.png" alt="mobile-view-1">
+<image src="src/assets/screenshots/Screenshot_29.png" alt="mobile-view-2">
+<image src="src/assets/screenshots/Screenshot_30.png" alt="mobile-view-3">
+<image src="src/assets/screenshots/Screenshot_31.png" alt="mobile-view-4">
+<image src="src/assets/screenshots/Screenshot_32.png" alt="mobile-view-5">
+<image src="src/assets/screenshots/Screenshot_33.png" alt="mobile-view-6">
+<image src="src/assets/screenshots/Screenshot_34.png" alt="mobile-view-7">
+<image src="src/assets/screenshots/Screenshot_35.png" alt="mobile-view-8">
+<image src="src/assets/screenshots/Screenshot_36.png" alt="mobile-view-9">
+<image src="src/assets/screenshots/Screenshot_37.png" alt="mobile-view-10">
+<image src="src/assets/screenshots/Screenshot_38.png" alt="mobile-view-11">
+<image src="src/assets/screenshots/Screenshot_39.png" alt="mobile-view-12">

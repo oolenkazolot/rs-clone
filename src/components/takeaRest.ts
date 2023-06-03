@@ -22,6 +22,7 @@ class TakeARest {
     if (takeARest) {
       modal.append(takeARest);
     }
+
     return modal;
   }
 

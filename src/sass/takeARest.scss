@@ -339,8 +339,8 @@
 
 .settingsMiniBlock {
   display: flex;
-  justify-content: space-between;
-  align-items: self-end;
+  align-items: center;
+  justify-content: revert;
   font-size: 20px;
   margin-bottom: 2rem;
 }
@@ -352,11 +352,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 10px;
 }
 
 .settings__text-title {
-  font-size: 22px;
+  margin-bottom: 10px;
   text-align: center;
+  font-size: 18px;
 }
 
 .settings__text-content[type='number']::-webkit-outer-spin-button,
@@ -375,7 +377,6 @@
 
 .settings__text-content {
   padding: 0.8rem;
-  text-align: center;
   border-radius: 15px;
   border: 2px solid #e3e3e3;
   outline: none;
@@ -408,12 +409,17 @@
 }
 
 .modal-addNewComplex__title {
+  @include bg-text;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
   text-align: center;
+  text-transform: uppercase;
 }
 .settings__button-wrap {
   width: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: center;
 }
 @keyframes rotate {
   0% {

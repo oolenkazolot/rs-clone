@@ -12,6 +12,7 @@ import Slider from "../components/slider";
 import AddNewComplex from "../components/addNewComplex";
 import Complex from "../utils/сomplex.routes";
 import SingleTrainingPage from "./singleTraining";
+import { inActivePreloader } from "../utils/preloader";
 
 class TrainingsPage {
   template: ITemplate;
@@ -28,6 +29,7 @@ class TrainingsPage {
   }
 
   public async draw() {
+    document.body.classList.remove("loaded");
     const mainElement: HTMLElement | null = document.querySelector("main");
     if (!mainElement) {
       return;
@@ -44,6 +46,7 @@ class TrainingsPage {
       await this.createWrapper(),
       await this.createModal()
     );
+    inActivePreloader(document.body);
   }
 
   private createTitle(): HTMLElement {
@@ -170,6 +173,7 @@ class TrainingsPage {
     );
     create.classList.add("btn");
     create.addEventListener("click", async () => {
+      document.body.classList.remove("loaded");
       await this.addNewComplex.addComplexInLocalStore();
       modal.classList.add("invisible");
       const contentWrapper = document.querySelector(
@@ -177,6 +181,7 @@ class TrainingsPage {
       ) as HTMLElement;
       contentWrapper.innerHTML = "";
       contentWrapper.append(await this.createContent());
+      inActivePreloader(document.body);
     });
     buttons.append(cancel, create);
     wrapper.append(title, input, buttons);
